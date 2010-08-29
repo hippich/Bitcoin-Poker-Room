@@ -1,0 +1,10 @@
+[% META title = 'User account' %]
+
+
+<h2>Your balance</h2>
+
+<ul class="user-balances">
+  [% FOR balance IN c.user.balances %]
+    <li>[% balance.currency.symbol %][% balance.amount | format('%.2f') %]</li>
+  [% END %]
+</ul>

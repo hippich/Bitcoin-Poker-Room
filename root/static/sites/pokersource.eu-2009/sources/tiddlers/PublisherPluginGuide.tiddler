@@ -1,0 +1,19 @@
+The Publisher plugin defines different 'modes' that can be configured to have a different look and feel and editing options. The different modes are defined in the tiddler PublisherGroupsConfig.
+
+The current modes defined are 'Admin' and 'Public'.
+
+To customize the Public mode edit:
+*PublicStyleSheet
+*PublicPageTemplate
+*PublicViewTemplate
+*PublicEditTemplate
+*PublicDefaultTiddlers
+
+For the Admin mode:
+*AdminStyleSheet
+*AdminPageTemplate
+*AdminViewTemplate
+*AdminEditTemplate
+*AdminDefaultTiddlers
+
+If any of the above tiddlers do not exist the plugin uses the default TiddlyWiki version instead.

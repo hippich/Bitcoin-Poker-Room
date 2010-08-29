@@ -1,0 +1,173 @@
+.jpoker_tourney_details {
+	position : relative;
+	overflow: auto;
+	width: 740px;
+	margin: 0 auto;
+	font-size: 14px;
+	background: #eee;
+	border: 1px solid #ccc;
+	padding: 0 15px 15px;
+	color: #444;
+}
+
+.jpoker_tourney_details .jpoker_tourney_name {
+	color: #567300;
+	font-size: 1.6em;
+	font-weight: bold;
+	padding: 6px 5px;
+	text-align:center;
+}
+
+.jpoker_tourney_details .jpoker_tourney_details_players {
+	width: 290px;
+	float: right;
+	border: 5px solid #C0CC9E;
+	background:#81AC00;
+    height: 12em;
+    overflow: auto;
+}
+
+.jpoker_tourney_details .jpoker_tourney_details_info,
+.jpoker_tourney_details .jpoker_tourney_details_prizes,
+.jpoker_tourney_details .jpoker_tourney_details_tables {
+	width: 370px;
+	background: #81AC00;
+}
+
+.jpoker_tourney_details .jpoker_tourney_details_info.jpoker_tourney_details_announced,
+.jpoker_tourney_details .jpoker_tourney_details_info.jpoker_tourney_details_canceled {
+	width: auto;
+}
+
+.jpoker_tourney_details .jpoker_tourney_details_info {
+	font-weight:bold;
+	border: 5px solid #C0CC9E;
+	padding: 10px 25px;
+	letter-spacing: 0.05em;
+}
+
+.jpoker_tourney_details .jpoker_tourney_details_prizes,
+.jpoker_tourney_details .jpoker_tourney_details_tables {
+	width: 430px;
+	margin-top: 10px;
+}
+
+.jpoker_tourney_details table {
+	border-collapse: collapse;
+	text-align: center;
+	width: 100%;
+}
+
+.jpoker_tourney_details_prizes table,
+	border: 5px solid #C0CC9E;
+	border-top: none;
+}
+
+.jpoker_tourney_details_tables table tr {
+	cursor: pointer;
+}
+
+.jpoker_tourney_details_tables table tr.hover {
+	background: #81AC00;
+	color: #fff;
+}
+
+.jpoker_tourney_details table thead tr {
+	border: 1px solid #567300;
+	border-top: 0;
+	border-bottom: 0;
+}
+
+.jpoker_tourney_details table thead tr.jpoker_thead_caption {
+	border: 1px solid #C0CC9E;
+	border-top: 0;
+	border-bottom: 0;
+}
+
+.jpoker_tourney_details table tr.jpoker_thead_caption th {
+	background: #C0CC9E;
+	color: #fff;
+	font-weight: bold;
+}
+
+.jpoker_tourney_details table th {
+	background: #567300;
+	color: #fff;
+}
+
+.jpoker_tourney_details table td {
+	border: 1px solid #C0CC9E;
+}
+
+.jpoker_tourney_details_register {
+	text-align: center;
+	margin: 10px 0;
+	width: 430px;
+}
+
+.jpoker_tourney_details_register input {
+	width: 240px;
+	height: 40px;
+	font-weight: bold;
+	font-size: 1.3em;
+	background: #C0CC9E;
+	border: 3px solid #567300;
+	color: #fff;
+	cursor: pointer;
+}
+
+.jpoker_tourney_details_register input:hover {
+	background: #567300;
+}
+
+.jpoker_tourney_details .pager {
+	background: #81AC00;
+	margin-left: -1px;
+	border: 1px solid #92CF81;
+	border-top:none;
+	border-bottom:none;
+}
+
+.jpoker_tourney_details .pager a {
+	color: #567300;
+	text-decoration:none;
+}
+
+.jpoker_tourney_details .pager a:hover {
+	color: #fff;
+	background: #567300;
+}
+
+.jpoker_tourney_details_tables_goto_table {
+	background: #C0CC9E;
+	border: 1px solid #567300;
+	color: #fff;
+	cursor: pointer;
+}
+
+a.jpoker_tourney_details_tables_goto_table {
+	text-decoration: none;
+	border-bottom: none;
+	margin: 5px 0;
+	padding: 0 5px;
+	border: none;
+}
+
+.jpoker_tourney_details_tables_goto_table:hover {
+	background: #567300;
+}
+
+.jpoker_tourney_details .pager {
+	text-align: center;
+}
+
+.jpoker_tourney_details .jpoker_tourney_details_tables {
+    width: 420px;
+    border: 5px solid #C0CC9E;
+    height: 12em;
+    overflow: auto;
+}
+
+.jpoker_tourney_details .jpoker_tourney_details_table_details {
+    margin-top: 10px;    
+}

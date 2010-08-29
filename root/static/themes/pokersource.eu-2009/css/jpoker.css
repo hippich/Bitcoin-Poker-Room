@@ -1,0 +1,17 @@
+@import "jpoker_common.css";
+@import "jpoker_table_layout.css";
+@import "jpoker_table.css";
+@import "jpoker_table_list.css";
+@import "jpoker_regular_tourney_list.css";
+@import "jpoker_sitngo_tourney_list.css";
+@import "jpoker_tourney_details.css";
+@import "jpoker_tourney_placeholder.css";
+@import "jpoker_login.css";
+@import "jpoker_server_status.css";
+@import "jpoker_copyright.css";
+@import "jpoker_user_info.css";
+@import "jpoker_chat.css";
+@import "jpoker_timeout.css";
+@import "jpoker_jquery_ui/all.css";
+@import "jpoker_tablesorter_pager.css";
+@import "jpoker_tablepicker.css";

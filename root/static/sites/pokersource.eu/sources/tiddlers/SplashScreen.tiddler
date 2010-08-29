@@ -1,0 +1,7 @@
+<!--{{{-->
+<style type="text/css">#contentWrapper {display:none;}</style>
+<div id="splashScreen" style="border:none; width:500px;margin: 150px auto;  color:#333; font-size: 26px; font-family: Lucida Grande, Tahoma, Arial, Helvetica, sans-serif; text-align:center; line-height:2.5em;">
+<img src='images/splash.png'><br/>
+<img src='images/loading3.gif'><br/>
+</div>
+<!--}}}-->

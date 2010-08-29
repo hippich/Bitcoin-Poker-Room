@@ -1,0 +1,94 @@
+<html>
+  <head>
+  
+    <link rel="stylesheet" type="text/css" href="css/calendar-win2k-cold-1.css">
+    <link rel="stylesheet" type="text/css" href="css/jpokeradmin.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_chat.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_common.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_login.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_page.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_regular_tourney_list.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_server_status.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_sitngo_tourney_list.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_table_layout.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_table_list.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_table.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_tablepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_tablesorter_pager.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_timeout.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_tourney_details.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_tourney_placeholder.css">
+    <link rel="stylesheet" type="text/css" href="css/jpoker_user_info.css">
+
+    <link rel="stylesheet" type="text/css" href="jquery/ui.1.8/themes/smoothness/jquery.ui.all.css">
+
+    <script language="JavaScript" type="text/javascript" src="jquery/jquery-1.4.2.js"></script>
+    <script language="JavaScript" type="text/javascript" src="jquery/ui.1.8/ui/jquery-ui-1.8.4.custom.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/jquery.ajaxQueue.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/jquery.gettext.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/jquery.tablesorter.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/jquery.query.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/jquery.form.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/json2.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/jquery.jpoker.js"></script>
+    <script language="JavaScript" type="text/javascript" src="js/mockup.js"></script>
+
+    <script type="text/javascript">
+      // $.jpoker.verbose = 2;
+      var restURL = '/POKER_REST';
+      
+      $(document).ready(function() {
+          var server;
+          
+          $(".jpoker_chat_input input").focus(function() {
+            if ($(this).val() == 'chat here') {
+              $(this).val('');
+            }
+          });
+
+          $(".jpoker_chat_input input").blur(function() {
+            if ($(this).val() == '') {
+              $(this).val('chat here');
+            }
+          });
+
+          jQuery(window).bind(
+              "beforeunload",
+              function() {
+              }
+          );
+
+          if ($.jpoker.servers[restURL]) {
+            server = $.jpoker.servers[restURL];
+          }
+          else {
+            server = $.jpoker.url2server({
+              url: restURL,
+              auth: "auth=" + $.query.get('auth'),
+              serial: $.query.get('uid')
+            });
+          }
+          
+          server.spawnTable = function(server, packet) {
+            if (packet.game_id == $.query.get('game_id')) {
+              $('#main').jpoker('table', restURL, packet.game_id, packet.name);
+            }
+          }
+          
+          $.jpoker.plugins.table.callback.quit = function(table, packet) {
+             setTimeout(function() { window.close(); }, 100);
+          };
+
+          server.tableJoin($.query.get('game_id'));
+      });
+    </script>
+  </head>
+  <body>
+
+  <div id="main">
+  </div>
+  
+  </body>
+</html>

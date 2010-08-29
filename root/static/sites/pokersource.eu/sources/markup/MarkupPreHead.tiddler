@@ -1,0 +1,23 @@
+<!--{{{-->
+<link rel="alternate" type="application/rss+xml" title="RSS" href="index.xml"/>
+<link rel="shortcut icon" href="../../../themes/pokersource.eu/css/images/favicon.ico" type="image/x-icon" />
+<link href="../../../l10n/jpoker-da.json" lang="da" rel="gettext"/>
+<link href="../../../l10n/jpoker-de.json" lang="de" rel="gettext"/>
+<link href="../../../l10n/jpoker-en.json" lang="en" rel="gettext"/>
+<link href="../../../l10n/jpoker-en_CA.json" lang="en_CA" rel="gettext"/>
+<link href="../../../l10n/jpoker-en_US.json" lang="en_US" rel="gettext"/>
+<link href="../../../l10n/jpoker-es.json" lang="es" rel="gettext"/>
+<link href="../../../l10n/jpoker-fi.json" lang="fi" rel="gettext"/>
+<link href="../../../l10n/jpoker-fr.json" lang="fr" rel="gettext"/>
+<link href="../../../themes/pokersource.eu/l10n/jpoker-fr.json" lang="fr" rel="gettext"/>
+<link href="../../../l10n/jpoker-fr_BE.json" lang="fr_BE" rel="gettext"/>
+<link href="../../../l10n/jpoker-fr_CA.json" lang="fr_CA" rel="gettext"/>
+<link href="../../../l10n/jpoker-fr_FX.json" lang="fr_FX" rel="gettext"/>
+<link href="../../../l10n/jpoker-it.json" lang="it" rel="gettext"/>
+<link href="../../../l10n/jpoker-ja.json" lang="ja" rel="gettext"/>
+<link href="../../../l10n/jpoker-nb.json" lang="nb" rel="gettext"/>
+<link href="../../../l10n/jpoker-nl.json" lang="nl" rel="gettext"/>
+<link href="../../../l10n/jpoker-pt.json" lang="pt" rel="gettext"/>
+<link href="../../../l10n/jpoker-sv.json" lang="sv" rel="gettext"/>
+<link href="../../../themes/pokersource.eu/css/jpoker.css" rel="stylesheet" type="text/css" />
+<!--}}}-->

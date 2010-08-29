@@ -1,0 +1,28 @@
+diff -r 781536638d7a lib/tiddlywiki_cp/r4tw.rb
+--- a/lib/tiddlywiki_cp/r4tw.rb	Thu Nov 27 03:12:16 2008 +0000
++++ b/lib/tiddlywiki_cp/r4tw.rb	Thu Nov 27 03:38:04 2008 +0000
+@@ -509,7 +509,7 @@
+     # Inspect systemConfig tiddlers, looking for locale settings
+     #
+     locale_set_re = /config.locale\s*=/s
+-    locale_re = /config.locale\s*=\s*['"](\w\w)['"]/ms
++    locale_re = /config.locale\s*=\s*['"](\w+_?\w+)['"]/ms
+     lang = @lang
+     @tiddlers.each do |t|
+       if t.has_tag('systemConfig')
+diff -r 781536638d7a test/test_tiddlywiki_cp.rb
+--- a/test/test_tiddlywiki_cp.rb	Thu Nov 27 03:12:16 2008 +0000
++++ b/test/test_tiddlywiki_cp.rb	Thu Nov 27 03:38:04 2008 +0000
+@@ -77,6 +77,12 @@
+       r.locale2lang('')
+     end
+     assert_match(/matches but/, exception.message)
++    #
++    # Country specific config.locale should not throw exceptions 
++    #
++    r.get_tiddler('fakefrench').fields['text'] = 'config.locale = "fr_FR"';
++    raw = r.locale2lang('<html a="f" xml:lang="en" lang="en" ')
++    assert_match(/a="f" xml:lang="fr_FR" lang="fr_FR"/, raw)
+   end
+ 
+   def test_locale

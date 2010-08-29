@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+//
+//     Copyright (C) 2008 - 2010 Loic Dachary <loic@dachary.org>
+//
+//     This program is free software: you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation, either version 3 of the License, or
+//     (at your option) any later version.
+//
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+//
+//     You should have received a copy of the GNU General Public License
+//     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr" id="html">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>jpoker skin showcase</title>
+	<script language="JavaScript" type="text/javascript" src="../../../jquery/jquery-1.2.6.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../jquery/ui/ui.core.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../jquery/ui/ui.draggable.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../jquery/ui/ui.resizable.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../jquery/ui/ui.dialog.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../jquery/ui/ui.slider.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../js/jquery.ajaxQueue.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../js/jquery.cookie.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../js/jquery.gettext.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../js/jquery.strftime.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../js/jquery.form.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../js/jquery.tablesorter.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../js/jquery.tablesorter.pager.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../js/printstacktrace.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../js/json2.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../js/jquery.jpoker.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../../js/skin-jpoker.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../js/jpoker.js"></script>
+	<script type="text/javascript">
+          $.jpoker.verbose = 1;
+          $.jpoker.sound_directory = '../sounds/';
+          $.jpoker.copyrightTimeout = 20000000;
+	  $(document).ready(function() {
+		jpoker_skin_permalink();
+                $.jpoker.main();
+	  });
+        </script>
+        <link href="../css/jpoker.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="skinclean" id="explain"></div>
+    <div class="skinclean" id="place"></div>
+
+    <ul id="links">
+      <li><a href='#'>jpoker_02_join</a></li>
+      <li><a href='#'>jpoker_03_joinBuyIn</a></li>
+      <li><a href='#'>jpoker_03_playerBet</a></li>
+      <li><a href='#'>jpoker_03_1_playerDealt</a></li>
+      <li><a href='#'>jpoker_04_playerInPosition</a></li>
+      <li><a href='#'>jpoker_05_selfPlayer</a></li>
+      <li><a href='#'>jpoker_05_1_selfPlayerInGame_autoActionCheck</a></li>
+      <li><a href='#'>jpoker_05_1_selfPlayerInGame_autoActionCall</a></li>
+      <li><a href='#'>jpoker_06_selfInPosition</a></li>
+      <li><a href='#'>jpoker_06_1_selfInPositionCheck</a></li>
+      <li><a href='#'>jpoker_07_joining</a></li>
+      <li><a href='#'>jpoker_08_all</a></li>
+      <li><a href='#'>jpoker_08_1_all_cardback</a></li>
+      <li><a href='#'>jpoker_08_2_allin</a></li>
+      <li><a href='#'>jpoker_10_selfMuck</a></li>
+      <li><a href='#'>jpoker_11_avatarHover</a></li>
+      <li><a href='#'>jpoker_12_selfRebuy</a></li>
+      <li><a href='#'>jpoker_50_sitOut</a></li>
+      <li><a href='#'>jpoker_51_sit</a></li>
+      <li><a href='#'>jpoker_52_inPosition</a></li>
+      <li><a href='#'>jpoker_53_timeout</a></li>
+      <li><a href='#'>jpoker_54_sidepot</a></li>
+      <li><a href='#'>jpoker_54_1_sidepot</a></li>
+      <li><a href='#'>jpoker_54_2_sidepot</a></li>
+      <li><a href='#'>jpoker_54_3_sidepot</a></li>
+      <li><a href='#'>jpoker_54_4_sidepot</a></li>
+      <li><a href='#'>jpoker_54_5_sidepot</a></li>
+      <li><a href='#'>jpoker_54_6_sidepot</a></li>
+      <li><a href='#'>jpoker_54_7_sidepot</a></li>
+      <li><a href='#'>jpoker_54_8_sidepot</a></li>
+      <li><a href='#'>jpoker_54_9_sidepot</a></li>
+      <li><a href='#'>jpoker_55_allWithSidePot</a></li>
+      <li><a href='#'>jpoker_56_tourneyBreak</a></li>
+      <li><a href='#'>jpoker_57_stats</a></li>
+      <li><a href='#'>jpoker_58_tourneyRank</a></li>
+      <li><a href='#'>jpoker_90_tourneyPlaceholder</a></li>
+      <li><a href='#'>jpoker_120_level_junior</a></li>
+      <li><a href='#'>jpoker_121_level_pro</a></li>
+      <li><a href='#'>jpoker_122_level_expert</a></li>
+      <li><a href='#'>jpoker_123_level_master</a></li>
+      <li><a href='#'>jpoker_130_chat_scroll</a></li>
+      <li><a href='#'>jpoker_131_chat_no_scroll</a></li>
+      <li><a href='#'>jpoker_141_click_here_to_get_a_seat</a></li>
+      <li><a href='#'>jpoker_142_click_here_to_get_a_seat_in_progress</a></li>
+      <li><a href='#'>jpoker_143_board</a></li>
+      <li><a href='#'>jpoker_144_pot</a></li>
+    </ul>
+</body>
+</html>
+
+

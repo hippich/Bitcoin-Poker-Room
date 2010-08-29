@@ -1,0 +1,11 @@
+|>|!Layout Tiddlers|
+|Name:|Public|
+|~PageTemplate:|PublicPageTemplate|
+|~StyleSheet:|PublicStyleSheet|
+|~ViewTemplate:|PublicViewTemplate|
+|~EditTemplate:||
+
+|>|!Configuration Options|
+|readOnly:|true|
+|~SinglePageMode:|true|
+|showBackstage:|false|

@@ -1,0 +1,28 @@
+.jpoker_server_status {
+    background: #81ac00;
+    font-size: 15px;
+    font-weight: bold;
+    color: #FFF;
+    overflow: hidden;
+    padding: 0px 10px;
+}
+
+.jpoker_server_status .jpoker_server_status_players {
+    line-height: 32px;
+}
+
+.jpoker_server_status {
+    height: 32px;
+}
+
+.jpoker_server_status .jpoker_server_status_more {
+    font-size: smaller;
+    color: #444;
+}
+
+.jpoker_server_status:hover .jpoker_server_status_more {
+    display: none;
+}
+.jpoker_server_status:hover {
+    height: 70px;
+}

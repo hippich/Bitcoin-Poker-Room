@@ -1,0 +1,31 @@
+
+/* jpoker_common.css contains general styles */
+
+.jpoker_widget {
+	font-family : "Trebuchet MS", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+}
+
+.jpoker_widget a {
+	color : #567300;
+	text-decoration: none;
+	outline: none;
+}
+
+.jpoker_widget a:hover {
+	background: #567300;
+	color: #fff;
+}
+
+.jpoker_widget label,
+.jpoker_widget input {
+	vertical-align: middle;
+}
+
+#jpokerErrorDialog .jquery_error_message {
+    font-weight: bold;
+}
+
+#jpokerErrorDialog .jquery_error_details {
+    padding-top: 1em;
+}

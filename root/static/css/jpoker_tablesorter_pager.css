@@ -1,0 +1,26 @@
+ul.pagelinks {
+	padding: 0;
+}
+
+.pager {
+	font-size: 1.1em;
+	color: #444;
+}
+
+.pager ul {
+	margin: 0;
+	line-height: 2em;
+}
+
+.pager .pagelinks li {
+    display: inline;
+    margin-right: 0.5em;
+}
+
+.pager .pagelinks .current {
+    font-weight: bold;
+}
+
+.pager .pagesize {
+    display: none;
+}

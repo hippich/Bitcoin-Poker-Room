@@ -1,0 +1,4 @@
+[% META title = 'Log in' %]
+
+
+[% form %]

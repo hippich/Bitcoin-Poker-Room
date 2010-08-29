@@ -1,0 +1,48 @@
+.jpoker_table_list td {
+	padding: 0.5em 1em;
+}
+
+.jpoker_table_list tr.odd {
+	background:#81AC00;
+}
+
+.jpoker_widget.jpoker_table_list table th.headerSortUp {
+    background: #C0CC9E;
+    color: #000;
+}
+
+.jpoker_widget.jpoker_table_list table th.headerSortDown {
+    background: #81AC00;
+}
+
+.jpoker_table_list th {
+	background: #81AC00;
+}
+
+.jpoker_table_list tr {
+	cursor:pointer;
+}
+
+.jpoker_table_list tr.hover {
+	background:#81AC00;
+	color:#fff;
+}
+
+.jpoker_widget.jpoker_table_list table {
+	border:2px solid #567300;
+	border-collapse:collapse;
+	font-size:14px;
+	font-family:"trebuchet MS",arial,helvetica,sans-serif;
+}
+
+.jpoker_widget.jpoker_table_list table th, .jpoker_widget.jpoker_table_list table thead td, .jpoker_widget.jpoker_table_list table th, .jpoker_widget.jpoker_table_list table thead td {
+	background:#567300;
+	border:1px solid #567300;
+	color:#fff;
+	padding:3px;
+}
+
+.jpoker_widget.jpoker_table_list td, .jpoker_widget.jpoker_table_list tr, .jpoker_widget.jpoker_table_list td, .jpoker_widget.jpoker_table_list tr {
+	border:1px solid #567300;
+	padding:3px;
+}

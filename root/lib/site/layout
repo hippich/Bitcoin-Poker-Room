@@ -1,0 +1,24 @@
+<div id="header">[% PROCESS site/header %]</div>
+
+
+[% IF errors %]
+<div class="messages messages-error">
+  [% FOREACH e IN errors %]
+    <div class="message message-error">[% e %]</div>
+  [% END %]
+</div>
+[% END %]
+
+[% IF messages %]
+<div class="messages messages-notify">
+  [% FOREACH m IN messages %]
+    <div class="message message-notify">[% m %]</div>
+  [% END %]
+</div>
+[% END %]
+
+<div id="content">
+[% content %]
+</div>
+
+<div id="footer">[% PROCESS site/footer %]</div>

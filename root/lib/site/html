@@ -1,0 +1,15 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+ <head>
+  <title>[% template.title or site.title %]</title>
+  <link rel="stylesheet" href="[% c.uri_for('/static/css/styles.css') %]" type="text/css" />
+  <script src="/static/jquery/jquery-1.2.6.js"></script>
+  <script src="/static/js/jquery.popupwindow.js"></script>
+  <script src="/static/script.js"></script>
+ </head>
+ <body>
+  <div id="wrapper">
+    [% content %]
+  </div>
+ </body>
+</html>

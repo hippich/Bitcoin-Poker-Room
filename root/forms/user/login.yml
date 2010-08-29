@@ -1,0 +1,23 @@
+---
+indicator: submit
+auto_fieldset: 1
+
+elements:
+  - type: Text
+    name: name
+    label: Username
+    constraints:
+      - Required
+
+  - type: Password
+    name: password
+    label: Password
+    constraints:
+      - Required
+
+  - type: Submit
+    value: Login
+    name: submit
+
+constraints:
+  - SingleValue

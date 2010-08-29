@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--
+//
+//     Copyright (C) 2008 - 2010 Loic Dachary <loic@dachary.org>
+//
+//     This program is free software: you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation, either version 3 of the License, or
+//     (at your option) any later version.
+//
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+//
+//     You should have received a copy of the GNU General Public License
+//     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr" id="html">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>jpoker skin showcase</title>
+	<script language="JavaScript" type="text/javascript" src="../../jquery/jquery-1.2.6.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../jquery/ui/ui.core.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../jquery/ui/ui.draggable.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../jquery/ui/ui.resizable.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../jquery/ui/ui.dialog.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../jquery/ui/ui.slider.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/jquery.ajaxQueue.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/jquery.cookie.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/jquery.gettext.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/jquery.strftime.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/jquery.form.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/jquery.tablesorter.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/jquery.tablesorter.pager.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/printstacktrace.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/json2.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/jquery.jpoker.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/mockup.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../../js/skin-jpoker.js"></script>
+	<script type="text/javascript">
+          $.jpoker.verbose = 1;
+          $.jpoker.copyrightTimeout = 20000000;
+	  $(document).ready(function() {
+	    $("#links li a").each(function() {
+	       $(this).attr('href', '#'+$(this).attr('onClick'));
+	    });
+	    if (window.location.hash) {
+	      eval(window.location.hash.substr(1));
+	    }
+	  });
+        </script>
+        <link href="css/jpoker.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="skinclean" id="explain"></div>
+    <div class="skinclean" id="place"></div>
+
+    <ul id="links">
+<li><a href='#' onClick='jpoker_01_copyright("#place")'>jpoker_01_copyright</a></li>
+<li><a href='#' onClick='jpoker_02_join("#place")'>jpoker_02_join</a></li>
+<li><a href='#' onClick='jpoker_03_joinBuyIn("#place")'>jpoker_03_joinBuyIn</a></li>
+<li><a href='#' onClick='jpoker_03_playerBet("#place")'>jpoker_03_playerBet</a></li>
+<li><a href='#' onClick='jpoker_04_playerInPosition("#place")'>jpoker_04_playerInPosition</a></li>
+<li><a href='#' onClick='jpoker_05_selfPlayer("#place")'>jpoker_05_selfPlayer</a></li>
+<li><a href='#' onClick='jpoker_05_1_selfPlayerInGame_autoActionCheck("#place")'>jpoker_05_1_selfPlayerInGame_autoActionCheck</a></li>
+<li><a href='#' onClick='jpoker_05_1_selfPlayerInGame_autoActionCall("#place")'>jpoker_05_1_selfPlayerInGame_autoActionCall</a></li>
+<li><a href='#' onClick='jpoker_06_selfInPosition("#place")'>jpoker_06_selfInPosition</a></li>
+<li><a href='#' onClick='jpoker_06_1_selfInPositionCheck("#place")'>jpoker_06_1_selfInPositionCheck</a></li>
+<li><a href='#' onClick='jpoker_07_joining("#place")'>jpoker_07_joining</a></li>
+<li><a href='#' onClick='jpoker_08_all("#place")'>jpoker_08_all</a></li>
+<li><a href='#' onClick='jpoker_09_dialog("#place")'>jpoker_09_dialog</a></li>
+<li><a href='#' onClick='jpoker_10_selfMuck("#place")'>jpoker_10_selfMuck</a></li>
+<li><a href='#' onClick='jpoker_11_avatarHover("#place")'>jpoker_11_avatarHover</a></li>
+<li><a href='#' onClick='jpoker_12_selfRebuy("#place")'>jpoker_12_selfRebuy</a></li>
+<li><a href='#' onClick='jpoker_20_login("#place")'>jpoker_20_login</a></li>
+<li><a href='#' onClick='jpoker_21_loginProgress("#place")'>jpoker_21_loginProgress</a></li>
+<li><a href='#' onClick='jpoker_22_logout("#place")'>jpoker_22_logout</a></li>
+<li><a href='#' onClick='jpoker_30_statusDisconnected("#place")'>jpoker_30_statusDisconnected</a></li>
+<li><a href='#' onClick='jpoker_31_connectedTables("#place")'>jpoker_31_connectedTables</a></li>
+<li><a href='#' onClick='jpoker_32_connectedTablesPlayers("#place")'>jpoker_32_connectedTablesPlayers</a></li>
+<li><a href='#' onClick='jpoker_40_tableList("#place")'>jpoker_40_tableList</a></li>
+<li><a href='#' onClick='jpoker_41_regularTourneyList("#place")'>jpoker_41_regularTourneyList</a></li>
+<li><a href='#' onClick='jpoker_42_sitngoTourneyList("#place")'>jpoker_42_sitngoTourneyList</a></li>
+<li><a href='#' onClick='jpoker_43_tableListWithLink("#place")'>jpoker_43_tableListWithLink</a></li>
+<li><a href='#' onClick='jpoker_44_regularTourneyListWithLink("#place")'>jpoker_44_regularTourneyListWithLink</a></li>
+<li><a href='#' onClick='jpoker_45_sitngoTourneyListWithLink("#place")'>jpoker_45_sitngoTourneyListWithLink</a></li>
+<li><a href='#' onClick='jpoker_46_tableListWithPager("#place")'>jpoker_46_tableListWithPager</a></li>
+<li><a href='#' onClick='jpoker_47_regularTourneyListWithPager("#place")'>jpoker_47_regularTourneyListWithPager</a></li>
+<li><a href='#' onClick='jpoker_48_sitngoTourneyListWithPager("#place")'>jpoker_48_sitngoTourneyListWithPager</a></li>
+<li><a href='#' onClick='jpoker_49_tableListWithPagerWithLinks("#place")'>jpoker_49_tableListWithPagerWithLinks</a></li>
+<li><a href='#' onClick='jpoker_49_1_regularTourneyListWithPagerWithLinks("#place")'>jpoker_49_1_regularTourneyListWithPagerWithLinks</a></li>
+<li><a href='#' onClick='jpoker_49_2_sitngoTourneyListWithPagerWithLinks("#place")'>jpoker_49_2_sitngoTourneyListWithPagerWithLinks</a></li>
+<li><a href='#' onClick='jpoker_50_sitOut("#place")'>jpoker_50_sitOut</a></li>
+<li><a href='#' onClick='jpoker_51_sit("#place")'>jpoker_51_sit</a></li>
+<li><a href='#' onClick='jpoker_52_inPosition("#place")'>jpoker_52_inPosition</a></li>
+<li><a href='#' onClick='jpoker_53_timeout("#place")'>jpoker_53_timeout</a></li>
+<li><a href='#' onClick='jpoker_54_sidepot("#place")'>jpoker_54_sidepot</a></li>
+<li><a href='#' onClick='jpoker_55_allWithSidePot("#place")'>jpoker_55_allWithSidePot</a></li>
+<li><a href='#' onClick='jpoker_56_tourneyBreak("#place")'>jpoker_56_tourneyBreak</a></li>
+<li><a href='#' onClick='jpoker_57_stats("#place")'>jpoker_57_stats</a></li>
+<li><a href='#' onClick='jpoker_60_text("#place")'>jpoker_60_text</a></li>
+<li><a href='#' onClick='jpoker_70_userInfo("#place")'>jpoker_70_userInfo</a></li>
+<li><a href='#' onClick='jpoker_80_tourneyDetailsRegistering("#place")'>jpoker_80_tourneyDetailsRegistering</a></li>
+<li><a href='#' onClick='jpoker_80_1_tourneyDetailsRegularRegistering("#place")'>jpoker_80_1_tourneyDetailsRegularRegistering</a></li>
+<li><a href='#' onClick='jpoker_81_tourneyDetailsRunning("#place")'>jpoker_81_tourneyDetailsRunning</a></li>
+<li><a href='#' onClick='jpoker_81_1_tourneyDetailsRegularRunning("#place")'>jpoker_81_1_tourneyDetailsRegularRunning</a></li>
+<li><a href='#' onClick='jpoker_82_tourneyDetailsCompleted("#place")'>jpoker_82_tourneyDetailsCompleted</a></li>
+<li><a href='#' onClick='jpoker_82_1_tourneyDetailsRegularCompleted("#place")'>jpoker_82_1_tourneyDetailsRegularCompleted</a></li>
+<li><a href='#' onClick='jpoker_83_tourneyDetailsRegisteringWithPager("#place")'>jpoker_83_tourneyDetailsRegisteringWithpager</a></li>
+<li><a href='#' onClick='jpoker_83_1_tourneyDetailsRegularRegisteringWithPager("#place")'>jpoker_83_1_tourneyDetailsRegularRegisteringWithPager</a></li>
+<li><a href='#' onClick='jpoker_84_tourneyDetailsRunningWithLink("#place")'>jpoker_84_tourneyDetailsRunningWithLink</a></li>
+<li><a href='#' onClick='jpoker_84_1_tourneyDetailsRegularRunningWithLink("#place")'>jpoker_84_1_tourneyDetailsRegularRunningWithLink</a></li>
+<li><a href='#' onClick='jpoker_85_tourneyDetailsRegisteringWithPagerRegister("#place")'>jpoker_85_tourneyDetailsRegisteringWithPagerRegister</a></li>
+<li><a href='#' onClick='jpoker_85_1_tourneyDetailsRegularRegisteringWithPagerRegister("#place")'>jpoker_85_1_tourneyDetailsRegularRegisteringWithPagerRegister</a></li>
+<li><a href='#' onClick='jpoker_86_tourneyDetailsRegisteringWithPagerUnregister("#place")'>jpoker_86_tourneyDetailsRegisteringWithPagerUnregister</a></li>
+<li><a href='#' onClick='jpoker_86_1_tourneyDetailsRegularRegisteringWithPagerUnregister("#place")'>jpoker_86_1_tourneyDetailsRegularRegisteringWithPagerUnregister</a></li>
+<li><a href='#' onClick='jpoker_87_tourneyDetailsBreak("#place")'>jpoker_87_tourneyDetailsBreak</a></li>
+<li><a href='#' onClick='jpoker_87_1_tourneyDetailsRegularBreak("#place")'>jpoker_87_1_tourneyDetailsRegularBreak</a></li>
+<li><a href='#' onClick='jpoker_88_tourneyDetailsBreakWait("#place")'>jpoker_88_tourneyDetailsBreakWait</a></li>
+<li><a href='#' onClick='jpoker_88_1_tourneyDetailsRegularBreakWait("#place")'>jpoker_88_1_tourneyDetailsRegularBreakWait</a></li>
+<li><a href='#' onClick='jpoker_89_tourneyDetailsAnnounced("#place")'>jpoker_89_tourneyDetailsAnnounced</a></li>
+<li><a href='#' onClick='jpoker_89_1_tourneyDetailsRegularAnnounced("#place")'>jpoker_89_1_tourneyDetailsRegularAnnounced</a></li>
+<li><a href='#' onClick='jpoker_89_2_tourneyDetailsCanceled("#place")'>jpoker_89_2_tourneyDetailsCanceled</a></li>
+<li><a href='#' onClick='jpoker_89_3_tourneyDetailsRegularCanceled("#place")'>jpoker_89_3_tourneyDetailsRegularCanceled</a></li>
+<li><a href='#' onClick='jpoker_90_tourneyPlaceholder("#place")'>jpoker_90_tourneyPlaceholder</a></li>
+<li><a href='#' onClick='jpoker_100_places("#place")'>jpoker_100_places</a></li>
+<li><a href='#' onClick='jpoker_101_playerLookup("#place")'>jpoker_101_playerLookup</a></li>
+<li><a href='#' onClick='jpoker_102_placesWithLink("#place")'>jpoker_102_placesWithLink</a></li>
+<li><a href='#' onClick='jpoker_103_playerLookupWithLink("#place")'>jpoker_103_playerLookupWithLink</a></li>
+<li><a href='#' onClick='jpoker_110_cashier("#place")'>jpoker_110_cashier</a></li>
+<li><a href='#' onClick='jpoker_111_tablepicker("#place")'>jpoker_111_tablepicker</a></li>
+<li><a href='#' onClick='jpoker_120_level_junior("#place")'>jpoker_120_level_junior</a></li>
+<li><a href='#' onClick='jpoker_121_level_pro("#place")'>jpoker_121_level_pro</a></li>
+<li><a href='#' onClick='jpoker_122_level_expert("#place")'>jpoker_122_level_expert</a></li>
+<li><a href='#' onClick='jpoker_123_level_master("#place")'>jpoker_123_level_master</a></li>
+<li><a href='#' onClick='jpoker_130_chat_scroll("#place")'>jpoker_130_chat_scroll</a></li>
+<li><a href='#' onClick='jpoker_131_chat_no_scroll("#place")'>jpoker_131_chat_no_scroll</a></li>
+<li><a href='#' onClick='jpoker_141_click_here_to_get_a_seat("#place")'>jpoker_141_click_here_to_get_a_seat</a></li>
+<li><a href='#' onClick='jpoker_142_click_here_to_get_a_seat_in_progress("#place")'>jpoker_142_click_here_to_get_a_seat_in_progress</a></li>
+
+    </ul>
+
+    <div id='text' style="display: none">
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut fermentum. Sed ultrices molestie lorem. Etiam pharetra. Duis ultricies. Ut risus ante, facilisis sed, luctus eu, imperdiet ac, enim. Quisque tellus nulla, nonummy vel, mattis id, imperdiet in, velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque mi turpis, semper id, commodo porttitor, pharetra at, urna. Nam velit enim, ultrices ut, condimentum molestie, porttitor vel, lorem. Proin rutrum blandit erat. Pellentesque placerat neque vel nulla. Sed enim justo, molestie vitae, euismod id, accumsan vitae, enim. Aenean et augue at massa ornare elementum. Donec scelerisque, pede vel vehicula varius, turpis lectus elementum nisi, eu ultricies nibh sapien ac sem.</p>
+
+<p>Proin euismod rutrum lectus. Integer vulputate posuere dui. Donec posuere posuere ligula. Suspendisse placerat. Sed elementum purus at neque. Vestibulum elementum mi et dui. Nullam adipiscing tempus lorem. Integer felis. Pellentesque eu lorem quis ipsum pellentesque bibendum. Ut eget nisl. Nulla nibh. Nunc eget orci ac magna porttitor luctus. Morbi eleifend vestibulum nisl. Nunc et risus. Sed laoreet. Quisque nec est. </p>
+
+<code>hello how are you</code>
+
+<blockquote>
+Proin euismod rutrum lectus. Integer vulputate posuere dui. Donec posuere posuere ligula. Suspendisse placerat. Sed elementum purus at neque. Vestibulum elementum mi et dui. Nullam adipiscing tempus lorem. Integer felis. Pellentesque eu lorem quis ipsum pellentesque bibendum. Ut eget nisl. Nulla nibh. Nunc eget orci ac magna porttitor luctus. Morbi eleifend vestibulum nisl. Nunc et risus. Sed laoreet. Quisque nec est. 
+</blockquote>
+
+<h1>heading 1</h1>
+<h2>heading 2</h2>
+<h3>heading 3</h3>
+<h4>heading 4</h4>
+
+<table><th><td>efrefr</td><td>eferfrfvrvrver</td><td>rgergre</td></th>
+<tr><td>rerr</td><td>rwfrgr</td><td>rgregre</td></tr>
+<tr><td>regergre</td><td>umumuy</td><td>thtt</td></tr>
+</table>
+
+<hr/>
+
+<a href="http://www.google.com">Google</a>
+
+<ul>
+<li>lists</li>
+<li>primary pale</li>
+</ul>
+    </div>
+  
+</body>
+</html>
+
+

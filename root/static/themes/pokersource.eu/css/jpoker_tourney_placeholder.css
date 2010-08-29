@@ -1,0 +1,16 @@
+.jpoker_tourney_placeholder {
+    width:800px; height:800px; position:relative;
+}
+.jpoker_tourney_placeholder_table {
+    width:588px; height:296px; position:absolute; top:152px; left:106px;
+    background-image:url("images/jpoker_table/table.png");
+}
+.jpoker_tourney_placeholder_starttime {
+    position: absolute;
+    border: solid black 5px;
+    background-color: white;
+    text-align: center;
+    top: 250px;
+    left: 150px;
+    width: 500px;
+}

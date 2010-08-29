@@ -1,0 +1,77 @@
+.jpoker_login {
+    background: #81ac00;
+    font-size: 15px;
+    font-weight: bold;
+    color: #FFF;
+    overflow: hidden;
+    line-height: 27px;
+}
+
+.jpoker_login_login {
+    height: 27px;
+}
+
+.jpoker_login_login:hover {
+    height: 54px;
+}
+
+.jpoker_login ul {
+    float: left;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.jpoker_login li {
+    display: block;
+    float: left;
+}
+
+.jpoker_login li div {
+    height: 20px;
+    line-height: 20px;
+    padding: 2px 0px;
+}
+
+.jpoker_login input {
+    border: none;
+    height: 18px;
+    font-size: 13px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.jpoker_login_label {
+    width: 80px;
+    text-align: right;
+    margin: 0 3px;
+}
+
+.jpoker_login_input {
+    width: 100px;
+}
+
+.jpoker_login_input input {
+    background: #c0cc9e;
+}
+
+.jpoker_login_buttons {
+    width: 70px;
+    margin: 0 3px;
+}
+
+.jpoker_login_submit, .jpoker_login_signup {
+    text-align: center;
+}
+
+.jpoker_login_submit input,
+.jpoker_login_signup input,
+.jpoker_login .jpoker_logout a {
+    background: #567300;
+    color: #fff;
+}
+
+.jpoker_login .jpoker_logout a {
+    padding: 3px 6px;
+    border: 1px solid #fff;
+}

@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+//
+//     Copyright (C) 2010 Loic Dachary <loic@dachary.org>
+//
+//     This program is free software: you can redistribute it and/or modify
+//     it under the terms of the GNU General Public License as published by
+//     the Free Software Foundation, either version 3 of the License, or
+//     (at your option) any later version.
+//
+//     This program is distributed in the hope that it will be useful,
+//     but WITHOUT ANY WARRANTY; without even the implied warranty of
+//     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//     GNU General Public License for more details.
+//
+//     You should have received a copy of the GNU General Public License
+//     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+//
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <title>pokersource javascript poker and server software</title>
+    <link rel="shortcut icon" href="../../themes/pokersource.eu/css/images/favicon.ico" type="image/x-icon" />
+    <link href="../../l10n/jpoker-da.json" lang="da" rel="gettext"/>
+    <link href="../../l10n/jpoker-de.json" lang="de" rel="gettext"/>
+    <link href="../../l10n/jpoker-en.json" lang="en" rel="gettext"/>
+    <link href="../../l10n/jpoker-en_CA.json" lang="en_CA" rel="gettext"/>
+    <link href="../../l10n/jpoker-en_US.json" lang="en_US" rel="gettext"/>
+    <link href="../../l10n/jpoker-es.json" lang="es" rel="gettext"/>
+    <link href="../../l10n/jpoker-fi.json" lang="fi" rel="gettext"/>
+    <link href="../../l10n/jpoker-fr.json" lang="fr" rel="gettext"/>
+    <link href="../../themes/pokersource.eu/l10n/jpoker-fr.json" lang="fr" rel="gettext"/>
+    <link href="../../l10n/jpoker-fr_BE.json" lang="fr_BE" rel="gettext"/>
+    <link href="../../l10n/jpoker-fr_CA.json" lang="fr_CA" rel="gettext"/>
+    <link href="../../l10n/jpoker-fr_FX.json" lang="fr_FX" rel="gettext"/>
+    <link href="../../l10n/jpoker-it.json" lang="it" rel="gettext"/>
+    <link href="../../l10n/jpoker-ja.json" lang="ja" rel="gettext"/>
+    <link href="../../l10n/jpoker-nb.json" lang="nb" rel="gettext"/>
+    <link href="../../l10n/jpoker-nl.json" lang="nl" rel="gettext"/>
+    <link href="../../l10n/jpoker-pt.json" lang="pt" rel="gettext"/>
+    <link href="../../l10n/jpoker-sv.json" lang="sv" rel="gettext"/>
+    <link href="../../themes/pokersource.eu/css/jpoker.css" rel="stylesheet" type="text/css" />
+    <script language="JavaScript" type="text/javascript" src="../../jquery/jquery-1.2.6.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../jquery/ui/ui.core.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../jquery/ui/ui.draggable.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../jquery/ui/ui.resizable.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../jquery/ui/ui.dialog.js"></script>
+    <script language="JavaScript" type="text/javascript" src="../../jquery/ui/ui.slider.js"></script>
+    <script src="../../js/json2.js" type="text/javascript"></script>
+    <script src="../../js/printstacktrace.js" type="text/javascript"></script>
+    <script src="../../js/jquery.gettext.js" type="text/javascript"></script>
+    <script src="../../js/jquery.strftime.js" type="text/javascript"></script>
+    <script src="../../js/jquery.ajaxQueue.js" type="text/javascript"></script>
+    <script src="../../js/jquery.tablesorter.js" type="text/javascript"></script>
+    <script src="../../js/jquery.tablesorter.pager.js" type="text/javascript"></script>
+    <script src="../../js/jquery.form.js" type="text/javascript"></script>
+    <script src="../../js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="../../js/jquery.jpoker.js" type="text/javascript"></script>
+    <script src="../../js/mockup.js" type="text/javascript"></script>
+    <script src="../../themes/pokersource.eu/js/jpoker.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+      var url = '/POKER_REST';
+      $.jpoker.sound_directory = '../../themes/pokersource.eu/sounds/';
+      $.jpoker.main();
+      $('#login').jpoker('login', url);
+      $('#table').jpoker('featuredTable', url);
+      });
+    </script>
+  </head>
+
+  <body>
+    <div>
+      <div id='header'>
+        <div class="jpoker_logo"></div>
+      </div>
+      <div id='menu_header'>
+        <div id='menu'>
+          <ul>
+            <li><div class="jpoker_label">Lobby</div>
+              <ul>
+                <li><a href="javascript://">Cash games</a></li>
+                <li><a href="javascript://">Tournaments</a></li>
+                <li><a href="javascript://">Sit and Go</a></li>
+                <li><a href="javascript://">Quit</a></li>
+              </ul>
+            </li>
+            <li><div class="jpoker_label">User</div>
+              <ul>
+                <li><a href="javascript://">Info</a></li>
+                <li><a href="javascript://">Places</a></li>
+                <li><a href="javascript://">Lookup</a></li>
+                <li><a href="javascript://">Cashier</a></li>
+              </ul>
+            </li>
+            <li><div class="jpoker_label"><a href="javascript://">Feedback</a></div></li>
+            <li><div class="jpoker_label"><a href="javascript://">Copyright</a></div></li>
+          </ul>
+        </div>
+        <div id='login'></div>
+      </div>
+      <div id='content'>
+        <div id='table'>
+        </div>
+      </div>
+      <div id='footer'>
+      <ul id='footer'>
+        <li id='i18n'>
+          <dl>
+            <dt>Language</dt>
+            <dd>
+              <li>
+                <ul>
+                  <li><a href='javascript://' class='da'>Danish</a></li>
+                  <li><a href='javascript://' class='de'>German</a></li>
+                  <li><a href='javascript://' class='en'>English</a></li>
+                  <li><a href='javascript://' class='en_CA'>English (Canadian)</a></li>
+                  <li><a href='javascript://' class='en_US'>English (US)</a></li>
+                  <li><a href='javascript://' class='es'>Spanish</a></li>
+                  <li><a href='javascript://' class='fi'>Finish</a></li>
+                  <li><a href='$.jpoker.setLocale("fr")' class='fr'>French</a></li>
+                  <li><a href='javascript://' class='fr_BE'>French (Belgium)</a></li>
+                  <li><a href='javascript://' class='fr_CA>French (Canada)</a></li>
+                </ul>
+              </li>
+            </dd>
+            <dt></dt>
+            <dd>
+              <li>
+                <ul>
+                  <li><a href='javascript://' class='it'>Italian</a></li>
+                  <li><a href='javascript://' class='ja'>Japanese</a></li>
+                  <li><a href='javascript://' class='nb'>?? nb ??</a></li>
+                  <li><a href='javascript://' class='nl'>Deutsh ??</a></li>
+                  <li><a href='javascript://' class='pt'>Portugese</a></li>
+                  <li><a href='javascript://' class='sv'>?? sv ??</a></li>
+                </ul>
+              </li>
+            </dd>
+          </dl>
+        </li>
+        <li id='support'>
+          <dl>
+            <dt>Support</dt>
+            <dd>
+              <div class='jpoker_outflop'>OutFlop provides services and software to create and operate multiplayer online poker rooms. OutFlop expertise ranges from web based solutions well suited to local businesses up to large scale, international operations. Learn more about <a onclick='window.open(this.href); return false' href='http://outflop.me'>OutFlop poker software</a></div>
+            </dd>
+          </dl>
+        </li>
+        <li id='legal'>
+          <dl>
+            <dt>Authors and Software</dt>
+            <dd class='jpoker_authors'>jpoker-<span class='jpoker_version'>2.0</span> and poker-network-<span class='jpoker_poker_network_version'>2.0</span> are copyright 1993-2010 <a href="mailto:loic@dachary.org">Loic Dachary</a>, Johan Euphrosine and <a href="javascript://">al.</a>
+            </dd>
+            <dt>Copyright notice</dt>
+            <dd class='jpoker_license'>This web site is free software: you can redistribute it and/or modify it under the terms of the <a onclick='window.open(this.href); return false' href='http://www.fsf.org/licensing/licenses/gpl.txt'>GNU General Public License</a> and <a onclick='window.open(this.href); return false' href='http://www.fsf.org/licensing/licenses/agpl.txt'>GNU Affero General Public License</a> as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+            </dd>
+            <dt>Download</dt>
+            <dd class='jpoker_download'>Download <a onclick='window.open(this.href); return false' href='jpoker.tar.gz'>jpoker sources</a> and <a onclick='window.open(this.href); return false' href='poker-network.tar.gz'>poker-network sources</a>
+            </dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </body>
+
+</html>

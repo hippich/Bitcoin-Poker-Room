@@ -1,0 +1,48 @@
+This brief HOWTO describes how to import .po files that have a mixed set
+of translations in them.
+
+Setup:
+
+  Make sure you have a configured checkout of the pokersource SVN, you'll
+  need the script from
+  $PATH_TO_POKERSOURCE/poker-network/examples/merged-translation-import.plx
+
+Commands:
+
+  cd $PATH_TO_JPOKER_TOPLEVEL
+  make messages.pot
+  $PATH_TO_POKERSOURCE/poker-network/examples/merged-translation-import.plx  $PATH_TO_NEW_LOCALE $PATH_TO_JPOKER_TOPLEVEL jpoker
+
+
+That should do it!  You'll find modified/new files in $PATH_TO_JPOKER_TOPLEVEL/jpoker/
+
+# Note, the $PATH_TO_NEW_LOCALE file should look something like:
+./da
+./da/LC_MESSAGES
+./da/LC_MESSAGES/poker.po
+./de
+./de/LC_MESSAGES
+./de/LC_MESSAGES/poker.po
+./en
+./en/LC_MESSAGES
+./en/LC_MESSAGES/poker.po
+./en_CA
+./en_CA/LC_MESSAGES
+./en_CA/LC_MESSAGES/poker.po
+./en_US
+./en_US/LC_MESSAGES
+./en_US/LC_MESSAGES/poker.po
+./es
+./es/LC_MESSAGES
+./es/LC_MESSAGES/poker.po
+./fi
+./fi/LC_MESSAGES
+./fi/LC_MESSAGES/poker.po
+./fr
+./fr/LC_MESSAGES
+./fr/LC_MESSAGES/poker.po
+./fr_BE
+./fr_BE/LC_MESSAGES
+./fr_BE/LC_MESSAGES/poker.po
+
+...etc

@@ -1,0 +1,46 @@
+.jpoker_sitngo_tourney_list table {
+	border:1px solid #24B300;
+}
+.jpoker_sitngo_tourney_list th {
+	background: #24B300;
+	padding: 0.5em 1em;
+}
+.jpoker_sitngo_tourney_list td {
+	padding: 0.5em 1em;
+}
+.jpoker_sitngo_tourney_list tr  {
+	cursor:pointer;
+}
+.jpoker_sitngo_tourney_list .odd {
+	background:#CCFFBF;
+}
+.jpoker_sitngo_tourney_list .headerSortUp {
+        background:#73BF60;
+}
+.jpoker_sitngo_tourney_list .headerSortDown {
+        background:#73BF60;
+}
+.jpoker_sitngo_tourney_list tr.hover {
+	background:#73BF60;
+	color:#fff;
+}
+
+.jpoker_widget.jpoker_sitngo_tourney_list table {
+	border:2px solid #17691c;
+	border-collapse:collapse;
+	font-size:14px;
+	font-family:"trebuchet MS",arial,helvetica,sans-serif;
+	color:#444;
+}
+
+.jpoker_widget.jpoker_sitngo_tourney_list table th, .jpoker_widget.jpoker_sitngo_tourney_list table thead td, .jpoker_widget.jpoker_sitngo_tourney_list table th, .jpoker_widget.jpoker_sitngo_tourney_list table thead td {
+	background:#17691c;
+	border:1px solid #17691c;
+	color:#fff;
+	padding:3px;
+}
+
+.jpoker_widget.jpoker_sitngo_tourney_list td, .jpoker_widget.jpoker_sitngo_tourney_list tr, .jpoker_widget.jpoker_sitngo_tourney_list td, .jpoker_widget.jpoker_sitngo_tourney_list tr {
+	border:1px solid #17691c;
+	padding:3px;
+}

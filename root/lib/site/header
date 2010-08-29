@@ -1,0 +1,17 @@
+<!-- BEGIN site/header -->
+<h1 class="title">[% template.title or site.title %]</h1>
+
+
+<ul class='menu'>
+  [% IF c.user %]
+    <li class='first'><a href='[% c.uri_for('/tables') %]'>Tables</a></li>
+    <li><a href='[% c.uri_for('/user') %]'>My Account</a></li>
+    <li><a href='[% c.uri_for('/user/deposit/bitcoin') %]'>Deposit</a></li>
+    <li><a href='[% c.uri_for('/user/withdraw/bitcoin') %]'>Withdraw</a></li>
+    <li class='last'><a href='[% c.uri_for('/user/logout') %]'>Log Out</a></li>
+  [% ELSE %]
+    <li class='first'><a href='[% c.uri_for('/user/login') %]'>Log In</a></li>
+    <li class='last'><a href='[% c.uri_for('/user/register') %]'>Register</a></li>
+  [% END %]
+</ul>
+<!-- END site/header -->

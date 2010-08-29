@@ -1,0 +1,11 @@
+|>|!Layout Tiddlers|
+|Name:|Admin|
+|~PageTemplate:|AdminPageTemplate|
+|~StyleSheet:|AdminStyleSheet|
+|~ViewTemplate:|AdminViewTemplate|
+|~EditTemplate:|AdminEditTemplate|
+
+|>|!Configuration Options|
+|readOnly:|false|
+|~SinglePageMode:|false|
+|showBackstage:|true|

@@ -1,0 +1,855 @@
+# Skyrock Network
+# Copyright (C) 2002-2008  Telefun
+# Licensed under the same license as jpoker itself.
+# Devteam <devteam@orbus.fr>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: jpoker VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2010-04-18 10:24+0200\n"
+"PO-Revision-Date: 2008-11-25 16:31+0200\n"
+"Last-Translator: devteam <devteam@orbus.fr>\n"
+"Language-Team: <pokersource-users@gna.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: plurals=2; plural=n != 1;\n"
+
+# Translation #53534 (sv)
+#: jpoker/js/jquery.jpoker.js:1437
+#, fuzzy
+msgid " (login name is {name} )"
+msgstr "(användarnamnet är {name})"
+
+# Translation #57781 (sv)
+#: jpoker/js/jquery.jpoker.js:2490 jpoker/js/jquery.jpoker.js:3445
+msgid "% Flop"
+msgstr "% Flop"
+
+#: jpoker/js/jquery.jpoker.js:2491
+msgid "%F"
+msgstr ""
+
+#: jpoker/js/jquery.jpoker.js:4403
+msgid "1/2"
+msgstr ""
+
+#: jpoker/js/jquery.jpoker.js:4403
+msgid "3/4"
+msgstr ""
+
+# Translation #53536 (sv)
+#: jpoker/js/jquery.jpoker.js:4639
+msgid "Add chips"
+msgstr "Lägg in marker"
+
+# Translation #57783 (sv)
+#: jpoker/js/jquery.jpoker.js:5615
+msgid "Amount"
+msgstr "Summa"
+
+# Translation #58007 (sv)
+#: jpoker/js/jquery.jpoker.js:2487
+#, fuzzy
+msgid "AvPot"
+msgstr "Pott"
+
+# Translation #53538 (sv)
+#: jpoker/js/jquery.jpoker.js:2486
+msgid "Average Pot"
+msgstr "Genomsnittlig Pot (satsning)"
+
+# Translation #53539 (sv)
+#: jpoker/js/jquery.jpoker.js:2500
+msgid "Betting Structure"
+msgstr "Satsning"
+
+# Translation #53539 (sv)
+#: jpoker/js/jquery.jpoker.js:5707
+#, fuzzy
+msgid "Betting structure"
+msgstr "Satsning"
+
+# Translation #57786 (sv)
+#: jpoker/js/jquery.jpoker.js:5302
+msgid "Birthdate"
+msgstr "Födelsedag:"
+
+# Translation #57802 (sv)
+#: jpoker/js/jquery.jpoker.js:2680
+#, fuzzy
+msgid "Break First"
+msgstr "Första pausen"
+
+# Translation #57790 (sv)
+#: jpoker/js/jquery.jpoker.js:2690
+msgid "Breaks Duration"
+msgstr "Paus-tid"
+
+# Translation #57803 (sv)
+#: jpoker/js/jquery.jpoker.js:2684
+msgid "Breaks Interval"
+msgstr "Intervall-paus"
+
+#: jpoker/js/jquery.jpoker.js:2685
+msgid "Brk."
+msgstr ""
+
+# Translation #53540 (sv)
+#: jpoker/js/jquery.jpoker.js:2689 jpoker/js/jquery.jpoker.js:4647
+msgid "Buy In"
+msgstr "Buy in (avgiften för att vara med i en turnering)"
+
+# Translation #57968 (sv)
+#: jpoker/js/jquery.jpoker.js:2880
+msgid "Buy in:"
+msgstr "Buy in:"
+
+# Translation #53557 (sv)
+#: jpoker/js/jquery.jpoker.js:4581
+#, fuzzy
+msgid "Call"
+msgstr "Syna"
+
+#: jpoker/js/jquery.jpoker.js:5535
+msgid "Challenge player to a heads up tournament"
+msgstr ""
+
+#: jpoker/js/jquery.jpoker.js:4578
+msgid "Check/Call any"
+msgstr ""
+
+#: jpoker/js/jquery.jpoker.js:4577
+msgid "Check/Fold"
+msgstr ""
+
+#: jpoker/js/jquery.jpoker.js:5705
+msgid "Click here to automatically pick a table"
+msgstr ""
+
+# Translation #53541 (sv)
+#: jpoker/js/jquery.jpoker.js:2530
+msgid "Click to join the table"
+msgstr "Klicka för att få vara med runt bordet"
+
+# Translation #53559 (sv)
+#: jpoker/js/jquery.jpoker.js:255
+#, fuzzy
+msgid "Click to retry."
+msgstr "Klicka för att delta"
+
+# Translation #57969 (sv)
+#: jpoker/js/jquery.jpoker.js:3021
+msgid "Click to show table details"
+msgstr "Klicka för att se information om bordet"
+
+# Translation #57970 (sv)
+#: jpoker/js/jquery.jpoker.js:2556 jpoker/js/jquery.jpoker.js:2590
+#: jpoker/js/jquery.jpoker.js:2727
+msgid "Click to show tourney details"
+msgstr "Klicka för att få information om turneringen"
+
+# Translation #57971 (sv)
+#: jpoker/js/jquery.jpoker.js:5300
+msgid "Country"
+msgstr "Land"
+
+# Translation #53542 (sv)
+#: jpoker/js/jquery.jpoker.js:2497 jpoker/js/jquery.jpoker.js:2687
+#: jpoker/js/jquery.jpoker.js:5614
+msgid "Currency"
+msgstr "Valuta"
+
+# Translation #53542 (sv)
+#: jpoker/js/jquery.jpoker.js:5708
+#, fuzzy
+msgid "Currency serial"
+msgstr "Valuta"
+
+# Translation #57972 (sv)
+#: jpoker/js/jquery.jpoker.js:3663
+msgid "Dealer"
+msgstr "Dealer"
+
+# Translation #57973 (sv)
+#: jpoker/js/jquery.jpoker.js:2682
+msgid "Description"
+msgstr "Beskrivning"
+
+# Translation #57974 (sv)
+#: jpoker/js/jquery.jpoker.js:5291
+msgid "Email"
+msgstr "Email"
+
+#: jpoker/js/jquery.jpoker.js:5743
+msgid "Email address"
+msgstr ""
+
+# Translation #57975 (sv)
+#: jpoker/js/jquery.jpoker.js:3423
+msgid "Exit"
+msgstr "Utgång"
+
+# Translation #57976 (sv)
+#: jpoker/js/jquery.jpoker.js:5293
+msgid "First name"
+msgstr "Förnamn"
+
+# Translation #57977 (sv)
+#: jpoker/js/jquery.jpoker.js:5301
+msgid "Gender"
+msgstr "Kön"
+
+# Translation #57978 (sv)
+#: jpoker/js/jquery.jpoker.js:2923 jpoker/js/jquery.jpoker.js:2942
+#: jpoker/js/jquery.jpoker.js:2944
+msgid "Go to table"
+msgstr "Gå till bordet"
+
+#: jpoker/js/jquery.jpoker.js:2489
+msgid "H"
+msgstr ""
+
+#: jpoker/js/jquery.jpoker.js:4597
+msgid "Hand strength:"
+msgstr ""
+
+# Translation #53543 (sv)
+#: jpoker/js/jquery.jpoker.js:2488
+msgid "Hands/Hour"
+msgstr "Händer/timme"
+
+# Translation #57980 (sv)
+#: jpoker/js/jquery.jpoker.js:5616
+msgid "In Game"
+msgstr "Spelar"
+
+# Translation #57981 (sv)
+#: jpoker/js/jquery.jpoker.js:1638
+msgid "It is too late to unregister player {serial} from tournament {game_id}"
+msgstr "Det är för sent att avregistrera {serial} ifrån turneringen {game_id}"
+
+# Translation #57982 (sv)
+#: jpoker/js/jquery.jpoker.js:5294
+msgid "Last name"
+msgstr "Efternamn"
+
+# Translation #53544 (sv)
+#: jpoker/js/jquery.jpoker.js:3296
+msgid "Login"
+msgstr "Smeknamn"
+
+# Translation #57983 (sv)
+#: jpoker/js/jquery.jpoker.js:5288 jpoker/js/jquery.jpoker.js:5740
+msgid "Login name"
+msgstr "Användarnamn"
+
+# Translation #57984 (sv)
+#: jpoker/js/jquery.jpoker.js:5543
+msgid "Look for player"
+msgstr "Sök spelare"
+
+#: jpoker/js/jquery.jpoker.js:254
+msgid "Lost connection to the poker server."
+msgstr ""
+
+# Translation #57985 (sv)
+#: jpoker/js/jquery.jpoker.js:2921
+msgid "Max money"
+msgstr "Maximal satsning"
+
+# Translation #57986 (sv)
+#: jpoker/js/jquery.jpoker.js:2922
+msgid "Min money"
+msgstr "Minimal satsning"
+
+# Translation #57987 (sv)
+#: jpoker/js/jquery.jpoker.js:2844 jpoker/js/jquery.jpoker.js:2967
+msgid "Money"
+msgstr "Satsning"
+
+# Translation #57988 (sv)
+#: jpoker/js/jquery.jpoker.js:4521
+msgid "Muck"
+msgstr "Much"
+
+# Translation #57989 (sv)
+#: jpoker/js/jquery.jpoker.js:4551
+msgid "Muck losing"
+msgstr "Muck förlust"
+
+#: jpoker/js/jquery.jpoker.js:4552
+msgid "Muck losing hands on showdown"
+msgstr ""
+
+#: jpoker/js/jquery.jpoker.js:3447
+msgid "Muck timeout: "
+msgstr ""
+
+# Translation #57990 (sv)
+#: jpoker/js/jquery.jpoker.js:4549
+msgid "Muck winning"
+msgstr "Muck vinst"
+
+#: jpoker/js/jquery.jpoker.js:4550
+msgid "Muck winning hands on showdown"
+msgstr ""
+
+# Translation #53545 (sv)
+#: jpoker/js/jquery.jpoker.js:2498 jpoker/js/jquery.jpoker.js:2681
+#: jpoker/js/jquery.jpoker.js:2843
+msgid "Name"
+msgstr "Namn"
+
+# Translation #53545 (sv)
+#: jpoker/js/jquery.jpoker.js:3441
+#, fuzzy
+msgid "Name: "
+msgstr "Namn"
+
+# Translation #57991 (sv)
+#: jpoker/js/jquery.jpoker.js:2456 jpoker/js/jquery.jpoker.js:2654
+msgid "Next page"
+msgstr "Nästa sida"
+
+# Translation #57992 (sv)
+#: jpoker/js/jquery.jpoker.js:1783
+#, fuzzy
+msgid "No such user: "
+msgstr "Ingen sådan användare."
+
+# Translation #57996 (sv)
+#: jpoker/js/jquery.jpoker.js:1602
+msgid "Not enough money to enter the tournament {game_id}"
+msgstr ""
+"Du har inte tillräckligt mycket pengar för att kunna vara med i turneringen "
+"{game_id}"
+
+# Translation #53546 (sv)
+#: jpoker/js/jquery.jpoker.js:2494
+msgid "Observers"
+msgstr "Observatör"
+
+#: jpoker/js/jquery.jpoker.js:4541 jpoker/js/jquery.jpoker.js:4553
+msgid "Options"
+msgstr ""
+
+# Translation #57997 (sv)
+#: jpoker/js/jquery.jpoker.js:5289 jpoker/js/jquery.jpoker.js:5741
+msgid "Password"
+msgstr "Lösenord"
+
+# Translation #57998 (sv)
+#: jpoker/js/jquery.jpoker.js:5290 jpoker/js/jquery.jpoker.js:5742
+msgid "Password confirmation"
+msgstr "Repetera Lösenordet"
+
+# Translation #57999 (sv)
+#: jpoker/js/jquery.jpoker.js:1674 jpoker/js/jquery.jpoker.js:1705
+msgid "Password confirmation does not match"
+msgstr "Lösenordet matchar inte"
+
+# Translation #58000 (sv)
+#: jpoker/js/jquery.jpoker.js:5292
+msgid "Phone Number"
+msgstr "Telefonnummer"
+
+# Translation #58001 (sv)
+#: jpoker/js/jquery.jpoker.js:5703
+#, fuzzy
+msgid "Play now"
+msgstr "Spelare"
+
+# Translation #58001 (sv)
+#: jpoker/js/jquery.jpoker.js:2493 jpoker/js/jquery.jpoker.js:2679
+#, fuzzy
+msgid "Play."
+msgstr "Spelare"
+
+# Translation #58001 (sv)
+#: jpoker/js/jquery.jpoker.js:2966
+msgid "Player"
+msgstr "Spelare"
+
+# Translation #58004 (sv)
+#: jpoker/js/jquery.jpoker.js:2693
+#, fuzzy
+msgid "Player Timeout"
+msgstr "Spelarkvot"
+
+# Translation #58004 (sv)
+#: jpoker/js/jquery.jpoker.js:3446
+#, fuzzy
+msgid "Player timeout: "
+msgstr "Spelarkvot"
+
+# Translation #58002 (sv)
+#: jpoker/js/jquery.jpoker.js:1600
+msgid "Player {serial} already registered in tournament {game_id}"
+msgstr "Spelare {serial} är redan registrerad i turneringen  {game_id}"
+
+# Translation #58003 (sv)
+#: jpoker/js/jquery.jpoker.js:1637
+msgid "Player {serial} is not registered in tournament {game_id}"
+msgstr "Spelare {serial} är inte registrerad i turneringen {game_id}"
+
+# Translation #53547 (sv)
+#: jpoker/js/jquery.jpoker.js:2492 jpoker/js/jquery.jpoker.js:2842
+#: jpoker/js/jquery.jpoker.js:2920
+msgid "Players"
+msgstr "Spelare"
+
+# Translation #58004 (sv)
+#: jpoker/js/jquery.jpoker.js:2678
+msgid "Players Quota"
+msgstr "Spelarkvot"
+
+# Translation #58005 (sv)
+#: jpoker/js/jquery.jpoker.js:5617
+msgid "Points"
+msgstr "Poäng"
+
+# Translation #58007 (sv)
+#: jpoker/js/jquery.jpoker.js:4204
+msgid "Pot"
+msgstr "Pott"
+
+# Translation #58008 (sv)
+#: jpoker/js/jquery.jpoker.js:2455 jpoker/js/jquery.jpoker.js:2653
+msgid "Previous page"
+msgstr "Föregående sida"
+
+# Translation #58009 (sv)
+#: jpoker/js/jquery.jpoker.js:2899
+msgid "Prize"
+msgstr "Pris"
+
+# Translation #58010 (sv)
+#: jpoker/js/jquery.jpoker.js:2897
+msgid "Prizes"
+msgstr "Pris"
+
+# Translation #53821 (sv)
+#: jpoker/js/jquery.jpoker.js:4403 jpoker/js/jquery.jpoker.js:4579
+#: jpoker/js/jquery.jpoker.js:5203
+#, fuzzy
+msgid "Raise"
+msgstr "Höj"
+
+# Translation #58012 (sv)
+#: jpoker/js/jquery.jpoker.js:2845 jpoker/js/jquery.jpoker.js:2898
+msgid "Rank"
+msgstr "Placering"
+
+# Translation #53548 (sv)
+#: jpoker/js/jquery.jpoker.js:4430 jpoker/js/jquery.jpoker.js:4650
+msgid "Rebuy"
+msgstr "Återköp"
+
+# Translation #58013 (sv)
+#: jpoker/js/jquery.jpoker.js:2889 jpoker/js/jquery.jpoker.js:5744
+msgid "Register"
+msgstr "Register"
+
+# Translation #58014 (sv)
+#: jpoker/js/jquery.jpoker.js:2692
+msgid "Registered"
+msgstr "Registrerad"
+
+# Translation #58017 (sv)
+#: jpoker/js/jquery.jpoker.js:1601
+msgid "Registration refused in tournament {game_id}"
+msgstr "Registrering i turneringen {game_id} avböjd"
+
+# Translation #53550 (sv)
+#: jpoker/js/jquery.jpoker.js:2485
+msgid "Seats"
+msgstr "Säten"
+
+# Translation #53550 (sv)
+#: jpoker/js/jquery.jpoker.js:3444
+#, fuzzy
+msgid "Seats: "
+msgstr "Säten"
+
+# Translation #58018 (sv)
+#: jpoker/js/jquery.jpoker.js:4529
+msgid "Show"
+msgstr "Visa"
+
+# Translation #58021 (sv)
+#: jpoker/js/jquery.jpoker.js:3295
+msgid "Sign Up"
+msgstr "Registrera"
+
+# Translation #58064 (sv)
+#: jpoker/js/jquery.jpoker.js:4658
+#, fuzzy
+msgid "Sit in"
+msgstr "gå med"
+
+# Translation #58036 (sv)
+#: jpoker/js/jquery.jpoker.js:2691
+msgid "Sit'n'Go"
+msgstr "Sit'n'Go"
+
+# Translation #53552 (sv)
+#: jpoker/js/jquery.jpoker.js:2501
+msgid "Skin"
+msgstr "Lay out"
+
+#: jpoker/js/jquery.jpoker.js:3485
+msgid "Sound Off"
+msgstr ""
+
+#: jpoker/js/jquery.jpoker.js:3482
+msgid "Sound On"
+msgstr ""
+
+# Translation #58038 (sv)
+#: jpoker/js/jquery.jpoker.js:2683
+msgid "Start Time"
+msgstr "Start-tid"
+
+# Translation #58039 (sv)
+#: jpoker/js/jquery.jpoker.js:2879
+msgid "Start time:"
+msgstr "Start-tid:"
+
+# Translation #58040 (sv)
+#: jpoker/js/jquery.jpoker.js:2688 jpoker/js/jquery.jpoker.js:5299
+msgid "State"
+msgstr "Stat:"
+
+# Translation #58041 (sv)
+#: jpoker/js/jquery.jpoker.js:5295
+msgid "Street"
+msgstr "Gata:"
+
+# Translation #58042 (sv)
+#: jpoker/js/jquery.jpoker.js:5296
+msgid "Street (continue)"
+msgstr "Gata (forts):"
+
+# Translation #53539 (sv)
+#: jpoker/js/jquery.jpoker.js:3443
+#, fuzzy
+msgid "Structure: "
+msgstr "Satsning"
+
+# Translation #58043 (sv)
+#: jpoker/js/jquery.jpoker.js:2919 jpoker/js/jquery.jpoker.js:2965
+msgid "Table"
+msgstr "Bord"
+
+# Translation #58044 (sv)
+#: jpoker/js/jquery.jpoker.js:2918 jpoker/js/jquery.jpoker.js:5389
+#: jpoker/js/jquery.jpoker.js:5513
+msgid "Tables"
+msgstr "Bord"
+
+# Translation #58045 (sv)
+#: jpoker/js/jquery.jpoker.js:3798
+msgid "This tournament is on break, and will resume at:"
+msgstr "Denna turnering har tagit en paus. Återupptar spelet:"
+
+# Translation #53553 (sv)
+#: jpoker/js/jquery.jpoker.js:2694
+#, fuzzy
+msgid "Time"
+msgstr "Timeout"
+
+# Translation #53553 (sv)
+#: jpoker/js/jquery.jpoker.js:2496
+msgid "Timeout"
+msgstr "Timeout"
+
+#: jpoker/js/jquery.jpoker.js:5704
+msgid "Toggle options"
+msgstr ""
+
+# Translation #58047 (sv)
+#: jpoker/js/jquery.jpoker.js:3101
+#, fuzzy
+msgid "Tournament is starting at: "
+msgstr "Turneringen startar:"
+
+# Translation #58046 (sv)
+#: jpoker/js/jquery.jpoker.js:1599 jpoker/js/jquery.jpoker.js:1636
+msgid "Tournament {game_id} does not exist"
+msgstr "Turneringen {game_id} existerar inte"
+
+# Translation #58048 (sv)
+#: jpoker/js/jquery.jpoker.js:5400 jpoker/js/jquery.jpoker.js:5524
+msgid "Tourneys"
+msgstr "Turnering"
+
+# Translation #58049 (sv)
+#: jpoker/js/jquery.jpoker.js:5298
+msgid "Town"
+msgstr "Stad"
+
+# Translation #58050 (sv)
+#: jpoker/js/jquery.jpoker.js:2887
+msgid "Unregister"
+msgstr "Avregistrera"
+
+# Translation #58051 (sv)
+#: jpoker/js/jquery.jpoker.js:5303
+msgid "Update personal info"
+msgstr "Uppdatera min peronliga information"
+
+# Translation #58052 (sv)
+#: jpoker/js/jquery.jpoker.js:5244
+msgid "Updated"
+msgstr "Uppdaterad"
+
+# Translation #58053 (sv)
+#: jpoker/js/jquery.jpoker.js:5233
+msgid "Updating..."
+msgstr "Uppdaterar..."
+
+# Translation #58054 (sv)
+#: jpoker/js/jquery.jpoker.js:5307
+msgid "Upload avatar"
+msgstr "Uppdatera avatar"
+
+# Translation #58055 (sv)
+#: jpoker/js/jquery.jpoker.js:5258
+msgid "Uploaded"
+msgstr "Uppdatera"
+
+# Translation #58056 (sv)
+#: jpoker/js/jquery.jpoker.js:5262
+msgid "Uploading failed"
+msgstr "Uppdatering misslyckades"
+
+# Translation #58057 (sv)
+#: jpoker/js/jquery.jpoker.js:5254
+msgid "Uploading..."
+msgstr "Uppdaterar..."
+
+# Translation #58058 (sv)
+#: jpoker/js/jquery.jpoker.js:1520 jpoker/js/jquery.jpoker.js:1560
+#: jpoker/js/jquery.jpoker.js:1667 jpoker/js/jquery.jpoker.js:1750
+msgid "User must be logged in"
+msgstr "Användare måste logga in"
+
+# Translation #53555 (sv)
+#: jpoker/js/jquery.jpoker.js:2499 jpoker/js/jquery.jpoker.js:2686
+#: jpoker/js/jquery.jpoker.js:5706
+msgid "Variant"
+msgstr "Variant"
+
+# Translation #53555 (sv)
+#: jpoker/js/jquery.jpoker.js:3442
+#, fuzzy
+msgid "Variant: "
+msgstr "Variant"
+
+# Translation #53556 (sv)
+#: jpoker/js/jquery.jpoker.js:2495
+msgid "Waiting"
+msgstr "Väntar"
+
+#: jpoker/js/jquery.jpoker.js:3782
+msgid ""
+"Won {money} chips, {rank} out of {players}. Click <span "
+"class='jpoker_tournament_details'>here</span> to see the tournament details."
+msgstr ""
+
+# Translation #58059 (sv)
+#: jpoker/js/jquery.jpoker.js:5297
+msgid "Zip code"
+msgstr "Zipkod"
+
+# Translation #53557 (sv)
+#: jpoker/js/jquery.jpoker.js:4403
+#, fuzzy
+msgid "all in"
+msgstr "Syna"
+
+# Translation #53557 (sv)
+#: jpoker/js/jquery.jpoker.js:2191 jpoker/js/jquery.jpoker.js:4403
+msgid "call"
+msgstr "Syna"
+
+#: jpoker/js/jquery.jpoker.js:3425
+msgid "chat"
+msgstr ""
+
+# Translation #53558 (sv)
+#: jpoker/js/jquery.jpoker.js:2186 jpoker/js/jquery.jpoker.js:4403
+#: jpoker/js/jquery.jpoker.js:4580
+msgid "check"
+msgstr "Check"
+
+# Translation #53559 (sv)
+#: jpoker/js/jquery.jpoker.js:4780
+msgid "click to sit"
+msgstr "Klicka för att delta"
+
+# Translation #53560 (sv)
+#: jpoker/js/jquery.jpoker.js:3778
+msgid "connecting to table {name}"
+msgstr "Anslut till bordet {name}"
+
+# Translation #57972 (sv)
+#: jpoker/js/jquery.jpoker.js:3426
+#, fuzzy
+msgid "dealer"
+msgstr "Dealer"
+
+# Translation #53561 (sv)
+#: jpoker/js/jquery.jpoker.js:3161
+msgid "disconnected"
+msgstr "Frånkopplad"
+
+# Translation #53562 (sv)
+#: jpoker/js/jquery.jpoker.js:2180 jpoker/js/jquery.jpoker.js:4403
+msgid "fold"
+msgstr "Fold"
+
+# Translation #58065 (sv)
+#: jpoker/js/jquery.jpoker.js:4453
+#, fuzzy
+msgid "fold/sit out"
+msgstr "gå ur"
+
+# Translation #53563 (sv)
+#: jpoker/js/jquery.jpoker.js:3240
+msgid "login in progress"
+msgstr "inloggningsprocess"
+
+# Translation #58060 (sv)
+#: jpoker/js/jquery.jpoker.js:3291
+msgid "logout"
+msgstr "Logga ut"
+
+# Translation #53564 (sv)
+#: jpoker/js/jquery.jpoker.js:4795
+msgid "not enough money"
+msgstr "Inte tillräckligt med pengar"
+
+# Translation #53823 (sv)
+#: jpoker/js/jquery.jpoker.js:3294
+#, fuzzy
+msgid "password: "
+msgstr "Lösenord:"
+
+# Translation #53824 (sv)
+#: jpoker/js/jquery.jpoker.js:3164
+msgid "players"
+msgstr "spelare"
+
+# Translation #58061 (sv)
+#: jpoker/js/jquery.jpoker.js:2878
+msgid "players max."
+msgstr "Max.antal spelare"
+
+# Translation #58062 (sv)
+#: jpoker/js/jquery.jpoker.js:2877
+msgid "players registered."
+msgstr "spelare registrerade."
+
+# Translation #58007 (sv)
+#: jpoker/js/jquery.jpoker.js:4403
+#, fuzzy
+msgid "pot"
+msgstr "Pott"
+
+# Translation #53821 (sv)
+#: jpoker/js/jquery.jpoker.js:2196
+msgid "raise"
+msgstr "Höj"
+
+# Translation #58063 (sv)
+#: jpoker/js/jquery.jpoker.js:2915
+msgid "running"
+msgstr "pågår"
+
+# Translation #58064 (sv)
+#: jpoker/js/jquery.jpoker.js:4475
+msgid "sit in"
+msgstr "gå med"
+
+# Translation #58065 (sv)
+#: jpoker/js/jquery.jpoker.js:4436
+msgid "sit out"
+msgstr "gå ur"
+
+# Translation #53825 (sv)
+#: jpoker/js/jquery.jpoker.js:3167
+msgid "tables"
+msgstr "bord"
+
+# Translation #53826 (sv)
+#: jpoker/js/jquery.jpoker.js:3235
+msgid "the password must not be empty"
+msgstr "lösenordet måste fyllas i"
+
+# Translation #53827 (sv)
+#: jpoker/js/jquery.jpoker.js:3233
+msgid "the user name must not be empty"
+msgstr "användarnamnet måste fyllas i"
+
+# Translation #58066 (sv)
+#: jpoker/js/jquery.jpoker.js:3170
+msgid "tournaments players"
+msgstr "spelare i turneringen"
+
+# Translation #58067 (sv)
+#: jpoker/js/jquery.jpoker.js:3173
+msgid "tourneys"
+msgstr "turneringar"
+
+# Translation #53828 (sv)
+#: jpoker/js/jquery.jpoker.js:1444
+msgid "user {name} is already logged in"
+msgstr "användaren {name} är redan inloggad"
+
+# Translation #53829 (sv)
+#: jpoker/js/jquery.jpoker.js:3293
+#, fuzzy
+msgid "user: "
+msgstr "användare:"
+
+# Translation #53832 (sv)
+#: jpoker/js/jquery.jpoker.js:1025
+msgid "wait for {delay}s for queue {id}"
+msgstr "invänta {delay} för att stå i kön {id}"
+
+#: jpoker/js/jquery.jpoker.js:5481
+msgid "you must login before you can challenge the player"
+msgstr ""
+
+#: jpoker/js/jquery.jpoker.js:3783
+msgid "{sound}"
+msgstr ""
+
+# Translation #53836 (sv)
+#: jpoker/js/jquery.jpoker.js:1420
+msgid "{url} attempt to login {name} although serial is {serial} instead of 0"
+msgstr ""
+"{url} försöker logga in som {name} fast serienummret  är {serial}, och inte "
+"0."
+
+# Translation #57802 (sv)
+#~ msgid "Breaks First"
+#~ msgstr "Första pausen"
+
+# Translation #53542 (sv)
+#, fuzzy
+#~ msgid "Call current"
+#~ msgstr "Valuta"
+
+# Translation #53558 (sv)
+#, fuzzy
+#~ msgid "Check"
+#~ msgstr "Check"
+
+# Translation #57979 (sv)
+#~ msgid "Holdem"
+#~ msgstr "Holdem"
