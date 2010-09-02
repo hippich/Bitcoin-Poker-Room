@@ -1,5 +1,19 @@
-.jpoker_table .jpoker_ptable { width:760px; height:530px; position:relative; }
-.jpoker_table .jpoker_ptable_game_background { width:760px; height:530px; position:absolute; top:0px; left:0px; background-color: #c0cc9e; }
+.jpoker_table .jpoker_ptable {
+  width: 760px;
+  height: 530px;
+  position: relative;
+  overflow: hidden;
+}
+
+.jpoker_table .jpoker_ptable_game_background {
+  width: 760px;
+  height: 530px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: #3d1900 url(images/jpoker_table/main-bg.jpg) left top;
+}
+
 .jpoker_table .jpoker_ptable_table { width:482px; height:228px; position:absolute; top:91px; left:140px; background-repeat: no-repeat; background-image:url("images/jpoker_table/table.png");}
 .jpoker_table .jpoker_ptable_board0 { width:37px; height:45px; position:absolute; top:159px; left:281px; background-image:url("images/jpoker_table/cards/small-back.png");}
 .jpoker_table .jpoker_ptable_board1 { width:37px; height:45px; position:absolute; top:159px; left:323px; background-image:url("images/jpoker_table/cards/small-back.png");}
@@ -8,9 +22,24 @@
 .jpoker_table .jpoker_ptable_board4 { width:37px; height:45px; position:absolute; top:159px; left:446px; background-image:url("images/jpoker_table/cards/small-back.png");}
 .jpoker_table .jpoker_ptable_winner0 { width:180px; height:25px; position:absolute; top:134px; left:291px; }
 .jpoker_table .jpoker_ptable_winner1 { width:180px; height:25px; position:absolute; top:209px; left:304px; }
-.jpoker_table .jpoker_ptable_quit { width:67px; height:20px; position:absolute; top:4px; left:688px; border: 1px solid #bdcc8f; background-color: #567300;}
+
+.jpoker_table .jpoker_ptable_quit {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+}
+
 .jpoker_table .jpoker_ptable_rebuy { width:67px; height:20px; position:absolute; top:4px; left:614px; border: 1px solid #bdcc8f; background-color: #567300;}
-.jpoker_table .jpoker_ptable_auto_action { width:194.30945px; height:118.59718px; position:absolute; top:408px; left:289px; }
+
+.jpoker_table .jpoker_ptable_auto_action {
+  width: 194px;
+  height: 119px;
+  position: absolute;
+  top: 408px;
+  left: 270px;
+  color: #FFF;
+}
+
 .jpoker_table .jpoker_ptable_check { width:44px; height:30px; position:absolute; top:408px; left:289px; background-image:url("images/jpoker_table/check.png");}
 .jpoker_table .jpoker_ptable_call { width:44px; height:30px; position:absolute; top:408px; left:337px; background-image:url("images/jpoker_table/call.png");}
 .jpoker_table .jpoker_ptable_fold { width:44px; height:30px; position:absolute; top:408px; left:386px; background-image:url("images/jpoker_table/fold.png");}
@@ -172,16 +201,25 @@
 .jpoker_table .jpoker_ptable_sitin { width:67px; height:20px; position:absolute; top:4px; left:540px; border: 1px solid #bdcc8f; background-color: #567300;}
 .jpoker_table .jpoker_ptable_powered_by { width:139.67525px; height:13.40641px; position:absolute; top:374px; left:0px; }
 .jpoker_table .jpoker_ptable_allin { width:44px; height:30px; position:absolute; top:477px; left:289px; background-image:url("images/jpoker_table/raise.png");}
-.jpoker_table .jpoker_ptable_hand_strength { width:184.22353px; height:30.352667px; position:absolute; top:361px; left:576px; }
+
+.jpoker_table .jpoker_ptable_hand_strength {
+  width: 184px;
+  height: 30px;
+  position: absolute;
+  top: 361px;
+  left: 576px;
+  color: #FFF;
+}
+
 .jpoker_table .jpoker_ptable_pots { width:370px; height:30px; position:absolute; top:212px; left:199px; }
 .jpoker_table .jpoker_ptable_options { width:67px; height:20px; position:absolute; top:4px; left:466px; border: 1px solid #bdcc8f; background-color: #567300;}
 
 .jpoker_table .jpoker_ptable_sound_control {
   width: 67px;
   height: 20px;
-  position: absolute;
+  position: absolute !important;
   top: 194px;
-  left: 688px;
+  right: 5px;
   border: 1px solid #bdcc8f;
   background-color: #567300;
   margin: 0;
@@ -191,3 +229,10 @@
 .jpoker_table .jpoker_ptable_halfpot { width:44px; height:30px; position:absolute; top:463px; left:435px; background-image:url("images/jpoker_table/raise.png");}
 .jpoker_table .jpoker_ptable_pot { width:44px; height:30px; position:absolute; top:432px; left:435px; background-image:url("images/jpoker_table/raise.png");}
 
+
+#jpokerSoundTable {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}

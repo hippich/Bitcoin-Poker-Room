@@ -1,0 +1,30 @@
+[% META title = 'Credits' %]
+
+<p>This poker room built on top of few open source technologies:</p>
+
+<h2>python-poker-network and python-poker-engine</h2>
+<p>Both used to build "back end" for this poker room. More information: <a href='http://pokersource.info/'>http://pokersource.info/</a></p>
+
+<h2>jPoker</h2>
+<p>Client for poker-network server based on original jPoker client from authors of poker-network software. More information: <a href='http://pokersource.info/'>http://pokersource.info/</a></p>
+
+<h2>Bitcoin</h2>
+<p>Bitcoin - new technology for digital currencies. Bitcoins network allows players generate "coins" and use as payment in our poker room.
+Most important players can't spend twice their "coins" and in the same time generation of new "coins" depends on CPU power. So we effectivelly
+avoid abuse from dishonest players (think about players, who register fresh account, login and go All-In in the first round).</p>
+<p>To learn more: <a href='http://www.bitcoin.org'>http://www.bitcoin.org</a></p>
+
+<h2>Catalyst Framework</h2>
+<p><a href='http://www.catalystframework.org'>Catalyst Framework</a> - moder perl web framework for rapid web development and easy refactoring.
+This framework used to build user interface allowing user register, deposit, withdrawal, list tables, etc. Using catalyst framework we know that
+if we will need to adopt to something new in future we can do this easily. To learn more: <a href='http://www.catalystframework.org'>http://www.catalystframework.org</a></p>
+
+<h2>jQuery</h2>
+<p><a href='http://jquery.com'>jQuery</a> - great Javascript library allowing us to create really dynamic applications inside browser.</p>
+
+<h2>Apache, MySQL, Perl, Python</h2>
+<p>Without these no web application were possible.</p>
+
+<p></p>
+
+<p>Also I'd like to thanks every poker lover from bitcoin.org forum, who helped me to test, find bugs and fix them. =) </p>

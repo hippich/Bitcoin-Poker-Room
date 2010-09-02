@@ -65,6 +65,10 @@ sub auto :Path {
     1;
 }
 
+
+sub credits :Local {}
+sub contactus :Local {}
+
 =head2 default
 
 Standard 404 error page

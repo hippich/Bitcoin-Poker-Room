@@ -143,6 +143,11 @@ __PACKAGE__->has_many(
   { 'foreign.user_serial' => 'self.serial' },
 );
 
+__PACKAGE__->has_many(
+  'withdrawals' => 'Room::Schema::PokerNetwork::Result::Withdrawal',
+  { 'foreign.user_serial' => 'self.serial' },
+);
+
 
 sub get_bitcoin_deposit_address {
   my ($self) = @_;

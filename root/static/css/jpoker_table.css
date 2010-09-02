@@ -47,59 +47,75 @@
  z-index: 2;
 }
 
-.jpoker_table .jpoker_card_2h { background-image: url("images/jpoker_table/cards/small-2h.png"); }
-.jpoker_table .jpoker_card_3h { background-image: url("images/jpoker_table/cards/small-3h.png"); }
-.jpoker_table .jpoker_card_4h { background-image: url("images/jpoker_table/cards/small-4h.png"); }
-.jpoker_table .jpoker_card_5h { background-image: url("images/jpoker_table/cards/small-5h.png"); }
-.jpoker_table .jpoker_card_6h { background-image: url("images/jpoker_table/cards/small-6h.png"); }
-.jpoker_table .jpoker_card_7h { background-image: url("images/jpoker_table/cards/small-7h.png"); }
-.jpoker_table .jpoker_card_8h { background-image: url("images/jpoker_table/cards/small-8h.png"); }
-.jpoker_table .jpoker_card_9h { background-image: url("images/jpoker_table/cards/small-9h.png"); }
-.jpoker_table .jpoker_card_Th { background-image: url("images/jpoker_table/cards/small-Th.png"); }
-.jpoker_table .jpoker_card_Jh { background-image: url("images/jpoker_table/cards/small-Jh.png"); }
-.jpoker_table .jpoker_card_Qh { background-image: url("images/jpoker_table/cards/small-Qh.png"); }
-.jpoker_table .jpoker_card_Kh { background-image: url("images/jpoker_table/cards/small-Kh.png"); }
-.jpoker_table .jpoker_card_Ah { background-image: url("images/jpoker_table/cards/small-Ah.png"); }
-.jpoker_table .jpoker_card_2d { background-image: url("images/jpoker_table/cards/small-2d.png"); }
-.jpoker_table .jpoker_card_3d { background-image: url("images/jpoker_table/cards/small-3d.png"); }
-.jpoker_table .jpoker_card_4d { background-image: url("images/jpoker_table/cards/small-4d.png"); }
-.jpoker_table .jpoker_card_5d { background-image: url("images/jpoker_table/cards/small-5d.png"); }
-.jpoker_table .jpoker_card_6d { background-image: url("images/jpoker_table/cards/small-6d.png"); }
-.jpoker_table .jpoker_card_7d { background-image: url("images/jpoker_table/cards/small-7d.png"); }
-.jpoker_table .jpoker_card_8d { background-image: url("images/jpoker_table/cards/small-8d.png"); }
-.jpoker_table .jpoker_card_9d { background-image: url("images/jpoker_table/cards/small-9d.png"); }
-.jpoker_table .jpoker_card_Td { background-image: url("images/jpoker_table/cards/small-Td.png"); }
-.jpoker_table .jpoker_card_Jd { background-image: url("images/jpoker_table/cards/small-Jd.png"); }
-.jpoker_table .jpoker_card_Qd { background-image: url("images/jpoker_table/cards/small-Qd.png"); }
-.jpoker_table .jpoker_card_Kd { background-image: url("images/jpoker_table/cards/small-Kd.png"); }
-.jpoker_table .jpoker_card_Ax { background-image: url("images/jpoker_table/cards/small-Ax.png"); }
-.jpoker_table .jpoker_card_2c { background-image: url("images/jpoker_table/cards/small-2c.png"); }
-.jpoker_table .jpoker_card_3c { background-image: url("images/jpoker_table/cards/small-3c.png"); }
-.jpoker_table .jpoker_card_4c { background-image: url("images/jpoker_table/cards/small-4c.png"); }
-.jpoker_table .jpoker_card_5c { background-image: url("images/jpoker_table/cards/small-5c.png"); }
-.jpoker_table .jpoker_card_6c { background-image: url("images/jpoker_table/cards/small-6c.png"); }
-.jpoker_table .jpoker_card_7c { background-image: url("images/jpoker_table/cards/small-7c.png"); }
-.jpoker_table .jpoker_card_8c { background-image: url("images/jpoker_table/cards/small-8c.png"); }
-.jpoker_table .jpoker_card_9c { background-image: url("images/jpoker_table/cards/small-9c.png"); }
-.jpoker_table .jpoker_card_Tc { background-image: url("images/jpoker_table/cards/small-Tc.png"); }
-.jpoker_table .jpoker_card_Jc { background-image: url("images/jpoker_table/cards/small-Jc.png"); }
-.jpoker_table .jpoker_card_Qc { background-image: url("images/jpoker_table/cards/small-Qc.png"); }
-.jpoker_table .jpoker_card_Kc { background-image: url("images/jpoker_table/cards/small-Kc.png"); }
-.jpoker_table .jpoker_card_Ac { background-image: url("images/jpoker_table/cards/small-Ac.png"); }
-.jpoker_table .jpoker_card_2s { background-image: url("images/jpoker_table/cards/small-2s.png"); }
-.jpoker_table .jpoker_card_3s { background-image: url("images/jpoker_table/cards/small-3s.png"); }
-.jpoker_table .jpoker_card_4s { background-image: url("images/jpoker_table/cards/small-4s.png"); }
-.jpoker_table .jpoker_card_5s { background-image: url("images/jpoker_table/cards/small-5s.png"); }
-.jpoker_table .jpoker_card_6s { background-image: url("images/jpoker_table/cards/small-6s.png"); }
-.jpoker_table .jpoker_card_7s { background-image: url("images/jpoker_table/cards/small-7s.png"); }
-.jpoker_table .jpoker_card_8s { background-image: url("images/jpoker_table/cards/small-8s.png"); }
-.jpoker_table .jpoker_card_9s { background-image: url("images/jpoker_table/cards/small-9s.png"); }
-.jpoker_table .jpoker_card_Ts { background-image: url("images/jpoker_table/cards/small-Ts.png"); }
-.jpoker_table .jpoker_card_Js { background-image: url("images/jpoker_table/cards/small-Js.png"); }
-.jpoker_table .jpoker_card_Qs { background-image: url("images/jpoker_table/cards/small-Qs.png"); }
-.jpoker_table .jpoker_card_Ks { background-image: url("images/jpoker_table/cards/small-Ks.png"); }
-.jpoker_table .jpoker_card_As { background-image: url("images/jpoker_table/cards/small-As.png"); }
-.jpoker_table .jpoker_card_back { background-image: url("images/jpoker_table/cards/small-back.png"); }
+.jpoker_table .jpoker_card {
+  background-image: url("images/jpoker_table/cards/sheet.png");
+  background-position: -1332px 0;
+}
+
+.jpoker_table .jpoker_card_2s { background-position: 0 0; }
+.jpoker_table .jpoker_card_2d { background-position: -37px 0; }
+.jpoker_table .jpoker_card_2h { background-position: -74px 0; }
+.jpoker_table .jpoker_card_2c { background-position: -111px 0; }
+
+.jpoker_table .jpoker_card_3s { background-position: -148px 0; }
+.jpoker_table .jpoker_card_3d { background-position: -185px 0; }
+.jpoker_table .jpoker_card_3h { background-position: -222px 0; }
+.jpoker_table .jpoker_card_3c { background-position: -259px 0; }
+
+.jpoker_table .jpoker_card_4s { background-position: -296px 0; }
+.jpoker_table .jpoker_card_4d { background-position: -333px 0; }
+.jpoker_table .jpoker_card_4h { background-position: -370px 0; }
+.jpoker_table .jpoker_card_4c { background-position: -407px 0; }
+
+.jpoker_table .jpoker_card_5s { background-position: -444px 0; }
+.jpoker_table .jpoker_card_5d { background-position: -481px 0; }
+.jpoker_table .jpoker_card_5h { background-position: -518px 0; }
+.jpoker_table .jpoker_card_5c { background-position: -555px 0; }
+
+.jpoker_table .jpoker_card_6s { background-position: -592px 0; }
+.jpoker_table .jpoker_card_6d { background-position: -629px 0; }
+.jpoker_table .jpoker_card_6h { background-position: -666px 0; }
+.jpoker_table .jpoker_card_6c { background-position: -703px 0; }
+
+.jpoker_table .jpoker_card_7s { background-position: -740px 0; }
+.jpoker_table .jpoker_card_7d { background-position: -777px 0; }
+.jpoker_table .jpoker_card_7h { background-position: -814px 0; }
+.jpoker_table .jpoker_card_7c { background-position: -851px 0; }
+
+.jpoker_table .jpoker_card_8s { background-position: -888px 0; }
+.jpoker_table .jpoker_card_8d { background-position: -925px 0; }
+.jpoker_table .jpoker_card_8h { background-position: -962px 0; }
+.jpoker_table .jpoker_card_8c { background-position: -999px 0; }
+
+.jpoker_table .jpoker_card_9s { background-position: -1036px 0; }
+.jpoker_table .jpoker_card_9d { background-position: -1073px 0; }
+.jpoker_table .jpoker_card_9h { background-position: -1110px 0; }
+.jpoker_table .jpoker_card_9c { background-position: -1147px 0; }
+
+.jpoker_table .jpoker_card_As { background-position: -1184px 0; }
+.jpoker_table .jpoker_card_Ax { background-position: -1221px 0; }
+.jpoker_table .jpoker_card_Ah { background-position: -1258px 0; }
+.jpoker_table .jpoker_card_Ac { background-position: -1295px 0; }
+
+.jpoker_table .jpoker_card_Js { background-position: -1369px 0; }
+.jpoker_table .jpoker_card_Jd { background-position: -1406px 0; }
+.jpoker_table .jpoker_card_Jh { background-position: -1443px 0; }
+.jpoker_table .jpoker_card_Jc { background-position: -1480px 0; }
+
+.jpoker_table .jpoker_card_Ks { background-position: -1517px 0; }
+.jpoker_table .jpoker_card_Kd { background-position: -1554px 0; }
+.jpoker_table .jpoker_card_Kh { background-position: -1591px 0; }
+.jpoker_table .jpoker_card_Kc { background-position: -1628px 0; }
+
+.jpoker_table .jpoker_card_Qs { background-position: -1665px 0; }
+.jpoker_table .jpoker_card_Qd { background-position: -1702px 0; }
+.jpoker_table .jpoker_card_Qh { background-position: -1739px 0; }
+.jpoker_table .jpoker_card_Qc { background-position: -1776px 0; }
+
+.jpoker_table .jpoker_card_Ts { background-position: -1813px 0; }
+.jpoker_table .jpoker_card_Td { background-position: -1850px 0; }
+.jpoker_table .jpoker_card_Th { background-position: -1887px 0; }
+.jpoker_table .jpoker_card_Tc { background-position: -1924px 0; }
 
 
 .jpoker_table .jpoker_position .jpoker_ptable_player_seat0_background,
@@ -255,9 +271,10 @@
 	width: 99%;
 }
 
-.jpoker_table .jpoker_ptable_table_info{
+.jpoker_table .jpoker_ptable_table_info {
 	font-weight: bold;
 	height: auto;
+	color: #FFF;
 }
 
 .jpoker_table .jpoker_powered_by {
@@ -563,7 +580,14 @@
 }
 
 
-.jpoker_table .jpoker_ptable_sitout_fold { width:67px; height:20px; position:absolute; top:408px; left:435px; border: 1px solid #bdcc8f; background-color: #567300;
+.jpoker_table .jpoker_ptable_sitout_fold {
+  width: 67px;
+  height: 20px;
+  position: absolute;
+  top: 225px;
+  right: 5px;
+  border: 1px solid #bdcc8f;
+  background-color: #567300;
 }
 
 .jpoker_table .jpoker_ptable_sitout_fold .jpoker_sitout {

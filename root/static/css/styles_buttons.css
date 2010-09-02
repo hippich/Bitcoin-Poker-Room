@@ -1,0 +1,226 @@
+.jpoker_table .jpoker_ptable_muck_deny,
+.jpoker_table .jpoker_ptable_muck_accept,
+.jpoker_table .jpoker_ptable_check,
+.jpoker_table .jpoker_ptable_call,
+.jpoker_table .jpoker_ptable_fold,
+.jpoker_table .jpoker_ptable_raise,
+.jpoker_table .jpoker_ptable_allin,
+.jpoker_table .jpoker_ptable_sitout_fold,
+.jpoker_table .jpoker_sitout,
+.jpoker_table .jpoker_rebuy,
+.jpoker_table .jpoker_quit,
+.jpoker_table .jpoker_sitin,
+.jpoker_table .jpoker_muck,
+.jpoker_table .jpoker_options,
+.jpoker_table .jpoker_ptable_sitout,
+.jpoker_table .jpoker_ptable_rebuy,
+.jpoker_table .jpoker_ptable_quit,
+.jpoker_table .jpoker_ptable_sitin,
+.jpoker_table .jpoker_ptable_muck,
+.jpoker_table .jpoker_ptable_options,
+.jpoker_table .jpoker_sound_control,
+.jpoker_table .jpoker_ptable_quit,
+.jpoker_table .jpoker_quit {
+  padding: auto;
+  margin: auto;
+  border: none;
+  background: none;
+  width: auto;
+}
+
+.jpoker_table .jpoker_ptable_muck_deny a,
+.jpoker_table .jpoker_ptable_muck_accept a,
+.jpoker_table .jpoker_ptable_check a,
+.jpoker_table .jpoker_ptable_call a,
+.jpoker_table .jpoker_ptable_fold a,
+.jpoker_table .jpoker_ptable_raise a,
+.jpoker_table .jpoker_ptable_allin a,
+.jpoker_table .jpoker_ptable_rebuy a,
+.jpoker_table .jpoker_ptable_sitin a,
+.jpoker_table .jpoker_ptable_options a,
+.jpoker_table .jpoker_ptable_sitout a,
+.jpoker_table .jpoker_ptable_quit a,
+.jpoker_table .jpoker_ptable_sound_control,
+.jpoker_table .jpoker_ptable_sitout_fold a {
+  background: #fe931b url(images/alert-overlay.png) repeat-x;
+  display: inline-block;
+  padding: 5px 10px 6px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  line-height: 1;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-box-shadow: 0 1px 3px #999;
+  -webkit-box-shadow: 0 1px 3px #999;
+  text-shadow: 0 -1px 1px #222;
+  border-bottom: 1px solid #222;
+  position: relative;
+  cursor: pointer;
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+  height: auto;
+  width: auto;
+}
+
+.jpoker_table .jpoker_ptable_muck_deny {
+  position: absolute;
+  top: 495px;
+  left: 455px;
+}
+
+.jpoker_table .jpoker_ptable_muck_accept {
+  position: absolute;
+  top: 495px;
+}
+
+
+.jpoker_table .jpoker_ptable_sound_control {
+  padding-left: 0px;
+}
+
+.jpoker_table .jpoker_ptable_sound_control span {
+  padding-left: 24px;
+  background: url(images/sound_on.png) left center no-repeat;
+}
+
+.jpoker_table .jpoker_sound_off span {
+  background: url(images/sound_off.png) left center no-repeat;
+}
+
+
+.jpoker_table .jpoker_ptable_raise_range {
+  background: #fe931b;
+  display: inline-block;
+  padding: 5px 10px 6px;
+  color: #fff;
+  text-decoration: none;
+  line-height: 1;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-box-shadow: 0 1px 3px #999;
+  -webkit-box-shadow: 0 1px 3px #999;
+  text-shadow: 0 -1px 1px #222;
+  border-bottom: 1px solid #222;
+  -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+  text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+  height: 60px;
+  
+}
+
+.jpoker_table .jpoker_ptable_check,
+.jpoker_table .jpoker_ptable_call {
+  left: 245px;
+  top: 408px;
+}
+
+.jpoker_table .jpoker_ptable_check a,
+.jpoker_table .jpoker_ptable_call a {
+  width: 60px;
+  height: 75px;
+  padding-top: 30px;
+  font-size: 24px;
+  background-color: #359C32;
+}
+
+.jpoker_table .jpoker_ptable_check a {
+  background-color: #1361c2;
+  font-size: 20px;
+  height: 60px;
+  padding-top: 45px;
+}
+
+.jpoker_table .jpoker_ptable_raise_range {
+  left: 337px;
+  top: 408px;
+  width: 111px;
+  height: 60px;
+}
+
+.jpoker_table .jpoker_ptable_raise {
+  height: auto;
+  left: 469px;
+  top: 408px;
+}
+
+.jpoker_table .jpoker_ptable_raise a {
+  width: 29px;
+  height: 35px;
+  padding-top: 30px;
+  font-size: 14px;
+  padding-left: 5px;
+}
+
+.jpoker_table .jpoker_ptable_raise_input {
+  border: none;
+  left: 358px;
+  top: 455px;
+  width: 90px;
+}
+
+.jpoker_table .jpoker_ptable_raise_input input {
+  text-align: right;
+}
+
+.jpoker_table .jpoker_raise_min,
+.jpoker_table .jpoker_raise_current,
+.jpoker_table .jpoker_raise_max {
+  margin: 0;
+  position: absolute;
+  top: 5px;
+}
+
+.jpoker_table .jpoker_raise_min {
+  left: 10px;
+}
+.jpoker_table .jpoker_raise_current {
+  left: 55px;
+}
+.jpoker_table .jpoker_raise_max {
+  left: 105px;
+}
+
+
+.jpoker_table .ui-slider-1 {
+  width: 90px;
+  position: absolute;
+  top: 25px;
+  left: 10px;
+}
+
+.jpoker_table .jpoker_ptable_allin {
+  height: auto;
+  width: auto;
+  left: 337px;
+  top: 485px;
+}
+
+.jpoker_table .jpoker_ptable_fold a,
+.jpoker_table .jpoker_ptable_allin a {
+  font-size: 14px;
+  padding-top: 10px;
+  height: 18px;
+  width: 66px;
+}
+
+.jpoker_table .jpoker_ptable_fold {
+  height: auto;
+  top: 485px;
+  left: 427px;
+}
+
+.jpoker_table .jpoker_ptable_fold a {
+  background-color: #890000;
+}
+
+.jpoker_ptable_threequarterpot,
+.jpoker_ptable_halfpot,
+.jpoker_ptable_pot {
+  display: none !important;
+}
+
+

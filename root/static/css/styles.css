@@ -75,3 +75,7 @@ h1.title {
 .message-error {
   color: #9a1302;
 }
+
+#footer_menu {
+  margin: 10px;
+}
