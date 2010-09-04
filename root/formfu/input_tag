@@ -1,0 +1,1 @@
+<input[% IF self.nested_name.defined %] name="[% self.nested_name %]"[% END %] type="[% self.field_type %]"[% IF self.value.defined %] value="[% self.value %]"[% END %][% process_attrs(self.attributes) %] />

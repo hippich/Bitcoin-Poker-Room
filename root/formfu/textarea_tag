@@ -1,0 +1,1 @@
+<textarea name="[% self.nested_name %]"[% process_attrs(self.attributes) %]>[% self.value IF self.value.defined %]</textarea>

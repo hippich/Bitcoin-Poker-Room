@@ -1,0 +1,1 @@
+[% WRAPPER field %]<button name="[% self.nested_name %]" type="[% self.field_type %]"[% IF self.value.defined %] value="[% self.value %]"[% END %][% process_attrs(self.attributes) %]>[% self.content %]</button>[% END %]

@@ -1,0 +1,5 @@
+[% WRAPPER field %]<span[% process_attrs(self.attributes) %]>
+[% FOREACH element = self.elements %][% IF element.reverse_multi %][% INCLUDE $element.field_filename self = element %][% IF element.label.defined %]
+[% INCLUDE $element.label_filename self = element %][% END %][% ELSE %][% IF element.label.defined %][% INCLUDE $element.label_filename self = element %]
+[% END %][% INCLUDE $element.field_filename self = element %][% END %]
+[% END %]</span>[% END %]

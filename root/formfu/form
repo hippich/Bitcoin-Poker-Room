@@ -1,0 +1,3 @@
+[% INCLUDE start_form %]
+[% FOREACH element = self.elements %][% INCLUDE $element.filename self=element %]
+[% END %][% INCLUDE end_form %]

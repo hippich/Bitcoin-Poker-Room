@@ -1,0 +1,7 @@
+<form[% process_attrs(self.attributes) %]>[% IF self.form_error_message.defined %]
+<div class="form_error_message">[% self.form_error_message %]</div>[% END %][% IF self.javascript_src.defined %][% FOREACH src = self.javascript_src.list %]
+<script type="text/javascript" src="[% src %]">
+</script>[% END %][% END %][% IF self.javascript.defined %]
+<script type="text/javascript">
+[% self.javascript %]
+</script>[% END %]

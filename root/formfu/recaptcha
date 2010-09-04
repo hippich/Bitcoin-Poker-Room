@@ -1,0 +1,2 @@
+[% WRAPPER field %]<span[% process_attrs(self.attributes) %]>
+[% self.recaptcha_html %]</span>[% END %]

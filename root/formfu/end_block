@@ -1,0 +1,1 @@
+[% IF self.tag.defined %]</[% self.tag %]>[% END %]

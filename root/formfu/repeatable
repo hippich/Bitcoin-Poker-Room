@@ -1,0 +1,2 @@
+[% FOREACH element = self.elements %][% INCLUDE $element.filename self = element %][% UNLESS loop.last %]
+[% END %][% END %]

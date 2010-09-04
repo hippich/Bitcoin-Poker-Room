@@ -1,0 +1,6 @@
+<select name="[% self.nested_name %]"[% process_attrs(self.attributes) %]>
+[% FOREACH option = self.options %][% IF option.group %]<optgroup[% IF option.label.defined %] label="[% option.label %]"[% END %][% process_attrs(option.attributes) %]>
+[% FOREACH item = option.group %]<option value="[% item.value %]"[% process_attrs(item.attributes) %]>[% item.label %]</option>
+[% END %]</optgroup>
+[% ELSE %]<option value="[% option.value %]"[% process_attrs(option.attributes) %]>[% option.label %]</option>
+[% END %][% END %]</select>

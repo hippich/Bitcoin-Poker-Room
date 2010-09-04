@@ -1,0 +1,4 @@
+[% INCLUDE start_block %]
+[% IF self.content.defined %][% self.content %]
+[% ELSE %][% FOREACH element = self.elements %][% INCLUDE $element.filename self = element %]
+[% END %][% END %][% INCLUDE end_block %]
