@@ -1,1 +1,0 @@
-[% WRAPPER field %][% INCLUDE $self.field_filename %][% END %]

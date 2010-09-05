@@ -1,1 +1,0 @@
-<[% self.label_tag %][% process_attrs(self.label_attributes) %]>[% self.label %]</[% self.label_tag %]>

@@ -1,1 +1,0 @@
-<[% self.tag %] name="[% self.nested_name %]"[% process_attrs(self.attributes) %]>[% self.value %]</[% self.tag %]>
