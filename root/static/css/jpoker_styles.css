@@ -1,0 +1,6 @@
+.jpoker_auto_muck_lose,
+.jpoker_auto_muck_win {
+  float: left;
+  clear: left;
+  margin: 10px 0;
+}
