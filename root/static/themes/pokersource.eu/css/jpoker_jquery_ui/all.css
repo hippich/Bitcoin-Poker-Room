@@ -1,8 +1,0 @@
-@import "dialog.css";
-@import "resizable.css";
-@import "slider.css";
-
-/* themes/flora/flora.css */
-
-.ui-wrapper { border: 1px solid #50A029; }
-.ui-wrapper input, .ui-wrapper textarea { border: 0; }

@@ -1,2 +1,0 @@
-LICENSE=http://jspoker.pokersource.info/ GPL v3+
-AUTHOR=Loic Dachary <loic@dachary.org>
