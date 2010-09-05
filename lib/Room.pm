@@ -40,11 +40,28 @@ $VERSION = eval $VERSION;
 
 __PACKAGE__->config(
     name => 'Room',
+    
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
     
     static => {
         ignore_extensions => [ qw/asp php/ ],
+    },
+
+    'Controller::HTML::FormFu' => {
+      constructor => {
+          tt_args => {
+              ENCODING => 'UTF-8',
+              INCLUDE_PATH => [
+                __PACKAGE__->path_to( 'root', 'formfu' ),
+              ],
+          },
+          render_method => "tt",
+      },
+    },
+    
+    'View::TT' => {
+        ENCODING => 'UTF-8',
     },
 );
 
