@@ -1,3 +1,4 @@
+#jpokerRebuy .ui-dialog-buttonpane button,
 .jpoker_table .jpoker_ptable_muck_deny,
 .jpoker_table .jpoker_ptable_muck_accept,
 .jpoker_table .jpoker_ptable_check,
@@ -28,6 +29,7 @@
   width: auto;
 }
 
+#jpokerRebuy .ui-dialog-buttonpane button,
 .jpoker_table .jpoker_ptable_muck_deny a,
 .jpoker_table .jpoker_ptable_muck_accept a,
 .jpoker_table .jpoker_ptable_check a,
@@ -63,6 +65,10 @@
   border-bottom: 1px solid rgba(0,0,0,0.25);
   height: auto;
   width: auto;
+}
+
+#jpokerRebuy .ui-dialog-buttonpane button {
+  background-color: #567300;
 }
 
 .jpoker_table .jpoker_ptable_muck_deny {
