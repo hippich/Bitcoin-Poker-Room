@@ -34,9 +34,16 @@ elements:
       - type: Callback
         message: User with such email already exists. <a href='/user/forgot'>Forgot password?</a>
 
+  - type: reCAPTCHA
+    name: recaptcha
+    public_key: 6Lds1LwSAAAAANbJelYz_47WQFRKbiVfjD3YXMHX
+    private_key: 6Lds1LwSAAAAAElmpFToH8Knj8py8cqHD-0Fihnx
+    recaptcha_options:
+      theme: white
+
   - type: Submit
     value: Register
     name: submit
-
+    
 constraints:
   - SingleValue
