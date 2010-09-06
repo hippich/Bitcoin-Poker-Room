@@ -43,12 +43,10 @@ sub send_to_address {
   # not string, in following JSON-RPC request
   $amount += 0;
   
-  my $res = $self->__send_json_request({
-      method => 'sendtoaddress',
-      params => [$address, $amount],
-  });
-  
-  return $res;
+  return $self->__send_json_request({
+              method => 'sendtoaddress',
+              params => [$address, $amount],
+         });
 }
 
 

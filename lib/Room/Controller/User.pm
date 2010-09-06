@@ -216,7 +216,7 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
 
     my $result = $c->model("BitcoinServer")->send_to_address($address, $amount);
     
-    if ($result) {
+#    if ($result) {
       $balance->amount(
         $balance->amount() - $amount
       );
@@ -228,10 +228,10 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
       $c->res->redirect(
         $c->uri_for('/user')
       );
-    }
-    else {
-      push @{$c->stash->{errors}}, "Something wrong. Bitcoins NOT sent.";
-    }
+#    }
+#    else {
+#      push @{$c->stash->{errors}}, "Something wrong. Bitcoins NOT sent.";
+#    }
   }
 }
 
