@@ -226,7 +226,7 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
       created_at => DateTime->now,
     });
 
-#    if ($result) {
+    if ($result->{content}->{result} eq 'sent') {
       $balance->amount(
         $balance->amount() - $amount
       );
@@ -242,10 +242,10 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
       $c->res->redirect(
         $c->uri_for('/user')
       );
-#    }
-#    else {
-#      push @{$c->stash->{errors}}, "Something wrong. Bitcoins NOT sent.";
-#    }
+    }
+    else {
+      push @{$c->stash->{errors}}, "Something wrong. Bitcoins NOT sent. Admin notified. If you will not receive bitcoins in 24 hours, please contact us.";
+    }
   }
 }
 
