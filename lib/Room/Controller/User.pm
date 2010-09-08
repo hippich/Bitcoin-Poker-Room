@@ -239,13 +239,14 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
 
       push @{$c->flash->{messages}}, "Bitcoins sent.";
 
-      $c->res->redirect(
-        $c->uri_for('/user')
-      );
     }
     else {
-      push @{$c->stash->{errors}}, "We received your withdrawal request and will process it ASAP. If you will not receive bitcoins in 24 hours, please contact us.";
+      push @{$c->flash->{errors}}, "We received your withdrawal request and will process it ASAP. If you will not receive bitcoins in 24 hours, please contact us.";
     }
+    
+    $c->res->redirect(
+      $c->uri_for('/user')
+    );
   }
 }
 
