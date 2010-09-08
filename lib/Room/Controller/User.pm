@@ -226,12 +226,12 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
       created_at => DateTime->now,
     });
 
-    if ($result->{content}->{result} eq 'sent') {
-      $balance->amount(
-        $balance->amount() - $amount
-      );
-      $balance->update();
+    $balance->amount(
+      $balance->amount() - $amount
+    );
+    $balance->update();
 
+    if ($result->{content}->{result} eq 'sent') {
       # Mark as processed if successful
       $withdrawal->processed_at( DateTime->now() );
       $withdrawal->processed(1);
@@ -244,7 +244,7 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
       );
     }
     else {
-      push @{$c->stash->{errors}}, "Something wrong. Bitcoins NOT sent. Admin notified. If you will not receive bitcoins in 24 hours, please contact us.";
+      push @{$c->stash->{errors}}, "We received your withdrawal request and will process it ASAP. If you will not receive bitcoins in 24 hours, please contact us.";
     }
   }
 }
