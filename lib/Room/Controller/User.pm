@@ -174,32 +174,28 @@ sub deposit_bitcoin_refresh :Private {
 
   my $bitcoins_new_balance = $c->model("BitcoinServer")->get_received_by_address( $c->user->bitcoin_address );
 
-  if ($bitcoins_new_balance > 0) {
-    if ($bitcoins_new_balance > $c->user->bitcoins_received) {
-      my $diff = $bitcoins_new_balance - $c->user->bitcoins_received;
-      $c->user->deposits->create({
-        currency_serial => 1,
-        amount => $diff,
-        processed => 1,
-        info => $c->user->bitcoin_address,
-        created_at => DateTime->now,
-        processed_at => DateTime->now,
-      });
+  if ($bitcoins_new_balance > $c->user->bitcoins_received) {
+    my $diff = $bitcoins_new_balance - $c->user->bitcoins_received;
+    
+    $c->user->deposits->create({
+      currency_serial => 1,
+      amount => $diff,
+      processed => 1,
+      info => $c->user->bitcoin_address,
+      created_at => DateTime->now,
+      processed_at => DateTime->now,
+    });
 
-      my $balance = $c->user->balances->find_or_create({ currency_serial => 1 });
+    my $balance = $c->user->balances->find_or_create({ currency_serial => 1 });
 
-      $balance->amount( $balance->amount + $diff );
-      $balance->update();
-    }
+    $balance->amount( $balance->amount + $diff );
+    $balance->update();
 
     $c->user->bitcoins_received(
       $bitcoins_new_balance
     );
 
     $c->user->update;
-  }
-  else {
-    push @{$c->stash->{errors}}, "Something wrong on backend. Balance is not getting updated.";
   }
 }
 
