@@ -2,6 +2,7 @@ package Room::Controller::User;
 use Moose;
 use namespace::autoclean;
 use DateTime;
+use Data::Dumper;
 
 BEGIN {extends 'Catalyst::Controller::HTML::FormFu'; }
 
@@ -215,13 +216,26 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
     }
 
     my $result = $c->model("BitcoinServer")->send_to_address($address, $amount);
-    
+
+    # Create withdrawal record for tracking purposes.
+    my $withdrawal = $c->user->withdrawals->create({
+      currency_serial => 1,
+      amount => $amount,
+      info => $address . "\n" . Dumper($result),
+      created_at => DateTime->now,
+    });
+
 #    if ($result) {
       $balance->amount(
         $balance->amount() - $amount
       );
 
       $balance->update();
+
+      # Mark as processed if successful
+      $withdrawal->processed_at( DateTime->now() );
+      $withdrawal->processed(1);
+      $withdrawal->update();
 
       push @{$c->flash->{messages}}, "Bitcoins sent.";
 
