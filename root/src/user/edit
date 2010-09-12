@@ -1,1 +1,3 @@
+[% META title = 'Edit account' %]
+
 [% form %]
