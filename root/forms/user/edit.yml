@@ -1,0 +1,47 @@
+---
+indicator: submit
+auto_fieldset: 1
+
+elements:
+
+  - type: Password
+    name: password
+    label: New password
+    comment: leave empty to no change password
+    constraints:
+      - type: Equal
+        others: repeat_password
+
+  - type: Password
+    name: repeat_password
+    comment: leave empty to no change password
+    label: Repeat new password
+
+  - type: Text
+    name: email
+    label: E-Mail
+    comment: Not required, but could be used to retrieve lost password
+    constraints:
+      - Email
+      - type: Callback
+        message: User with such email already exists.
+
+  - type: Password
+    name: old_password
+    label: Old password
+    comment: Required to save changes
+    constraints:
+      - Required
+      - type: Callback
+        message: Incorrect old password.
+
+  - type: Submit
+    value: Save
+    name: submit
+
+  - type: Submit
+    value: Cancel
+    name: cancel
+
+constraints:
+  - SingleValue

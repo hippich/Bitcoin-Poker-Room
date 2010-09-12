@@ -139,13 +139,74 @@ sub register :Local :Args(0) :FormConfig {
     if ( $form->params->{email} ) {
       $user->email( $form->params->{email} );
     }
-    
+
     $user->insert();
 
     push @{$c->flash->{messages}}, "Account successfully created. Please, login with your details.";
 
     $c->res->redirect(
       $c->uri_for('/user/login')
+    );
+  }
+}
+
+
+
+sub edit :Local :Args(0) :FormConfig {
+  my ( $self, $c ) = @_;
+
+  my $form = $c->stash->{form};
+  
+  $form->get_field({ name => 'email' })->default(
+    $c->user->email
+  );
+
+  # If 'Cancel' button pressed - redirect to /user page
+  if ($c->req->param('cancel')) {
+    $c->res->redirect(
+      $c->uri_for('/user')
+    );
+  }
+
+  if ($form->submitted_and_valid) {
+
+    if (! $c->get_auth_realm('default')->credential->check_password($c->user, {password => $form->params->{old_password}})) {
+      $form->get_field("old_password")->get_constraint({ type => "Callback" })->force_errors(1);
+      $form->process();
+      return;
+    }
+    
+    if ($form->params->{email} ne '') {
+      my $user_rs = $c->model("PokerNetwork::Users")->search({
+        email => $form->params->{email},
+        -not => {
+          serial => $c->user->serial()
+        },
+      });
+      
+      if ( $user_rs->count() > 0 ) {
+        $form->get_field("email")->get_constraint({ type => "Callback" })->force_errors(1);
+        $form->process();
+        return;
+      }
+
+      $c->user->email(
+        $form->params->{email}
+      );
+    }
+
+    if ($form->params->{password} != '') {
+      $c->user->password(
+        $form->params->{password}
+      );
+    }
+
+    $c->user->update();
+
+    push @{$c->flash->{messages}}, "Account successfully updated.";
+
+    $c->res->redirect(
+      $c->uri_for('/user')
     );
   }
 }

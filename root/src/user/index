@@ -1,10 +1,21 @@
 [% META title = 'User account' %]
 
+<h2 class="account-info">Account <span><sup><a href="[% c.uri_for('/user/edit') %]">Edit</a></sup></span></h2>
+
+<ul>
+  <li><strong>Username:</strong> [% c.user.name %]</li>
+  <li><strong>Email:</strong> [% c.user.email %]</li>
+  <li><strong>Password:</strong> ***********</li>
+</ul>
+
 
 <h2>Your balance</h2>
 
 <ul class="user-balances">
   [% FOR balance IN c.user.balances %]
-    <li>[% balance.currency.symbol %][% balance.amount | format('%.2f') %]</li>
+    <li>
+      [% balance.currency.symbol %][% balance.amount | format('%.2f') %]
+      - <span><a href="[% c.uri_for('/user/deposit/bitcoin') %]">Deposit</a></span>
+    </li>
   [% END %]
 </ul>

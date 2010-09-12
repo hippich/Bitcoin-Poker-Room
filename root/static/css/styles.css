@@ -95,3 +95,14 @@ form label {
   width: 150px;
   display: inline-block;
 }
+
+h2.account-info span {
+  font-size: 14px;
+  font-weight: normal;
+  position: relative;
+  top: -5px;
+}
+
+form div.submit {
+  float: left;
+}
