@@ -1,10 +1,30 @@
 (function($) {
 
-        $.ajax_queue = $.ajax,
-        pendingRequests = {},
-        synced = [],
-        syncedData = [],
-        ajaxRunning = [];
+    $.ajax_queue = $.ajax,
+    pendingRequests = {},
+    synced = [],
+    syncedData = [],
+    ajaxRunning = [];
+
+    var max_tries = 5;
+    var try_timeout = 5000;
+    var tries = [];
+    var ajax_call_with_retries = function(settings) {
+      settings.timeout = try_timeout;
+      settings.error = function(req, status, error) {
+        if (status == 'timeout') {
+          tries[settings.url]++;
+          if (tries[settings.url] > max_tries) {
+            return;
+          }
+          else {
+            $.ajax_queue(settings);
+          }
+        }
+      }
+      
+      $.ajax_queue(settings);
+    }
 
 
     $.ajax = function(settings) {
@@ -20,7 +40,7 @@
                 return pendingRequests[port] = $.ajax_queue.apply(this, arguments);
                 
             case "direct":
-                $.ajax_queue(settings);
+                ajax_call_with_retries(settings);
                 return;
                 
             case "queue":
