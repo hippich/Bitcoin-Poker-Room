@@ -10,6 +10,7 @@
     var try_timeout = 5000;
     var tries = [];
     var ajax_call_with_retries = function(settings) {
+      tries[settings.url] = 0;
       var old_error_handle = settings.error;
       settings.timeout = try_timeout;
       settings.error = function(req, status, error) {
