@@ -10,16 +10,21 @@
     var try_timeout = 5000;
     var tries = [];
     var ajax_call_with_retries = function(settings) {
+      var old_error_handle = settings.error;
       settings.timeout = try_timeout;
       settings.error = function(req, status, error) {
         if (status == 'timeout') {
           tries[settings.url]++;
           if (tries[settings.url] > max_tries) {
+            old_error_handle(req, status, error);
             return;
           }
           else {
             $.ajax_queue(settings);
           }
+        }
+        else {
+          old_error_handle(req, status, error);
         }
       }
       
