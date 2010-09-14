@@ -3,6 +3,9 @@ use Moose;
 use namespace::autoclean;
 use DateTime;
 use Data::Dumper;
+use URI::Escape qw(uri_escape);
+use Digest::MD5 qw(md5_hex);
+
 
 BEGIN {extends 'Catalyst::Controller::HTML::FormFu'; }
 
@@ -309,6 +312,31 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
       $c->uri_for('/user')
     );
   }
+}
+
+
+
+sub AVATAR :Global :Args(1) {
+  my ($self, $c, $uid) = @_;
+
+  my $user = $c->model("PokerNetwork::Users")->find($uid);
+  my $default = uri_escape($c->uri_for(
+      "/user/no_avatar/". $uid
+  ));
+
+  if ($user && $user->email) {
+    my $grav_url = "http://www.gravatar.com/avatar/".md5_hex(lc $user->email)."?d=". $default ."&s=". $c->config->{gravatar_size};
+    $c->res->redirect($grav_url);
+  }
+}
+
+
+sub no_avatar :Local :Args(1) {
+  my ($self, $c, $uid) = @_;
+
+  $c->res->redirect(
+    $c->uri_for("/static/css/images/jpoker_table/avatar". ($uid % 19) .".png")
+  );
 }
 
 =head1 AUTHOR

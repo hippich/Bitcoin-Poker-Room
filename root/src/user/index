@@ -1,5 +1,12 @@
 [% META title = 'User account' %]
 
+<div class="profile-avatar">
+  <img src="[% c.uri_for("/AVATAR/" _ c.user.serial) %]" alt="[% c.user.name %] picture" />
+  <br />
+  <p>To change your avatar, make sure you have valid email set in your account
+  and change your picture on <a href="http://gravatar.com/emails/" target="_blank">gravatar.com</a></p>
+</div>
+
 <h2 class="account-info">Account <span><sup><a href="[% c.uri_for('/user/edit') %]">Edit</a></sup></span></h2>
 
 <ul>

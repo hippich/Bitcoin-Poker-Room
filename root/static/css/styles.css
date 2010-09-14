@@ -106,3 +106,10 @@ h2.account-info span {
 form div.submit {
   float: left;
 }
+
+.profile-avatar {
+  width: 200px;
+  float: right;
+  text-align: right;
+  margin-top: 20px;
+}
