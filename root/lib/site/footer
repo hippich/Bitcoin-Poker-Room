@@ -4,6 +4,7 @@
       <li class='first'><a href='[% c.uri_for('/') %]'>Home</a></li>
       <li><a href='[% c.uri_for('/credits') %]'>Credits</a></li>
       <li><a href='http://github.com/hippich/Bitcoin-Poker-Room/archives/master'>Download sources</a></li>
+      <li><a href='http://github.com/hippich/Bitcoin-Poker-Room/issues'>Report bugs</a></li>
       <li class='last'><a href='[% c.uri_for('/contactus') %]'>Contact Us</a></li>
   </ul>
 </div>
