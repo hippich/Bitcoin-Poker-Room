@@ -192,13 +192,13 @@ sub edit :Local :Args(0) :FormConfig {
         $form->process();
         return;
       }
-
-      $c->user->email(
-        $form->params->{email}
-      );
     }
+    
+    $c->user->email(
+      $form->params->{email}
+    );
 
-    if ($form->params->{password} != '') {
+    if ($form->params->{password} ne '') {
       $c->user->password(
         $form->params->{password}
       );
