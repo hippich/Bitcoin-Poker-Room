@@ -2204,12 +2204,13 @@
                 break;
 
                 case 'PacketPokerStart':
-                this.action = '';
-                this.all_in = false;
-                for(var k = 0; k < this.cards.length; k++) {
-                    this.cards[k] = null;
-                }
-                this.notifyUpdate(packet);
+                  this.action = '';
+                  this.all_in = false;
+                  for(var k = 0; k < this.cards.length; k++) {
+                      this.cards[k] = null;
+                  }
+                  $(".jpoker_auto_action input").removeAttr("checked");
+                  this.notifyUpdate(packet);
                 break;
 
                 case 'PacketPokerBeginRound':
