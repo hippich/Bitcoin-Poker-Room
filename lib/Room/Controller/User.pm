@@ -328,6 +328,10 @@ sub AVATAR :Global :Args(1) {
     my $grav_url = "http://www.gravatar.com/avatar/".md5_hex(lc $user->email)."?d=". $default ."&s=". $c->config->{gravatar_size};
     $c->res->redirect($grav_url);
   }
+  else {
+    $c->response->body( 'Page not found' );
+    $c->response->status(404);
+  }
 }
 
 
