@@ -329,8 +329,7 @@ sub AVATAR :Global :Args(1) {
     $c->res->redirect($grav_url);
   }
   else {
-    $c->response->body( 'Page not found' );
-    $c->response->status(404);
+    no_avatar($self, $c, $uid);
   }
 }
 
