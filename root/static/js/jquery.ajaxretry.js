@@ -23,7 +23,7 @@
 		DEF_DELAY_FUNC = function(i){
 			return Math.floor(Math.random() * ((2 << i) - 1));
 		},
-		DEF_ERROR_CODES = [502,503,504],
+		DEF_ERROR_CODES = [0,1,502,503,504],
 		DEF_SLOT_TIME = 1000,
 		DEF_OPTS = {
 			attempts: DEF_ATTEMPTS,

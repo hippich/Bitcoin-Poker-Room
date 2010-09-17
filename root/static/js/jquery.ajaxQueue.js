@@ -6,44 +6,6 @@
     syncedData = [],
     ajaxRunning = [];
 
-    var max_tries = 5;
-    var try_timeout = 5000;
-    var tries = [];
-    var ajax_call_with_retries = function(settings) {
-      tries[settings.url] = 0;
-      var old_error_handle = settings.error;
-      var old_success_handle = settings.success;
-      
-      settings.timeout = try_timeout;
-      settings.error = function(req, status, error) {
-        if (status == 'timeout') {
-          tries[settings.url]++;
-          if (tries[settings.url] > max_tries) {
-            old_error_handle(req, status, error);
-            settings.success = old_success_handle;
-            settings.error = old_error_handle;
-            return;
-          }
-          else {
-            $.ajax_queue(settings);
-          }
-        }
-        else {
-          settings.success = old_success_handle;
-          settings.error = old_error_handle;
-          old_error_handle(req, status, error);
-        }
-      }
-      settings.success = function(data, status, req) {
-        settings.success = old_success_handle;
-        settings.error = old_error_handle;
-        old_success_handle(data, status, req);
-      }
-      
-      $.ajax_queue(settings);
-    }
-
-
     $.ajax = function(settings) {
         // create settings for compatibility with ajaxSetup
         settings = jQuery.extend(settings, jQuery.extend({}, jQuery.ajaxSettings, settings));
@@ -57,10 +19,12 @@
                 return pendingRequests[port] = $.ajax_queue.apply(this, arguments);
                 
             case "direct":
-                ajax_call_with_retries(settings);
+                settings.retry = 1;
+                $.ajax_queue(settings);
                 return;
                 
             case "queue":
+                settings.retry = 1;
                 var _old = settings.complete;
                 settings.complete = function() {
                     if (_old) {
