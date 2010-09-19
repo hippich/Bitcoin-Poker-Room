@@ -10,5 +10,21 @@ var table_profile = {
 };
 
 $(function() {
-    $(".popup-window").popupwindow(table_profile);
+    attach_behaviors($("html"));
+    setTimeout("refresh_tables()", 15000);
 });
+
+
+var refresh_tables = function() {
+    $("table.tables-list").load(
+      "/tables table.tables-list > *",
+      function() {
+        attach_behaviors($("table.tables-list"));
+      }
+    );
+    setTimeout("refresh_tables()", 15000);
+}
+
+var attach_behaviors = function(c) {
+  $(".popup-window", c).popupwindow(table_profile);
+}

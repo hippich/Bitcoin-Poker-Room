@@ -1,6 +1,6 @@
 [% META title = 'Tables list' %]
 
-<table>
+<table class='tables-list'>
   <tr>
     <th>Name</th>
     <th>Variant</th>
@@ -19,8 +19,3 @@
 
 </table>
 
-<script language="JavaScript">
-<!--
-    setTimeout( "location.reload()", 15*1000 );
-//-->
-</script>
