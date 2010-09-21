@@ -75,7 +75,15 @@
 
 			// Override error function
 			settings.error = function(xhr_obj, textStatus, errorThrown){
-				var can_retry = 0 <= $.inArray(xhr_obj.status, opts.error_codes);
+        var can_retry;
+
+        try {
+          can_retry = 0 <= $.inArray(xhr_obj.status, opts.error_codes);
+        }
+        catch (err) {
+          can_retry = 1;
+        }
+        
 				failures++;
 				if (!can_retry || failures >= opts.attempts) {
 					// Give up and call the original error function
