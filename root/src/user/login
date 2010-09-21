@@ -2,3 +2,7 @@
 
 
 [% form %]
+
+<p class='forgot-password'>
+  <a href='[% c.uri_for('/user/forgot_password') %]'>Forgot password?</a>
+</p>
