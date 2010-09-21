@@ -5,6 +5,7 @@ use DateTime;
 use Data::Dumper;
 use URI::Escape qw(uri_escape);
 use Digest::MD5 qw(md5_hex);
+use String::Random;
 
 
 BEGIN {extends 'Catalyst::Controller::HTML::FormFu'; }
@@ -24,7 +25,7 @@ Catalyst Controller.
 sub auto :Private {
   my ($self, $c) = @_;
 
-  if (!$c->user && $c->action->private_path !~ /user\/(login|register)/) {
+  if (!$c->user && $c->action->private_path !~ /user\/(login|register|forgot_password|reset_password)/) {
     $c->res->redirect(
       $c->uri_for('/user/login', '', {'destination' => $c->action,})
     );
@@ -146,6 +147,79 @@ sub register :Local :Args(0) :FormConfig {
     $user->insert();
 
     push @{$c->flash->{messages}}, "Account successfully created. Please, login with your details.";
+
+    $c->res->redirect(
+      $c->uri_for('/user/login')
+    );
+  }
+}
+
+
+
+sub forgot_password :Local :Args(0) :FormConfig {
+  my ($self, $c) = @_;
+
+  if ($c->user) {
+    $c->response->redirect(
+      $c->uri_for('/user')
+    );
+  }
+
+  my $form = $c->stash->{form};
+
+  if ($form->submitted_and_valid) {
+    my $user = $c->model("PokerNetwork::Users")->search({ email => $form->params->{email} })->first;
+
+    if (! $user) {
+      $form->get_field("email")->get_constraint({ type => "Callback" })->force_errors(1);
+      $form->process();
+      return;
+    }
+
+    my $gen = new String::Random;
+    my $key = unpack('h*', $gen->randpattern('b'x10));
+
+    $c->log->debug("Random key generated: ". $key);
+    
+    $user->request_password($key);
+    $user->update();
+
+    # This is ugly. Need to refactor somehow later
+    my $message = "Someone requested to reset your password at ". $c->uri_for('/') ."\n\nTo reset password, please open (or copy/paste) this URL: ". $c->uri_for('/user/reset_password', $user->id, $key) ."\n\nIf this was not you, just ignore this email.";
+
+    $c->log->debug($message);
+
+    $c->email(
+        header => [
+            From    => $c->config->{site_email},
+            To      => $user->email,
+            Subject => 'Password reset link.'
+        ],
+        body => $message,
+    );
+
+    $c->stash->{email} = $user->email;
+  }
+}
+
+
+
+sub reset_password :Local :Args(2) :FormConfig {
+  my ($self, $c, $id, $key) = @_;
+
+  my $user = $c->model("PokerNetwork::Users")->find($id);
+  
+  if (!defined($user) || !defined($user->request_password) || $user->request_password ne $key) {
+    $c->detach( '/default' );
+  }
+
+  my $form = $c->stash->{form};
+
+  if ($form->submitted_and_valid) {
+    $user->password( $form->params->{password} );
+    $user->update();
+    
+    push @{$c->flash->{messages}}, "Password successfully reset.";
 
     $c->res->redirect(
       $c->uri_for('/user/login')

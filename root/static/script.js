@@ -11,7 +11,10 @@ var table_profile = {
 
 $(function() {
     attach_behaviors($("html"));
-    setTimeout("refresh_tables()", 15000);
+
+    if ($("table.tables-list").length > 0) {
+      setTimeout("refresh_tables()", 15000);
+    }
 });
 
 

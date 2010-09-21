@@ -130,7 +130,7 @@ __PACKAGE__->inflate_column(
 );
 
 __PACKAGE__->add_json_columns(
-  data => qw/bitcoin_address bitcoins_received/,
+  data => qw/bitcoin_address bitcoins_received request_password/,
 );
 
 __PACKAGE__->has_many(

@@ -31,6 +31,8 @@ requires 'DBIx::Class::FrozenColumns';
 requires 'DBIx::Class::FilterColumn';
 requires 'DBIx::Class::EncodedColumn';
 requries 'Hash::AsObject';
+requires 'String::Random';
+requires 'Catalyst::Plugin::Email';
 
 
 

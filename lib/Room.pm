@@ -22,6 +22,7 @@ use Catalyst qw/
     Session::State::Cookie
     Authentication
     RequireSSL
+    Email
 /;
 
 extends 'Catalyst';
@@ -64,6 +65,8 @@ __PACKAGE__->config(
         ENCODING => 'UTF-8',
     },
 );
+
+__PACKAGE__->config->{email} = [qw/Sendmail/];
 
 # Start the application
 __PACKAGE__->setup();
