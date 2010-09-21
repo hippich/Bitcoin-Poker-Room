@@ -29,19 +29,6 @@ The root page (/)
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-    
-    if (! $c->user) {
-      push @{$c->flash->{messages}}, "Please, login or create new user account.";
-      $c->res->redirect(
-        $c->uri_for('/user/login')
-      );
-      
-      return;
-    }
-
-    $c->res->redirect(
-      $c->uri_for('/tables')
-    );
 }
 
 

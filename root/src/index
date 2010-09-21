@@ -1,0 +1,35 @@
+[% META title = 'Bitcoin Poker Room' %]
+
+<h2>Welcome</h2>
+
+<p>Bitcoin Poker Room is intended as a place where poker fans can play
+with their friends for free.</p>
+
+<p>In order to keep the game fair we decided to leverage digital virtual
+currency Bitcoin. Essentially, after you download Bitcoin client program
+you can generate "coins" which later you can spend in this poker room.</p>
+
+<p>Since generation of "coins" depends on the amount of time spent generating them
+we effectively eliminate bad players who disturb game. For example, it's no
+longer possible for someone to enter a game, go All-in in the first round
+and, once lost everything, re-register a new account and repeat it all over.</p>
+
+<p>You can download Bitcoin client software for bitcoins generation from
+<a href="http://www.bitcoin.org" target="_blank">http://www.bitcoin.org</a></p>
+
+<p>We do not collect any information about players, except for user name, password
+and, optionally, an email.</p>
+
+<p>We are trying to make this poker room work through Tor as well, but keep in
+mind, that Tor sometimes drops connection and it is possible that poker room will
+become unstable.</p>
+
+<p>This project is fully open source under AGPLv3+ (server code) and
+GPLv3+ (html/css/js code) licenses. You can download the latest version following
+"Download sources" in the footer links.</p>
+
+<p>Also, we really appreciate any bug reports. Please, follow the link "Report bugs"
+in the footer to report a bug in the room.</p>
+
+<p>Any suggestions are also welcome. Please, send any questions, suggestions,
+etc to <a href="mailto:pavel@yepcorp.com">pavel@yepcorp.com</a></p>
