@@ -22,6 +22,13 @@ __PACKAGE__->add_columns(
   { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
   "amount",
   { data_type => "FLOAT", default_value => undef, is_nullable => 0, size => 32 },
+  "dest",
+  {
+    data_type => "TEXT",
+    default_value => undef,
+    is_nullable => 0,
+    size => 65535,
+  },
   "processed",
   { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
   "info",
@@ -49,11 +56,30 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("withdrawal_id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-08-27 00:26:16
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nYMqD42mDY/Xjv5gJjwbfg
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zBp+6xGtv50a4dieZcH+zw
 
+__PACKAGE__->add_columns(
+  "processed_at",
+  {
+    data_type => "DATETIME",
+    default_value => undef,
+    is_nullable => 0,
+    size => 19,
+    datetime_undef_if_invalid => 1,
+  },
+);
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->has_one(
+  'currency' => 'Room::Schema::PokerNetwork::Result::Currencies',
+  { 'foreign.serial' => 'self.currency_serial' },
+);
+
+__PACKAGE__->has_one(
+  'user' => 'Room::Schema::PokerNetwork::Result::Users',
+  { 'foreign.serial' => 'self.user_serial' },
+);
+
 
 =head1 AUTHOR
 

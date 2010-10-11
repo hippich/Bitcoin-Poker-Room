@@ -8,6 +8,7 @@ use base 'DBIx::Class';
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
   "FrozenColumns",
+  "FilterColumn",
   "EncodedColumn",
   "Core",
 );
@@ -95,8 +96,8 @@ __PACKAGE__->set_primary_key("serial");
 __PACKAGE__->add_unique_constraint("email_idx", ["email"]);
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-08-26 21:04:22
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4TfnDhaW/o97I6JP9kbmcw
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vEdFh5CdQczNMcB+q/BW4A
 
 use JSON::XS;
 use Hash::AsObject;

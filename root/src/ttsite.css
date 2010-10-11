@@ -1,0 +1,45 @@
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: [% site.col.page %];
+    color: [% site.col.text %];
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+#header {
+    background-color: [% site.col.head %];
+    border-bottom: 1px solid [% site.col.line %];
+}
+
+#footer {
+    background-color: [% site.col.head %];
+    text-align: center;
+    border-top: 1px solid [% site.col.line %];
+    position: absolute;
+    bottom: 0;
+    left: 0px;
+    width: 100%;
+    padding: 4px;
+}
+
+#content {
+    padding: 10px;
+}
+
+h1.title {
+    padding: 4px;
+    margin: 0px;
+}
+
+.message {
+    color: [% site.col.message %];
+}
+
+.error {
+    color: [% site.col.error %];
+}

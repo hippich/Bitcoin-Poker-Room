@@ -179,8 +179,6 @@ sub forgot_password :Local :Args(0) :FormConfig {
     my $gen = new String::Random;
     my $key = unpack('h*', $gen->randpattern('b'x10));
 
-    $c->log->debug("Random key generated: ". $key);
-    
     $user->request_password($key);
     $user->update();
 
@@ -360,7 +358,8 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
     my $withdrawal = $c->user->withdrawals->create({
       currency_serial => 1,
       amount => $amount,
-      info => $address . "\n" . Dumper($result),
+      dest => $address,
+      info => Dumper($result),
       created_at => DateTime->now,
     });
 

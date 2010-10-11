@@ -1,0 +1,10 @@
+[% META title = 'Admin dashboard' %]
+[% PROCESS admin/admin_submenu %]
+
+<dl>
+  <dt>Current Bitcoin balance:</dt>
+  <dd>[% bitcoin_balance %]</dd>
+  
+  <dt>Current In Game Bitcoin accounts total balance:</dt>
+  <dd>[% total_ingame_balance %]</dd>
+</dl>

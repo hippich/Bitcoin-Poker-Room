@@ -1,0 +1,33 @@
+[% META title = 'Withdrawals' %]
+[% PROCESS admin/admin_submenu %]
+
+<table class='withdrawals'>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User</th>
+      <th>Currency</th>
+      <th>Amount</th>
+      <th>Created</th>
+      <th>Processed</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    [% WHILE (withdrawal = withdrawals.next) %]
+        <tr>
+          <td>[% withdrawal.id %]</td>
+          <td><a href="[% c.uri_for("/admin/user/" _ withdrawal.user.serial) %]">[% withdrawal.user.name %]</a></td>
+          <td>[% withdrawal.currency.name %]</td>
+          <td>[% withdrawal.amount %]</td>
+          <td>[% withdrawal.created_at %]</td>
+          <td>[% withdrawal.processed_at %]</td>
+          <td>
+            <ul class='actions-list'>
+              <li><a href="[% c.uri_for('/admin/withdrawal/' _ withdrawal.id) %]">View</a></li>
+            </ul>
+          </td>
+        </tr>
+    [% END %]
+  </tbody>
+</table>

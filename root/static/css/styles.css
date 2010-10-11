@@ -113,3 +113,41 @@ form div.submit {
   text-align: right;
   margin-top: 20px;
 }
+
+table {
+  width: 100%;
+}
+
+table td {
+  vertical-align: top;
+}
+
+.withdrawal-additional-info textarea {
+  width: 700px;
+  height: 300px;
+}
+
+.clear {
+  width: 100%;
+  height: 0px;
+  clear: both;
+  font-size: 1px;
+  overflow: hidden;
+}
+
+
+.withdrawal-info {
+  width: 30%;
+  float: left;
+}
+
+.withdrawal-additional-info {
+  width: 68%;
+  float: right;
+}
+
+.admin_submenu {
+  width: 200px;
+  margin-left: 40px;
+  float: right;
+}

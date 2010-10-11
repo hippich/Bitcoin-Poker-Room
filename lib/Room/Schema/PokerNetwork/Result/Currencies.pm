@@ -30,8 +30,8 @@ __PACKAGE__->add_unique_constraint("serial", ["serial"]);
 __PACKAGE__->add_unique_constraint("url", ["url"]);
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-08-27 00:26:16
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:i6Ef4a/aqKYXOmKQohg07Q
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ynw3BuTq4Lam7wqlj4aHXw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

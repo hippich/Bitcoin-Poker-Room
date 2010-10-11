@@ -73,8 +73,8 @@ __PACKAGE__->set_primary_key("serial");
 __PACKAGE__->add_unique_constraint("name", ["name"]);
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-08-27 00:26:16
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+bA/P9NZKkRRK9sTb/gsqg
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0zRzp3wUR4KVXGCdR92Wjg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

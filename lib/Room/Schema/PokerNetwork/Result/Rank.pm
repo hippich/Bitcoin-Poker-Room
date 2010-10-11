@@ -28,8 +28,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("user_serial", "currency_serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-08-27 00:26:16
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:gWnYdOCqtXIsUKvUPcjJ7g
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:V1zc+S6P61UTtDMsZevlfw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

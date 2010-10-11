@@ -62,6 +62,18 @@ sub get_new_address {
 }
 
 
+sub get_balance {
+  my $self = shift;
+
+  my $res = $self->__send_json_request({
+      method => 'getbalance',
+      params => [],
+  });
+
+  return $res->{content}->{result};
+}
+
+
 sub __send_json_request {
   my ($self, $obj) = @_;
  
