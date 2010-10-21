@@ -33,6 +33,9 @@ requires 'DBIx::Class::EncodedColumn';
 requries 'Hash::AsObject';
 requires 'String::Random';
 requires 'Catalyst::Plugin::Email';
+requires 'Log::Handler';
+requires 'Catalyst::Plugin::LogWarnings';
+requires 'Catalyst::Plugin::Log::Handler' => '0.08';
 
 
 

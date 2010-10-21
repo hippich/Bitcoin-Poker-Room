@@ -1,0 +1,883 @@
+Oct 20 23:00:07 [WARNING] RequireSSL: Disabling SSL redirection while running under Catalyst::Engine::HTTP=HASH(0x42ba540)
+Oct 20 23:00:46 [WARNING] Use of uninitialized value $bitcoins_new_balance in numeric gt (>) at /home/pavel/projects/bitcoin_poker/Room/script/../lib/Room/Controller/User.pm line 313.
+Oct 20 23:00:46 [WARNING] Use of uninitialized value $bitcoins_new_balance in numeric gt (>) at /home/pavel/projects/bitcoin_poker/Room/script/../lib/Room/Controller/User.pm line 313.
+Oct 20 23:01:12 [WARNING] RequireSSL: Disabling SSL redirection while running under Catalyst::Engine::HTTP=HASH(0x42ba048)
+Oct 20 23:01:12 [DEBUG] Loaded components:
+.-----------------------------------------------------------------+----------.
+| Class                                                           | Type     |
++-----------------------------------------------------------------+----------+
+| Room::Controller::Admin                                         | instance |
+| Room::Controller::Root                                          | instance |
+| Room::Controller::Tables                                        | instance |
+| Room::Controller::User                                          | instance |
+| Room::Model::BitcoinServer                                      | instance |
+| Room::Model::PokerNetwork                                       | instance |
+| Room::Model::PokerNetwork::Affiliates                           | class    |
+| Room::Model::PokerNetwork::ChatMessages                         | class    |
+| Room::Model::PokerNetwork::Counter                              | class    |
+| Room::Model::PokerNetwork::Currencies                           | class    |
+| Room::Model::PokerNetwork::Deposits                             | class    |
+| Room::Model::PokerNetwork::Hands                                | class    |
+| Room::Model::PokerNetwork::Messages                             | class    |
+| Room::Model::PokerNetwork::Monitor                              | class    |
+| Room::Model::PokerNetwork::Pokertables                          | class    |
+| Room::Model::PokerNetwork::Prizes                               | class    |
+| Room::Model::PokerNetwork::PrizesVersion                        | class    |
+| Room::Model::PokerNetwork::Rank                                 | class    |
+| Room::Model::PokerNetwork::RankTmp                              | class    |
+| Room::Model::PokerNetwork::Resthost                             | class    |
+| Room::Model::PokerNetwork::Route                                | class    |
+| Room::Model::PokerNetwork::Safe                                 | class    |
+| Room::Model::PokerNetwork::Server                               | class    |
+| Room::Model::PokerNetwork::Session                              | class    |
+| Room::Model::PokerNetwork::SessionHistory                       | class    |
+| Room::Model::PokerNetwork::Tourneys                             | class    |
+| Room::Model::PokerNetwork::TourneysSchedule                     | class    |
+| Room::Model::PokerNetwork::TourneysSchedule2prizes              | class    |
+| Room::Model::PokerNetwork::User2hand                            | class    |
+| Room::Model::PokerNetwork::User2money                           | class    |
+| Room::Model::PokerNetwork::User2table                           | class    |
+| Room::Model::PokerNetwork::User2tourney                         | class    |
+| Room::Model::PokerNetwork::Users                                | class    |
+| Room::Model::PokerNetwork::UsersPrivate                         | class    |
+| Room::Model::PokerNetwork::UsersTransactions                    | class    |
+| Room::Model::PokerNetwork::Withdrawal                           | class    |
+| Room::View::HTML                                                | instance |
+'-----------------------------------------------------------------+----------'
+
+Oct 20 23:01:13 [DEBUG] Loaded Private actions:
+.----------------------+--------------------------------------+--------------.
+| Private              | Class                                | Method       |
++----------------------+--------------------------------------+--------------+
+| /credits             | Room::Controller::Root               | credits      |
+| /default             | Room::Controller::Root               | default      |
+| /end                 | Room::Controller::Root               | end          |
+| /index               | Room::Controller::Root               | index        |
+| /auto                | Room::Controller::Root               | auto         |
+| /contactus           | Room::Controller::Root               | contactus    |
+| /admin/mark_canceled | Room::Controller::Admin              | mark_cancel- |
+|                      |                                      | ed           |
+| /admin/withdrawal_r- | Room::Controller::Admin              | withdrawal_- |
+| eprocess             |                                      | reprocess    |
+| /admin/mark          | Room::Controller::Admin              | mark         |
+| /admin/withdrawal_b- | Room::Controller::Admin              | withdrawal_- |
+| ase                  |                                      | base         |
+| /admin/withdrawal    | Room::Controller::Admin              | withdrawal   |
+| /admin/base          | Room::Controller::Admin              | base         |
+| /admin/withdrawals   | Room::Controller::Admin              | withdrawals  |
+| /admin/index         | Room::Controller::Admin              | index        |
+| /admin/mark_unproce- | Room::Controller::Admin              | mark_unproc- |
+| ssed                 |                                      | essed        |
+| /admin/withdrawal_i- | Room::Controller::Admin              | withdrawal_- |
+| nfo                  |                                      | info         |
+| /admin/mark_process- | Room::Controller::Admin              | mark_proces- |
+| ed                   |                                      | sed          |
+| /tables/index        | Room::Controller::Tables             | index        |
+| /tables/auto         | Room::Controller::Tables             | auto         |
+| /user/no_avatar      | Room::Controller::User               | no_avatar    |
+| /user/AVATAR         | Room::Controller::User               | AVATAR       |
+| /user/edit           | Room::Controller::User               | edit         |
+| /user/deposit_bitco- | Room::Controller::User               | deposit_bit- |
+| in                   |                                      | coin         |
+| /user/logout         | Room::Controller::User               | logout       |
+| /user/deposit_bitco- | Room::Controller::User               | deposit_bit- |
+| in_refresh           |                                      | coin_refresh |
+| /user/reset_password | Room::Controller::User               | reset_passw- |
+|                      |                                      | ord          |
+| /user/withdraw_bitc- | Room::Controller::User               | withdraw_bi- |
+| oin                  |                                      | tcoin        |
+| /user/login          | Room::Controller::User               | login        |
+| /user/register       | Room::Controller::User               | register     |
+| /user/index          | Room::Controller::User               | index        |
+| /user/auto           | Room::Controller::User               | auto         |
+| /user/forgot_passwo- | Room::Controller::User               | forgot_pass- |
+| rd                   |                                      | word         |
+'----------------------+--------------------------------------+--------------'
+
+Oct 20 23:01:13 [DEBUG] Loaded Path actions:
+.-------------------------------------+--------------------------------------.
+| Path                                | Private                              |
++-------------------------------------+--------------------------------------+
+| /                                   | /index                               |
+| /                                   | /default                             |
+| /                                   | /auto                                |
+| /AVATAR                             | /user/AVATAR                         |
+| /contactus                          | /contactus                           |
+| /credits                            | /credits                             |
+| /tables                             | /tables/index                        |
+| /user                               | /user/index                          |
+| /user/deposit/bitcoin               | /user/deposit_bitcoin                |
+| /user/edit                          | /user/edit                           |
+| /user/forgot_password               | /user/forgot_password                |
+| /user/login                         | /user/login                          |
+| /user/logout                        | /user/logout                         |
+| /user/no_avatar                     | /user/no_avatar                      |
+| /user/register                      | /user/register                       |
+| /user/reset_password                | /user/reset_password                 |
+| /user/withdraw/bitcoin              | /user/withdraw_bitcoin               |
+'-------------------------------------+--------------------------------------'
+
+Oct 20 23:01:13 [DEBUG] Loaded Chained actions:
+.-------------------------------------+--------------------------------------.
+| Path Spec                           | Private                              |
++-------------------------------------+--------------------------------------+
+| /admin                              | /admin/base (0)                      |
+|                                     | => /admin/index                      |
+| /admin/withdrawal/*/mark/canceled/- | /admin/base (0)                      |
+| ...                                 |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_canceled              |
+| /admin/withdrawal/*/mark/processed- | /admin/base (0)                      |
+| /...                                |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_processed             |
+| /admin/withdrawal/*/mark/unprocess- | /admin/base (0)                      |
+| ed/...                              |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_unprocessed           |
+| /admin/withdrawal/*                 | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal                 |
+| /admin/withdrawal/*/info            | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal_info            |
+| /admin/withdrawal/*/reprocess       | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal_reprocess       |
+| /admin/withdrawals                  | /admin/base (0)                      |
+|                                     | => /admin/withdrawals                |
+'-------------------------------------+--------------------------------------'
+
+Oct 20 23:01:13 [INFO] Room powered by Catalyst 5.80024
+Oct 20 23:01:25 [INFO] *** Request 1 (0.009/s) [6582] [Wed Oct 20 23:01:25 2010] ***
+Oct 20 23:01:25 [DEBUG] Found sessionid "e9ba178c9c808d3799979d9896c1f11bf6b6436b" in cookie
+Oct 20 23:01:25 [DEBUG] Restored session "e9ba178c9c808d3799979d9896c1f11bf6b6436b"
+Oct 20 23:01:25 [DEBUG] "GET" request for "/" from "127.0.0.1"
+Oct 20 23:01:25 [DEBUG] Path is "/"
+Oct 20 23:01:26 [DEBUG] Rendering template "index"
+Oct 20 23:01:26 [DEBUG] Found sessionid "e9ba178c9c808d3799979d9896c1f11bf6b6436b" in cookie
+Oct 20 23:01:26 [DEBUG] Restored session "e9ba178c9c808d3799979d9896c1f11bf6b6436b"
+Oct 20 23:01:26 [DEBUG] Response Code: 200; Content-Type: text/html; charset=utf-8; Content-Length: 3727
+Oct 20 23:01:26 [INFO] Request took 0.146443s (6.829/s)
+.------------------------------------------------------------+-----------.
+| Action                                                     | Time      |
++------------------------------------------------------------+-----------+
+| /auto                                                      | 0.060382s |
+| /index                                                     | 0.000143s |
+| /end                                                       | 0.068087s |
+|  -> Room::View::HTML->process                              | 0.066584s |
+'------------------------------------------------------------+-----------'
+
+Oct 20 23:01:32 [INFO] *** Request 2 (0.017/s) [6582] [Wed Oct 20 23:01:32 2010] ***
+Oct 20 23:01:32 [DEBUG] Found sessionid "e9ba178c9c808d3799979d9896c1f11bf6b6436b" in cookie
+Oct 20 23:01:32 [DEBUG] Restored session "e9ba178c9c808d3799979d9896c1f11bf6b6436b"
+Oct 20 23:01:32 [DEBUG] "GET" request for "/" from "127.0.0.1"
+Oct 20 23:01:32 [DEBUG] Query Parameters are:
+.-------------------------------------+--------------------------------------.
+| Parameter                           | Value                                |
++-------------------------------------+--------------------------------------+
+| dump_info                           | 1                                    |
+'-------------------------------------+--------------------------------------'
+Oct 20 23:01:32 [DEBUG] Path is "/"
+Oct 20 23:01:32 [ERROR] Caught exception in Room::Controller::Root->end "Forced debug - Scrubbed output at /usr/share/perl5/Catalyst/Action/RenderView.pm line 45."
+Oct 20 23:01:32 [DEBUG] Found sessionid "e9ba178c9c808d3799979d9896c1f11bf6b6436b" in cookie
+Oct 20 23:01:32 [DEBUG] Restored session "e9ba178c9c808d3799979d9896c1f11bf6b6436b"
+Oct 20 23:01:32 [DEBUG] Response Code: 500; Content-Type: text/html; charset=utf-8; Content-Length: 55207
+Oct 20 23:01:32 [INFO] Request took 0.070003s (14.285/s)
+.------------------------------------------------------------+-----------.
+| Action                                                     | Time      |
++------------------------------------------------------------+-----------+
+| /auto                                                      | 0.002884s |
+| /index                                                     | 0.000129s |
+| /end                                                       | 0.000600s |
+'------------------------------------------------------------+-----------'
+
+Oct 20 23:02:11 [WARNING] RequireSSL: Disabling SSL redirection while running under Catalyst::Engine::HTTP=HASH(0x42ba540)
+Oct 20 23:05:44 [WARNING] RequireSSL: Disabling SSL redirection while running under Catalyst::Engine::HTTP=HASH(0x42ba580)
+Oct 20 23:06:03 [WARNING] RequireSSL: Disabling SSL redirection while running under Catalyst::Engine::HTTP=HASH(0x42ba0c8)
+Oct 20 23:06:04 [DEBUG] Loaded components:
+.-----------------------------------------------------------------+----------.
+| Class                                                           | Type     |
++-----------------------------------------------------------------+----------+
+| Room::Controller::Admin                                         | instance |
+| Room::Controller::Root                                          | instance |
+| Room::Controller::Tables                                        | instance |
+| Room::Controller::User                                          | instance |
+| Room::Model::BitcoinServer                                      | instance |
+| Room::Model::PokerNetwork                                       | instance |
+| Room::Model::PokerNetwork::Affiliates                           | class    |
+| Room::Model::PokerNetwork::ChatMessages                         | class    |
+| Room::Model::PokerNetwork::Counter                              | class    |
+| Room::Model::PokerNetwork::Currencies                           | class    |
+| Room::Model::PokerNetwork::Deposits                             | class    |
+| Room::Model::PokerNetwork::Hands                                | class    |
+| Room::Model::PokerNetwork::Messages                             | class    |
+| Room::Model::PokerNetwork::Monitor                              | class    |
+| Room::Model::PokerNetwork::Pokertables                          | class    |
+| Room::Model::PokerNetwork::Prizes                               | class    |
+| Room::Model::PokerNetwork::PrizesVersion                        | class    |
+| Room::Model::PokerNetwork::Rank                                 | class    |
+| Room::Model::PokerNetwork::RankTmp                              | class    |
+| Room::Model::PokerNetwork::Resthost                             | class    |
+| Room::Model::PokerNetwork::Route                                | class    |
+| Room::Model::PokerNetwork::Safe                                 | class    |
+| Room::Model::PokerNetwork::Server                               | class    |
+| Room::Model::PokerNetwork::Session                              | class    |
+| Room::Model::PokerNetwork::SessionHistory                       | class    |
+| Room::Model::PokerNetwork::Tourneys                             | class    |
+| Room::Model::PokerNetwork::TourneysSchedule                     | class    |
+| Room::Model::PokerNetwork::TourneysSchedule2prizes              | class    |
+| Room::Model::PokerNetwork::User2hand                            | class    |
+| Room::Model::PokerNetwork::User2money                           | class    |
+| Room::Model::PokerNetwork::User2table                           | class    |
+| Room::Model::PokerNetwork::User2tourney                         | class    |
+| Room::Model::PokerNetwork::Users                                | class    |
+| Room::Model::PokerNetwork::UsersPrivate                         | class    |
+| Room::Model::PokerNetwork::UsersTransactions                    | class    |
+| Room::Model::PokerNetwork::Withdrawal                           | class    |
+| Room::View::HTML                                                | instance |
+'-----------------------------------------------------------------+----------'
+
+Oct 20 23:06:04 [DEBUG] Loaded Private actions:
+.----------------------+--------------------------------------+--------------.
+| Private              | Class                                | Method       |
++----------------------+--------------------------------------+--------------+
+| /credits             | Room::Controller::Root               | credits      |
+| /default             | Room::Controller::Root               | default      |
+| /end                 | Room::Controller::Root               | end          |
+| /index               | Room::Controller::Root               | index        |
+| /auto                | Room::Controller::Root               | auto         |
+| /contactus           | Room::Controller::Root               | contactus    |
+| /admin/mark_canceled | Room::Controller::Admin              | mark_cancel- |
+|                      |                                      | ed           |
+| /admin/withdrawal_r- | Room::Controller::Admin              | withdrawal_- |
+| eprocess             |                                      | reprocess    |
+| /admin/mark          | Room::Controller::Admin              | mark         |
+| /admin/withdrawal_b- | Room::Controller::Admin              | withdrawal_- |
+| ase                  |                                      | base         |
+| /admin/withdrawal    | Room::Controller::Admin              | withdrawal   |
+| /admin/base          | Room::Controller::Admin              | base         |
+| /admin/withdrawals   | Room::Controller::Admin              | withdrawals  |
+| /admin/index         | Room::Controller::Admin              | index        |
+| /admin/mark_unproce- | Room::Controller::Admin              | mark_unproc- |
+| ssed                 |                                      | essed        |
+| /admin/withdrawal_i- | Room::Controller::Admin              | withdrawal_- |
+| nfo                  |                                      | info         |
+| /admin/mark_process- | Room::Controller::Admin              | mark_proces- |
+| ed                   |                                      | sed          |
+| /tables/index        | Room::Controller::Tables             | index        |
+| /tables/auto         | Room::Controller::Tables             | auto         |
+| /user/no_avatar      | Room::Controller::User               | no_avatar    |
+| /user/AVATAR         | Room::Controller::User               | AVATAR       |
+| /user/edit           | Room::Controller::User               | edit         |
+| /user/deposit_bitco- | Room::Controller::User               | deposit_bit- |
+| in                   |                                      | coin         |
+| /user/logout         | Room::Controller::User               | logout       |
+| /user/deposit_bitco- | Room::Controller::User               | deposit_bit- |
+| in_refresh           |                                      | coin_refresh |
+| /user/reset_password | Room::Controller::User               | reset_passw- |
+|                      |                                      | ord          |
+| /user/withdraw_bitc- | Room::Controller::User               | withdraw_bi- |
+| oin                  |                                      | tcoin        |
+| /user/login          | Room::Controller::User               | login        |
+| /user/register       | Room::Controller::User               | register     |
+| /user/index          | Room::Controller::User               | index        |
+| /user/auto           | Room::Controller::User               | auto         |
+| /user/forgot_passwo- | Room::Controller::User               | forgot_pass- |
+| rd                   |                                      | word         |
+'----------------------+--------------------------------------+--------------'
+
+Oct 20 23:06:04 [DEBUG] Loaded Path actions:
+.-------------------------------------+--------------------------------------.
+| Path                                | Private                              |
++-------------------------------------+--------------------------------------+
+| /                                   | /index                               |
+| /                                   | /default                             |
+| /                                   | /auto                                |
+| /AVATAR                             | /user/AVATAR                         |
+| /contactus                          | /contactus                           |
+| /credits                            | /credits                             |
+| /tables                             | /tables/index                        |
+| /user                               | /user/index                          |
+| /user/deposit/bitcoin               | /user/deposit_bitcoin                |
+| /user/edit                          | /user/edit                           |
+| /user/forgot_password               | /user/forgot_password                |
+| /user/login                         | /user/login                          |
+| /user/logout                        | /user/logout                         |
+| /user/no_avatar                     | /user/no_avatar                      |
+| /user/register                      | /user/register                       |
+| /user/reset_password                | /user/reset_password                 |
+| /user/withdraw/bitcoin              | /user/withdraw_bitcoin               |
+'-------------------------------------+--------------------------------------'
+
+Oct 20 23:06:04 [DEBUG] Loaded Chained actions:
+.-------------------------------------+--------------------------------------.
+| Path Spec                           | Private                              |
++-------------------------------------+--------------------------------------+
+| /admin                              | /admin/base (0)                      |
+|                                     | => /admin/index                      |
+| /admin/withdrawal/*/mark/canceled/- | /admin/base (0)                      |
+| ...                                 |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_canceled              |
+| /admin/withdrawal/*/mark/processed- | /admin/base (0)                      |
+| /...                                |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_processed             |
+| /admin/withdrawal/*/mark/unprocess- | /admin/base (0)                      |
+| ed/...                              |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_unprocessed           |
+| /admin/withdrawal/*                 | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal                 |
+| /admin/withdrawal/*/info            | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal_info            |
+| /admin/withdrawal/*/reprocess       | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal_reprocess       |
+| /admin/withdrawals                  | /admin/base (0)                      |
+|                                     | => /admin/withdrawals                |
+'-------------------------------------+--------------------------------------'
+
+Oct 20 23:06:04 [INFO] Room powered by Catalyst 5.80024
+Oct 20 23:06:08 [INFO] *** Request 1 (0.003/s) [6629] [Wed Oct 20 23:06:08 2010] ***
+Oct 20 23:06:08 [DEBUG] Found sessionid "e9ba178c9c808d3799979d9896c1f11bf6b6436b" in cookie
+Oct 20 23:06:08 [DEBUG] Restored session "e9ba178c9c808d3799979d9896c1f11bf6b6436b"
+Oct 20 23:06:08 [DEBUG] "GET" request for "/" from "127.0.0.1"
+Oct 20 23:06:08 [DEBUG] Query Parameters are:
+.-------------------------------------+--------------------------------------.
+| Parameter                           | Value                                |
++-------------------------------------+--------------------------------------+
+| dump_info                           | 1                                    |
+'-------------------------------------+--------------------------------------'
+Oct 20 23:06:08 [DEBUG] Path is "/"
+Oct 20 23:06:08 [ERROR] Caught exception in Room::Controller::Root->end "Forced debug - Scrubbed output at /usr/share/perl5/Catalyst/Action/RenderView.pm line 45."
+Oct 20 23:06:08 [DEBUG] Found sessionid "e9ba178c9c808d3799979d9896c1f11bf6b6436b" in cookie
+Oct 20 23:06:08 [DEBUG] Restored session "e9ba178c9c808d3799979d9896c1f11bf6b6436b"
+Oct 20 23:06:08 [DEBUG] Response Code: 500; Content-Type: text/html; charset=utf-8; Content-Length: 42928
+Oct 20 23:06:08 [INFO] Request took 0.084842s (11.787/s)
+.------------------------------------------------------------+-----------.
+| Action                                                     | Time      |
++------------------------------------------------------------+-----------+
+| /auto                                                      | 0.046377s |
+| /index                                                     | 0.000118s |
+| /end                                                       | 0.000632s |
+'------------------------------------------------------------+-----------'
+
+Oct 20 23:06:08 [INFO] *** Request 2 (0.005/s) [6629] [Wed Oct 20 23:06:08 2010] ***
+Oct 20 23:06:08 [DEBUG] Found sessionid "e9ba178c9c808d3799979d9896c1f11bf6b6436b" in cookie
+Oct 20 23:06:08 [DEBUG] Restored session "e9ba178c9c808d3799979d9896c1f11bf6b6436b"
+Oct 20 23:06:08 [DEBUG] "GET" request for "favicon.ico" from "127.0.0.1"
+Oct 20 23:06:08 [DEBUG] Path is "/"
+Oct 20 23:06:08 [DEBUG] Arguments are "favicon.ico"
+Oct 20 23:06:08 [DEBUG] Static::Simple: Serving /home/pavel/projects/bitcoin_poker/Room/root/favicon.ico as image/vnd.microsoft.icon
+Oct 20 23:06:08 [DEBUG] Found sessionid "e9ba178c9c808d3799979d9896c1f11bf6b6436b" in cookie
+Oct 20 23:06:08 [DEBUG] Restored session "e9ba178c9c808d3799979d9896c1f11bf6b6436b"
+Oct 20 23:06:08 [DEBUG] Response Code: 200; Content-Type: image/vnd.microsoft.icon; Content-Length: 2551
+Oct 20 23:06:08 [INFO] Request took 0.011704s (85.441/s)
+.------------------------------------------------------------+-----------.
+| Action                                                     | Time      |
++------------------------------------------------------------+-----------+
+'------------------------------------------------------------+-----------'
+
+Oct 20 23:07:56 [WARNING] RequireSSL: Disabling SSL redirection while running under Catalyst::Engine::HTTP=HASH(0x42b9e68)
+Oct 20 23:07:57 [DEBUG] Loaded components:
+.-----------------------------------------------------------------+----------.
+| Class                                                           | Type     |
++-----------------------------------------------------------------+----------+
+| Room::Controller::Admin                                         | instance |
+| Room::Controller::Root                                          | instance |
+| Room::Controller::Tables                                        | instance |
+| Room::Controller::User                                          | instance |
+| Room::Model::BitcoinServer                                      | instance |
+| Room::Model::PokerNetwork                                       | instance |
+| Room::Model::PokerNetwork::Affiliates                           | class    |
+| Room::Model::PokerNetwork::ChatMessages                         | class    |
+| Room::Model::PokerNetwork::Counter                              | class    |
+| Room::Model::PokerNetwork::Currencies                           | class    |
+| Room::Model::PokerNetwork::Deposits                             | class    |
+| Room::Model::PokerNetwork::Hands                                | class    |
+| Room::Model::PokerNetwork::Messages                             | class    |
+| Room::Model::PokerNetwork::Monitor                              | class    |
+| Room::Model::PokerNetwork::Pokertables                          | class    |
+| Room::Model::PokerNetwork::Prizes                               | class    |
+| Room::Model::PokerNetwork::PrizesVersion                        | class    |
+| Room::Model::PokerNetwork::Rank                                 | class    |
+| Room::Model::PokerNetwork::RankTmp                              | class    |
+| Room::Model::PokerNetwork::Resthost                             | class    |
+| Room::Model::PokerNetwork::Route                                | class    |
+| Room::Model::PokerNetwork::Safe                                 | class    |
+| Room::Model::PokerNetwork::Server                               | class    |
+| Room::Model::PokerNetwork::Session                              | class    |
+| Room::Model::PokerNetwork::SessionHistory                       | class    |
+| Room::Model::PokerNetwork::Tourneys                             | class    |
+| Room::Model::PokerNetwork::TourneysSchedule                     | class    |
+| Room::Model::PokerNetwork::TourneysSchedule2prizes              | class    |
+| Room::Model::PokerNetwork::User2hand                            | class    |
+| Room::Model::PokerNetwork::User2money                           | class    |
+| Room::Model::PokerNetwork::User2table                           | class    |
+| Room::Model::PokerNetwork::User2tourney                         | class    |
+| Room::Model::PokerNetwork::Users                                | class    |
+| Room::Model::PokerNetwork::UsersPrivate                         | class    |
+| Room::Model::PokerNetwork::UsersTransactions                    | class    |
+| Room::Model::PokerNetwork::Withdrawal                           | class    |
+| Room::View::HTML                                                | instance |
+'-----------------------------------------------------------------+----------'
+
+Oct 20 23:07:57 [DEBUG] Loaded Private actions:
+.----------------------+--------------------------------------+--------------.
+| Private              | Class                                | Method       |
++----------------------+--------------------------------------+--------------+
+| /credits             | Room::Controller::Root               | credits      |
+| /default             | Room::Controller::Root               | default      |
+| /end                 | Room::Controller::Root               | end          |
+| /index               | Room::Controller::Root               | index        |
+| /auto                | Room::Controller::Root               | auto         |
+| /contactus           | Room::Controller::Root               | contactus    |
+| /admin/mark_canceled | Room::Controller::Admin              | mark_cancel- |
+|                      |                                      | ed           |
+| /admin/withdrawal_r- | Room::Controller::Admin              | withdrawal_- |
+| eprocess             |                                      | reprocess    |
+| /admin/mark          | Room::Controller::Admin              | mark         |
+| /admin/withdrawal_b- | Room::Controller::Admin              | withdrawal_- |
+| ase                  |                                      | base         |
+| /admin/withdrawal    | Room::Controller::Admin              | withdrawal   |
+| /admin/base          | Room::Controller::Admin              | base         |
+| /admin/withdrawals   | Room::Controller::Admin              | withdrawals  |
+| /admin/index         | Room::Controller::Admin              | index        |
+| /admin/mark_unproce- | Room::Controller::Admin              | mark_unproc- |
+| ssed                 |                                      | essed        |
+| /admin/withdrawal_i- | Room::Controller::Admin              | withdrawal_- |
+| nfo                  |                                      | info         |
+| /admin/mark_process- | Room::Controller::Admin              | mark_proces- |
+| ed                   |                                      | sed          |
+| /tables/index        | Room::Controller::Tables             | index        |
+| /tables/auto         | Room::Controller::Tables             | auto         |
+| /user/no_avatar      | Room::Controller::User               | no_avatar    |
+| /user/AVATAR         | Room::Controller::User               | AVATAR       |
+| /user/edit           | Room::Controller::User               | edit         |
+| /user/deposit_bitco- | Room::Controller::User               | deposit_bit- |
+| in                   |                                      | coin         |
+| /user/logout         | Room::Controller::User               | logout       |
+| /user/deposit_bitco- | Room::Controller::User               | deposit_bit- |
+| in_refresh           |                                      | coin_refresh |
+| /user/reset_password | Room::Controller::User               | reset_passw- |
+|                      |                                      | ord          |
+| /user/withdraw_bitc- | Room::Controller::User               | withdraw_bi- |
+| oin                  |                                      | tcoin        |
+| /user/login          | Room::Controller::User               | login        |
+| /user/register       | Room::Controller::User               | register     |
+| /user/index          | Room::Controller::User               | index        |
+| /user/auto           | Room::Controller::User               | auto         |
+| /user/forgot_passwo- | Room::Controller::User               | forgot_pass- |
+| rd                   |                                      | word         |
+'----------------------+--------------------------------------+--------------'
+
+Oct 20 23:07:57 [DEBUG] Loaded Path actions:
+.-------------------------------------+--------------------------------------.
+| Path                                | Private                              |
++-------------------------------------+--------------------------------------+
+| /                                   | /index                               |
+| /                                   | /default                             |
+| /                                   | /auto                                |
+| /AVATAR                             | /user/AVATAR                         |
+| /contactus                          | /contactus                           |
+| /credits                            | /credits                             |
+| /tables                             | /tables/index                        |
+| /user                               | /user/index                          |
+| /user/deposit/bitcoin               | /user/deposit_bitcoin                |
+| /user/edit                          | /user/edit                           |
+| /user/forgot_password               | /user/forgot_password                |
+| /user/login                         | /user/login                          |
+| /user/logout                        | /user/logout                         |
+| /user/no_avatar                     | /user/no_avatar                      |
+| /user/register                      | /user/register                       |
+| /user/reset_password                | /user/reset_password                 |
+| /user/withdraw/bitcoin              | /user/withdraw_bitcoin               |
+'-------------------------------------+--------------------------------------'
+
+Oct 20 23:07:57 [DEBUG] Loaded Chained actions:
+.-------------------------------------+--------------------------------------.
+| Path Spec                           | Private                              |
++-------------------------------------+--------------------------------------+
+| /admin                              | /admin/base (0)                      |
+|                                     | => /admin/index                      |
+| /admin/withdrawal/*/mark/canceled/- | /admin/base (0)                      |
+| ...                                 |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_canceled              |
+| /admin/withdrawal/*/mark/processed- | /admin/base (0)                      |
+| /...                                |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_processed             |
+| /admin/withdrawal/*/mark/unprocess- | /admin/base (0)                      |
+| ed/...                              |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_unprocessed           |
+| /admin/withdrawal/*                 | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal                 |
+| /admin/withdrawal/*/info            | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal_info            |
+| /admin/withdrawal/*/reprocess       | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal_reprocess       |
+| /admin/withdrawals                  | /admin/base (0)                      |
+|                                     | => /admin/withdrawals                |
+'-------------------------------------+--------------------------------------'
+
+Oct 20 23:07:57 [INFO] Room powered by Catalyst 5.80024
+Oct 20 23:08:00 [INFO] *** Request 1 (0.002/s) [6631] [Wed Oct 20 23:08:00 2010] ***
+Oct 20 23:08:00 [DEBUG] Found sessionid "e9ba178c9c808d3799979d9896c1f11bf6b6436b" in cookie
+Oct 20 23:08:00 [DEBUG] Restored session "e9ba178c9c808d3799979d9896c1f11bf6b6436b"
+Oct 20 23:08:00 [DEBUG] "GET" request for "/" from "127.0.0.1"
+Oct 20 23:08:00 [DEBUG] Query Parameters are:
+.-------------------------------------+--------------------------------------.
+| Parameter                           | Value                                |
++-------------------------------------+--------------------------------------+
+| dump_info                           | 1                                    |
+'-------------------------------------+--------------------------------------'
+Oct 20 23:08:00 [DEBUG] Path is "/"
+Oct 20 23:08:00 [ERROR] Caught exception in Room::Controller::Root->end "Forced debug - Scrubbed output at /usr/share/perl5/Catalyst/Action/RenderView.pm line 45."
+Oct 20 23:08:00 [DEBUG] Found sessionid "e9ba178c9c808d3799979d9896c1f11bf6b6436b" in cookie
+Oct 20 23:08:00 [DEBUG] Restored session "e9ba178c9c808d3799979d9896c1f11bf6b6436b"
+Oct 20 23:08:00 [DEBUG] Response Code: 500; Content-Type: text/html; charset=utf-8; Content-Length: 43958
+Oct 20 23:08:00 [INFO] Request took 0.100871s (9.914/s)
+.------------------------------------------------------------+-----------.
+| Action                                                     | Time      |
++------------------------------------------------------------+-----------+
+| /auto                                                      | 0.047879s |
+| /index                                                     | 0.000141s |
+| /end                                                       | 0.003392s |
+'------------------------------------------------------------+-----------'
+
+Oct 20 23:08:00 [INFO] *** Request 2 (0.004/s) [6631] [Wed Oct 20 23:08:00 2010] ***
+Oct 20 23:08:00 [DEBUG] Found sessionid "e9ba178c9c808d3799979d9896c1f11bf6b6436b" in cookie
+Oct 20 23:08:00 [DEBUG] Restored session "e9ba178c9c808d3799979d9896c1f11bf6b6436b"
+Oct 20 23:08:00 [DEBUG] "GET" request for "favicon.ico" from "127.0.0.1"
+Oct 20 23:08:00 [DEBUG] Path is "/"
+Oct 20 23:08:00 [DEBUG] Arguments are "favicon.ico"
+Oct 20 23:08:00 [DEBUG] Static::Simple: Serving /home/pavel/projects/bitcoin_poker/Room/root/favicon.ico as image/vnd.microsoft.icon
+Oct 20 23:08:00 [DEBUG] Found sessionid "e9ba178c9c808d3799979d9896c1f11bf6b6436b" in cookie
+Oct 20 23:08:00 [DEBUG] Restored session "e9ba178c9c808d3799979d9896c1f11bf6b6436b"
+Oct 20 23:08:00 [DEBUG] Response Code: 200; Content-Type: image/vnd.microsoft.icon; Content-Length: 2551
+Oct 20 23:08:00 [INFO] Request took 0.019776s (50.566/s)
+.------------------------------------------------------------+-----------.
+| Action                                                     | Time      |
++------------------------------------------------------------+-----------+
+'------------------------------------------------------------+-----------'
+
+Oct 20 23:09:09 [WARNING] RequireSSL: Disabling SSL redirection while running under Catalyst::Engine::HTTP=HASH(0x42b9e68)
+Oct 20 23:09:10 [DEBUG] Loaded components:
+.-----------------------------------------------------------------+----------.
+| Class                                                           | Type     |
++-----------------------------------------------------------------+----------+
+| Room::Controller::Admin                                         | instance |
+| Room::Controller::Root                                          | instance |
+| Room::Controller::Tables                                        | instance |
+| Room::Controller::User                                          | instance |
+| Room::Model::BitcoinServer                                      | instance |
+| Room::Model::PokerNetwork                                       | instance |
+| Room::Model::PokerNetwork::Affiliates                           | class    |
+| Room::Model::PokerNetwork::ChatMessages                         | class    |
+| Room::Model::PokerNetwork::Counter                              | class    |
+| Room::Model::PokerNetwork::Currencies                           | class    |
+| Room::Model::PokerNetwork::Deposits                             | class    |
+| Room::Model::PokerNetwork::Hands                                | class    |
+| Room::Model::PokerNetwork::Messages                             | class    |
+| Room::Model::PokerNetwork::Monitor                              | class    |
+| Room::Model::PokerNetwork::Pokertables                          | class    |
+| Room::Model::PokerNetwork::Prizes                               | class    |
+| Room::Model::PokerNetwork::PrizesVersion                        | class    |
+| Room::Model::PokerNetwork::Rank                                 | class    |
+| Room::Model::PokerNetwork::RankTmp                              | class    |
+| Room::Model::PokerNetwork::Resthost                             | class    |
+| Room::Model::PokerNetwork::Route                                | class    |
+| Room::Model::PokerNetwork::Safe                                 | class    |
+| Room::Model::PokerNetwork::Server                               | class    |
+| Room::Model::PokerNetwork::Session                              | class    |
+| Room::Model::PokerNetwork::SessionHistory                       | class    |
+| Room::Model::PokerNetwork::Tourneys                             | class    |
+| Room::Model::PokerNetwork::TourneysSchedule                     | class    |
+| Room::Model::PokerNetwork::TourneysSchedule2prizes              | class    |
+| Room::Model::PokerNetwork::User2hand                            | class    |
+| Room::Model::PokerNetwork::User2money                           | class    |
+| Room::Model::PokerNetwork::User2table                           | class    |
+| Room::Model::PokerNetwork::User2tourney                         | class    |
+| Room::Model::PokerNetwork::Users                                | class    |
+| Room::Model::PokerNetwork::UsersPrivate                         | class    |
+| Room::Model::PokerNetwork::UsersTransactions                    | class    |
+| Room::Model::PokerNetwork::Withdrawal                           | class    |
+| Room::View::HTML                                                | instance |
+'-----------------------------------------------------------------+----------'
+
+Oct 20 23:09:10 [DEBUG] Loaded Private actions:
+.----------------------+--------------------------------------+--------------.
+| Private              | Class                                | Method       |
++----------------------+--------------------------------------+--------------+
+| /credits             | Room::Controller::Root               | credits      |
+| /default             | Room::Controller::Root               | default      |
+| /end                 | Room::Controller::Root               | end          |
+| /index               | Room::Controller::Root               | index        |
+| /auto                | Room::Controller::Root               | auto         |
+| /contactus           | Room::Controller::Root               | contactus    |
+| /admin/mark_canceled | Room::Controller::Admin              | mark_cancel- |
+|                      |                                      | ed           |
+| /admin/withdrawal_r- | Room::Controller::Admin              | withdrawal_- |
+| eprocess             |                                      | reprocess    |
+| /admin/mark          | Room::Controller::Admin              | mark         |
+| /admin/withdrawal_b- | Room::Controller::Admin              | withdrawal_- |
+| ase                  |                                      | base         |
+| /admin/withdrawal    | Room::Controller::Admin              | withdrawal   |
+| /admin/base          | Room::Controller::Admin              | base         |
+| /admin/withdrawals   | Room::Controller::Admin              | withdrawals  |
+| /admin/index         | Room::Controller::Admin              | index        |
+| /admin/mark_unproce- | Room::Controller::Admin              | mark_unproc- |
+| ssed                 |                                      | essed        |
+| /admin/withdrawal_i- | Room::Controller::Admin              | withdrawal_- |
+| nfo                  |                                      | info         |
+| /admin/mark_process- | Room::Controller::Admin              | mark_proces- |
+| ed                   |                                      | sed          |
+| /tables/index        | Room::Controller::Tables             | index        |
+| /tables/auto         | Room::Controller::Tables             | auto         |
+| /user/no_avatar      | Room::Controller::User               | no_avatar    |
+| /user/AVATAR         | Room::Controller::User               | AVATAR       |
+| /user/edit           | Room::Controller::User               | edit         |
+| /user/deposit_bitco- | Room::Controller::User               | deposit_bit- |
+| in                   |                                      | coin         |
+| /user/logout         | Room::Controller::User               | logout       |
+| /user/deposit_bitco- | Room::Controller::User               | deposit_bit- |
+| in_refresh           |                                      | coin_refresh |
+| /user/reset_password | Room::Controller::User               | reset_passw- |
+|                      |                                      | ord          |
+| /user/withdraw_bitc- | Room::Controller::User               | withdraw_bi- |
+| oin                  |                                      | tcoin        |
+| /user/login          | Room::Controller::User               | login        |
+| /user/register       | Room::Controller::User               | register     |
+| /user/index          | Room::Controller::User               | index        |
+| /user/auto           | Room::Controller::User               | auto         |
+| /user/forgot_passwo- | Room::Controller::User               | forgot_pass- |
+| rd                   |                                      | word         |
+'----------------------+--------------------------------------+--------------'
+
+Oct 20 23:09:10 [DEBUG] Loaded Path actions:
+.-------------------------------------+--------------------------------------.
+| Path                                | Private                              |
++-------------------------------------+--------------------------------------+
+| /                                   | /index                               |
+| /                                   | /default                             |
+| /                                   | /auto                                |
+| /AVATAR                             | /user/AVATAR                         |
+| /contactus                          | /contactus                           |
+| /credits                            | /credits                             |
+| /tables                             | /tables/index                        |
+| /user                               | /user/index                          |
+| /user/deposit/bitcoin               | /user/deposit_bitcoin                |
+| /user/edit                          | /user/edit                           |
+| /user/forgot_password               | /user/forgot_password                |
+| /user/login                         | /user/login                          |
+| /user/logout                        | /user/logout                         |
+| /user/no_avatar                     | /user/no_avatar                      |
+| /user/register                      | /user/register                       |
+| /user/reset_password                | /user/reset_password                 |
+| /user/withdraw/bitcoin              | /user/withdraw_bitcoin               |
+'-------------------------------------+--------------------------------------'
+
+Oct 20 23:09:10 [DEBUG] Loaded Chained actions:
+.-------------------------------------+--------------------------------------.
+| Path Spec                           | Private                              |
++-------------------------------------+--------------------------------------+
+| /admin                              | /admin/base (0)                      |
+|                                     | => /admin/index                      |
+| /admin/withdrawal/*/mark/canceled/- | /admin/base (0)                      |
+| ...                                 |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_canceled              |
+| /admin/withdrawal/*/mark/processed- | /admin/base (0)                      |
+| /...                                |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_processed             |
+| /admin/withdrawal/*/mark/unprocess- | /admin/base (0)                      |
+| ed/...                              |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_unprocessed           |
+| /admin/withdrawal/*                 | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal                 |
+| /admin/withdrawal/*/info            | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal_info            |
+| /admin/withdrawal/*/reprocess       | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal_reprocess       |
+| /admin/withdrawals                  | /admin/base (0)                      |
+|                                     | => /admin/withdrawals                |
+'-------------------------------------+--------------------------------------'
+
+Oct 20 23:09:10 [INFO] Room powered by Catalyst 5.80024
+Oct 20 23:09:32 [WARNING] RequireSSL: Disabling SSL redirection while running under Catalyst::Engine::HTTP=HASH(0x42b9ee8)
+Oct 20 23:09:32 [DEBUG] Loaded components:
+.-----------------------------------------------------------------+----------.
+| Class                                                           | Type     |
++-----------------------------------------------------------------+----------+
+| Room::Controller::Admin                                         | instance |
+| Room::Controller::Root                                          | instance |
+| Room::Controller::Tables                                        | instance |
+| Room::Controller::User                                          | instance |
+| Room::Model::BitcoinServer                                      | instance |
+| Room::Model::PokerNetwork                                       | instance |
+| Room::Model::PokerNetwork::Affiliates                           | class    |
+| Room::Model::PokerNetwork::ChatMessages                         | class    |
+| Room::Model::PokerNetwork::Counter                              | class    |
+| Room::Model::PokerNetwork::Currencies                           | class    |
+| Room::Model::PokerNetwork::Deposits                             | class    |
+| Room::Model::PokerNetwork::Hands                                | class    |
+| Room::Model::PokerNetwork::Messages                             | class    |
+| Room::Model::PokerNetwork::Monitor                              | class    |
+| Room::Model::PokerNetwork::Pokertables                          | class    |
+| Room::Model::PokerNetwork::Prizes                               | class    |
+| Room::Model::PokerNetwork::PrizesVersion                        | class    |
+| Room::Model::PokerNetwork::Rank                                 | class    |
+| Room::Model::PokerNetwork::RankTmp                              | class    |
+| Room::Model::PokerNetwork::Resthost                             | class    |
+| Room::Model::PokerNetwork::Route                                | class    |
+| Room::Model::PokerNetwork::Safe                                 | class    |
+| Room::Model::PokerNetwork::Server                               | class    |
+| Room::Model::PokerNetwork::Session                              | class    |
+| Room::Model::PokerNetwork::SessionHistory                       | class    |
+| Room::Model::PokerNetwork::Tourneys                             | class    |
+| Room::Model::PokerNetwork::TourneysSchedule                     | class    |
+| Room::Model::PokerNetwork::TourneysSchedule2prizes              | class    |
+| Room::Model::PokerNetwork::User2hand                            | class    |
+| Room::Model::PokerNetwork::User2money                           | class    |
+| Room::Model::PokerNetwork::User2table                           | class    |
+| Room::Model::PokerNetwork::User2tourney                         | class    |
+| Room::Model::PokerNetwork::Users                                | class    |
+| Room::Model::PokerNetwork::UsersPrivate                         | class    |
+| Room::Model::PokerNetwork::UsersTransactions                    | class    |
+| Room::Model::PokerNetwork::Withdrawal                           | class    |
+| Room::View::HTML                                                | instance |
+'-----------------------------------------------------------------+----------'
+
+Oct 20 23:09:32 [DEBUG] Loaded Private actions:
+.----------------------+--------------------------------------+--------------.
+| Private              | Class                                | Method       |
++----------------------+--------------------------------------+--------------+
+| /credits             | Room::Controller::Root               | credits      |
+| /default             | Room::Controller::Root               | default      |
+| /end                 | Room::Controller::Root               | end          |
+| /index               | Room::Controller::Root               | index        |
+| /auto                | Room::Controller::Root               | auto         |
+| /contactus           | Room::Controller::Root               | contactus    |
+| /admin/mark_canceled | Room::Controller::Admin              | mark_cancel- |
+|                      |                                      | ed           |
+| /admin/withdrawal_r- | Room::Controller::Admin              | withdrawal_- |
+| eprocess             |                                      | reprocess    |
+| /admin/mark          | Room::Controller::Admin              | mark         |
+| /admin/withdrawal_b- | Room::Controller::Admin              | withdrawal_- |
+| ase                  |                                      | base         |
+| /admin/withdrawal    | Room::Controller::Admin              | withdrawal   |
+| /admin/base          | Room::Controller::Admin              | base         |
+| /admin/withdrawals   | Room::Controller::Admin              | withdrawals  |
+| /admin/index         | Room::Controller::Admin              | index        |
+| /admin/mark_unproce- | Room::Controller::Admin              | mark_unproc- |
+| ssed                 |                                      | essed        |
+| /admin/withdrawal_i- | Room::Controller::Admin              | withdrawal_- |
+| nfo                  |                                      | info         |
+| /admin/mark_process- | Room::Controller::Admin              | mark_proces- |
+| ed                   |                                      | sed          |
+| /tables/index        | Room::Controller::Tables             | index        |
+| /tables/auto         | Room::Controller::Tables             | auto         |
+| /user/no_avatar      | Room::Controller::User               | no_avatar    |
+| /user/AVATAR         | Room::Controller::User               | AVATAR       |
+| /user/edit           | Room::Controller::User               | edit         |
+| /user/deposit_bitco- | Room::Controller::User               | deposit_bit- |
+| in                   |                                      | coin         |
+| /user/logout         | Room::Controller::User               | logout       |
+| /user/deposit_bitco- | Room::Controller::User               | deposit_bit- |
+| in_refresh           |                                      | coin_refresh |
+| /user/reset_password | Room::Controller::User               | reset_passw- |
+|                      |                                      | ord          |
+| /user/withdraw_bitc- | Room::Controller::User               | withdraw_bi- |
+| oin                  |                                      | tcoin        |
+| /user/login          | Room::Controller::User               | login        |
+| /user/register       | Room::Controller::User               | register     |
+| /user/index          | Room::Controller::User               | index        |
+| /user/auto           | Room::Controller::User               | auto         |
+| /user/forgot_passwo- | Room::Controller::User               | forgot_pass- |
+| rd                   |                                      | word         |
+'----------------------+--------------------------------------+--------------'
+
+Oct 20 23:09:32 [DEBUG] Loaded Path actions:
+.-------------------------------------+--------------------------------------.
+| Path                                | Private                              |
++-------------------------------------+--------------------------------------+
+| /                                   | /index                               |
+| /                                   | /default                             |
+| /                                   | /auto                                |
+| /AVATAR                             | /user/AVATAR                         |
+| /contactus                          | /contactus                           |
+| /credits                            | /credits                             |
+| /tables                             | /tables/index                        |
+| /user                               | /user/index                          |
+| /user/deposit/bitcoin               | /user/deposit_bitcoin                |
+| /user/edit                          | /user/edit                           |
+| /user/forgot_password               | /user/forgot_password                |
+| /user/login                         | /user/login                          |
+| /user/logout                        | /user/logout                         |
+| /user/no_avatar                     | /user/no_avatar                      |
+| /user/register                      | /user/register                       |
+| /user/reset_password                | /user/reset_password                 |
+| /user/withdraw/bitcoin              | /user/withdraw_bitcoin               |
+'-------------------------------------+--------------------------------------'
+
+Oct 20 23:09:32 [DEBUG] Loaded Chained actions:
+.-------------------------------------+--------------------------------------.
+| Path Spec                           | Private                              |
++-------------------------------------+--------------------------------------+
+| /admin                              | /admin/base (0)                      |
+|                                     | => /admin/index                      |
+| /admin/withdrawal/*/mark/canceled/- | /admin/base (0)                      |
+| ...                                 |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_canceled              |
+| /admin/withdrawal/*/mark/processed- | /admin/base (0)                      |
+| /...                                |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_processed             |
+| /admin/withdrawal/*/mark/unprocess- | /admin/base (0)                      |
+| ed/...                              |                                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | -> /admin/mark (0)                   |
+|                                     | => /admin/mark_unprocessed           |
+| /admin/withdrawal/*                 | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal                 |
+| /admin/withdrawal/*/info            | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal_info            |
+| /admin/withdrawal/*/reprocess       | /admin/base (0)                      |
+|                                     | -> /admin/withdrawal_base (1)        |
+|                                     | => /admin/withdrawal_reprocess       |
+| /admin/withdrawals                  | /admin/base (0)                      |
+|                                     | => /admin/withdrawals                |
+'-------------------------------------+--------------------------------------'
+
+Oct 20 23:09:32 [INFO] Room powered by Catalyst 5.80024
