@@ -609,3 +609,14 @@
     width: auto;
 }
 
+.jpoker_bet {
+  z-index: 101;
+}
+
+.jpoker_player_hole {
+  z-index: 100;
+}
+
+.jpoker_ptable_player_seat3_bet {
+  z-index: 102;
+}
