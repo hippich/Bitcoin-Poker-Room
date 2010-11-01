@@ -313,10 +313,8 @@ sub deposit_bitcoin_refresh :Private {
 
   if ($bitcoins_new_balance > $c->user->bitcoins_received) {
     my $diff = $bitcoins_new_balance - $c->user->bitcoins_received;
-    my $balance = $c->user->balances->find_or_create({ currency_serial => 1 });
-
     $c->user->bitcoins_received(
-      $balance->amount + $diff
+      $c->user->bitcoins_received + $diff
     );
 
     $c->user->update;
@@ -330,6 +328,7 @@ sub deposit_bitcoin_refresh :Private {
       processed_at => DateTime->now,
     });
 
+    my $balance = $c->user->balances->find_or_create({ currency_serial => 1 });
     $balance->amount( $balance->amount + $diff );
     $balance->update();
   }
