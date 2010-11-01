@@ -33,10 +33,6 @@ sub auto :Private {
     return;
   }
 
-  if ($c->user) {
-    $c->forward('deposit_bitcoin_refresh');
-  }
-
   1;
 }
 
@@ -298,6 +294,11 @@ sub deposit_bitcoin :Path('deposit/bitcoin') {
     
     $c->user->update();
   }
+  else {
+    if ($c->user) {
+      $c->forward('deposit_bitcoin_refresh');
+    }
+  }
 
   $c->stash->{bitcoin_address} = $c->user->bitcoin_address;
   $c->stash->{bitcoins_sent} = $c->user->bitcoins_received || 0;
@@ -312,7 +313,14 @@ sub deposit_bitcoin_refresh :Private {
 
   if ($bitcoins_new_balance > $c->user->bitcoins_received) {
     my $diff = $bitcoins_new_balance - $c->user->bitcoins_received;
-    
+    my $balance = $c->user->balances->find_or_create({ currency_serial => 1 });
+
+    $c->user->bitcoins_received(
+      $balance->amount + $diff
+    );
+
+    $c->user->update;
+
     $c->user->deposits->create({
       currency_serial => 1,
       amount => $diff,
@@ -322,16 +330,8 @@ sub deposit_bitcoin_refresh :Private {
       processed_at => DateTime->now,
     });
 
-    my $balance = $c->user->balances->find_or_create({ currency_serial => 1 });
-
     $balance->amount( $balance->amount + $diff );
     $balance->update();
-
-    $c->user->bitcoins_received(
-      $bitcoins_new_balance
-    );
-
-    $c->user->update;
   }
 }
 
