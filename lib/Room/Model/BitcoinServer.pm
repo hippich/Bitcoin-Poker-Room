@@ -1,87 +1,21 @@
 package Room::Model::BitcoinServer;
 
-use JSON::RPC::Client;
-use Moose;
-use MooseX::Types::Moose qw/ArrayRef Str ClassName Undef/;
-extends 'Catalyst::Model';
+use strict;
+use warnings;
 
-has jsonrpc_client => (is => 'rw');
-has jsonrpc_host => (is => 'rw', isa => Str);
-has jsonrpc_uri => (is => 'rw', isa => Str);
-has jsonrpc_user => (is => 'rw', isa => Str);
-has jsonrpc_password => (is => 'rw', isa => Str);
+use base qw/ Catalyst::Model::Bitcoin /;
 
+=head1 NAME
 
-sub BUILD {
-  my $self = shift;
+Room::Model::BitcoinServer - Bitcoin Server Model Class
 
-  $self->jsonrpc_client( new JSON::RPC::Client );
-  $self->jsonrpc_client->ua->credentials(
-    $self->jsonrpc_host,
-    'jsonrpc',
-    $self->jsonrpc_user => $self->jsonrpc_password,
-  );
-}
+=head1 SYNOPSIS
 
+See L<Room>.
 
-sub get_received_by_address {
-  my ($self, $address) = @_;
+=head1 DESCRIPTION 
 
-  my $res = $self->__send_json_request({
-      method => 'getreceivedbyaddress',
-      params => [$address],
-  });
-
-  return $res->{content}->{result};
-}
-
-
-sub send_to_address {
-  my ($self, $address, $amount) = @_;
-
-  # This is required to force $amount to be json-coded as real type,
-  # not string, in following JSON-RPC request
-  $amount += 0;
-  
-  return $self->__send_json_request({
-              method => 'sendtoaddress',
-              params => [$address, $amount],
-         });
-}
-
-
-sub get_new_address {
-  my $self = shift;
-
-  my $res = $self->__send_json_request({
-      method => 'getnewaddress',
-      params => [],
-  });
-
-  return $res->{content}->{result};
-}
-
-
-sub get_balance {
-  my $self = shift;
-
-  my $res = $self->__send_json_request({
-      method => 'getbalance',
-      params => [],
-  });
-
-  return $res->{content}->{result};
-}
-
-
-sub __send_json_request {
-  my ($self, $obj) = @_;
- 
-  return $self->jsonrpc_client->call(
-    $self->jsonrpc_uri, $obj
-  );
-}
-
+Bitcoin Server Model Class.
 
 =head1 AUTHOR
 
@@ -106,6 +40,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 =cut
-
 
 1;

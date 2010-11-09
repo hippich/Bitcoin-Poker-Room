@@ -358,7 +358,7 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
       currency_serial => 1,
       amount => $amount,
       dest => $address,
-      info => Dumper($result),
+      info => "Result: ". $result ."\n\nError: ". Dumper($c->model('BitcoinServer')->api->error),
       created_at => DateTime->now,
     });
 
@@ -367,7 +367,7 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
     );
     $balance->update();
 
-    if ($result->{content}->{result} eq 'sent') {
+    if ($result eq 'sent') {
       # Mark as processed if successful
       $withdrawal->processed_at( DateTime->now() );
       $withdrawal->processed(1);
