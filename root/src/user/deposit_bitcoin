@@ -1,9 +1,16 @@
 [% META title = 'Deposit' %]
 
+<p>We accept only Bitcoins as deposit option. If you want to know more - 
+checkout <a href='http://www.bitcoin.org' target='_blank'>http://www.bitcoin.org</a></p>
 
-<p>We accept only Bitcoins as deposit option. If you want to know more - checkout <a href='http://www.bitcoin.org' target='_blank'>http://www.bitcoin.org</a></p>
+<p>We have generated address for all your transactions. Any money sent to this 
+address will be deposited to your account. Please note, that we wait until we 
+get at least one confirmation of the transaction, so it will take some time for 
+sent bitcoins to appear here. This delay depends on network size and load at 
+this moment.</p>
 
-<p>We have generated address for all your transactions. Any money sent to this address will be deposited to your account. Please note, that we wait untill we get atleast one confirmation of the transaction, so it will take some time for sent bitcoins to appear here. This delay depends on network size and load at this moment.</p>
+<p><strong>You need to come back to this page when you will see confirmations of your
+transaction in order to finalize depositing of Bitcoins.</strong></p>
 
 <p>Bitcoin address: <strong>[% bitcoin_address %]</strong></p>
 
