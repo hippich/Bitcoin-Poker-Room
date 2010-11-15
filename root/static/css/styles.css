@@ -151,3 +151,9 @@ table td {
   margin-left: 40px;
   float: right;
 }
+
+.right_column {
+  width: 300px;
+  float: right;
+  margin-left: 40px;
+}

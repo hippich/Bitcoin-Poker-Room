@@ -232,6 +232,10 @@ sub edit :Local :Args(0) :FormConfig {
     $c->user->email
   );
 
+  $form->get_field({name => 'hide_gravatar'})->default(
+    $c->user->hide_gravatar
+  );
+
   # If 'Cancel' button pressed - redirect to /user page
   if ($c->req->param('cancel')) {
     $c->res->redirect(
@@ -272,7 +276,10 @@ sub edit :Local :Args(0) :FormConfig {
       );
     }
 
+    $c->user->hide_gravatar( $form->params->{hide_gravatar} );
+
     $c->user->update();
+    $c->user->make_column_dirty('data');
 
     push @{$c->flash->{messages}}, "Account successfully updated.";
 
@@ -396,7 +403,7 @@ sub AVATAR :Global :Args(1) {
       "/user/no_avatar/". $uid
   ));
 
-  if ($user && $user->email) {
+  if ($user && $user->email && !$c->user->hide_gravatar) {
     my $grav_url = "http://www.gravatar.com/avatar/".md5_hex(lc $user->email)."?d=". $default ."&s=". $c->config->{gravatar_size};
     $c->res->redirect($grav_url);
   }

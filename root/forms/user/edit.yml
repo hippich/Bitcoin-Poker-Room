@@ -26,6 +26,12 @@ elements:
       - type: Callback
         message: User with such email already exists.
 
+  - type: Checkbox
+    name: hide_gravatar
+    label: Hide Gravatar
+    comment: If you want to NOT show your Gravatar, check this box
+    value: 1
+
   - type: Password
     name: old_password
     label: Old password
