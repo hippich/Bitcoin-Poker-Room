@@ -29,6 +29,7 @@ var refresh_tables = function() {
           $("table.tables-list").html(
             tables_list
           );
+          attach_behaviors($("table.tables-list"));
         }
         else {
           window.location = '/tables';
