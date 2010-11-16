@@ -19,12 +19,25 @@ $(function() {
 
 
 var refresh_tables = function() {
-    $("table.tables-list").load(
-      "/tables table.tables-list > *",
-      function() {
-        attach_behaviors($("table.tables-list"));
+
+    $.ajax({
+      url: '/tables',
+      success: function(data) {
+        var tables_list = $(data).find('table.tables-list').html();
+
+        if (tables_list) {
+          $("table.tables-list").html(
+            tables_list
+          );
+        }
+        else {
+          window.location = '/tables';
+        }
+      },
+      error: function(req) {
+        window.location = '/tables';
       }
-    );
+    });
     setTimeout("refresh_tables()", 15000);
 }
 
