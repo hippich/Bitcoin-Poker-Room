@@ -3,12 +3,8 @@
 <h2>Welcome</h2>
 
 <div class='right_column'>
-  <div id="twitter" style="font-size: 30px; line-height: 38px; color: #0084B4;">
-    <div style="float: right; margin: 4px 40px 0 0;">
-      <a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="betcoin">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-    </div>
-    Follow us on<br /> Twitter: 
-    <div style="clear: both;"></div>
+  <div id="twitter" style="text-align: center;">
+    <a href="https://twitter.com/betcoin"><img src="/static/img/STB-4.png" /></a>
   </div>
 
   <h3>News</h3>
@@ -35,7 +31,7 @@
   <p>Bitcoin Poker Room is intended as a place where poker fans can play
   with their friends for free.</p>
 
-  <p><img width="650" src='http://img210.imageshack.us/img210/2004/bitcoinpokertable2.png' /></p>
+  <p><img width="650" src='/static/img/bitcoinpokertable2.png' /></p>
 
   <p>In order to keep the game fair we decided to leverage digital virtual
   currency Bitcoin. Bitcoins are "mined" by people running bitcoins generation software.
