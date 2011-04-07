@@ -53,7 +53,11 @@ sub index :Chained('base') :PathPart('') :Args(0) {
 sub withdrawals :Chained('base') :Args(0) {
   my ($self, $c) = @_;
 
-  $c->stash->{withdrawals} = $c->model("PokerNetwork::Withdrawal")->search();
+  $c->stash->{withdrawals} = $c->model("PokerNetwork::Withdrawal")->search({}, { 
+      order_by => { 
+        -desc => 'withdrawal_id' 
+      } 
+  });
 }
 
 
@@ -98,7 +102,7 @@ sub withdrawal_reprocess :Chained('withdrawal_base') :PathPart('reprocess') :Arg
   if ($withdrawal->currency->serial == 1) {
     my $result = $c->model("BitcoinServer")->send_to_address($withdrawal->dest, $withdrawal->amount);
 
-    if ($result->{content}->{result} eq 'sent') {
+    if (! $c->model('BitcoinServer')->api->error) {
       # Mark as processed if successful
       $withdrawal->processed_at( DateTime->now() );
       $withdrawal->processed(1);

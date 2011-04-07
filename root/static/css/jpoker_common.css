@@ -29,3 +29,14 @@
 #jpokerErrorDialog .jquery_error_details {
     padding-top: 1em;
 }
+
+#tip {
+  color: #FFF;
+  font-size: 11px;
+  position: absolute;
+  top: 4px;
+  left: 150px;
+  z-index: 9999;
+  width: auto;
+}
+

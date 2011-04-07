@@ -36,7 +36,7 @@ requires 'Catalyst::Plugin::Email';
 requires 'Log::Handler';
 requires 'Catalyst::Plugin::LogWarnings';
 requires 'Catalyst::Plugin::Log::Handler' => '0.08';
-
+requires 'Net::Twitter::Lite';
 
 
 test_requires 'Test::More' => '0.88';

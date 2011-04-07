@@ -1,3 +1,7 @@
+li {
+  margin: 1em 0;
+}
+
 ul.menu {
   margin: 0;
   padding: 0;
@@ -40,6 +44,9 @@ body {
     margin: 0px;
     padding: 0px;
     height: 100%;
+    font-family: Ubuntu, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 #header {

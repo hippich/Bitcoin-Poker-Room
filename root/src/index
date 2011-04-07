@@ -3,12 +3,30 @@
 <h2>Welcome</h2>
 
 <div class='right_column'>
+  <div id="twitter" style="font-size: 30px; line-height: 38px; color: #0084B4;">
+    <div style="float: right; margin: 4px 40px 0 0;">
+      <a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="betcoin">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+    </div>
+    Follow us on<br /> Twitter: 
+    <div style="clear: both;"></div>
+  </div>
+
   <h3>News</h3>
   
   <ul>
     <li>
       <strong>14 Nov, 2010</strong> Added "Hide Gravatar" checkbox in My Account 
-      edit form for these who preffer to not show their Gravatar in poker room.
+      edit form for these who preffer to not show their Gravatar in poker room. <br />
+    </li>
+    <li>
+      <strong>1 Dec, 2010</strong> Disabled rake completelly. You can play for free. 
+      If you wish to donate to this project, please send coins to address
+      <strong>1Cw6L8uXgVDjd5YtT8EZazxD8XccyKUXkS</strong>.<br />
+    </li>
+    <li>
+      <strong>7 Apr, 2011</strong> Minor bug fixes. Random freezes of poker room still
+      happens. If you got it - hit F5 in poker room window. This will refresh the whole
+      session and you will get to the point where room froze. <br />
     </li>
   </ul>
 </div>
@@ -17,9 +35,12 @@
   <p>Bitcoin Poker Room is intended as a place where poker fans can play
   with their friends for free.</p>
 
+  <p><img width="650" src='http://img210.imageshack.us/img210/2004/bitcoinpokertable2.png' /></p>
+
   <p>In order to keep the game fair we decided to leverage digital virtual
-  currency Bitcoin. Essentially, after you download Bitcoin client program
-  you can generate "coins" which later you can spend in this poker room.</p>
+  currency Bitcoin. Bitcoins are "mined" by people running bitcoins generation software.
+  It's very hard to generate one bitcoin today, therefore you may consider to buy them
+  from people who generate them.</p>
 
   <p>Since generation of "coins" depends on the amount of time spent generating them
   we effectively eliminate bad players who disturb game. For example, it's no

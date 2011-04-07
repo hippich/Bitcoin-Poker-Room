@@ -374,7 +374,7 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
     );
     $balance->update();
 
-    if ($result eq 'sent') {
+    if (! $c->model('BitcoinServer')->api->error) {
       # Mark as processed if successful
       $withdrawal->processed_at( DateTime->now() );
       $withdrawal->processed(1);
