@@ -57,26 +57,6 @@ sub index :Path :Args(0) {
 
 }
 
-sub notify :Local :Args(0) {
-  my ( $self, $c ) = @_;
-
-  my $players = $c->model("PokerNetwork::Pokertables")->get_column('players');
-  my $total = $players->sum;
-
-  if ($total > 0) {
-    my $nt = Net::Twitter::Lite->new(
-      consumer_key => $c->config->{twitter_consumer_key},
-      consumer_secret => $c->config->{twitter_consumer_secret},
-      access_token => $c->config->{twitter_access_token},
-      access_token_secret => $c->config->{twitter_access_token_secret}
-    );
-
-    my $result = eval { $nt->update($total . ' player(s) sits right now at poker tables at #bitcoin #poker room http://bit.ly/dF1K8h.') }; 
-  }
-
-  $c->response->body('Done');
-}
-
 =head1 AUTHOR
 
 Pavel Karoukin
