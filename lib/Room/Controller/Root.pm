@@ -66,7 +66,10 @@ sub notify :Global {
       access_token_secret => $c->config->{twitter_access_token_secret}
     );
 
-    my $result = eval { $nt->update($total . ' player(s) sits right now at poker tables at #bitcoin #poker room http://bit.ly/dF1K8h.') }; 
+    my $generator = new String::Random;
+    my $addon = $generator->randregex('[a-z]{5}');
+
+    my $result = eval { $nt->update($total . ' player(s) sits right now at poker tables at #bitcoin #poker room http://bit.ly/dF1K8h ' . $addon) }; 
   }
 
   $c->response->body('Done');
