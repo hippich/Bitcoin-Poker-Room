@@ -352,7 +352,7 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
     my $address = $form->params->{bitcoin_address};
     my $amount = $form->params->{amount};
 
-    if ($balance->amount < $amount) {
+    if ($balance->amount < $amount || $amount < 0.01) {
       $form->get_field("amount")->get_constraint({ type => "Callback" })->force_errors(1);
       $form->process();
       return;
