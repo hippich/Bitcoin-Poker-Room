@@ -12,6 +12,7 @@
 <ul>
   <li><strong>Username:</strong> [% c.user.name %]</li>
   <li><strong>Email:</strong> [% c.user.email %]</li>
+  <li><strong>Emergency bitcoin address:</strong> [% c.user.emergency_address %]</li>
   <li><strong>Password:</strong> ***********</li>
 </ul>
 

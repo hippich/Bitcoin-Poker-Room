@@ -236,6 +236,10 @@ sub edit :Local :Args(0) :FormConfig {
     $c->user->hide_gravatar
   );
 
+  $form->get_field({name => 'emergency_address'})->default(
+    $c->user->emergency_address
+  );
+
   # If 'Cancel' button pressed - redirect to /user page
   if ($c->req->param('cancel')) {
     $c->res->redirect(
@@ -277,6 +281,7 @@ sub edit :Local :Args(0) :FormConfig {
     }
 
     $c->user->hide_gravatar( $form->params->{hide_gravatar} );
+    $c->user->emergency_address( $form->params->{emergency_address} );
 
     $c->user->update();
     $c->user->make_column_dirty('data');

@@ -26,6 +26,11 @@ elements:
       - type: Callback
         message: User with such email already exists.
 
+  - type: Text
+    name: emergency_address
+    label: Emergency BTC address
+    comment: YOUR bitcoin address where funds should be sent in case of emergency (server total loss, earthquake, etc)
+
   - type: Checkbox
     name: hide_gravatar
     label: Hide Gravatar
