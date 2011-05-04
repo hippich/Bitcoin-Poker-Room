@@ -886,7 +886,7 @@
                     timeout: this.timeout,
                     url: this.url + '?' + this.auth + '&' + this.session_uid,
                     type: 'POST',
-                    dataType: 'json',
+                    dataType: 'text json',
                     global: false, // do not fire global events
                     success: function(data, status) {
                         if(jpoker.verbose > 0) {
