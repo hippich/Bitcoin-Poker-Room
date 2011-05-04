@@ -11,8 +11,13 @@
   
   <ul>
     <li>
-      <strong>14 Nov, 2010</strong> Added "Hide Gravatar" checkbox in My Account 
-      edit form for these who preffer to not show their Gravatar in poker room. <br />
+      <strong>4 May, 2011</strong> Heads-Up button problem finally fixed. 
+      After rake code was fixed and tested, rake was re-enabled. <br />
+    </li>
+    <li>
+      <strong>7 Apr, 2011</strong> Minor bug fixes. Random freezes of poker room still
+      happens. If you got it - hit F5 in poker room window. This will refresh the whole
+      session and you will get to the point where room froze. <br />
     </li>
     <li>
       <strong>1 Dec, 2010</strong> Disabled rake completelly. You can play for free. 
@@ -20,9 +25,8 @@
       <strong>1Cw6L8uXgVDjd5YtT8EZazxD8XccyKUXkS</strong>.<br />
     </li>
     <li>
-      <strong>7 Apr, 2011</strong> Minor bug fixes. Random freezes of poker room still
-      happens. If you got it - hit F5 in poker room window. This will refresh the whole
-      session and you will get to the point where room froze. <br />
+      <strong>14 Nov, 2010</strong> Added "Hide Gravatar" checkbox in My Account 
+      edit form for these who preffer to not show their Gravatar in poker room. <br />
     </li>
   </ul>
 </div>

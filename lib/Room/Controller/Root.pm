@@ -78,6 +78,7 @@ sub notify :Global {
 
 sub credits :Local {}
 sub contactus :Local {}
+sub rake :Local {}
 
 =head2 default
 
