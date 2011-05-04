@@ -404,7 +404,7 @@ sub AVATAR :Global :Args(1) {
   ));
 
   if ($user && $user->email && !$c->user->hide_gravatar) {
-    my $grav_url = "http://www.gravatar.com/avatar/".md5_hex(lc $user->email)."?d=". $default ."&s=". $c->config->{gravatar_size};
+    my $grav_url = "https://secure.gravatar.com/avatar/".md5_hex(lc $user->email)."?d=". $default ."&s=". $c->config->{gravatar_size};
     $c->res->redirect($grav_url);
   }
   else {
