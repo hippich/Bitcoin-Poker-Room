@@ -199,6 +199,7 @@
 }
 
 .jpoker_table .jpoker_ptable_allin {
+  display: none !important;
   height: auto;
   width: auto;
   left: 427px;
@@ -216,7 +217,7 @@
 .jpoker_table .jpoker_ptable_fold {
   height: auto;
   top: 485px;
-  left: 337px;
+  left: 427px;
 }
 
 .jpoker_table .jpoker_ptable_fold a {
