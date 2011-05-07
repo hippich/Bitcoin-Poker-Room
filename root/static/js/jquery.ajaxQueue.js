@@ -6,6 +6,7 @@
     syncedData = [],
     ajaxRunning = [];
 
+
     $.ajax = function(settings) {
         // create settings for compatibility with ajaxSetup
         settings = jQuery.extend(settings, jQuery.extend({}, jQuery.ajaxSettings, settings));
