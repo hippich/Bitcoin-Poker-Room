@@ -4691,12 +4691,12 @@
                     }
                     rebuy.dialog('close');
             });
-            
+
             $('.ui-slider-1', rebuy).slider({
                         min: limits[0]*100,
                         startValue: limits[1]*100,
                         max: limits[2]*100,
-                        stepping: 1,
+                        step: 1,
                         change: function(event, ui) {
                           var current = $('.jpoker_rebuy_current').html(ui.value/100.0);
                           current.attr('title', ui.value);
@@ -4927,11 +4927,11 @@
                     raise_input.show();
 
                     $('.ui-slider-1', raise).slider({
-                                min: betLimit.min,
+                                min: betLimit.min*100,
                                 startValue: betLimit.min*100,
                                 max: betLimit.max*100,
                                 axis: 'horizontal',
-                                stepping: betLimit.step*100,
+                                step: betLimit.step*100,
                                 change: function(event, ui) {
                                   var current = $('.jpoker_raise_current', ui.element);
                                   current.html(jpoker.chips.SHORT(ui.value/100.0));
@@ -4961,6 +4961,11 @@
                             }
                             sliding = false;
                     });
+
+                    $('.jpoker_raise_input', raise_input).focus(function() {
+                      this.select();
+                    });
+
 
                     click = function() {
                         var server = jpoker.getServer(url);
