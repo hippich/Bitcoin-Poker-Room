@@ -67,7 +67,7 @@ body {
 }
 
 #content {
-    padding: 10px;
+    padding: 10px 10px 40px;
 }
 
 h1.title {
@@ -167,4 +167,12 @@ table td {
   width: 300px;
   float: right;
   margin-left: 40px;
+}
+
+.main_content {
+  clear: left;
+}
+
+#content > h2.content-title {
+  float: left;
 }

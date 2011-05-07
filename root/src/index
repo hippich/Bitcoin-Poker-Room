@@ -1,41 +1,20 @@
 [% META title = 'Bitcoin Poker Room' %]
 
-<h2>Welcome</h2>
+<h2 class="content-title">Welcome</h2>
 
 <div class='right_column'>
   <div id="twitter" style="text-align: center;">
     <a href="https://twitter.com/betcoin"><img src="/static/img/STB-4.png" /></a>
   </div>
 
-  <h3>News</h3>
-  
-  <ul>
-    <li>
-      <strong>4 May, 2011</strong> Heads-Up button problem finally fixed. 
-      After rake code was fixed and tested, rake was re-enabled. <br />
-    </li>
-    <li>
-      <strong>7 Apr, 2011</strong> Minor bug fixes. Random freezes of poker room still
-      happens. If you got it - hit F5 in poker room window. This will refresh the whole
-      session and you will get to the point where room froze. <br />
-    </li>
-    <li>
-      <strong>1 Dec, 2010</strong> Disabled rake completelly. You can play for free. 
-      If you wish to donate to this project, please send coins to address
-      <strong>1Cw6L8uXgVDjd5YtT8EZazxD8XccyKUXkS</strong>.<br />
-    </li>
-    <li>
-      <strong>14 Nov, 2010</strong> Added "Hide Gravatar" checkbox in My Account 
-      edit form for these who preffer to not show their Gravatar in poker room. <br />
-    </li>
-  </ul>
+  <div id="facebook">
+    <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FTexas-Holdem-with-Bitcoins%2F217143734980207&amp;width=292&amp;colorscheme=light&amp;show_faces=true&amp;stream=true&amp;header=true&amp;height=427" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:427px;" allowTransparency="true"></iframe>
+  </div>
 </div>
 
 <div class='main_content'>
   <p>Bitcoin Poker Room is intended as a place where poker fans can play
-  with their friends for free.</p>
-
-  <p><img width="650" src='/static/img/bitcoinpokertable2.png' /></p>
+  with their friends.</p>
 
   <p>In order to keep the game fair we decided to leverage digital virtual
   currency Bitcoin. Bitcoins are "mined" by people running bitcoins generation software.
@@ -67,3 +46,5 @@
   <p>Any suggestions are also welcome. Please, send any questions, suggestions,
   etc to <a href="mailto:pavel@yepcorp.com">pavel@yepcorp.com</a></p>
 </div>
+
+<div class="clear"></div>
