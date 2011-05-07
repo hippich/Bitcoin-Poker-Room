@@ -1,13 +1,10 @@
 (function($) {
 
     $.ajax_queue = $.ajax;
-    return;
-    $.ajax_queue = $.ajax,
     pendingRequests = {},
     synced = [],
     syncedData = [],
     ajaxRunning = [];
-
 
     $.ajax = function(settings) {
         // create settings for compatibility with ajaxSetup
