@@ -1,5 +1,7 @@
 (function($) {
 
+    $.ajax_queue = $.ajax;
+    return;
     $.ajax_queue = $.ajax,
     pendingRequests = {},
     synced = [],
