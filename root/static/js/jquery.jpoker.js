@@ -3923,13 +3923,7 @@
                 avatar_element.removeClass().addClass('jpoker_avatar jpoker_ptable_player_seat' + seat + '_avatar jpoker_avatar_default_' + avatar);
                 avatar_element.empty();
                 var avatar_url = server.urls.avatar+'/'+serial;
-                server.ajax({url: avatar_url,
-                        type: 'GET',
-                        global: false,
-                        success: function(data, status) {
-                        jpoker.plugins.player.avatar.update(player.name, avatar_url, avatar_element);
-                        }
-                });
+                jpoker.plugins.player.avatar.update(player.name, avatar_url, avatar_element);
             }
             avatar_element.show();
             var seat_element = $('#player_seat' + seat + id);
