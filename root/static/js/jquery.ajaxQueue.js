@@ -12,8 +12,8 @@
 
         var port = settings.port;
 
-        if (settings.mode == 'queue2') {
-          port = port + "-2";
+        if (settings.mode == 'direct') {
+          port = port + "-direct";
           settings.mode = 'queue';
         }
 
@@ -33,13 +33,13 @@
             case "queue":
                 var _old = settings.complete;
                 settings.complete = function() {
-                    if (_old) {
-                        _old.apply(this, arguments);
-                    }
                     if (jQuery([$.ajax_queue]).queue("ajax" + port).length > 0) {
                         jQuery([$.ajax_queue]).dequeue("ajax" + port);
                     } else {
                         ajaxRunning[port] = false;
+                    }
+                    if (_old) {
+                        _old.apply(this, arguments);
                     }
                 };
 

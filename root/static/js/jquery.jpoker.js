@@ -855,7 +855,7 @@
                     }
                     this.sendPacketAjax({ type: 'PacketPokerLongPollReturn' }, 'direct');
                 }
-                var reqtype = 'queue2';
+                var reqtype = 'direct';
                 if(packet.type == 'PacketPokerLongPoll') {
                     this.pendingLongPoll = true;
                     reqtype = 'queue';
