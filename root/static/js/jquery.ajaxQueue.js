@@ -24,7 +24,6 @@
                 return;
                 
             case "queue":
-                settings.retry = 1;
                 var _old = settings.complete;
                 settings.complete = function() {
                     if (_old) {

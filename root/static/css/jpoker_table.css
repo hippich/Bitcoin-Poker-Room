@@ -620,3 +620,16 @@
 .jpoker_ptable_player_seat3_bet {
   z-index: 102;
 }
+
+.ajax-retry {
+  position: absolute;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 750px;
+  height: 25px;
+  background: #CCC;
+  opacity: 0.95;
+  padding: 5px 0 0 10px;
+}
+

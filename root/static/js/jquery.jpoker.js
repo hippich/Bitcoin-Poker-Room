@@ -234,7 +234,7 @@
 
         error_template: '<span class=\'jquery_error_message\'>{message} <a href="">{retry}</a></span> <div class=\'jquery_error_details\'><pre>{details}</pre></div>',
 
-        error_dialog_options: { width: 'none', height: 'none', autoOpen: false, dialog: true, title: 'jpoker error' },
+        error_dialog_options: { width: '300px', height: 'auto', autoOpen: false, dialog: true, title: 'Connection error' },
 
         errorHandler: function(reason, str) {
             if (jpoker.console) {
@@ -879,16 +879,23 @@
                 }
                 var packet_type = packet.type;
                 var retry = 0;
+
+                var timeout = 3000;
+                if (packet_type == 'PacketPokerLongPoll') {
+                  timeout = this.timeout;
+                }
+            
                 var args = {
                     async: this.async,
                     data: json_data,
                     mode: mode,
-                    timeout: this.timeout,
+                    timeout: timeout,
                     url: this.url + '?' + this.auth + '&' + this.session_uid,
                     type: 'POST',
                     dataType: 'text json',
                     global: false, // do not fire global events
                     success: function(data, status) {
+                        $('.ajax-retry').remove();
                         if(jpoker.verbose > 0) {
                             jpoker.message('success ' + json_data + ' returned ' + data);
                         }
@@ -907,27 +914,33 @@
                             jpoker.message('error callback fire for ' + json_data);
                         }
                         if(status == 'timeout') {
-                            $this.setConnectionState('disconnected');
-                            $this.reset();
+                            if ($this.getConnectionState() != 'disconnected') {
+                              $this.setConnectionState('disconnected');
+                              $.jpoker.errorHandler({}, "Connection timed out.");
+                              $this.reset();
+                            }
+                            //window.location.reload();
                         } else {
                             switch (xhr.status) {
-                            case 0: // when the browser aborts xhr ( unload for instance )
-                            return; // discard the error
-                            case 12152:
-                            case 12030:
-                            case 12031:
-                             ++retry;
-                            if (retry < $this.retryCount) {
-                                return false; // retry
+                              case 0: // when the browser aborts xhr ( unload for instance )
+                                return; // discard the error
+                              case 12152:
+                              case 12030:
+                              case 12031:
+                                 ++retry;
+                                if (retry < $this.retryCount) {
+                                    return false; // retry
+                                }
+                                error = 'ajax retry count exceeded: '+ retry;
+                                break;
                             }
-                            error = 'ajax retry count exceeded: '+ retry;
-                            break;
-                            }
-                            $this.error({ xhr: xhr,
-                                          status: status,
-                                          url: $this.url,
-                                          error: error
-                                });
+
+                            $this.error({ 
+                              xhr: xhr,
+                              status: status,
+                              url: $this.url,
+                              error: error
+                            });
                         }
                     }
                 };
@@ -1563,14 +1576,17 @@
 
             tableQuit: function(game_id) {
                 if (this.loggedIn() === false) {
-                    jpoker.dialog(_("User must be logged in"));
+                  jpoker.dialog(_("User must be logged in"));
                 } else {
-                    this.queueRunning(function(server) {
-                            server.setState(server.TABLE_QUIT);
-                            server.sendPacket({ type: 'PacketPokerTableQuit', game_id: game_id }, function() {
-                                    server.setState(server.RUNNING, 'PacketPokerTableQuit');
-                                });
-                        });
+                  this.queueRunning(function(server) {
+                    server.setState(server.TABLE_QUIT);
+                    server.sendPacket(
+                      { type: 'PacketPokerTableQuit', game_id: game_id }, 
+                      function() {
+                            server.setState(server.RUNNING, 'PacketPokerTableQuit');
+                      }
+                    );
+                  });
                 }
             },
 
@@ -3418,20 +3434,28 @@
                     var table = jpoker.getTable(url, game_id);
                     if(server) {
                         server.tableQuit(game_id);
+
                         server.queueRunning(function(server) {
-                                table.handler(server, game_id, { type: 'PacketPokerTableDestroy',
-                                            game_id: game_id });
-                            });
+                          table.handler(
+                            server, game_id, 
+                            { 
+                              type: 'PacketPokerTableDestroy',
+                              game_id: game_id 
+                            }
+                          );
+                        });
                     }
                 }).hover(function(){
                         $(this).addClass('hover');
                     },function(){
                         $(this).removeClass('hover');
                     }).html('<div class=\'jpoker_quit\'><a href=\'javascript://\'>' + _("Exit") + '</a></div>');
+
             game_fixed.append(this.templates.chat.supplant({
                         chat_history_player_label: _("chat"),
                         chat_history_dealer_label: _("dealer")
-                            }));
+            }));
+
             $('.jpoker_chat_input', game_window).hide();
             jpoker.plugins.playerSelf.hide(id);
             for(var serial in table.serial2player) {
