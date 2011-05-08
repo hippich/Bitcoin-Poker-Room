@@ -11,6 +11,14 @@
         settings = jQuery.extend(settings, jQuery.extend({}, jQuery.ajaxSettings, settings));
 
         var port = settings.port;
+
+        if (settings.mode == 'queue2') {
+          port = port + "-2";
+          settings.mode = 'queue';
+        }
+
+        settings.retry = 1;
+    
         switch (settings.mode) {
             case "abort":
                 if (pendingRequests[port]) {
@@ -19,7 +27,6 @@
                 return pendingRequests[port] = $.ajax_queue.apply(this, arguments);
                 
             case "direct":
-                settings.retry = 1;
                 $.ajax_queue(settings);
                 return;
                 
