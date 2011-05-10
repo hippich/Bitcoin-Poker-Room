@@ -849,6 +849,11 @@
             },
 
             sendPacket: function(packet, callback) {
+                var reqtype,
+                    packet_to_send = packet,
+                    callback_to_send = callback,
+                    thisObject = this;
+
                 if(this.pendingLongPoll) {
                     if(jpoker.verbose > 0) {
                         jpoker.message('sendPacket PacketPokerLongPollReturn');
@@ -860,7 +865,10 @@
                     this.pendingLongPoll = true;
                     reqtype = 'queue';
                 }
-                this.sendPacketAjax(packet, reqtype, callback);
+                setTimeout(
+                  function() {
+                    thisObject.sendPacketAjax(packet_to_send, reqtype, callback_to_send);
+                  }, 100);
             },
 
             receivePacket: function(data) {
@@ -5812,7 +5820,7 @@
                             password_confirmation: $('input[name=password_confirmation]', element).val(),
                             email: $('input[name=email]', element).val()
                         };
-                        server.createAccount(options);
+                        // server.createAccount(options);
                     });
                 server.registerUpdate(updated, null, 'signup ' + id);
                 $(element).dialog(opts.dialog);
