@@ -865,10 +865,7 @@
                     this.pendingLongPoll = true;
                     reqtype = 'queue';
                 }
-                setTimeout(
-                  function() {
-                    thisObject.sendPacketAjax(packet_to_send, reqtype, callback_to_send);
-                  }, 100);
+                thisObject.sendPacketAjax(packet_to_send, reqtype, callback_to_send);
             },
 
             receivePacket: function(data) {
