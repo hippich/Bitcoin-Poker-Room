@@ -21,6 +21,9 @@
 .jpoker_table .jpoker_ptable_options,
 .jpoker_table .jpoker_sound_control,
 .jpoker_table .jpoker_ptable_quit,
+.jpoker_table .jpoker_ptable_pot,
+.jpoker_table .jpoker_ptable_halfpot,
+.jpoker_table .jpoker_ptable_threequarterpot,
 .jpoker_table .jpoker_quit {
   padding: auto;
   margin: auto;
@@ -43,6 +46,9 @@
 .jpoker_table .jpoker_ptable_sitout a,
 .jpoker_table .jpoker_ptable_quit a,
 .jpoker_table .jpoker_ptable_sound_control,
+.jpoker_table .jpoker_ptable_pot a,
+.jpoker_table .jpoker_ptable_halfpot a,
+.jpoker_table .jpoker_ptable_threequarterpot a,
 .jpoker_table .jpoker_ptable_sitout_fold a {
   background: #fe931b url(images/alert-overlay.png) repeat-x;
   display: inline-block;
@@ -227,7 +233,26 @@
 .jpoker_ptable_threequarterpot,
 .jpoker_ptable_halfpot,
 .jpoker_ptable_pot {
-  display: none !important;
 }
 
 
+.jpoker_table .jpoker_ptable_pot a ,
+.jpoker_table .jpoker_ptable_halfpot a ,
+.jpoker_table .jpoker_ptable_threequarterpot a {
+  height: 22px;
+  padding: 12px 5px 0;
+  width: 18px;
+}
+
+.jpoker_table .jpoker_ptable_pot {
+  top: 485px;
+  left: 397px;
+}
+.jpoker_table .jpoker_ptable_halfpot {
+  top: 485px;
+  left: 337px;
+}
+.jpoker_table .jpoker_ptable_threequarterpot {
+  left: 367px;
+  top: 485px;
+}

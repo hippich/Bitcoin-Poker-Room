@@ -4438,10 +4438,10 @@
             var labels = [ _("check"), _("call") + ' <span class=\'jpoker_call_amount\'></span>', _("Raise"), _("fold"), _("all in"), _("pot"), _("1/2"), _("3/4") ];
             for(var i = 0; i < names.length; i++) {
                 $('#' + names[i] + id).html(jpoker.plugins.playerSelf.templates.action.supplant({ action: labels[i] })).hover(function(){
-                        $(this).addClass('hover');
-                    },function(){
-                        $(this).removeClass('hover');
-                    });
+                  $(this).addClass('hover');
+                },function(){
+                  $(this).removeClass('hover');
+                });
             }
             //
             // rebuy
@@ -4973,17 +4973,19 @@
                                 }
                     });
 
-                    $('.jpoker_raise_input', raise_input).keyup(function() {
-                            sliding = true;
-                            var value = parseFloat($(this).val().replace(',', '.'));
-                            if (isNaN(value)) {
-                                value = $('.ui-slider-1', raise).slider('value', 0);
-                                $(this).val(jpoker.chips.SHORT(value/100.0));
-                            } else {
-                                $('.ui-slider-1', raise).slider('value', value*100);
-                            }
-                            sliding = false;
-                    });
+                    var slider_raise_update = function() {
+                      sliding = true;
+                      var value = parseFloat($('.jpoker_raise_input', raise_input).val().replace(',', '.'));
+                      if (isNaN(value)) {
+                          value = $('.ui-slider-1', raise).slider('value', 0);
+                          $('.jpoker_raise_input', raise_input).val(jpoker.chips.SHORT(value/100.0));
+                      } else {
+                          $('.ui-slider-1', raise).slider('value', value*100);
+                      }
+                      sliding = false;
+                    }
+                
+                    $('.jpoker_raise_input', raise_input).keyup(slider_raise_update);
 
                     $('.jpoker_raise_input', raise_input).focus(function() {
                       this.select();
@@ -5016,38 +5018,18 @@
                             }
                         }).show();
                     if(betLimit.allin > betLimit.pot) {
+                       alert(betLimit.pot);
                        $('#pot' + id).unbind('click').click(function() {
-                            $(this).unbind('click');
-                            var server = jpoker.getServer(url);
-                            if(server) {
-                                server.sendPacket({ 'type': 'PacketPokerRaise',
-                                            'serial': serial,
-                                            'game_id': game_id,
-                                            'amount': betLimit.pot*100
-                                            });
-                            }
+                            $(".jpoker_raise_input", raise_input).val(Math.floor(betLimit.pot*100)/100);
+                            slider_raise_update();
                         }).show();
                        $('#halfpot' + id).unbind('click').click(function() {
-                            $(this).unbind('click');
-                            var server = jpoker.getServer(url);
-                            if(server) {
-                                server.sendPacket({ 'type': 'PacketPokerRaise',
-                                            'serial': serial,
-                                            'game_id': game_id,
-                                            'amount': betLimit.pot*50
-                                            });
-                            }
+                            $(".jpoker_raise_input", raise_input).val(Math.floor(betLimit.pot*100*0.5)/100);
+                            slider_raise_update();
                         }).show();
                        $('#threequarterpot' + id).unbind('click').click(function() {
-                            $(this).unbind('click');
-                            var server = jpoker.getServer(url);
-                            if(server) {
-                                server.sendPacket({ 'type': 'PacketPokerRaise',
-                                            'serial': serial,
-                                            'game_id': game_id,
-                                            'amount': betLimit.pot*75
-                                            });
-                            }
+                            $(".jpoker_raise_input", raise_input).val(Math.floor(betLimit.pot*100*0.75)/100);
+                            slider_raise_update();
                         }).show();
                     }
                 } else {
