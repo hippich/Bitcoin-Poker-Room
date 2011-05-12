@@ -50,6 +50,13 @@ sub index :Chained('base') :PathPart('') :Args(0) {
 }
 
 
+sub user :Chained('base') :Args(1) {
+  my ($self, $c, $user_id) = @_;
+  
+  $c->stash->{user} = $c->model("PokerNetwork::Users")->find($user_id);
+}
+
+
 sub withdrawals :Chained('base') :Args(0) {
   my ($self, $c) = @_;
 

@@ -643,10 +643,10 @@
     jpoker.connection.defaults = $.extend({
             url: '',
             async: true,
-            lagmax: 15000,
-            dequeueFrequency: 100,
-            longPollFrequency: 100,
-            minLongPollFrequency: 30,
+            lagmax: 5000,
+            dequeueFrequency: 10,
+            longPollFrequency: 10,
+            minLongPollFrequency: 3,
             timeout: 30000,
             retryCount: 10,
             clearTimeout: function(id) { return window.clearTimeout(id); },
@@ -680,7 +680,8 @@
 
             lag: 0,
 
-            high: ['PacketPokerChat', 'PacketPokerMessage', 'PacketPokerGameMessage'],
+            //high: ['PacketPokerChat', 'PacketPokerMessage', 'PacketPokerGameMessage'],
+            high: ['PacketPokerChat'],
 
             incomingTimer: -1,
 
@@ -5018,7 +5019,6 @@
                             }
                         }).show();
                     if(betLimit.allin > betLimit.pot) {
-                       alert(betLimit.pot);
                        $('#pot' + id).unbind('click').click(function() {
                             $(".jpoker_raise_input", raise_input).val(Math.floor(betLimit.pot*100)/100);
                             slider_raise_update();
