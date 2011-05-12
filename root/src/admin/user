@@ -17,10 +17,10 @@
   <div id='user-deposits'>
     <h2 class="account-info">Deposits:</h2>
 
-    <table width='100%'>
+    <table>
       <tr><th>ID</th><th>Date</th><th>Amount</th></tr>
       [% FOR deposit IN c.user.deposits %]
-        <tr><td>[% deposit.deposit_id %]</td><td>[% deposit.created_at %]</td><td>[% deposit.amoun | format('%.2f') %]</td></tr>
+        <tr><td>[% deposit.deposit_id %]</td><td>[% deposit.created_at %]</td><td>[% deposit.amount | format('%.2f') %]</td></tr>
       [% END %]
     </table>
   </div>
@@ -40,7 +40,7 @@
         </tr>
       </thead>
       <tbody>
-        [% WHILE (withdrawal = user.withdrawals.next) %]
+        [% FOR withdrawal IN user.withdrawals %]
             <tr>
               <td>[% withdrawal.id %]</td>
               <td>[% withdrawal.currency.name %]</td>
