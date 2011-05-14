@@ -2,6 +2,8 @@ package Room::Controller::Root;
 use Moose;
 use namespace::autoclean;
 use String::Random;
+use URI::Escape qw(uri_escape);
+use Digest::MD5 qw(md5_hex);
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -74,6 +76,24 @@ sub notify :Global {
 
   $c->response->body('Done');
 }
+
+sub AVATAR :Global :Args(1) {
+  my ($self, $c, $uid) = @_;
+
+  my $user = $c->model("PokerNetwork::Users")->find($uid);
+  my $default = uri_escape($c->uri_for(
+      "/user/no_avatar/". $uid
+  ));
+
+  if ($user && $user->email && !$user->hide_gravatar) {
+    my $grav_url = "https://secure.gravatar.com/avatar/".md5_hex(lc $user->email)."?d=". $default ."&s=". $c->config->{gravatar_size};
+    $c->res->redirect($grav_url);
+  }
+  else {
+    $c->forward('/user/no_avatar/'. $uid);
+  }
+}
+
 
 
 sub credits :Local {}

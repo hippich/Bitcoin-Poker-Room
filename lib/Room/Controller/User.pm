@@ -3,8 +3,6 @@ use Moose;
 use namespace::autoclean;
 use DateTime;
 use Data::Dumper;
-use URI::Escape qw(uri_escape);
-use Digest::MD5 qw(md5_hex);
 use String::Random;
 
 
@@ -398,24 +396,6 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
   }
 }
 
-
-
-sub AVATAR :Global :Args(1) {
-  my ($self, $c, $uid) = @_;
-
-  my $user = $c->model("PokerNetwork::Users")->find($uid);
-  my $default = uri_escape($c->uri_for(
-      "/user/no_avatar/". $uid
-  ));
-
-  if ($user && $user->email && !$c->user->hide_gravatar) {
-    my $grav_url = "https://secure.gravatar.com/avatar/".md5_hex(lc $user->email)."?d=". $default ."&s=". $c->config->{gravatar_size};
-    $c->res->redirect($grav_url);
-  }
-  else {
-    no_avatar($self, $c, $uid);
-  }
-}
 
 
 sub no_avatar :Local :Args(1) {
