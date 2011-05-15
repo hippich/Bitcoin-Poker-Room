@@ -33,22 +33,27 @@
             case "queue":
                 var _old = settings.complete;
                 settings.complete = function() {
-                    if (jQuery([$.ajax_queue]).queue("ajax" + port).length <= 0) {
-                        ajaxRunning[port] = false;
-                    }
+
                     if (_old) {
                         _old.apply(this, arguments);
+                    }
+
+                    if (jQuery([$.ajax_queue]).queue("ajax" + port).length == 0) {
+                      ajaxRunning[port] = false;
+                    }
+                    else {
+                      settings.queue_next();
                     }
                 };
 
                 jQuery([$.ajax_queue]).queue("ajax" + port, function(next) {
-                    $.ajax_queue(settings);
-                    next();
+                  settings.queue_next = next;
+                  $.ajax_queue(settings);
                 });
 
                 if (jQuery([$.ajax_queue]).queue("ajax" + port).length == 1 && !ajaxRunning[port]) {
-                    ajaxRunning[port] = true;
-                    jQuery([$.ajax_queue]).dequeue("ajax" + port);
+                  ajaxRunning[port] = true;
+                  jQuery([$.ajax_queue]).dequeue("ajax" + port);
                 }
 
                 return;
