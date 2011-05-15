@@ -48,7 +48,7 @@
             <td>[% table.betting_structure %]</td>
             <td>[% table.players %]</td>
             <td>[% table.player_timeout %]</td>
-            <td>[% table.average_pot %]</td>
+            <td>[% table.average_pot / 100 %]</td>
             <td>[% table.hands_per_hour %]</td>
           </tr>
         [% END %]
@@ -74,7 +74,7 @@
               <td>[% table.betting_structure %]</td>
               <td>[% table.players %]</td>
               <td>[% table.player_timeout %]</td>
-              <td>[% table.average_pot %]</td>
+              <td>[% table.average_pot / 100 %]</td>
               <td>[% table.hands_per_hour %]</td>
             </tr>
           [% END %]
