@@ -279,7 +279,7 @@ class PokerAvatar:
 
     def sendPacket(self, packet):
         self.packet_id += 1
-        if packet_id > 4000000000
+        if packet_id > 4000000000:
           packet_id = 1
         packet.packet_id = self.packet_id
 
