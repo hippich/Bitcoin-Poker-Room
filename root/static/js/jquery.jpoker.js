@@ -643,10 +643,10 @@
     jpoker.connection.defaults = $.extend({
             url: '',
             async: true,
-            lagmax: 5000,
-            dequeueFrequency: 10,
-            longPollFrequency: 10,
-            minLongPollFrequency: 3,
+            lagmax: 6000,
+            dequeueFrequency: 50,
+            longPollFrequency: 50,
+            minLongPollFrequency: 5,
             timeout: 30000,
             retryCount: 10,
             clearTimeout: function(id) { return window.clearTimeout(id); },
@@ -741,6 +741,7 @@
                 jQuery([$.ajax_queue]).queue('ajax', []);
                 // empty the incoming queue
                 this.queues = {};
+                this.packet_id = 0;
                 this.delays = {};
                 this.sentTime = 0;
                 this.connectionState = 'disconnected';
@@ -986,6 +987,7 @@
                             delete packet.session;
                         }
                         packet.time__ = jpoker.now();
+
                         var id;
                         if('game_id' in packet) {
                             id = packet.game_id;
@@ -1004,7 +1006,20 @@
                         } else {
                             queue = this.queues[id].low;
                         }
-                        queue.packets.push(packet);
+
+                        if (
+                            queue.packets[0] &&
+                            packet.packet_id > 0 && 
+                            queue.packets[0].packet_id > 0 && 
+                            packet.packet_id < queue.packets[0].packet_id && 
+                            queue.packets[0].packet_id - packet.packet_id < 3000000
+                        ) {
+                          queue.packets.unshift(packet);
+                        }
+                        else {
+                          queue.packets.push(packet);
+                        }
+
                         if(jpoker.verbose > 1) {
                             jpoker.message('queueIncoming ' + JSON.stringify(packet));
                         }
