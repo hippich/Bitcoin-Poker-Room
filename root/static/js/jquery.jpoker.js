@@ -680,8 +680,7 @@
 
             lag: 0,
 
-            //high: ['PacketPokerChat', 'PacketPokerMessage', 'PacketPokerGameMessage'],
-            high: ['PacketPokerChat'],
+            high: ['PacketPokerChat', 'PacketPokerMessage', 'PacketPokerGameMessage'],
 
             incomingTimer: -1,
 
@@ -1002,9 +1001,14 @@
                         }
                         var queue;
                         if(jQuery.inArray(packet.type, this.high) >= 0) {
-                            queue = this.queues[id].high;
-                        } else {
+                          if (packet.type == 'PacketPokerChat' && packet.serial == 0) {
                             queue = this.queues[id].low;
+                          }
+                          else {
+                            queue = this.queues[id].high;
+                          }
+                        } else {
+                          queue = this.queues[id].low;
                         }
 
 /*                        if (
