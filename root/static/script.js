@@ -56,5 +56,11 @@ var attach_behaviors = function(c) {
 
   $(".tables-categories li li ul li", c).first().addClass('active');
 
+  $(".tables-categories li", c).click(function() {
+    $(this).children('ul:visible').slideUp();
+    $(this).children('ul:hidden').slideDown();
+    return false;
+  });
+
 
 }

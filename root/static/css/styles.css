@@ -200,10 +200,15 @@ table td {
   padding: 0;
 }
 
+.tables-categories li {
+  text-decoration: underline;
+}
+
 .tables-categories li li ul li {
   margin: 0.5em 0;
   padding: 0.5em 0 0.5em 0.5em;
   list-style-position: inside;
+  text-decoration: none;
 }
 
 .tables-categories li li ul li.active {
@@ -212,4 +217,13 @@ table td {
 
 th {
   text-align: left;
+}
+
+.tables-categories li ul {
+  display: none;
+}
+
+.tables-categories > ul > li:first-child > ul,
+.tables-categories > ul > li:first-child > ul > li:first-child > ul {
+  display: block;
 }
