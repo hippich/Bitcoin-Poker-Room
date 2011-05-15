@@ -209,3 +209,7 @@ table td {
 .tables-categories li li ul li.active {
   background: #FFF;
 }
+
+th {
+  text-align: left;
+}
