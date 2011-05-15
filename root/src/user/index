@@ -22,7 +22,7 @@
 <ul class="user-balances">
   [% FOR balance IN c.user.balances %]
     <li>
-      [% balance.amount * 100 | format('%.2f') %] m[% balance.currency.symbol %]
+      [% balance.amount * 100 | format('%.2f') %] BitCents
       - <span><a href="[% c.uri_for('/user/deposit/bitcoin') %]">Deposit</a></span>
     </li>
   [% END %]
