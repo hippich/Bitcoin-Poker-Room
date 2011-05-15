@@ -1,4 +1,7 @@
 [% META title = 'Withdraw' %]
 
+<p>
+  <strong>Available amount to withdraw:</strong> [% c.user.balances.first.amount | format('%.2f') %] BTC
+</p>
 
 [% form %]

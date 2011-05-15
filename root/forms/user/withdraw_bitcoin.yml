@@ -20,6 +20,7 @@ elements:
   - type: Text
     name: amount
     label: Amount
+    comment: Enter amount in BTC (not Bitcents). Minimum withdrawal amount - 0.01 BTC.
     constraints:
       - Required
       - Number
