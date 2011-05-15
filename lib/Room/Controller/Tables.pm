@@ -74,6 +74,7 @@ sub index :Path :Args(0) {
 
       my $game_id = lc($game_type .'-'. $rec->betting_structure);
       $game_id =~ s/\s/-/g;
+      $game_id =~ s/\./_/g;
 
       $tables_structure->{$game_type}->{$game_limit}->{$game_bets}->{hash} = $game_id;
       $tables_structure->{$game_type}->{$game_limit}->{$game_bets}->{players} = $rec->players;
