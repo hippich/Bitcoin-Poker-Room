@@ -1007,7 +1007,7 @@
                             queue = this.queues[id].low;
                         }
 
-                        if (
+/*                        if (
                             queue.packets[0] &&
                             packet.packet_id > 0 && 
                             queue.packets[0].packet_id > 0 && 
@@ -1016,9 +1016,9 @@
                         ) {
                           queue.packets.unshift(packet);
                         }
-                        else {
+                        else { */
                           queue.packets.push(packet);
-                        }
+                        /* } */
 
                         if(jpoker.verbose > 1) {
                             jpoker.message('queueIncoming ' + JSON.stringify(packet));
