@@ -48,8 +48,8 @@ __PACKAGE__->filter_column(
 );
 
 
-sub __filter_multi { my $self = shift; shift() * 100 }
-sub __filter_divide { my $self = shift; shift() / 100 }
+sub __filter_multi { my $self = shift; shift() * 10000 }
+sub __filter_divide { my $self = shift; shift() / 10000 }
 
 __PACKAGE__->has_one(
   'currency' => 'Room::Schema::PokerNetwork::Result::Currencies',

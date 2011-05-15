@@ -42,6 +42,7 @@ sub auto :Private {
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
+    $c->forward('deposit_bitcoin_refresh');
 }
 
 sub login :Local :Args(0) :FormConfig {
@@ -296,20 +297,7 @@ sub edit :Local :Args(0) :FormConfig {
 
 sub deposit_bitcoin :Path('deposit/bitcoin') {
   my ( $self, $c ) = @_;
-
-  if (! $c->user->bitcoin_address) {
-    $c->user->bitcoin_address(
-      $c->model("BitcoinServer")->get_new_address()
-    );
-    
-    $c->user->update();
-  }
-  else {
-    if ($c->user) {
-      $c->forward('deposit_bitcoin_refresh');
-    }
-  }
-
+  $c->forward('deposit_bitcoin_refresh');
   $c->stash->{bitcoin_address} = $c->user->bitcoin_address;
   $c->stash->{bitcoins_sent} = $c->user->bitcoins_received || 0;
 }
@@ -318,6 +306,14 @@ sub deposit_bitcoin :Path('deposit/bitcoin') {
 
 sub deposit_bitcoin_refresh :Private {
   my ( $self, $c ) = @_;
+
+  if (! $c->user->bitcoin_address) {
+    $c->user->bitcoin_address(
+      $c->model("BitcoinServer")->get_new_address()
+    );
+    
+    $c->user->update();
+  }
 
   my $bitcoins_new_balance = $c->model("BitcoinServer")->get_received_by_address( $c->user->bitcoin_address );
 
@@ -361,6 +357,11 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
       return;
     }
 
+    $balance->amount(
+      $balance->amount() - $amount
+    );
+    $balance->update();
+
     my $result = $c->model("BitcoinServer")->send_to_address($address, $amount);
 
     # Create withdrawal record for tracking purposes.
@@ -371,11 +372,6 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
       info => "Result: ". $result ."\n\nError: ". Dumper($c->model('BitcoinServer')->api->error),
       created_at => DateTime->now,
     });
-
-    $balance->amount(
-      $balance->amount() - $amount
-    );
-    $balance->update();
 
     if (! $c->model('BitcoinServer')->api->error) {
       # Mark as processed if successful
