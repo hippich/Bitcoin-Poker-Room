@@ -4926,7 +4926,16 @@
                 });
             $('.jpoker_auto_action', auto_action_element).hide();
 
-            $('#fold' + id).unbind('click').click(function() { $(this).unbind('click'); return send('Fold'); }).show();
+            $('#fold' + id).unbind('click').click(
+              function() { 
+                if ($('#check' + id + ':visible').length > 0) {
+                  if (!confirm('You can check instead. Are you sure you want to fold?')) {
+                    return;
+                  }
+                }
+                $(this).unbind('click'); return send('Fold'); 
+              }
+            ).show();
             
             if(betLimit.call > 0) {
                 var call_element = $('#call' + id);
