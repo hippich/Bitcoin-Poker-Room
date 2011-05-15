@@ -57,6 +57,7 @@ sub index :Path :Args(0) {
 
     my $tables_structure;
     my $tables;
+    my @popular_tables;
 
 
     while (my $rec = $tables_rs->next()) {
@@ -80,11 +81,13 @@ sub index :Path :Args(0) {
       $tables_structure->{$game_type}->{$game_limit}->{$game_bets}->{players} += $rec->players;
 
       $tables->{$game_id}->{name} = $game_limit .' '. $game_type .' Game ('. $game_bets .')';
-      push @{$tables->{$game_id}->{tables}}, $rec
+      push @{$tables->{$game_id}->{tables}}, $rec;
+      push @popular_tables, $rec unless $#popular_tables > 10;
     }
 
     $c->stash->{tables} = $tables;
     $c->stash->{tables_structure} = $tables_structure;
+    $c->stash->{popular_tables} = \@popular_tables;
 }
 
 =head1 AUTHOR

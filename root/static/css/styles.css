@@ -202,6 +202,7 @@ table td {
 
 .tables-categories li {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 .tables-categories li li ul li {
@@ -211,7 +212,7 @@ table td {
   text-decoration: none;
 }
 
-.tables-categories li li ul li.active {
+.tables-categories .active {
   background: #FFF;
 }
 
@@ -223,7 +224,7 @@ th {
   display: none;
 }
 
-.tables-categories > ul > li:first-child > ul,
-.tables-categories > ul > li:first-child > ul > li:first-child > ul {
-  display: block;
+.popular-tables {
+  margin: 0.5em 0 0.5em 2em;
+  padding: 0.5em 0 0.5em 0.5em;
 }

@@ -46,15 +46,13 @@ var refresh_tables = function() {
 var attach_behaviors = function(c) {
   $(".popup-window", c).popupwindow(table_profile);
 
-  $(".tables-categories li li ul a", c).click(function() {
+  $(".tables-categories a", c).click(function() {
     $(".tables .tables-list").hide();
     $($(this).attr('href')).show();
-    $(".tables-categories li li ul li", c).removeClass('active');
+    $(".tables-categories *", c).removeClass('active');
     $(this).parent().addClass('active');
     return false;
   });
-
-  $(".tables-categories li li ul li", c).first().addClass('active');
 
   $(".tables-categories li", c).click(function() {
     $(this).children('ul:visible').slideUp();
