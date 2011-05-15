@@ -45,7 +45,7 @@ sub auto :Private {
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->stash->{tables} = $c->model("PokerNetwork::Pokertables")->search({
+    my $tables_rs = $c->model("PokerNetwork::Pokertables")->search({
                                 currency_serial => 1,
                                 tourney_serial => 0,
                           },
@@ -55,6 +55,37 @@ sub index :Path :Args(0) {
                                 },
                           });
 
+    my $tables_structure;
+    my $tables;
+
+
+    while (my $rec = $tables_rs->next()) {
+      my $game_type = ($rec->seats > 2) ? 'Regular' : 'Heads Up';
+      my $game_limit = 'Limit';
+      my $game_bets;
+
+      # Determine betting limits
+      $game_limit = 'No Limit' if $rec->betting_structure =~ /-no-limit$/;
+      $game_limit = 'Pot Limit' if $rec->betting_structure =~ /-pot-limit$/;
+
+      # Determine bets
+      my @bets = split '-', $rec->betting_structure;
+      $game_bets = $bets[0] .'/'. $bets[1];
+
+      my $game_id = lc($game_type .'-'. $rec->betting_structure);
+      $game_id =~ s/\s/-/g;
+
+      $tables_structure->{$game_type}->{$game_limit}->{$game_bets}->{hash} = $game_id;
+      $tables_structure->{$game_type}->{$game_limit}->{$game_bets}->{players} = $rec->players;
+
+      $tables->{$game_id} = {
+        'name' => $game_limit .' '. $game_type .' Game ('. $game_bets .')',
+        'tables' => $rec
+      };
+    }
+
+    $c->stash->{tables} = $tables;
+    $c->stash->{tables_structure} = $tables_structure;
 }
 
 =head1 AUTHOR

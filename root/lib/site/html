@@ -3,7 +3,9 @@
  <head>
   <title>[% template.title or site.title %]</title>
   <link rel="stylesheet" href="[% c.uri_for('/static/css/styles.css') %]" type="text/css" />
-  <script src="/static/jquery/jquery-1.2.6.js"></script>
+  <!--<link rel="stylesheet" href="[% c.uri_for('/static/jquery/ui.1.8/themes/smoothness/jquery.ui.all.css') %]" type="text/css" /> -->
+  <script src="/static/jquery/jquery-1.5.2.min.js"></script>
+  <!--<script src="/static/jquery/ui.1.8/ui/jquery-ui-1.8.4.custom.js"></script>-->
   <script src="/static/js/jquery.popupwindow.js"></script>
   <script src="/static/script.js"></script>
  </head>

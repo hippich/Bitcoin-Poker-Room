@@ -1,21 +1,57 @@
 [% META title = 'Tables list' %]
 
-<table class='tables-list'>
-  <tr>
-    <th>Name</th>
-    <th>Variant</th>
-    <th>Betting Structure</th>
-    <th>Players</th>
-  </tr>
+<div class="tables-list-wrapper">
+  <div class="tables-categories">
+    <ul class="table-types">
+      [% FOREACH game_type = tables_structure %]
+        <li>
+          [% game_type.key %]
+          <ul class="table-limits">
+            [% FOREACH game_limit = game_type.value %]
+              <li>
+                [% game_limit.key %]
+                <ul class="game-bets">
+                  [% FOREACH game_bet = game_limit.value %]
+                    <li>
+                      <a href="#[% game_bet.value.hash %]">[% game_bet.key %]</a> ([% game_bet.value.players %])
+                    </li>
+                  [% END %]
+                </ul>
+              </li>
+            [% END %]
+          </ul>
+        </li> 
+      [% END %]  
+    </ul>
+  </div>
 
-  [% WHILE (table = tables.next) %]
-    <tr>
-      <td><a class="popup-window" rel="table" href="/static/table.html?game_id=[% table.serial %]&auth=[% c.session.pokernetwork_auth %]&uid=[% c.user.serial %]">[% table.name %]</a></td>
-      <td>[% table.variant %]</td>
-      <td>[% table.betting_structure %]</td>
-      <td>[% table.players %]</td>
-    </tr>
-  [% END %]
+  <div class="tables">
+    [% FOREACH tables_list = tables %]
+      <div class='tables-list' id='[% tables_list.key %]'>
+        <h2>[% tables_list.value.name %]</h2>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Betting Structure</th>
+            <th>Players</th>
+            <th>Timeout</th>
+            <th>Average pot</th>
+            <th>Hand per hour</th>
+          </tr>
 
-</table>
+          [% FOREACH table = tables_list.value.tables %]
+            <tr>
+              <td><a class="popup-window" rel="table" href="/static/table.html?game_id=[% table.serial %]&auth=[% c.session.pokernetwork_auth %]&uid=[% c.user.serial %]">[% table.name %]</a></td>
+              <td>[% table.variant %]</td>
+              <td>[% table.betting_structure %]</td>
+              <td>[% table.players %]</td>
+            </tr>
+          [% END %]
+        </table>
+      </div>
+    [% END %]
+  </div>
+</div>
+
+<div class='clear'></div>
 

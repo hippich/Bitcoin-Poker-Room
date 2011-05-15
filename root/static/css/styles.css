@@ -176,3 +176,36 @@ table td {
 #content > h2.content-title {
   float: left;
 }
+
+.tables-categories {
+  float: left;
+  width: 22%;
+  background: #EEE;
+}
+
+.tables {
+  float: right;
+  width: 74%;
+}
+
+.tables .tables-list {
+  display: none;
+}
+
+.tables .tables-list:first-child {
+  display: block;
+}
+
+.tables-categories li li ul {
+  padding: 0;
+}
+
+.tables-categories li li ul li {
+  margin: 0.5em 0;
+  padding: 0.5em 0 0.5em 0.5em;
+  list-style-position: inside;
+}
+
+.tables-categories li li ul li.active {
+  background: #FFF;
+}
