@@ -4559,11 +4559,14 @@
                 if(server) {
                     var input = $('.jpoker_chat_input input', game_window);
                     var message = input.attr('value');
-                    server.sendPacket({ 'type': 'PacketPokerChat',
-                                'serial': server.serial,
-                                'game_id': table.id,
-                                'message': message
-                                });
+
+                    if (message && message != '') {
+                      server.sendPacket({ 'type': 'PacketPokerChat',
+                                  'serial': server.serial,
+                                  'game_id': table.id,
+                                  'message': message
+                                  });
+                    }
                     input.attr('value', '');
                 }
             };
