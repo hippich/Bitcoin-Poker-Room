@@ -77,12 +77,10 @@ sub index :Path :Args(0) {
       $game_id =~ s/\./_/g;
 
       $tables_structure->{$game_type}->{$game_limit}->{$game_bets}->{hash} = $game_id;
-      $tables_structure->{$game_type}->{$game_limit}->{$game_bets}->{players} = $rec->players;
+      $tables_structure->{$game_type}->{$game_limit}->{$game_bets}->{players} += $rec->players;
 
-      $tables->{$game_id} = {
-        'name' => $game_limit .' '. $game_type .' Game ('. $game_bets .')',
-        'tables' => $rec
-      };
+      $tables->{$game_id}->{name} = $game_limit .' '. $game_type .' Game ('. $game_bets .')';
+      push @{$tables->{$game_id}->{tables}}, $rec
     }
 
     $c->stash->{tables} = $tables;
