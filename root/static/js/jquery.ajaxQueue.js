@@ -1,3 +1,39 @@
+jQuery.extend({
+  queue_next: function( elem, type, data ) {
+    type = (type || "fx") + "queue";
+    var q = jQuery.data( elem, type, undefined, true );
+    // Speed up dequeue by getting out quickly if this is just a lookup
+    if ( data ) {
+      if ( !q || jQuery.isArray(data) ) {
+        q = jQuery.data( elem, type, jQuery.makeArray(data), true );
+      } else {
+        q.unshift( data );
+      }
+    }
+    return q || [];
+  }
+});
+
+jQuery.fn.extend({
+  queue_next: function( type, data ) {
+    if ( typeof type !== "string" ) {
+      data = type;
+      type = "fx";
+    }
+
+    if ( data === undefined ) {
+      return jQuery.queue_next( this[0], type );
+    }
+    return this.each(function() {
+      var queue = jQuery.queue_next( this, type, data );
+
+      if ( type === "fx" && queue[0] !== "inprogress" ) {
+        jQuery.dequeue( this, type );
+      }
+    });
+  }
+});
+
 (function($) {
 
     $.ajax_queue = $.ajax;
@@ -12,11 +48,6 @@
 
         var port = settings.port;
 
-        if (settings.mode == 'direct') {
-          port = port + "-direct";
-          settings.mode = 'queue';
-        }
-
         settings.retry = 1;
     
         switch (settings.mode) {
@@ -30,8 +61,10 @@
                 $.ajax_queue(settings);
                 return;
                 
+            case "next":
             case "queue":
                 var _old = settings.complete;
+
                 settings.complete = function() {
 
                     if (_old) {
@@ -46,10 +79,17 @@
                     }
                 };
 
-                jQuery([$.ajax_queue]).queue("ajax" + port, function(next) {
+                var operation = function(next) {
                   settings.queue_next = next;
                   $.ajax_queue(settings);
-                });
+                }
+
+                if (settings.mode == 'next') {
+                  jQuery([$.ajax_queue]).queue_next("ajax" + port, operation);
+                }
+                else {
+                  jQuery([$.ajax_queue]).queue("ajax" + port, operation);
+                }
 
                 if (jQuery([$.ajax_queue]).queue("ajax" + port).length == 1 && !ajaxRunning[port]) {
                   ajaxRunning[port] = true;

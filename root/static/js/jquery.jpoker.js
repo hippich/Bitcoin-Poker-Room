@@ -861,11 +861,14 @@
                     }
                     this.sendPacketAjax({ type: 'PacketPokerLongPollReturn' }, 'direct');
                 }
-                var reqtype = 'direct';
+
+                var reqtype = 'next';
+
                 if(packet.type == 'PacketPokerLongPoll') {
                     this.pendingLongPoll = true;
                     reqtype = 'queue';
                 }
+
                 thisObject.sendPacketAjax(packet_to_send, reqtype, callback_to_send);
             },
 
