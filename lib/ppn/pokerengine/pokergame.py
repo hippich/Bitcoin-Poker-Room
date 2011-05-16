@@ -2819,7 +2819,8 @@ class PokerGame:
         for serial in serial2rake.keys():
           serial2share[serial] -= serial2rake[serial]
           serial2delta[serial] -= serial2rake[serial]
-          
+          frame['serial2share'][serial] -= serial2rake[serial]
+
         for (serial, share) in serial2share.iteritems():
             self.getPlayer(serial).money += share
 
