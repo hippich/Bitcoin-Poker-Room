@@ -3457,27 +3457,30 @@
             $('#options' + id).hide();
             $('#muck_accept' + id).hide();
             $('#muck_deny' + id).hide();
-            $('#quit' + id).click(function() {
-                    var server = jpoker.getServer(url);
-                    var table = jpoker.getTable(url, game_id);
-                    if(server) {
-                        server.tableQuit(game_id);
 
-                        server.queueRunning(function(server) {
-                          table.handler(
-                            server, game_id, 
-                            { 
-                              type: 'PacketPokerTableDestroy',
-                              game_id: game_id 
-                            }
-                          );
-                        });
-                    }
-                }).hover(function(){
-                        $(this).addClass('hover');
-                    },function(){
-                        $(this).removeClass('hover');
-                    }).html('<div class=\'jpoker_quit\'><a href=\'javascript://\'>' + _("Exit") + '</a></div>');
+            if (server.serial > 0) {
+              $('#quit' + id).click(function() {
+                  var server = jpoker.getServer(url);
+                  var table = jpoker.getTable(url, game_id);
+                  if(server) {
+                      server.tableQuit(game_id);
+
+                      server.queueRunning(function(server) {
+                        table.handler(
+                          server, game_id, 
+                          { 
+                            type: 'PacketPokerTableDestroy',
+                            game_id: game_id 
+                          }
+                        );
+                      });
+                  }
+              }).hover(function(){
+                  $(this).addClass('hover');
+              },function(){
+                  $(this).removeClass('hover');
+              }).html('<div class=\'jpoker_quit\'><a href=\'javascript://\'>' + _("Exit") + '</a></div>');
+            }
 
             game_fixed.append(this.templates.chat.supplant({
                         chat_history_player_label: _("chat"),

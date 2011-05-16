@@ -31,6 +31,23 @@ The root page (/)
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
+    my $tables_rs = $c->model("PokerNetwork::Pokertables")->search({
+                                currency_serial => 1,
+                                tourney_serial => 0,
+                          },
+                          {
+                                order_by => {
+                                  -desc => 'players',
+                                },
+                                page => 1,
+                                rows => 1,
+                          });
+
+   my $table = $tables_rs->first;
+
+   if ($table->players > 4) {
+     $c->stash->{table} = $table;
+   }
 }
 
 
