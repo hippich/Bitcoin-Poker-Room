@@ -1,0 +1,4 @@
+*.log
+*.pyc
+room.conf
+*.swp
