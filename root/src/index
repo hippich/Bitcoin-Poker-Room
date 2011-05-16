@@ -8,11 +8,17 @@
   </div>
 
   <div id="facebook">
-    <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FTexas-Holdem-with-Bitcoins%2F217143734980207&amp;width=292&amp;colorscheme=light&amp;show_faces=true&amp;stream=true&amp;header=true&amp;height=427" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:427px;" allowTransparency="true"></iframe>
+    <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FTexas-Holdem-with-Bitcoins%2F217143734980207&amp;width=220&amp;colorscheme=light&amp;show_faces=true&amp;stream=true&amp;header=true&amp;height=427" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:220px; height:427px;" allowTransparency="true"></iframe>
   </div>
 </div>
 
 <div class='main_content'>
+
+  [% IF table %]
+  <h3>Poker Live Show</h3>
+  <iframe src='/static/table.html?game_id=[% table.serial %]&auth=N' width='763' height='532' style='border: none' scrolling='no' frameborder="0"></iframe>
+  [% END %]
+
   <p>Bitcoin Poker Room is intended as a place where poker fans can play
   with their friends.</p>
 
