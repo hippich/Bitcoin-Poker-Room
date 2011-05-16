@@ -2871,65 +2871,15 @@ class PokerGame:
         
         if self.isWinnerBecauseFold():
             return ( (), tuple(self.winners) )
-            
-        #
-        # Show the winning cards.
-        # Starting left of the dealer, display player cards as if each showed
-        # his hand only if the previous hand is not better (either hi or low).
-        #
-        showing = self.indexNotFoldAdd(self.dealer, 1)
-        last_to_show = self.indexNotFoldAdd(showing, -1)
-        has_low = len(self.side2winners["low"])
-        best_low_value = 0x0FFFFFFF
-        has_high = len(self.side2winners["hi"])
-        best_hi_value = 0
         
-        muckable = []
-        to_show  = []
-        
-        while True:
-            player = self.serial2player[self.player_list[showing]]
-            show = False 
+        # TODO: Implement proper card showing behavior when we have hand histories.
+        # The last bettor should show, then it should go around the table
+        # winners show, losers have the option.
 
-            if has_low:
-                low_value = self.bestHandValue("low", player.serial)
-                if low_value < best_low_value:
-                    best_low_value = low_value
-                    show = True
-
-            if has_high:
-                hi_value = self.bestHandValue("hi", player.serial)
-                if hi_value > best_hi_value:
-                    best_hi_value = hi_value
-                    show = True
-
-            #
-            # This is deemed necessary because this simplistic but intuitive
-            # way to show or muck cards does not take in account the recursive
-            # nature of splitting a side pot. A player with a hand lower than
-            # a previous hand may need to show his cards if the previous hand
-            # belonged to someone who was all-in. Example: player 1 has trips,
-            # player 2 has two pairs, player 3 has nothing. Player 1 is left
-            # of dealer, shows and win. But player 1 was all-in, therefore
-            # player 2 and player 3 compete for the remaining chips. Player 2
-            # shows and win. In the end player 1 showed his hand and player 2
-            # also showed his hand although he was after player 1 with a
-            # weaker hand.
-            #            
-            if player.serial in self.winners:
-                show = True
-
-            if show:
-                to_show.append(player.serial)
-            else:
-                muckable.append(player.serial)
-                
-            if showing == last_to_show:
-                break
-            
-            showing = self.indexNotFoldAdd(showing, 1)
-        
-        return ( to_show, muckable )
+        # Until then:
+        # No one mucks at showdown  
+        return ( tuple(self.serialsNotFold()), () )
+           
     
     def showdown(self):
         self.historyAdd("showdown", self.board.copy(), self.handsMap())
