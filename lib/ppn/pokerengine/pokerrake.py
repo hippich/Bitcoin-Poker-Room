@@ -46,10 +46,10 @@ class PokerRake:
         # TODO: Stud needs to handle 3rd street folds the same way
 
         if game.sitCount() == 2:
-            absRakeCap = 50
+            absRakeCap = 5000
             bbRakeCap = 5
         else:
-            absRakeCap = 200
+            absRakeCap = 10000
             bbRakeCap = 10
 
         if game.blind_info:
