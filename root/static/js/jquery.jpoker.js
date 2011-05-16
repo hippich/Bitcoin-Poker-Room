@@ -5210,13 +5210,13 @@
             for(var i = 0; i < cards.length; i++) {
                 var card = cards[i];
                 var element = $('#' + prefix + i + id);
-                element.removeClass().addClass('jpoker_card jpoker_ptable_' + prefix + i);
+                element.removeClass().addClass('jpoker_ptable_' + prefix + i);
                 if(card !== null) {
                     var card_image = 'back';
                     if(card != 255) {
                         card_image = jpoker.cards.card2string[card & 0x3F];
                     }
-                    element.addClass('jpoker_card_' + card_image);
+                    element.addClass('jpoker_card jpoker_card_' + card_image);
                 }
             }
         },

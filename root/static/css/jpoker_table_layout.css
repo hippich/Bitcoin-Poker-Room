@@ -15,11 +15,11 @@
 }
 
 .jpoker_table .jpoker_ptable_table { width:482px; height:228px; position:absolute; top:91px; left:140px; background-repeat: no-repeat; background-image:url("images/jpoker_table/table.png");}
-.jpoker_table .jpoker_ptable_board0 { width:37px; height:45px; position:absolute; top:159px; left:281px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_board1 { width:37px; height:45px; position:absolute; top:159px; left:323px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_board2 { width:37px; height:45px; position:absolute; top:159px; left:364px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_board3 { width:37px; height:45px; position:absolute; top:159px; left:405px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_board4 { width:37px; height:45px; position:absolute; top:159px; left:446px; background-image:url("images/jpoker_table/cards/small-back.png");}
+.jpoker_table .jpoker_ptable_board0 { width:37px; height:45px; position:absolute; top:159px; left:281px; }
+.jpoker_table .jpoker_ptable_board1 { width:37px; height:45px; position:absolute; top:159px; left:323px; }
+.jpoker_table .jpoker_ptable_board2 { width:37px; height:45px; position:absolute; top:159px; left:364px; }
+.jpoker_table .jpoker_ptable_board3 { width:37px; height:45px; position:absolute; top:159px; left:405px; }
+.jpoker_table .jpoker_ptable_board4 { width:37px; height:45px; position:absolute; top:159px; left:446px; }
 .jpoker_table .jpoker_ptable_winner0 { width:180px; height:25px; position:absolute; top:134px; left:291px; }
 .jpoker_table .jpoker_ptable_winner1 { width:180px; height:25px; position:absolute; top:209px; left:304px; }
 
@@ -65,8 +65,10 @@
 .jpoker_table .jpoker_ptable_player_seat0_sidepot { width:34.59359px; height:38.168633px; position:absolute; top:160px; left:155px; }
 .jpoker_table .jpoker_ptable_player_seat0_bet { width:24px; height:24px; position:absolute; top:160px; left:154px; background-image:url("images/jpoker_table/bet.gif");}
 .jpoker_table .jpoker_ptable_dealer0 { width:25px; height:26px; position:absolute; top:135px; left:148px; background-image:url("images/jpoker_table/dealer.png");}
-.jpoker_table .jpoker_ptable_card_seat00 { width:37px; height:45px; position:absolute; top:91px; left:82px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_card_seat01 { width:37px; height:45px; position:absolute; top:91px; left:122px; background-image:url("images/jpoker_table/cards/small-back.png");}
+.jpoker_table .jpoker_ptable_card_seat00 { width:37px; height:45px; position:absolute; top:91px; left:85px; }
+.jpoker_table .jpoker_ptable_card_seat01 { width:37px; height:45px; position:absolute; top:91px; left:110px; }
+.jpoker_table .jpoker_ptable_card_seat02 { width:37px; height:45px; position:absolute; top:91px; left:50px; }
+.jpoker_table .jpoker_ptable_card_seat03 { width:37px; height:45px; position:absolute; top:91px; left:145px; }
 .jpoker_table .jpoker_ptable_player_seat0_hole { width:116px; height:122px; position:absolute; top:120px; left:76px; background-image:url("images/jpoker_table/card-back2.gif");}
 .jpoker_table .jpoker_ptable_player_seat1_background { width:70px; height:87px; position:absolute; top:34px; left:202px; background-color: #567300;}
 .jpoker_table .jpoker_ptable_player_seat1_name { width:63.912312px; height:10px; position:absolute; top:36px; left:204px; }
@@ -78,8 +80,10 @@
 .jpoker_table .jpoker_ptable_player_seat1_sidepot { width:34.59359px; height:38.168633px; position:absolute; top:121px; left:265px; }
 .jpoker_table .jpoker_ptable_player_seat1_bet { width:24px; height:24px; position:absolute; top:119px; left:265px; background-image:url("images/jpoker_table/bet.gif");}
 .jpoker_table .jpoker_ptable_dealer1 { width:25px; height:26px; position:absolute; top:99px; left:297px; background-image:url("images/jpoker_table/dealer.png");}
-.jpoker_table .jpoker_ptable_card_seat10 { width:37px; height:45px; position:absolute; top:58px; left:197px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_card_seat11 { width:37px; height:45px; position:absolute; top:58px; left:238px; background-image:url("images/jpoker_table/cards/small-back.png");}
+.jpoker_table .jpoker_ptable_card_seat10 { width:37px; height:45px; position:absolute; top:58px; left:200px; }
+.jpoker_table .jpoker_ptable_card_seat11 { width:37px; height:45px; position:absolute; top:58px; left:235px; }
+.jpoker_table .jpoker_ptable_card_seat12 { width:37px; height:45px; position:absolute; top:58px; left:165px; }
+.jpoker_table .jpoker_ptable_card_seat13 { width:37px; height:45px; position:absolute; top:58px; left:270px; }
 .jpoker_table .jpoker_ptable_player_seat1_hole { width:116px; height:122px; position:absolute; top:70px; left:142px; background-image:url("images/jpoker_table/card-back2.gif");}
 .jpoker_table .jpoker_ptable_player_seat2_background { width:70px; height:87px; position:absolute; top:19px; left:349px; background-color: #567300;}
 .jpoker_table .jpoker_ptable_player_seat2_name { width:63.912312px; height:10px; position:absolute; top:21px; left:351px; }
@@ -91,8 +95,10 @@
 .jpoker_table .jpoker_ptable_player_seat2_sidepot { width:34.59359px; height:38.168633px; position:absolute; top:106px; left:413px; }
 .jpoker_table .jpoker_ptable_player_seat2_bet { width:24px; height:24px; position:absolute; top:106px; left:414px; background-image:url("images/jpoker_table/bet.gif");}
 .jpoker_table .jpoker_ptable_dealer2 { width:25px; height:26px; position:absolute; top:105px; left:449px; background-image:url("images/jpoker_table/dealer.png");}
-.jpoker_table .jpoker_ptable_card_seat20 { width:37px; height:45px; position:absolute; top:44px; left:345px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_card_seat21 { width:37px; height:45px; position:absolute; top:44px; left:386px; background-image:url("images/jpoker_table/cards/small-back.png");}
+.jpoker_table .jpoker_ptable_card_seat20 { width:37px; height:45px; position:absolute; top:44px; left:348px; }
+.jpoker_table .jpoker_ptable_card_seat21 { width:37px; height:45px; position:absolute; top:44px; left:383px; }
+.jpoker_table .jpoker_ptable_card_seat22 { width:37px; height:45px; position:absolute; top:44px; left:313px; }
+.jpoker_table .jpoker_ptable_card_seat23 { width:37px; height:45px; position:absolute; top:44px; left:418px; }
 .jpoker_table .jpoker_ptable_player_seat2_hole { width:116px; height:122px; position:absolute; top:51px; left:288px; background-image:url("images/jpoker_table/card-back2.gif");}
 .jpoker_table .jpoker_ptable_player_seat3_background { width:70px; height:87px; position:absolute; top:33px; left:499px; background-color: #567300;}
 .jpoker_table .jpoker_ptable_player_seat3_name { width:63.912312px; height:10px; position:absolute; top:35px; left:501px; }
@@ -104,8 +110,10 @@
 .jpoker_table .jpoker_ptable_player_seat3_sidepot { width:34.59359px; height:38.168633px; position:absolute; top:135px; left:550px; }
 .jpoker_table .jpoker_ptable_player_seat3_bet { width:24px; height:24px; position:absolute; top:134px; left:539px; background-image:url("images/jpoker_table/bet.gif");}
 .jpoker_table .jpoker_ptable_dealer3 { width:25px; height:26px; position:absolute; top:135px; left:577px; background-image:url("images/jpoker_table/dealer.png");}
-.jpoker_table .jpoker_ptable_card_seat30 { width:37px; height:45px; position:absolute; top:57px; left:496px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_card_seat31 { width:37px; height:45px; position:absolute; top:57px; left:537px; background-image:url("images/jpoker_table/cards/small-back.png");}
+.jpoker_table .jpoker_ptable_card_seat30 { width:37px; height:45px; position:absolute; top:57px; left:499px; }
+.jpoker_table .jpoker_ptable_card_seat31 { width:37px; height:45px; position:absolute; top:57px; left:534px; }
+.jpoker_table .jpoker_ptable_card_seat32 { width:37px; height:45px; position:absolute; top:57px; left:464px; }
+.jpoker_table .jpoker_ptable_card_seat33 { width:37px; height:45px; position:absolute; top:57px; left:569px; }
 .jpoker_table .jpoker_ptable_player_seat3_hole { width:116px; height:122px; position:absolute; top:54px; left:429px; background-image:url("images/jpoker_table/card-back2.gif");}
 .jpoker_table .jpoker_ptable_player_seat4_background { width:70px; height:87px; position:absolute; top:70px; left:608px; background-color: #567300;}
 .jpoker_table .jpoker_ptable_player_seat4_name { width:63.912312px; height:10px; position:absolute; top:72px; left:610px; }
@@ -117,8 +125,10 @@
 .jpoker_table .jpoker_ptable_player_seat4_sidepot { width:34.59359px; height:38.168633px; position:absolute; top:157px; left:562px; }
 .jpoker_table .jpoker_ptable_player_seat4_bet { width:24px; height:24px; position:absolute; top:156px; left:572px; background-image:url("images/jpoker_table/bet.gif");}
 .jpoker_table .jpoker_ptable_dealer4 { width:25px; height:26px; position:absolute; top:193px; left:590px; background-image:url("images/jpoker_table/dealer.png");}
-.jpoker_table .jpoker_ptable_card_seat40 { width:37px; height:45px; position:absolute; top:93px; left:604px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_card_seat41 { width:37px; height:45px; position:absolute; top:93px; left:645px; background-image:url("images/jpoker_table/cards/small-back.png");}
+.jpoker_table .jpoker_ptable_card_seat40 { width:37px; height:45px; position:absolute; top:93px; left:607px; }
+.jpoker_table .jpoker_ptable_card_seat41 { width:37px; height:45px; position:absolute; top:93px; left:642px; }
+.jpoker_table .jpoker_ptable_card_seat42 { width:37px; height:45px; position:absolute; top:93px; left:572px; }
+.jpoker_table .jpoker_ptable_card_seat43 { width:37px; height:45px; position:absolute; top:93px; left:677px; }
 .jpoker_table .jpoker_ptable_player_seat4_hole { width:116px; height:122px; position:absolute; top:118px; left:553px; background-image:url("images/jpoker_table/card-back2.gif");}
 .jpoker_table .jpoker_ptable_player_seat5_background { width:70px; height:87px; position:absolute; top:256px; left:604px; background-color: #567300;}
 .jpoker_table .jpoker_ptable_player_seat5_name { width:63.912312px; height:10px; position:absolute; top:258px; left:606px; }
@@ -130,8 +140,10 @@
 .jpoker_table .jpoker_ptable_player_seat5_sidepot { width:34.59359px; height:38.168633px; position:absolute; top:198px; left:564px; }
 .jpoker_table .jpoker_ptable_player_seat5_bet { width:24px; height:24px; position:absolute; top:213px; left:574px; background-image:url("images/jpoker_table/bet.gif");}
 .jpoker_table .jpoker_ptable_dealer5 { width:25px; height:26px; position:absolute; top:238px; left:558px; background-image:url("images/jpoker_table/dealer.png");}
-.jpoker_table .jpoker_ptable_card_seat50 { width:37px; height:45px; position:absolute; top:279px; left:600px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_card_seat51 { width:37px; height:45px; position:absolute; top:279px; left:641px; background-image:url("images/jpoker_table/cards/small-back.png");}
+.jpoker_table .jpoker_ptable_card_seat50 { width:37px; height:45px; position:absolute; top:279px; left:603px; }
+.jpoker_table .jpoker_ptable_card_seat51 { width:37px; height:45px; position:absolute; top:279px; left:638px; }
+.jpoker_table .jpoker_ptable_card_seat52 { width:37px; height:45px; position:absolute; top:279px; left:568px; }
+.jpoker_table .jpoker_ptable_card_seat53 { width:37px; height:45px; position:absolute; top:279px; left:673px; }
 .jpoker_table .jpoker_ptable_player_seat5_hole { width:116px; height:122px; position:absolute; top:166px; left:556px; background-image:url("images/jpoker_table/card-back2.gif");}
 .jpoker_table .jpoker_ptable_player_seat6_background { width:70px; height:87px; position:absolute; top:285px; left:497px; background-color: #567300;}
 .jpoker_table .jpoker_ptable_player_seat6_name { width:63.912312px; height:10px; position:absolute; top:287px; left:499px; }
@@ -143,8 +155,10 @@
 .jpoker_table .jpoker_ptable_player_seat6_sidepot { width:34.59359px; height:38.168633px; position:absolute; top:245px; left:497px; }
 .jpoker_table .jpoker_ptable_player_seat6_bet { width:24px; height:24px; position:absolute; top:245px; left:497px; background-image:url("images/jpoker_table/bet.gif");}
 .jpoker_table .jpoker_ptable_dealer6 { width:25px; height:26px; position:absolute; top:258px; left:469px; background-image:url("images/jpoker_table/dealer.png");}
-.jpoker_table .jpoker_ptable_card_seat60 { width:37px; height:45px; position:absolute; top:308px; left:491px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_card_seat61 { width:37px; height:45px; position:absolute; top:308px; left:532px; background-image:url("images/jpoker_table/cards/small-back.png");}
+.jpoker_table .jpoker_ptable_card_seat60 { width:37px; height:45px; position:absolute; top:308px; left:494px; }
+.jpoker_table .jpoker_ptable_card_seat61 { width:37px; height:45px; position:absolute; top:308px; left:529px; }
+.jpoker_table .jpoker_ptable_card_seat62 { width:37px; height:45px; position:absolute; top:308px; left:469px; }
+.jpoker_table .jpoker_ptable_card_seat63 { width:37px; height:45px; position:absolute; top:308px; left:564px; }
 .jpoker_table .jpoker_ptable_player_seat6_hole { width:116px; height:122px; position:absolute; top:205px; left:488px; background-image:url("images/jpoker_table/card-back2.gif");}
 .jpoker_table .jpoker_ptable_player_seat7_background { width:70px; height:87px; position:absolute; top:295px; left:345px; background-color: #567300;}
 .jpoker_table .jpoker_ptable_player_seat7_name { width:63.912312px; height:10px; position:absolute; top:297px; left:347px; }
@@ -156,8 +170,10 @@
 .jpoker_table .jpoker_ptable_player_seat7_sidepot { width:34.59359px; height:38.168633px; position:absolute; top:254px; left:351px; }
 .jpoker_table .jpoker_ptable_player_seat7_bet { width:24px; height:24px; position:absolute; top:253px; left:352px; background-image:url("images/jpoker_table/bet.gif");}
 .jpoker_table .jpoker_ptable_dealer7 { width:25px; height:26px; position:absolute; top:264px; left:321px; background-image:url("images/jpoker_table/dealer.png");}
-.jpoker_table .jpoker_ptable_card_seat70 { width:37px; height:45px; position:absolute; top:318px; left:341px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_card_seat71 { width:37px; height:45px; position:absolute; top:318px; left:382px; background-image:url("images/jpoker_table/cards/small-back.png");}
+.jpoker_table .jpoker_ptable_card_seat70 { width:37px; height:45px; position:absolute; top:318px; left:344px; }
+.jpoker_table .jpoker_ptable_card_seat71 { width:37px; height:45px; position:absolute; top:318px; left:379px; }
+.jpoker_table .jpoker_ptable_card_seat72 { width:37px; height:45px; position:absolute; top:318px; left:309px; }
+.jpoker_table .jpoker_ptable_card_seat73 { width:37px; height:45px; position:absolute; top:318px; left:414px; }
 .jpoker_table .jpoker_ptable_player_seat7_hole { width:116px; height:122px; position:absolute; top:215px; left:344px; background-image:url("images/jpoker_table/card-back2.gif");}
 .jpoker_table .jpoker_ptable_player_seat8_background { width:70px; height:87px; position:absolute; top:286px; left:202px; background-color: #567300;}
 .jpoker_table .jpoker_ptable_player_seat8_name { width:63.912312px; height:10px; position:absolute; top:288px; left:204px; }
@@ -169,8 +185,10 @@
 .jpoker_table .jpoker_ptable_player_seat8_sidepot { width:34.59359px; height:38.168633px; position:absolute; top:246px; left:207px; }
 .jpoker_table .jpoker_ptable_player_seat8_bet { width:24px; height:24px; position:absolute; top:246px; left:205px; background-image:url("images/jpoker_table/bet.gif");}
 .jpoker_table .jpoker_ptable_dealer8 { width:25px; height:26px; position:absolute; top:249px; left:176px; background-image:url("images/jpoker_table/dealer.png");}
-.jpoker_table .jpoker_ptable_card_seat80 { width:37px; height:45px; position:absolute; top:309px; left:197px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_card_seat81 { width:37px; height:45px; position:absolute; top:309px; left:238px; background-image:url("images/jpoker_table/cards/small-back.png");}
+.jpoker_table .jpoker_ptable_card_seat80 { width:37px; height:45px; position:absolute; top:309px; left:200px; }
+.jpoker_table .jpoker_ptable_card_seat81 { width:37px; height:45px; position:absolute; top:309px; left:235px; }
+.jpoker_table .jpoker_ptable_card_seat82 { width:37px; height:45px; position:absolute; top:309px; left:165px; }
+.jpoker_table .jpoker_ptable_card_seat83 { width:37px; height:45px; position:absolute; top:309px; left:270px; }
 .jpoker_table .jpoker_ptable_player_seat8_hole { width:116px; height:122px; position:absolute; top:207px; left:198px; background-image:url("images/jpoker_table/card-back2.gif");}
 .jpoker_table .jpoker_ptable_player_seat9_background { width:70px; height:87px; position:absolute; top:256px; left:91px; background-color: #567300;}
 .jpoker_table .jpoker_ptable_player_seat9_name { width:63.912312px; height:10px; position:absolute; top:258px; left:93px; }
@@ -182,8 +200,10 @@
 .jpoker_table .jpoker_ptable_player_seat9_sidepot { width:34.59359px; height:38.168633px; position:absolute; top:218px; left:162px; }
 .jpoker_table .jpoker_ptable_player_seat9_bet { width:24px; height:24px; position:absolute; top:218px; left:162px; background-image:url("images/jpoker_table/bet.gif");}
 .jpoker_table .jpoker_ptable_dealer9 { width:25px; height:26px; position:absolute; top:200px; left:137px; background-image:url("images/jpoker_table/dealer.png");}
-.jpoker_table .jpoker_ptable_card_seat90 { width:37px; height:45px; position:absolute; top:280px; left:86px; background-image:url("images/jpoker_table/cards/small-back.png");}
-.jpoker_table .jpoker_ptable_card_seat91 { width:37px; height:45px; position:absolute; top:280px; left:126px; background-image:url("images/jpoker_table/cards/small-back.png");}
+.jpoker_table .jpoker_ptable_card_seat90 { width:37px; height:45px; position:absolute; top:280px; left:89px; }
+.jpoker_table .jpoker_ptable_card_seat91 { width:37px; height:45px; position:absolute; top:280px; left:124px; }
+.jpoker_table .jpoker_ptable_card_seat92 { width:37px; height:45px; position:absolute; top:280px; left:54px; }
+.jpoker_table .jpoker_ptable_card_seat93 { width:37px; height:45px; position:absolute; top:280px; left:159px; }
 .jpoker_table .jpoker_ptable_player_seat9_hole { width:116px; height:122px; position:absolute; top:177px; left:88px; background-image:url("images/jpoker_table/card-back2.gif");}
 .jpoker_table .jpoker_ptable_sitout { width:67px; height:20px; position:absolute; top:4px; left:539px; border: 1px solid #bdcc8f; background-color: #567300;}
 .jpoker_table .jpoker_ptable_muck_accept { width:67px; height:20px; position:absolute; top:408px; left:251px; border: 1px solid #bdcc8f; background-color: #567300;}
