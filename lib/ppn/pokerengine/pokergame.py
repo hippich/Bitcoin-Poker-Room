@@ -2809,17 +2809,19 @@ class PokerGame:
         #
         # Do not rake the chips that were uncalled
         #
-        serial2rackable = serial2share.copy()
+        serial2rakeable = serial2share.copy()
         if showdown_stack[0]['type'] == 'uncalled':
           uncalled = showdown_stack[0]
-          serial2rackable[uncalled['serial']] -= uncalled['uncalled']
-          if serial2rackable[uncalled['serial']] <= 0:
-            del serial2rackable[uncalled['serial']]
-        serial2rake = self.distributeRake(self.getRakedAmount(), pot_backup, serial2rackable)
+          serial2rakeable[uncalled['serial']] -= uncalled['uncalled']
+          if serial2rakeable[uncalled['serial']] <= 0:
+            del serial2rakeable[uncalled['serial']]
+        serial2rake = self.distributeRake(self.getRakedAmount(), pot_backup, serial2rakeable)
+
         for serial in serial2rake.keys():
           serial2share[serial] -= serial2rake[serial]
           serial2delta[serial] -= serial2rake[serial]
-          frame['serial2share'][serial] -= serial2rake[serial]
+          if 'serial2share' in frame:
+            frame['serial2share'][serial] -= serial2rake[serial]
 
         for (serial, share) in serial2share.iteritems():
             self.getPlayer(serial).money += share
