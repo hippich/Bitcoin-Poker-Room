@@ -23,7 +23,7 @@ Catalyst Controller.
 sub auto :Private {
   my ($self, $c) = @_;
 
-  if (!$c->user && $c->action->private_path !~ /user\/(login|register|forgot_password|reset_password)/) {
+  if (!$c->user && $c->action->private_path !~ /user\/(login|register|forgot_password|reset_password|no_avatar)/) {
     $c->res->redirect(
       $c->uri_for('/user/login', '', {'destination' => $c->action,})
     );
