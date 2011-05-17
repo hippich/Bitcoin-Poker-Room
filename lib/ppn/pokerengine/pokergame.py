@@ -2820,7 +2820,7 @@ class PokerGame:
         for serial in serial2rake.keys():
           serial2share[serial] -= serial2rake[serial]
           serial2delta[serial] -= serial2rake[serial]
-          if 'serial2share' in frame:
+          if 'serial2share' in frame and serial in frame['serial2share']:
             frame['serial2share'][serial] -= serial2rake[serial]
 
         for (serial, share) in serial2share.iteritems():
