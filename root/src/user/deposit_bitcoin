@@ -14,4 +14,6 @@ transaction in order to finalize depositing of Bitcoins.</strong></p>
 
 <p>Bitcoin address: <strong>[% bitcoin_address %]</strong></p>
 
+<p>Current exchange rate: 1 BTC = 100 Chips.</p>
+
 <p>You sent so far <strong>&#xe3f;[% bitcoins_sent | format('%.2f') %]</strong>.</p>
