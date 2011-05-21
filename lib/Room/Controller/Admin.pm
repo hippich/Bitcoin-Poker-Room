@@ -46,7 +46,7 @@ sub index :Chained('base') :PathPart('') :Args(0) {
 
   my $row = $rs->first;
 
-  $c->stash->{total_ingame_balance} = $row->get_column('total_amount') / 100;
+  $c->stash->{total_ingame_balance} = $row->get_column('total_amount') / 10000;
 }
 
 
