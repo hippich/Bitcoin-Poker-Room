@@ -3460,6 +3460,10 @@
 
             if (server.serial > 0) {
               $('#quit' + id).click(function() {
+                  if (! confirm('Are you sure you want to leave this table?')) {
+                    return;
+                  }
+
                   var server = jpoker.getServer(url);
                   var table = jpoker.getTable(url, game_id);
                   if(server) {

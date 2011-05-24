@@ -43,6 +43,7 @@
     <script type="text/javascript">
       $.jpoker.verbose = 2;
       var restURL = '/POKER_REST';
+      var table_state = "open";
       
       $(document).ready(function() {
           var server;
@@ -62,6 +63,9 @@
           jQuery(window).bind(
               "beforeunload",
               function() {
+                if (table_state == "open") {
+                  return 'Are you sure you want to leave this table?';
+                }
               }
           );
 
@@ -83,7 +87,10 @@
           }
           
           $.jpoker.plugins.table.callback.quit = function(table, packet) {
-             setTimeout(function() { window.close(); }, 100);
+            setTimeout(function() { 
+              table_state = "close";
+              window.close(); 
+            }, 100);
           };
 
           server.tableJoin($.query.get('game_id'));
