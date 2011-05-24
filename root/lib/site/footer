@@ -6,7 +6,8 @@
       <li><a href='[% c.uri_for('/rake') %]'>About Rake</a></li>
       <li><a href='http://github.com/hippich/Bitcoin-Poker-Room/archives/master'>Download sources</a></li>
       <li><a href='http://github.com/hippich/Bitcoin-Poker-Room/issues'>Report bugs</a></li>
-      <li class='last'><a href='[% c.uri_for('/contactus') %]'>Contact Us</a></li>
+      <li><a href='[% c.uri_for('/contactus') %]'>Contact Us</a></li>
+      <li class='last'><a target="_blank" href="http://webchat.freenode.net/?channels=betcoin">#betcoin</a></li> 
   </ul>
 </div>
 <div id="copyright">&copy; [% site.copyright %]</div>
