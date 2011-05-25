@@ -26,7 +26,15 @@ __PACKAGE__->set_primary_key("user_serial", "hand_serial");
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:O0C/lk3FqJkGYOWI34yfmg
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->belongs_to(
+  user => 'Room::Schema::PokerNetwork::Result::Users',
+  { serial => 'user_serial' }
+);
+
+__PACKAGE__->belongs_to(
+  hand => 'Room::Schema::PokerNetwork::Result::Hands',
+  { serial => 'hand_serial' }
+);
 
 =head1 AUTHOR
 
