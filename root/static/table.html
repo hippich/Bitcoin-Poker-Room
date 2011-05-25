@@ -63,7 +63,7 @@
           jQuery(window).bind(
               "beforeunload",
               function() {
-                if (table_state == "open") {
+                if (table_state == "open" && $.query.get('uid') != "") {
                   return 'Are you sure you want to leave this table?';
                 }
               }
