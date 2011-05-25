@@ -66,7 +66,7 @@
 .jpoker_table .jpoker_ptable_player_seat0_bet { width:24px; height:24px; position:absolute; top:160px; left:154px; background-image:url("images/jpoker_table/bet.gif");}
 .jpoker_table .jpoker_ptable_dealer0 { width:25px; height:26px; position:absolute; top:135px; left:148px; background-image:url("images/jpoker_table/dealer.png");}
 .jpoker_table .jpoker_ptable_card_seat00 { width:37px; height:45px; position:absolute; top:91px; left:85px; }
-.jpoker_table .jpoker_ptable_card_seat01 { width:37px; height:45px; position:absolute; top:91px; left:110px; }
+.jpoker_table .jpoker_ptable_card_seat01 { width:37px; height:45px; position:absolute; top:91px; left:121px; }
 .jpoker_table .jpoker_ptable_card_seat02 { width:37px; height:45px; position:absolute; top:91px; left:50px; }
 .jpoker_table .jpoker_ptable_card_seat03 { width:37px; height:45px; position:absolute; top:91px; left:145px; }
 .jpoker_table .jpoker_ptable_player_seat0_hole { width:116px; height:122px; position:absolute; top:120px; left:76px; background-image:url("images/jpoker_table/card-back2.gif");}
