@@ -5102,7 +5102,6 @@
             switch(packet.type) {
             case 'PacketPokerTimeoutWarning':
                 jpoker.plugins.playerSelf.callback.sound.timeout_warning(server);
-                alert('Timeout warning.')
                 break;
             case 'PacketPokerTimeoutNotice':
                 jpoker.plugins.playerSelf.callback.sound.timeout_notice(server);
