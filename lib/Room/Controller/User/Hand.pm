@@ -46,10 +46,16 @@ sub index : Chained('base') PathPart('') Args(0) {
 sub view_hand : Chained('base') PathPart('') Args(1) {
   my ($self, $c, $id) = @_;
 
-  my $hand_raw = $c->stash->{hands}->search({serial => $id})->first->description; 
+  my $hand = $c->stash->{hands}->search({serial => $id})->first;
+
+  if (! $hand) {
+    $c->detach('/default');
+  }
+
+  my $history_raw = $hand->description; 
 
   use Data::Dumper;
-  $c->stash->{hand} = Dumper($self->__parse_hands($hand_raw));
+  $c->stash->{hand} = Dumper($self->__parse_hands($history_raw));
 }
 
 sub __parse_hands {
