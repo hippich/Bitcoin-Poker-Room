@@ -5090,6 +5090,7 @@
                 $('#raise' + id).unbind('click').click(click).show();
             }
             jpoker.plugins.playerSelf.callback.sound.in_position(server);
+            $(window).focus();
             $('#game_window' + id).addClass('jpoker_self_in_position');
         },
 
