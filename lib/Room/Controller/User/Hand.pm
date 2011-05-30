@@ -62,6 +62,8 @@ sub __parse_hands {
   $history =~ s/True/1/g;
   $history =~ s/False/0/g;
 
+  $history =~ s/(\d+)L/$1/g;
+
   $history =~ s/^\[\(/[[/;
   $history =~ s/\)\]/]]/;
   $history =~ s/\), \(/], [/g;
