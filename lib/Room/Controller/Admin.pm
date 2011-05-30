@@ -26,7 +26,7 @@ Catalyst Controller.
 sub base :Chained :PathPart('admin') :CaptureArgs(0) {
   my ($self, $c) = @_;
 
-  if ($c->user->privilege != 2) {
+  if (!$c->user || $c->user->privilege != 2) {
     $c->detach( '/default' );
   }
 }
