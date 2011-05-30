@@ -1,3 +1,3 @@
 [% WHILE (hand = hands.next) %]
-[% hand.description %]
+[% dumper(parser(hand.description)) %]
 [% END %]
