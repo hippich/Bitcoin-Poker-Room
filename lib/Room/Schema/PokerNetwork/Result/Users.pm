@@ -140,6 +140,14 @@ __PACKAGE__->has_many(
 );
 
 __PACKAGE__->has_many(
+  'userhands' => 'Room::Schema::PokerNetwork::Result::User2hand',
+  { 'foreign.user_serial' => 'self.serial' },
+);
+__PACKAGE__->many_to_many(
+  hands => 'userhands', 'hand'
+);
+
+__PACKAGE__->has_many(
   'deposits' => 'Room::Schema::PokerNetwork::Result::Deposits',
   { 'foreign.user_serial' => 'self.serial' },
 );

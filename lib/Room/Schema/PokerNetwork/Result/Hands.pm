@@ -45,7 +45,13 @@ __PACKAGE__->set_primary_key("serial");
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1ToKcdFljUDL2gZ5bKoYSg
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->has_many(
+  'userhands' => 'Room::Schema::PokerNetwork::Result::User2hand',
+  { 'foreign.hand_serial' => 'self.serial' },
+);
+__PACKAGE__->many_to_many(
+  users => 'userhands', 'user'
+);
 
 =head1 AUTHOR
 
