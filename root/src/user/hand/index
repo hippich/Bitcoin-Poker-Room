@@ -1,3 +1,21 @@
-[% WHILE (hand = hands.next) %]
-[% dumper(parser(hand.description)) %]
+[% META title = 'Games history' %]
+
+<table>
+  <tr><th>Hand #</th><th>Players</th><th>Date</th><th>Action</th></tr>
+  [% WHILE (hand = hands.next) %]
+    <tr>
+      <td>[% hand.serial %]</td>
+      <td>[% hand.get_all_players.join(', ') %]</td>
+      <td>[% hand.created %]</td>
+      <td><a href='[% c.uri_for('/user/hands/' _ hand.serial) %]'>View</a></td>
+    </tr>
+  [% END %]
+</table>
+
+[% IF hands.pager.next_page %]
+<span style="float: right"><a href="[% c.uri_for('/user/hands', undef, { page => hands.pager.next_page}) %]">Next &gt;&gt;</a></span>
+[% END %]
+
+[% IF hands.pager.previous_page %]
+<span style="float: left"><a href="[% c.uri_for('/user/hands', undef, { page => hand.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
 [% END %]

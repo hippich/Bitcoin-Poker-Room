@@ -44,6 +44,10 @@ __PACKAGE__->set_primary_key("serial");
 # Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1ToKcdFljUDL2gZ5bKoYSg
 
+use JSON::XS;
+use Switch;
+
+our @poker_cards_string = ( '2h', '3h', '4h', '5h', '6h', '7h', '8h', '9h', 'Th', 'Jh', 'Qh', 'Kh', 'Ah', '2d', '3d', '4d', '5d', '6d', '7d', '8d', '9d', 'Td', 'Jd', 'Qd', 'Kd', 'Ax', '2c', '3c', '4c', '5c', '6c', '7c', '8c', '9c', 'Tc', 'Jc', 'Qc', 'Kc', 'Ac', '2s', '3s', '4s', '5s', '6s', '7s', '8s', '9s', 'Ts', 'Js', 'Qs', 'Ks', 'As' );
 
 __PACKAGE__->has_many(
   'userhands' => 'Room::Schema::PokerNetwork::Result::User2hand',
@@ -52,6 +56,102 @@ __PACKAGE__->has_many(
 __PACKAGE__->many_to_many(
   users => 'userhands', 'user'
 );
+
+sub get_parsed_history {
+  my $self = shift;
+  my $parsed_history;
+  my @players;
+  my %players_by_id;
+
+  my $h = $self->__parse_hands();
+  $parsed_history->{game_history} = $h;
+  $parsed_history->{self} = $self;
+
+  foreach my $uid (@{$h->[0]->[7]}) {
+    my $player = $self->result_source->schema->resultset("Users")->find($uid);
+    push @players, $player;
+    $players_by_id{$player->serial} = $player;
+  }
+  $parsed_history->{players} = \@players;
+  $parsed_history->{players_by_id} = \%players_by_id;
+
+
+  return $parsed_history;
+}
+
+sub __parse_hands {
+  my $self = shift;
+  my $history = $self->description;
+
+  $history =~ s/PokerCards\(\[([^\]]*)\]\)/$self->__parse_cards($1)/ge;
+  $history =~ s/Decimal\('([^\']+)'\)/$1/g;
+
+  $history =~ s/None/null/g;
+  $history =~ s/True/1/g;
+  $history =~ s/False/0/g;
+
+  $history =~ s/(\d+)L/$1/g;
+
+  $history =~ s/^\[\(/[[/;
+  $history =~ s/\)\]/]]/;
+  $history =~ s/\), \(/], [/g;
+  $history =~ s/'/"/g;
+
+  $history =~ s/(\d+): /"$1": /g;
+
+  return decode_json $history;
+}
+
+sub __parse_cards {
+  my ($self, $cards_str) = @_;
+  my @cards = split /, /, $cards_str;
+
+  foreach my $card (@cards) {
+    $card = '"'. $poker_cards_string[$card & 0x3F] . '"';
+  }
+
+  return '['. (join ', ', @cards) .']';
+}
+
+
+sub format_hi_hand {
+  my $self = shift;
+  my $hand = shift;
+
+  if ($hand) {
+    my $best = shift @{$hand};
+    foreach my $card (@{$hand}) {
+      $card = $poker_cards_string[$card & 0x3F];
+    }
+
+    switch ($best) {
+      case 'NoPair' { $best = 'High card'; }
+      case 'TwoPair' { $best = 'Two pairs'; }
+      case 'Trips' { $best = 'Three of a kind'; }
+      case 'Straight' { $best = 'Straight'; }
+      case 'Flush' { $best = 'Flush'; }
+      case 'FlHouse' { $best = 'Full House'; }
+      case 'Quads' { $best = 'Four of a kind'; }
+      case 'StFlush' { $best = 'Straight flush'; }
+    }
+
+    return { best => $best, cards => $hand }
+  }
+  else {
+    return;
+  }
+}
+
+
+sub get_all_players {
+  my $self = shift;
+  my @players;
+  my $users = $self->users;
+  while (my $user = $users->next) {
+    push @players, $user->name;
+  }
+  return \@players;
+}
 
 =head1 AUTHOR
 

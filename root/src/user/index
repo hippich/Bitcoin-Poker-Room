@@ -1,5 +1,11 @@
 [% META title = 'User account' %]
 
+<div class="secondary-menu">
+  <ul>
+    <li><a href='[% c.uri_for('/user/hands') %]'>Hands history</a></li>
+  </ul>
+</div>
+
 <div class="profile-avatar">
   <img src="[% c.uri_for("/AVATAR/" _ c.user.serial) %]" alt="[% c.user.name %] picture" />
   <br />
