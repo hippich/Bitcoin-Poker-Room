@@ -41,6 +41,7 @@
         <table>
           <tr>
             <th>Name</th>
+            <th>Variant</th>
             <th>Betting Structure</th>
             <th>Players</th>
             <th>Timeout</th>
@@ -51,6 +52,7 @@
           [% FOREACH table IN popular_tables %]
             <tr>
               <td><a class="popup-window" rel="table" href="/static/table.html?game_id=[% table.serial %]&auth=[% c.session.pokernetwork_auth %]&uid=[% c.user.serial %]">[% table.name %]</a></td>
+              <td>[% table.variant %]</td>
               <td>[% table.betting_structure %]</td>
               <td>[% table.players %]</td>
               <td>[% table.player_timeout %]</td>
