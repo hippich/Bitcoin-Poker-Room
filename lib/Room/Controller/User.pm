@@ -178,7 +178,7 @@ sub forgot_password :Local :Args(0) :FormConfig {
     $user->update();
 
     # This is ugly. Need to refactor somehow later
-    my $message = "Someone requested to reset your password at ". $c->uri_for('/') ."\n\nTo reset password, please open (or copy/paste) this URL: ". $c->uri_for('/user/reset_password', $user->id, $key) ."\n\nIf this was not you, just ignore this email.";
+    my $message = "Someone requested to reset your password at ". $c->uri_for('/') ."\n\nYour username: ". $user->name ."\n\nTo reset password, please open (or copy/paste) this URL: ". $c->uri_for('/user/reset_password', $user->id, $key) ."\n\nIf this was not you, just ignore this email.";
 
     $c->log->debug($message);
 
