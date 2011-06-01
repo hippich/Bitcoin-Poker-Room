@@ -115,5 +115,5 @@ Seat [% loop.count %]: [% hand.players_by_id.$player_id.name %]
 [%       END -%]
 [%   END -%]
 [% END -%]
-[% hand_dump %]
+[%# hand_dump %]
 </pre>
