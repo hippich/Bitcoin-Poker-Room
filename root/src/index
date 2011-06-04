@@ -19,28 +19,14 @@
   <iframe src='/static/table.html?game_id=[% table.serial %]&auth=N' width='763' height='532' style='border: none' scrolling='no' frameborder="0"></iframe>
   [% END %]
 
-  <p>Bitcoin Poker Room is intended as a place where poker fans can play
-  with their friends.</p>
+  <p>Betco.in is a browser-based (HTML5/JS) online poker site using Bitcoins as currency. You can begin playing as soon as you register an account and transfer some bitcoins into it.</p>
 
-  <p>In order to keep the game fair we decided to leverage digital virtual
-  currency Bitcoin. Bitcoins are "mined" by people running bitcoins generation software.
-  It's very hard to generate one bitcoin today, therefore you may consider to buy them
-  from people who generate them.</p>
+  <p>Bitcoins are divisible down into very small units, and we have tables at very low stakes (as low as 10/20 mBTC, or 0.0001/0.0002 BTC). At the tables, a single chip is worth 0.01 BTC. A 1/2 table is really 0.01/0.02 BTC.</p>
 
-  <p>Since generation of "coins" depends on the amount of time spent generating them
-  we effectively eliminate bad players who disturb game. For example, it's no
-  longer possible for someone to enter a game, go All-in in the first round
-  and, once lost everything, re-register a new account and repeat it all over.</p>
-
-  <p>You can download Bitcoin client software for bitcoins generation from
-  <a href="http://www.bitcoin.org" target="_blank">http://www.bitcoin.org</a></p>
+  <p>If you would like to acquire some bitcoins, check <a href="http://mtgox.com">Mt Gox</a>, the <a href="http://forum.bitcoin.org">Bitcoin forums</a>, or #bitcoin-otc on Freenode IRC.</p>
 
   <p>We do not collect any information about players, except for user name, password
   and, optionally, an email.</p>
-
-  <p>We are trying to make this poker room work through Tor as well, but keep in
-  mind, that Tor sometimes drops connection and it is possible that poker room will
-  become unstable.</p>
 
   <p>This project is fully open source under AGPLv3+ (server code) and
   GPLv3+ (html/css/js code) licenses. You can download the latest version following
