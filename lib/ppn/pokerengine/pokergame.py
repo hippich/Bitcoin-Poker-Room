@@ -340,11 +340,15 @@ def __historyResolve2messages(game, hands, serial2name, serial2displayed, frame)
     for side in ('hi', 'low'):
         if not frame.has_key(side):
             continue
-        message = join([ serial2name(serial) for serial in frame[side] ])
-        if len(frame[side]) > 1:
-            message += " tie for %(side)s " % { 'side' : _(side) }
+        if frame[side] == None:
+            message += " (no qualifying %(side)s) " % { 'side' : _(side) }
         else:
-            message += _(" wins %(side)s ") % { 'side' : _(side) }
+            message = join([ serial2name(serial) for serial in frame[side] ])
+            if len(frame[side]) > 1:
+                message += " tie for %(side)s " % { 'side' : _(side) }
+            else:
+                message += _(" wins %(side)s ") % { 'side' : _(side) }
+
         messages.append(message)
 
     if len(frame['serial2share']) > 1:
