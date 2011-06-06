@@ -335,7 +335,7 @@ def __historyResolve2messages(game, hands, serial2name, serial2displayed, frame)
                 value = game.readableHandValueLong(side, hand[1][0], hand[1][1:])
                 messages.append( _("%(name)s shows %(value)s for %(side)s ") % { 'name' : serial2name(serial), 'value' : value, 'side' : _(side) })
             else:
-                messages.append( _("%(name)s mucks loosing hand") % { 'name' : serial2name(serial) })
+                messages.append( _("%(name)s mucks losing hand") % { 'name' : serial2name(serial) })
 
     for side in ('hi', 'low'):
         if not frame.has_key(side):
