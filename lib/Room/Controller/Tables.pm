@@ -73,7 +73,7 @@ sub index :Path :Args(0) {
       my @bets = split '-', $rec->betting_structure;
       $game_bets = $bets[0] .'/'. $bets[1];
 
-      my $game_id = lc($game_seats .'-'. $rec->betting_structure);
+      my $game_id = lc($game_seats .'-'. $rec->betting_structure .'-'. $rec->variant);
       $game_id =~ s/\s/-/g;
       $game_id =~ s/\./_/g;
 
