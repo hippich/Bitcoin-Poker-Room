@@ -61,7 +61,7 @@ sub index :Path :Args(0) {
 
 
     while (my $rec = $tables_rs->next()) {
-      my $game_type = ($rec->seats > 2) ? 'Regular' : 'Heads Up';
+      my $game_seats = ($rec->seats > 2) ? $rec->seats .'-max' : 'Heads Up';
       my $game_limit = 'Limit';
       my $game_bets;
 
@@ -73,14 +73,16 @@ sub index :Path :Args(0) {
       my @bets = split '-', $rec->betting_structure;
       $game_bets = $bets[0] .'/'. $bets[1];
 
-      my $game_id = lc($game_type .'-'. $rec->betting_structure);
+      my $game_id = lc($game_seats .'-'. $rec->betting_structure .'-'. $rec->variant);
       $game_id =~ s/\s/-/g;
       $game_id =~ s/\./_/g;
 
-      $tables_structure->{$game_type}->{$game_limit}->{$game_bets}->{hash} = $game_id;
-      $tables_structure->{$game_type}->{$game_limit}->{$game_bets}->{players} += $rec->players;
+      my $game_variant = $rec->variant;
 
-      $tables->{$game_id}->{name} = $game_limit .' '. $game_type .' Game ('. $game_bets .')';
+      $tables_structure->{$game_variant}->{$game_seats}->{$game_limit}->{$game_bets}->{hash} = $game_id;
+      $tables_structure->{$game_variant}->{$game_seats}->{$game_limit}->{$game_bets}->{players} += $rec->players;
+
+      $tables->{$game_id}->{name} = $game_limit .' '. $game_seats .' Game ('. $game_bets .')';
       push @{$tables->{$game_id}->{tables}}, $rec;
       push @popular_tables, $rec unless $#popular_tables > 10;
     }

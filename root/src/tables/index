@@ -6,33 +6,40 @@
       <a href="#popular-tables">Popular</a>
     </div>
 
-    <ul class="table-types">
-      [% FOREACH game_type = tables_structure %]
+    <ul class="table-variants">
+      [% FOREACH game_variant = tables_structure %]
+      <li>
+      [% game_variant.key %]
+      <ul class="table-seats">
+        [% FOREACH game_seats = game_variant.value %]
         <li>
-          [% game_type.key %]
-          <ul class="table-limits">
-            [% FOREACH game_limit = game_type.value %]
-              <li>
-                [% game_limit.key %]
-                <ul class="game-bets">
-                  [% FOREACH game_bet = game_limit.value %]
-                    <li>
-                      <a href="#[% game_bet.value.hash %]">[% game_bet.key %]</a> ([% game_bet.value.players %])
-                    </li>
-                  [% END %]
-                </ul>
-              </li>
+        [% game_seats.key %]
+        <ul class="table-limits">
+          [% FOREACH game_limit = game_seats.value %]
+          <li>
+          [% game_limit.key %]
+          <ul class="game-bets">
+            [% FOREACH game_bet = game_limit.value %]
+            <li>
+            <a href="#[% game_bet.value.hash %]">[% game_bet.key %]</a> ([% game_bet.value.players %])
+            </li>
             [% END %]
           </ul>
+          </li>
+          [% END %]
+        </ul>
         </li> 
-      [% END %]  
+        [% END %]  
+      </ul>
+      </li>
+      [% END %]
     </ul>
   </div>
 
   <div class="tables">
     <div class="tables-notice">
       <p>
-        <strong>Please note:</strong> all bets are in Chips. I.e. 1/2 table have 0.01 BTC small blind and 0.02 BTC big blind.
+      <strong>Please note:</strong> all bets are in Chips. I.e. 1/2 table have 0.01 BTC small blind and 0.02 BTC big blind.
       </p>
     </div>
     <div class="tables-list-wrapper">
@@ -50,46 +57,46 @@
           </tr>
 
           [% FOREACH table IN popular_tables %]
-            <tr>
-              <td><a class="popup-window" rel="table" href="/static/table.html?game_id=[% table.serial %]&auth=[% c.session.pokernetwork_auth %]&uid=[% c.user.serial %]">[% table.name %]</a></td>
-              <td>[% table.variant %]</td>
-              <td>[% table.betting_structure %]</td>
-              <td>[% table.players %]</td>
-              <td>[% table.player_timeout %]</td>
-              <td>[% table.average_pot / 100 %]</td>
-              <td>[% table.hands_per_hour %]</td>
-            </tr>
+          <tr>
+            <td><a class="popup-window" rel="table" href="/static/table.html?game_id=[% table.serial %]&auth=[% c.session.pokernetwork_auth %]&uid=[% c.user.serial %]">[% table.name %]</a></td>
+            <td>[% table.variant %]</td>
+            <td>[% table.betting_structure %]</td>
+            <td>[% table.players %]</td>
+            <td>[% table.player_timeout %]</td>
+            <td>[% table.average_pot / 100 %]</td>
+            <td>[% table.hands_per_hour %]</td>
+          </tr>
           [% END %]
         </table>
       </div>
 
       [% FOREACH tables_list = tables %]
-        <div class='tables-list' id='[% tables_list.key %]'>
-          <h2>[% tables_list.value.name %]</h2>
-          <table>
-            <tr>
-              <th>Name</th>
-              <th>Variant</th>
-              <th>Betting Structure</th>
-              <th>Players</th>
-              <th>Timeout</th>
-              <th>Average pot</th>
-              <th>Hand per hour</th>
-            </tr>
+      <div class='tables-list' id='[% tables_list.key %]'>
+        <h2>[% tables_list.value.name %]</h2>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Variant</th>
+            <th>Betting Structure</th>
+            <th>Players</th>
+            <th>Timeout</th>
+            <th>Average pot</th>
+            <th>Hand per hour</th>
+          </tr>
 
-            [% FOREACH table = tables_list.value.tables %]
-              <tr>
-                <td><a class="popup-window" rel="table" href="/static/table.html?game_id=[% table.serial %]&auth=[% c.session.pokernetwork_auth %]&uid=[% c.user.serial %]">[% table.name %]</a></td>
-                <td>[% table.variant %]</td>
-                <td>[% table.betting_structure %]</td>
-                <td>[% table.players %]</td>
-                <td>[% table.player_timeout %]</td>
-                <td>[% table.average_pot / 100 %]</td>
-                <td>[% table.hands_per_hour %]</td>
-              </tr>
-            [% END %]
-          </table>
-        </div>
+          [% FOREACH table = tables_list.value.tables %]
+          <tr>
+            <td><a class="popup-window" rel="table" href="/static/table.html?game_id=[% table.serial %]&auth=[% c.session.pokernetwork_auth %]&uid=[% c.user.serial %]">[% table.name %]</a></td>
+            <td>[% table.variant %]</td>
+            <td>[% table.betting_structure %]</td>
+            <td>[% table.players %]</td>
+            <td>[% table.player_timeout %]</td>
+            <td>[% table.average_pot / 100 %]</td>
+            <td>[% table.hands_per_hour %]</td>
+          </tr>
+          [% END %]
+        </table>
+      </div>
       [% END %]
     </div>
   </div>
