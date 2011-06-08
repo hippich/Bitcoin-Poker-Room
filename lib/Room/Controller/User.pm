@@ -4,6 +4,7 @@ use namespace::autoclean;
 use DateTime;
 use Data::Dumper;
 use String::Random;
+use POSIX;
 
 
 BEGIN {extends 'Catalyst::Controller::HTML::FormFu'; }
@@ -345,9 +346,12 @@ sub deposit_bitcoin_refresh :Private {
 sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
   my ($self, $c) = @_;
   my $form = $c->stash->{form};
+  my $balance = $c->user->balances->search({currency_serial => 1})->first;
+
+  $c->stash->{balance} = $balance;
+  $c->stash->{current_balance} = floor($balance->amount * 100) / 100;
 
   if ($form->submitted_and_valid) {
-    my $balance = $c->user->balances->search({currency_serial => 1})->first;
     my $address = $form->params->{bitcoin_address};
     my $amount = $form->params->{amount};
 

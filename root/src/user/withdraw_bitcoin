@@ -1,7 +1,7 @@
 [% META title = 'Withdraw' %]
 
 <p>
-  <strong>Available amount to withdraw:</strong> [% c.user.balances.first.amount | format('%.2f') %] BTC ([% c.user.balances.first.amount * 100 | format('%.2f') %] Chips)
+  <strong>Available amount to withdraw:</strong> [% current_balance %] BTC ([% balance.amount * 100 | format('%.2f') %] Chips)
 </p>
 
 <p><i>Please note, larger amounts may require additional <strong>24 hours</strong> processing time. You will be notified if your withdrawal not processed immediately and require additional processing time.</i></p>
