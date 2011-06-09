@@ -126,6 +126,7 @@ sub format_hi_hand {
 
     switch ($best) {
       case 'NoPair' { $best = 'High card'; }
+      case 'OnePair' { $best = 'One pair'; }
       case 'TwoPair' { $best = 'Two pairs'; }
       case 'Trips' { $best = 'Three of a kind'; }
       case 'Straight' { $best = 'Straight'; }
