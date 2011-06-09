@@ -655,7 +655,7 @@ class PokerExplain:
                 (subject, messages) = history2messages(game, game.historyGet()[game.history_index:], serial2name = lambda serial: self.serial2name(game, serial))
                 if messages or subject:
                     if messages:
-                        message = "".join(map(lambda line: "Dealer: " + line + "\n", messages))
+                        message = "".join(map(lambda line: "Dealer: " + line + "\n", list(set(messages))))
                         forward_packets.append(PacketPokerChat(game_id = game.id,
                                                                message = message))
                 game.history_index = len(game.historyGet())
