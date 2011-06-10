@@ -669,9 +669,9 @@ class PokerClientProtocol(UGAMEClientProtocol):
         packet.seats_all = game.seats_all
         packets.append(packet)
         packets.append(PacketPokerBuyInLimits(game_id = game.id,
-                                              min = game.buyIn(),
-                                              max = game.maxBuyIn(),
-                                              best = game.bestBuyIn(),
+                                              min = game.buyIn(self.getSerial()),
+                                              max = game.maxBuyIn(self.getSerial()),
+                                              best = game.bestBuyIn(self.getSerial()),
                                               rebuy_min = game.minMoney()))
         packets.append(PacketPokerDealer(game_id = game.id, dealer = game.dealer_seat))
         for player in game.playersAll():

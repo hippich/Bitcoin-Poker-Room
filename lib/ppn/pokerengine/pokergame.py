@@ -29,6 +29,7 @@
 #
 from string import split, join, lower
 from pprint import pformat
+from datetime import datetime, timedelta
 import sys
 import re
 import struct
@@ -548,6 +549,7 @@ class PokerGame:
         self.unit = 1
         self.buy_in = 0
         self.max_buy_in = 100000000
+        self.ratholes = {} # serial => (amount, time)
 
         self.max_players = ABSOLUTE_MAX_PLAYERS
         self.is_open = True
@@ -1679,6 +1681,8 @@ class PokerGame:
             self.seats_left.insert(0, self.serial2player[serial].seat)
         else:
             self.error("%d alreay in seats_left" % self.serial2player[serial].seat)
+        # Record ratholing
+        self.ratholes[serial] = (self.serial2player[serial].money, datetime.now())
         #
         # Forget about him
         #
@@ -3584,23 +3588,25 @@ class PokerGame:
         self.getPlayer(serial).auto_muck = auto_muck
         
     def payBuyIn(self, serial, amount):
-        if not self.isTournament() and amount > self.maxBuyIn():
-          if self.verbose > 0: self.error("payBuyIn: maximum buy in is %d and %d is too much" % ( self.maxBuyIn(), amount ))
+        if not self.isTournament() and amount > self.maxBuyIn(serial):
+          if self.verbose > 0: self.error("payBuyIn: maximum buy in is %d and %d is too much" % ( self.maxBuyIn(serial), amount ))
           return False
         player = self.getPlayer(serial)
         player.money = amount
-        if self.isTournament() or player.money >= self.buyIn():
+        if self.isTournament() or player.money >= self.buyIn(serial):
+          if serial in self.ratholes:
+            del self.ratholes[serial]          
           player.buy_in_payed = True
           return True
         else:
-          if self.verbose > 0: self.error("payBuyIn: minimum buy in is %d but %d is not enough" % ( self.buyIn(), player.money ))
+          if self.verbose > 0: self.error("payBuyIn: minimum buy in is %d but %d is not enough" % ( self.buyIn(serial), player.money ))
           return False
 
     def rebuy(self, serial, amount):
         player = self.getPlayer(serial)
         if not player:
           return False
-        if player.money + amount + player.rebuy > self.maxBuyIn():
+        if player.money + amount + player.rebuy > self.maxBuyIn(serial):
           return False
         if self.isPlaying(serial):
           player.rebuy += amount
@@ -3608,13 +3614,32 @@ class PokerGame:
           player.money += amount
         return True
         
-    def buyIn(self):
-        return self.buy_in
 
-    def maxBuyIn(self):
-        return self.max_buy_in
+    def buyIn(self, serial = -1):
+        if serial not in self.ratholes:
+            return self.buy_in
 
-    def bestBuyIn(self):
+        (amount, time) = self.ratholes[serial]
+        if (datetime.now() - time).seconds > 15*60 or amount < self.buy_in:
+            return self.buy_in
+
+        return amount
+
+
+    def maxBuyIn(self, serial = -1):
+        if serial not in self.ratholes:
+            return self.max_buy_in
+
+        (amount, time) = self.ratholes[serial]
+        if (datetime.now() - time).seconds > 15*60 or amount < self.max_buy_in:
+            return self.max_buy_in
+
+        return amount
+
+    def bestBuyIn(self, serial = -1):
+        if self.buyIn(serial) > self.best_buy_in:
+            return self.buyIn(serial)
+
         return self.best_buy_in
 
     def getParamList(self, name):

@@ -1248,7 +1248,7 @@ class PokerTable:
 
         amount = 0
         if self.transient:
-            amount = game.buyIn()
+            amount = game.buyIn(serial)
             
         if not self.factory.seatPlayer(serial, game.id, amount):
             return False
@@ -1338,7 +1338,7 @@ class PokerTable:
             self.error("player %d already payed the buy-in" % avatar.getSerial())
             return False
 
-        amount = self.factory.buyInPlayer(avatar.getSerial(), game.id, self.currency_serial, max(amount, game.buyIn()))
+        amount = self.factory.buyInPlayer(avatar.getSerial(), game.id, self.currency_serial, max(amount, game.buyIn(avatar.getSerial())))
         return avatar.setMoney(self, amount)
         
     def rebuyPlayerRequest(self, avatar, amount):
@@ -1357,13 +1357,13 @@ class PokerTable:
             self.error("player %d can't rebuy on a transient table" % serial)
             return False
 
-        maximum = game.maxBuyIn() - game.getPlayerMoney(serial)
+        maximum = game.maxBuyIn(serial) - game.getPlayerMoney(serial)
         if maximum <= 0:
             self.error("player %d can't bring more money to the table" % serial)
             return False
 
         if amount == 0:
-            amount = game.buyIn()
+            amount = game.buyIn(serial)
             
         amount = self.factory.buyInPlayer(serial, game.id, self.currency_serial, min(amount, maximum))
 

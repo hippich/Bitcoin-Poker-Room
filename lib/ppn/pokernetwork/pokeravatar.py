@@ -988,6 +988,7 @@ class PokerAvatar:
                                                         other_type = PACKET_POKER_BUY_IN))
                 return False
             else:
+                self.updateBuyinLimits(game)
                 return True
         else:
             self.message("attempt to bring money for player %d by player %d" % ( packet.serial, self.getSerial() ))
@@ -1068,7 +1069,7 @@ class PokerAvatar:
 
                         buyIn = table.game.bestBuyIn()
                         if self.service.getMoney(mySerial, table.currency_serial) < buyIn:
-                            buyIn = table.game.buyIn()
+                            buyIn = table.game.buyIn(mySerial)
                             # No need to check above if we have that,
                             # since our answer on this table came from
                             # self.service.getTableByBestCriteria(), which
@@ -1199,6 +1200,14 @@ class PokerAvatar:
             self.sendPacket(PacketPokerTable(reason = packet.reason))
         return table            
 
+    def updateBuyinLimits(self, game):
+        serial = self.getSerial()
+        self.sendPacketVerbose(PacketPokerBuyInLimits(game_id = game.id,
+                                                      min = game.buyIn(serial),
+                                                      max = game.maxBuyIn(serial),
+                                                      best = game.bestBuyIn(serial),
+                                                      rebuy_min = game.minMoney()))
+
     def join(self, table, reason = ""):
         game = table.game
         
@@ -1207,11 +1216,7 @@ class PokerAvatar:
         packet = table.toPacket()
         packet.reason = reason
         self.sendPacketVerbose(packet)
-        self.sendPacketVerbose(PacketPokerBuyInLimits(game_id = game.id,
-                                                      min = game.buyIn(),
-                                                      max = game.maxBuyIn(),
-                                                      best = game.bestBuyIn(),
-                                                      rebuy_min = game.minMoney()))
+        self.updateBuyinLimits(game)
         self.sendPacketVerbose(PacketPokerBatchMode(game_id = game.id))
         nochips = 0
         for player in game.serial2player.values():

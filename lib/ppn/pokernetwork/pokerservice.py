@@ -966,7 +966,7 @@ class PokerService(service.Service):
             else:
                 if self.verbose > 2:
                     self.message("tourneyGameFilled: player %d disconnected" % serial)
-            self.seatPlayer(serial, game.id, game.buyIn())
+            self.seatPlayer(serial, game.id, game.buyIn(serial))
 
             for avatar in avatars:
                 # First, force a count increase, since this player will
@@ -2583,7 +2583,7 @@ class PokerService(service.Service):
             if table.game.sitCount() < min_players:
                 continue
 
-            buy_in = table.game.buyIn()
+            buy_in = table.game.buyIn(serial)
             currency_serial = rr['currency_serial']
             if not money_results.has_key(currency_serial):
                 money_results[currency_serial] = self.getMoney(serial, currency_serial)
