@@ -499,9 +499,6 @@
                         chips = chips / ( magnitude / 10 );
                         return parseInt(chips / 10, 10) + this.fraction + parseInt(chips % 10, 10) + unit[0];
                     } else {
-                        if (chips < 10) {
-                          return this.LONG(chips);
-                        }
                         return parseInt(chips / magnitude, 10) + unit[0];
                     }
                 }
