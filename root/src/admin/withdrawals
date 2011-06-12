@@ -17,7 +17,7 @@
     [% WHILE (withdrawal = withdrawals.next) %]
         <tr>
           <td>[% withdrawal.id %]</td>
-          <td><a href="[% c.uri_for("/admin/user/" _ withdrawal.user.serial) %]">[% withdrawal.user.name %]</a></td>
+          <td><a href="[% c.uri_for("/admin/user/" _ withdrawal.user.serial) %]">[% withdrawal.user.name  | html %]</a></td>
           <td>[% withdrawal.currency.name %]</td>
           <td>[% withdrawal.amount %]</td>
           <td>[% withdrawal.created_at %]</td>
