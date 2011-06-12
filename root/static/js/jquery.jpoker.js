@@ -491,7 +491,7 @@
         SHORT: function(chips) {
             var unit = [ 'G', 'M', 'K', '' ];
             for(var magnitude = 1000000000; magnitude > 0; magnitude /= 1000) {
-                if(chips >= magnitude) {
+                if(chips >= magnitude || magnitude == 1) {
                     if(chips / magnitude < 10) {
                         chips = chips / ( magnitude / 100 );
                         return parseInt(chips / 100, 10) + this.fraction + parseInt((chips/10) % 10, 10) + parseInt(chips % 10, 10) + unit[0];
