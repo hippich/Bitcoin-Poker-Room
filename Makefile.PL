@@ -37,6 +37,10 @@ requires 'Log::Handler';
 requires 'Catalyst::Plugin::LogWarnings';
 requires 'Catalyst::Plugin::Log::Handler' => '0.08';
 requires 'Net::Twitter::Lite';
+requires 'Catalyst::Plugin::RequireSSL';
+requires 'Catalyst::Plugin::Authentication';
+requires 'Catalyst::Authentication::Store::DBIx::Class';
+requires 'Catalyst::Model::Bitcoin';
 
 
 test_requires 'Test::More' => '0.88';

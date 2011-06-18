@@ -5,10 +5,10 @@
   <div id='user-general'>
     <h2 class="account-info">Account info:</h2>
     <ul>
-      <li><strong>Username:</strong> [% user.name %]</li>
-      <li><strong>Email:</strong> [% user.email %]</li>
-      <li><strong>Deposit bitcoin address:</strong> [% user.bitcoin_address %]</li>
-      <li><strong>Emergency bitcoin address:</strong> [% user.emergency_address %]</li>
+      <li><strong>Username:</strong> [% user.name  | html %]</li>
+      <li><strong>Email:</strong> [% user.email  | html %]</li>
+      <li><strong>Deposit bitcoin address:</strong> [% user.bitcoin_address  | html %]</li>
+      <li><strong>Emergency bitcoin address:</strong> [% user.emergency_address  | html %]</li>
       <li><strong>Bitcoins received:</strong> [% user.bitcoins_received %]</li>
       <li><strong>Balance:</strong> [% user.balances.first.amount %]</li>
     </ul>
@@ -45,7 +45,7 @@
               <td>[% withdrawal.id %]</td>
               <td>[% withdrawal.currency.name %]</td>
               <td>[% withdrawal.amount %]</td>
-              <td>[% withdrawal.dest %]</td>
+              <td>[% withdrawal.dest  | html %]</td>
               <td>[% withdrawal.created_at %]</td>
               <td>[% withdrawal.processed_at %]</td>
             </tr>

@@ -348,6 +348,12 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
   my $form = $c->stash->{form};
   my $balance = $c->user->balances->search({currency_serial => 1})->first;
 
+  if (! $balance) {
+    $balance = $c->user->balances->find_or_create({ currency_serial => 1 });
+    $balance->amount(0);
+    $balance->update();
+  }
+
   $c->stash->{balance} = $balance;
   $c->stash->{current_balance} = floor($balance->amount * 100) / 100;
 
