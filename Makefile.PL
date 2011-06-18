@@ -21,7 +21,7 @@ requires 'Catalyst::Session::State::Cookie';
 requires 'Catalyst::Static::Simple';
 requires 'Catalyst::Authentication';
 requires 'String::Random';
-requires 'Catalyst::Controller::HTML::FormFu';
+requires 'Catalyst::Controller::HTML::FormFu' => '0.09003';
 requires 'Catalyst::Plugin::StackTrace';
 requires 'DBIx::Class::EncodedColum';
 requires 'DBIx::Class::TimeStamp';
