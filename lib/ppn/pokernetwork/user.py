@@ -67,13 +67,14 @@ class User:
     REGULAR = 1
     ADMIN = 2
 
-    def __init__(self, serial = 0):
+    def __init__(self, serial = 0, db = None):
         self.serial = serial
         self.name = "anonymous"
         self.url = "random"
         self.outfit = "random"
         self.affiliate = 0
         self.privilege = None
+        self.db = db
 
     def logout(self):
         self.serial = 0
@@ -91,5 +92,42 @@ class User:
         
         return self.privilege >= privilege
 
+    def getBalance(self, currency_serial):
+        cursor = self.db.cursor()
+        sql = ( "SELECT amount FROM user2money " +
+                "WHERE user_serial = %d AND currency_serial = %d" )
+        if self.verbose:
+            self.message(sql)
+        cursor.execute(sql, (self.serial, currency_serial))
+        if cursor.rowcount > 1:
+            self.error("getBalance(%d) expected one row got %d" % ( self.serial, cursor.rowcount ))
+            cursor.close()
+            return 0
+        elif cursor.rowcount == 1:
+            (money,) = cursor.fetchone()
+        else:
+            money = 0
+        cursor.close()
+        return money
+
+    def increaseBalance(self, amount, currency_serial):
+        cursor = self.db.cursor()
+        sql = "UPDATE user2money SET amount = amount + %d WHERE user_serial = %d AND currency_serial = %d"
+        cursor.execute(sql, (amount, self.serial, currency_serial))
+        if cursor.rowcount == 0:
+            sql = "INSERT INTO user2money (user_serial, currency_serial, amount) VALUES (%d, %d, %d)"
+            cursor.execute(sql, ( self.serial, currency_serial, amount ))
+        #TODO: this could use more auditing
+        return True
+
+    def decreaseBalance(self, amount, currency_serial):
+        cursor = self.db.cursor()
+        sql = ( "UPDATE user2money SET amount = amount - %d"
+                " WHERE user_serial = %d AND currency_serial = %d AND amount >= %d"
+              )
+        cursor.execute(sql, (amount, self.serial, currency_serial, amount))
+        return cursor.rowcount
+
+
     def __str__(self):
-        return "serial = %d, name = %s, url = %s, outfit = %s, privilege = %d" % ( self.serial, self.name, self.url, self.outfit, self.privilege )
+        return "serial = %d, name = %s, url = %s, outfit = %s, privilege = %d, affiliate = %d" % ( self.serial, self.name, self.url, self.outfit, self.privilege, self.affiliate )

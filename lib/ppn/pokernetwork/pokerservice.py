@@ -914,16 +914,9 @@ class PokerService(service.Service):
             serial = winners.pop(0)
             if prize <= 0:
                 continue
-            sql = "UPDATE user2money SET amount = amount + " + str(prize) + " WHERE user_serial = " + str(serial) + " AND currency_serial = " + str(prize_currency)
-            if self.verbose > 2:
-                self.message("tourneyFinished: " + sql)
-            cursor.execute(sql)
-            if cursor.rowcount == 0:
-                sql = ( "INSERT INTO user2money (user_serial, currency_serial, amount) VALUES (%d, %d, %d)" %
-                        ( serial, prize_currency, prize ) )
-                if self.verbose > 2:
-                    self.message("tourneyFinished: " + sql)
-                cursor.execute(sql)
+            u = User(serial)
+            u.db = self.db
+            u.increaseBalance(prize, prize_currency)
             self.databaseEvent(event = PacketPokerMonitorEvent.PRIZE, param1 = serial, param2 = prize_currency, param3 = prize)
 
         #added the following so that it wont break tests where the tournament mockup doesn't contain a finish_time
@@ -1342,15 +1335,9 @@ class PokerService(service.Service):
         currency_serial = tourney.currency_serial or 0
         withdraw = tourney.buy_in + tourney.rake
         if withdraw > 0:
-            sql = ( "UPDATE user2money SET amount = amount - " + str(withdraw) +
-                    " WHERE user_serial = " + str(serial) + " AND " +
-                    "       currency_serial = " + str(currency_serial) + " AND " +
-                    "       amount >= " + str(withdraw)
-                    )
-            if self.verbose > 1:
-                self.message("tourneyRegister: %s" % sql)
-            cursor.execute(sql)
-            if cursor.rowcount == 0:
+            u = User(serial, self.db)
+            result = u.decreaseBalance(withdraw, currency_serial)
+            if result == 0:
                 error = PacketError(other_type = PACKET_POKER_TOURNEY_REGISTER,
                                     code = PacketPokerTourneyRegister.NOT_ENOUGH_MONEY,
                                     message = "Not enough money to enter the tournament %d" % tourney_serial)
@@ -1358,8 +1345,8 @@ class PokerService(service.Service):
                     avatar.sendPacketVerbose(error)
                 self.error(error)
                 return False
-            if cursor.rowcount != 1:
-                self.error("modified %d rows (expected 1): %s " % ( cursor.rowcount, sql ))
+            if result != 1:
+                self.error("modified %d rows (expected 1)" % ( result ))
                 for avatar in avatars:
                     avatar.sendPacketVerbose(PacketError(other_type = PACKET_POKER_TOURNEY_REGISTER,
                                                          code = PacketPokerTourneyRegister.SERVER_ERROR,
@@ -1908,23 +1895,9 @@ class PokerService(service.Service):
         cursor.close()
 
     def getMoney(self, serial, currency_serial):
-        cursor = self.db.cursor()
-        sql = ( "SELECT amount FROM user2money " +
-                "       WHERE user_serial = " + str(serial) + " AND " +
-                "             currency_serial = "  + str(currency_serial) )
-        if self.verbose:
-            self.message(sql)
-        cursor.execute(sql)
-        if cursor.rowcount > 1:
-            self.error("getMoney(%d) expected one row got %d" % ( serial, cursor.rowcount ))
-            cursor.close()
-            return 0
-        elif cursor.rowcount == 1:
-            (money,) = cursor.fetchone()
-        else:
-            money = 0
-        cursor.close()
-        return money
+        u = User(serial)
+        u.db = self.db
+        return u.getBalance(currency_serial)
 
     def cashIn(self, packet):
         return self.cashier.cashIn(packet)
