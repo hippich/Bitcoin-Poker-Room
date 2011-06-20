@@ -1113,7 +1113,8 @@ class PokerAvatar:
             return PacketPokerPlayerInfo(serial = self.getSerial(),
                                          name = self.getName(),
                                          url = self.user.url,
-                                         outfit = self.user.outfit)
+                                         outfit = self.user.outfit,
+                                         affiliate = self.user.affiliate)
         else:
             return PacketError(code = PacketPokerGetPlayerInfo.NOT_LOGGED,
                                message = "Not logged in",

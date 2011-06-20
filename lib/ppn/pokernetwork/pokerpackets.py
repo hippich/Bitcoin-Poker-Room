@@ -1849,6 +1849,7 @@ serial: integer uniquely identifying a player.
    info = PacketPokerId.info + ( ('name', 'noname', 's'),
                                  ('outfit', 'random', 's'),
                                  ('url', 'random', 's'),
+                                 ('affiliate', 0, 'I'),
                                  # FIXME_PokerPlayerInfoLocale: 
                                  # (see also sr #2262 )
                                  # should "locale" be here?  It's
@@ -1863,6 +1864,7 @@ serial: integer uniquely identifying a player.
        self.name = kwargs.get('name', "noname")
        self.url = kwargs.get('url', "random")
        self.outfit = kwargs.get('outfit',"random")
+       self.affiliate = kwargs.get('affiliate', 0)
        PacketPokerId.__init__(self, *args, **kwargs)
 
    def pack(self):

@@ -72,6 +72,7 @@ class User:
         self.name = "anonymous"
         self.url = "random"
         self.outfit = "random"
+        self.affiliate = 0
         self.privilege = None
 
     def logout(self):

@@ -1949,6 +1949,7 @@ class PokerService(service.Service):
                                             name = "anonymous",
                                             url= "random",
                                             outfit = "random",
+                                            affiliate = 0,
                                             # FIXME_PokerPlayerInfoLocale:
                                             # (see also sr #2262 )
                                             # this sets locale but
@@ -1964,19 +1965,20 @@ class PokerService(service.Service):
             return placeholder
 
         cursor = self.db.cursor()
-        sql = ( "select locale,name,skin_url,skin_outfit from users where serial = " + str(serial) )
+        sql = ( "select locale,name,skin_url,skin_outfit,affiliate from users where serial = " + str(serial) )
         cursor.execute(sql)
         if cursor.rowcount != 1:
             self.error("getPlayerInfo(%d) expected one row got %d" % ( serial, cursor.rowcount ))
             return placeholder
-        (locale,name,skin_url,skin_outfit) = cursor.fetchone()
+        (locale,name,skin_url,skin_outfit,affiliate) = cursor.fetchone()
         if skin_outfit == None:
             skin_outfit = "random"
         cursor.close()
         packet = PacketPokerPlayerInfo(serial = serial,
                                        name = name,
                                        url = skin_url,
-                                       outfit = skin_outfit)
+                                       outfit = skin_outfit,
+                                       affiliate = affiliate)
         # pokerservice generally provides playerInfo() internally to
         # methods like pokeravatar.(re)?login.  Since this is the central
         # internal location where the query occurs, we hack in the locale
