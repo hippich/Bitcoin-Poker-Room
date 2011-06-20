@@ -1,9 +1,12 @@
 package Room::Schema::PokerNetwork::Result::Monitor;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
@@ -12,31 +15,82 @@ __PACKAGE__->load_components(
   "EncodedColumn",
   "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::Monitor
+
+=cut
+
 __PACKAGE__->table("monitor");
+
+=head1 ACCESSORS
+
+=head2 serial
+
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
+=head2 created
+
+  data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
+  default_value: current_timestamp
+  is_nullable: 0
+
+=head2 event
+
+  data_type: 'tinyint'
+  is_nullable: 0
+
+=head2 param1
+
+  data_type: 'bigint'
+  is_nullable: 0
+
+=head2 param2
+
+  data_type: 'bigint'
+  is_nullable: 0
+
+=head2 param3
+
+  data_type: 'bigint'
+  is_nullable: 0
+
+=cut
+
 __PACKAGE__->add_columns(
   "serial",
-  { data_type => "BIGINT", default_value => undef, is_nullable => 0, size => 20 },
+  {
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "created",
   {
-    data_type => "TIMESTAMP",
-    default_value => "CURRENT_TIMESTAMP",
+    data_type => "timestamp",
+    datetime_undef_if_invalid => 1,
+    default_value => \"current_timestamp",
     is_nullable => 0,
-    size => 14,
   },
   "event",
-  { data_type => "TINYINT", default_value => undef, is_nullable => 0, size => 4 },
+  { data_type => "tinyint", is_nullable => 0 },
   "param1",
-  { data_type => "BIGINT", default_value => undef, is_nullable => 0, size => 20 },
+  { data_type => "bigint", is_nullable => 0 },
   "param2",
-  { data_type => "BIGINT", default_value => undef, is_nullable => 0, size => 20 },
+  { data_type => "bigint", is_nullable => 0 },
   "param3",
-  { data_type => "BIGINT", default_value => undef, is_nullable => 0, size => 20 },
+  { data_type => "bigint", is_nullable => 0 },
 );
 __PACKAGE__->set_primary_key("serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KQvQW8vtjxewF6WqyANPhQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-06-20 00:04:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QzeacHBY2QBz/BwoZP5jmg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -1,9 +1,12 @@
 package Room::Schema::PokerNetwork::Result::Affiliates;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
@@ -12,70 +15,285 @@ __PACKAGE__->load_components(
   "EncodedColumn",
   "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::Affiliates
+
+=cut
+
 __PACKAGE__->table("affiliates");
+
+=head1 ACCESSORS
+
+=head2 serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
+=head2 modified
+
+  data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
+  default_value: current_timestamp
+  is_nullable: 0
+
+=head2 created
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 key
+
+  data_type: 'varchar'
+  is_nullable: 0
+  size: 32
+
+=head2 share
+
+  data_type: 'bigint'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 balance
+
+  data_type: 'bigint'
+  default_value: 0
+  is_nullable: 0
+
+=head2 escrow
+
+  data_type: 'bigint'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 prefix
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 3
+
+=head2 users_count
+
+  data_type: 'integer'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 users_rake
+
+  data_type: 'integer'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 users_points
+
+  data_type: 'integer'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 companyname
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 255
+
+=head2 firstname
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 255
+
+=head2 lastname
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 255
+
+=head2 addr_street
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 255
+
+=head2 addr_street2
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 255
+
+=head2 addr_zip
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 64
+
+=head2 addr_town
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 64
+
+=head2 addr_state
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 128
+
+=head2 addr_country
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 64
+
+=head2 phone
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 64
+
+=head2 url
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 service_url
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 notes
+
+  data_type: 'text'
+  is_nullable: 1
+
+=cut
+
 __PACKAGE__->add_columns(
   "serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  {
+    data_type => "integer",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "modified",
   {
-    data_type => "TIMESTAMP",
-    default_value => "CURRENT_TIMESTAMP",
+    data_type => "timestamp",
+    datetime_undef_if_invalid => 1,
+    default_value => \"current_timestamp",
     is_nullable => 0,
-    size => 14,
   },
   "created",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
-  "users_count",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 10 },
-  "users_rake",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 10 },
-  "users_points",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
+  "key",
+  { data_type => "varchar", is_nullable => 0, size => 32 },
   "share",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 10 },
+  {
+    data_type => "bigint",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 1,
+  },
+  "balance",
+  { data_type => "bigint", default_value => 0, is_nullable => 0 },
+  "escrow",
+  {
+    data_type => "bigint",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 0,
+  },
+  "prefix",
+  { data_type => "char", is_nullable => 1, size => 3 },
+  "users_count",
+  {
+    data_type => "integer",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 1,
+  },
+  "users_rake",
+  {
+    data_type => "integer",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 1,
+  },
+  "users_points",
+  {
+    data_type => "integer",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 1,
+  },
   "companyname",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 255 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 255 },
   "firstname",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 255 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 255 },
   "lastname",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 255 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 255 },
   "addr_street",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 255 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 255 },
   "addr_street2",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 255 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 255 },
   "addr_zip",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 64 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 64 },
   "addr_town",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 64 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 64 },
   "addr_state",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 128 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 128 },
   "addr_country",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 64 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 64 },
   "phone",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 64 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 64 },
   "url",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 1,
-    size => 65535,
-  },
+  { data_type => "text", is_nullable => 1 },
+  "service_url",
+  { data_type => "text", is_nullable => 1 },
   "notes",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 1,
-    size => 65535,
-  },
+  { data_type => "text", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("serial");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1wnjOpfpgLYESLxA16UYtQ
+=head2 users
+
+Type: has_many
+
+Related object: L<Room::Schema::PokerNetwork::Result::Users>
+
+=cut
+
+__PACKAGE__->has_many(
+  "users",
+  "Room::Schema::PokerNetwork::Result::Users",
+  { "foreign.affiliate" => "self.serial" },
+  {},
+);
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-06-20 00:12:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xoHn+B5Rp2rpSbjjDrQFtQ
+
 
 =head1 AUTHOR
 

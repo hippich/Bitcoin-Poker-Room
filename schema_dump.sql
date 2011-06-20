@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.41, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.13  Distrib 5.1.54, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: pythonpokernetwork
 -- ------------------------------------------------------
--- Server version	5.1.41-3ubuntu12.6
+-- Server version	5.1.54-1ubuntu4
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,10 +26,14 @@ CREATE TABLE `affiliates` (
   `serial` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created` int(10) unsigned NOT NULL,
+  `key` varchar(32) NOT NULL,
+  `share` bigint(10) unsigned DEFAULT '0',
+  `balance` bigint(30) NOT NULL DEFAULT '0',
+  `escrow` bigint(30) unsigned NOT NULL DEFAULT '0',
+  `prefix` char(3) DEFAULT NULL,
   `users_count` int(10) unsigned DEFAULT '0',
-  `users_rake` int(10) unsigned DEFAULT '0',
+  `users_rake` int(30) unsigned DEFAULT '0',
   `users_points` int(10) unsigned DEFAULT '0',
-  `share` int(10) unsigned DEFAULT '0',
   `companyname` varchar(255) DEFAULT '',
   `firstname` varchar(255) DEFAULT '',
   `lastname` varchar(255) DEFAULT '',
@@ -41,9 +45,10 @@ CREATE TABLE `affiliates` (
   `addr_country` varchar(64) DEFAULT '',
   `phone` varchar(64) DEFAULT '',
   `url` text,
+  `service_url` text,
   `notes` text,
   PRIMARY KEY (`serial`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +125,7 @@ CREATE TABLE `deposits` (
   `processed_at` datetime NOT NULL,
   PRIMARY KEY (`deposit_id`),
   KEY `user_serial` (`user_serial`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,7 +141,7 @@ CREATE TABLE `hands` (
   `name` varchar(32) DEFAULT NULL,
   `description` text NOT NULL,
   PRIMARY KEY (`serial`)
-) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=489 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +175,7 @@ CREATE TABLE `monitor` (
   `param2` bigint(20) NOT NULL,
   `param3` bigint(20) NOT NULL,
   PRIMARY KEY (`serial`)
-) ENGINE=MyISAM AUTO_INCREMENT=494 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=164096 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,7 +211,7 @@ CREATE TABLE `pokertables` (
   KEY `pokertables_betting_structure` (`betting_structure`),
   KEY `pokertables_currency_serial` (`currency_serial`),
   KEY `resthost_serial` (`resthost_serial`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6881 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -377,7 +382,7 @@ CREATE TABLE `session_history` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   KEY `session_history_serial` (`user_serial`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -424,7 +429,7 @@ CREATE TABLE `tourneys` (
   PRIMARY KEY (`serial`),
   KEY `tourneys_start_time_index` (`start_time`),
   KEY `state` (`state`,`finish_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=508 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4758 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -513,8 +518,8 @@ CREATE TABLE `user2money` (
   `user_serial` int(10) unsigned NOT NULL,
   `currency_serial` int(10) unsigned NOT NULL,
   `amount` bigint(20) NOT NULL,
-  `rake` bigint(20) NOT NULL DEFAULT '0',
-  `points` bigint(20) NOT NULL DEFAULT '0',
+  `rake` bigint(20) NOT NULL,
+  `points` bigint(20) NOT NULL,
   PRIMARY KEY (`user_serial`,`currency_serial`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -567,7 +572,7 @@ CREATE TABLE `users` (
   `created` int(10) unsigned NOT NULL,
   `name` varchar(64) DEFAULT NULL,
   `email` varchar(128) DEFAULT NULL,
-  `affiliate` int(10) unsigned DEFAULT '0',
+  `affiliate` int(10) unsigned DEFAULT NULL,
   `skin_url` varchar(255) DEFAULT 'random',
   `skin_outfit` text,
   `skin_image` text,
@@ -580,9 +585,11 @@ CREATE TABLE `users` (
   `games_count` int(11) DEFAULT '0',
   `data` text,
   PRIMARY KEY (`serial`),
-  UNIQUE KEY `email_idx` (`email`),
-  KEY `name_idx` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+  KEY `name_idx` (`name`),
+  KEY `email_idx` (`email`),
+  KEY `affiliate` (`affiliate`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`affiliate`) REFERENCES `affiliates` (`serial`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=54950 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -644,13 +651,14 @@ CREATE TABLE `withdrawal` (
   `user_serial` int(11) NOT NULL,
   `currency_serial` int(11) NOT NULL,
   `amount` float NOT NULL,
+  `dest` text NOT NULL,
   `processed` int(11) NOT NULL,
   `info` text NOT NULL,
   `created_at` datetime NOT NULL,
   `processed_at` datetime NOT NULL,
   PRIMARY KEY (`withdrawal_id`),
   KEY `user_serial` (`user_serial`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -662,4 +670,4 @@ CREATE TABLE `withdrawal` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-09-04 20:01:03
+-- Dump completed on 2011-06-20  0:16:20

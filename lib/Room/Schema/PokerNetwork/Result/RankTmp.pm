@@ -1,9 +1,12 @@
 package Room::Schema::PokerNetwork::Result::RankTmp;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
@@ -12,24 +15,71 @@ __PACKAGE__->load_components(
   "EncodedColumn",
   "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::RankTmp
+
+=cut
+
 __PACKAGE__->table("rank_tmp");
+
+=head1 ACCESSORS
+
+=head2 user_serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 currency_serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 amount
+
+  data_type: 'bigint'
+  is_nullable: 0
+
+=head2 rank
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 percentile
+
+  data_type: 'tinyint'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=cut
+
 __PACKAGE__->add_columns(
   "user_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
   "currency_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
   "amount",
-  { data_type => "BIGINT", default_value => undef, is_nullable => 0, size => 20 },
+  { data_type => "bigint", is_nullable => 0 },
   "rank",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
   "percentile",
-  { data_type => "TINYINT", default_value => 0, is_nullable => 0, size => 3 },
+  {
+    data_type => "tinyint",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 0,
+  },
 );
 __PACKAGE__->set_primary_key("user_serial", "currency_serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6j2/y03WYevW3b3sPUd6DQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-06-20 00:04:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jbYgH7SSZVUejr4Cn77HGg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

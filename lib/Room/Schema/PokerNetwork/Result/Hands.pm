@@ -1,9 +1,12 @@
 package Room::Schema::PokerNetwork::Result::Hands;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
@@ -12,37 +15,69 @@ __PACKAGE__->load_components(
   "EncodedColumn",
   "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::Hands
+
+=cut
+
 __PACKAGE__->table("hands");
+
+=head1 ACCESSORS
+
+=head2 serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
+=head2 created
+
+  data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
+  default_value: current_timestamp
+  is_nullable: 0
+
+=head2 name
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 32
+
+=head2 description
+
+  data_type: 'text'
+  is_nullable: 0
+
+=cut
+
 __PACKAGE__->add_columns(
   "serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  {
+    data_type => "integer",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "created",
   {
-    data_type => "TIMESTAMP",
-    default_value => "CURRENT_TIMESTAMP",
+    data_type => "timestamp",
+    datetime_undef_if_invalid => 1,
+    default_value => \"current_timestamp",
     is_nullable => 0,
-    size => 14,
   },
   "name",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 32,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 32 },
   "description",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 0,
-    size => 65535,
-  },
+  { data_type => "text", is_nullable => 0 },
 );
 __PACKAGE__->set_primary_key("serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:1ToKcdFljUDL2gZ5bKoYSg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-06-20 00:04:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:riplW4jtSTY1O8kjb0RJSg
 
 use JSON::XS;
 use Switch;

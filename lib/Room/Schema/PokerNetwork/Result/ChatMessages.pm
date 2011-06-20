@@ -1,9 +1,12 @@
 package Room::Schema::PokerNetwork::Result::ChatMessages;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
@@ -12,34 +15,77 @@ __PACKAGE__->load_components(
   "EncodedColumn",
   "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::ChatMessages
+
+=cut
+
 __PACKAGE__->table("chat_messages");
+
+=head1 ACCESSORS
+
+=head2 serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
+=head2 player_serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 game_id
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 message
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 timestamp
+
+  data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
+  default_value: current_timestamp
+  is_nullable: 0
+
+=cut
+
 __PACKAGE__->add_columns(
   "serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
-  "player_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
-  "game_id",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
-  "message",
   {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 1,
-    size => 65535,
+    data_type => "integer",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
   },
+  "player_serial",
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
+  "game_id",
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
+  "message",
+  { data_type => "text", is_nullable => 1 },
   "timestamp",
   {
-    data_type => "TIMESTAMP",
-    default_value => "CURRENT_TIMESTAMP",
+    data_type => "timestamp",
+    datetime_undef_if_invalid => 1,
+    default_value => \"current_timestamp",
     is_nullable => 0,
-    size => 14,
   },
 );
 __PACKAGE__->set_primary_key("serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/byApHimCc5zylwr44KGvQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-06-20 00:04:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:d9q2dDHWvHON26Rjp5Pb/w
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

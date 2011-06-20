@@ -1,9 +1,12 @@
 package Room::Schema::PokerNetwork::Result::Server;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
@@ -12,20 +15,33 @@ __PACKAGE__->load_components(
   "EncodedColumn",
   "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::Server
+
+=cut
+
 __PACKAGE__->table("server");
+
+=head1 ACCESSORS
+
+=head2 version
+
+  data_type: 'varchar'
+  is_nullable: 0
+  size: 16
+
+=cut
+
 __PACKAGE__->add_columns(
   "version",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 0,
-    size => 16,
-  },
+  { data_type => "varchar", is_nullable => 0, size => 16 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:P6ZB0pPJ12q0JJplaozjuw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-06-20 00:04:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:JJPhAtvtbRGpFzRVVdMkPA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

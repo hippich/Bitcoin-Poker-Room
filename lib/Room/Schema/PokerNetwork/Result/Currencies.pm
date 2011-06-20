@@ -1,9 +1,12 @@
 package Room::Schema::PokerNetwork::Result::Currencies;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
@@ -12,26 +15,67 @@ __PACKAGE__->load_components(
   "EncodedColumn",
   "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::Currencies
+
+=cut
+
 __PACKAGE__->table("currencies");
+
+=head1 ACCESSORS
+
+=head2 serial
+
+  data_type: 'integer'
+  is_auto_increment: 1
+  is_nullable: 0
+
+=head2 url
+
+  data_type: 'char'
+  is_nullable: 0
+  size: 255
+
+=head2 symbol
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 8
+
+=head2 name
+
+  data_type: 'char'
+  is_nullable: 1
+  size: 32
+
+=head2 cash_out
+
+  data_type: 'integer'
+  is_nullable: 1
+
+=cut
+
 __PACKAGE__->add_columns(
   "serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
+  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "url",
-  { data_type => "CHAR", default_value => undef, is_nullable => 0, size => 255 },
+  { data_type => "char", is_nullable => 0, size => 255 },
   "symbol",
-  { data_type => "CHAR", default_value => undef, is_nullable => 1, size => 8 },
+  { data_type => "char", is_nullable => 1, size => 8 },
   "name",
-  { data_type => "CHAR", default_value => undef, is_nullable => 1, size => 32 },
+  { data_type => "char", is_nullable => 1, size => 32 },
   "cash_out",
-  { data_type => "INT", default_value => undef, is_nullable => 1, size => 11 },
+  { data_type => "integer", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("serial", "url");
 __PACKAGE__->add_unique_constraint("serial", ["serial"]);
 __PACKAGE__->add_unique_constraint("url", ["url"]);
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ynw3BuTq4Lam7wqlj4aHXw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-06-20 00:04:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MdPHda7F/hmfHtxJwVhuCA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

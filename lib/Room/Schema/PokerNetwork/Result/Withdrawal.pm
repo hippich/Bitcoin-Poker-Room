@@ -1,9 +1,12 @@
 package Room::Schema::PokerNetwork::Result::Withdrawal;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
@@ -12,52 +15,100 @@ __PACKAGE__->load_components(
   "EncodedColumn",
   "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::Withdrawal
+
+=cut
+
 __PACKAGE__->table("withdrawal");
+
+=head1 ACCESSORS
+
+=head2 withdrawal_id
+
+  data_type: 'integer'
+  is_auto_increment: 1
+  is_nullable: 0
+
+=head2 user_serial
+
+  data_type: 'integer'
+  is_nullable: 0
+
+=head2 currency_serial
+
+  data_type: 'integer'
+  is_nullable: 0
+
+=head2 amount
+
+  data_type: 'float'
+  is_nullable: 0
+
+=head2 dest
+
+  data_type: 'text'
+  is_nullable: 0
+
+=head2 processed
+
+  data_type: 'integer'
+  is_nullable: 0
+
+=head2 info
+
+  data_type: 'text'
+  is_nullable: 0
+
+=head2 created_at
+
+  data_type: 'datetime'
+  datetime_undef_if_invalid: 1
+  is_nullable: 0
+
+=head2 processed_at
+
+  data_type: 'datetime'
+  datetime_undef_if_invalid: 1
+  is_nullable: 0
+
+=cut
+
 __PACKAGE__->add_columns(
   "withdrawal_id",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
+  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "user_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
+  { data_type => "integer", is_nullable => 0 },
   "currency_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
+  { data_type => "integer", is_nullable => 0 },
   "amount",
-  { data_type => "FLOAT", default_value => undef, is_nullable => 0, size => 32 },
+  { data_type => "float", is_nullable => 0 },
   "dest",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 0,
-    size => 65535,
-  },
+  { data_type => "text", is_nullable => 0 },
   "processed",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
+  { data_type => "integer", is_nullable => 0 },
   "info",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 0,
-    size => 65535,
-  },
+  { data_type => "text", is_nullable => 0 },
   "created_at",
   {
-    data_type => "DATETIME",
-    default_value => undef,
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
     is_nullable => 0,
-    size => 19,
   },
   "processed_at",
   {
-    data_type => "DATETIME",
-    default_value => undef,
+    data_type => "datetime",
+    datetime_undef_if_invalid => 1,
     is_nullable => 0,
-    size => 19,
   },
 );
 __PACKAGE__->set_primary_key("withdrawal_id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zBp+6xGtv50a4dieZcH+zw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-06-20 00:04:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UKb4cOFbGO1w2t5GsHMjFw
 
 __PACKAGE__->add_columns(
   "processed_at",

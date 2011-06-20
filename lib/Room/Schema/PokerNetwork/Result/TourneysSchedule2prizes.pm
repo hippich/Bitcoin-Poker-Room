@@ -1,9 +1,12 @@
 package Room::Schema::PokerNetwork::Result::TourneysSchedule2prizes;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
@@ -12,17 +15,39 @@ __PACKAGE__->load_components(
   "EncodedColumn",
   "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::TourneysSchedule2prizes
+
+=cut
+
 __PACKAGE__->table("tourneys_schedule2prizes");
+
+=head1 ACCESSORS
+
+=head2 tourneys_schedule_serial
+
+  data_type: 'integer'
+  is_nullable: 1
+
+=head2 prize_serial
+
+  data_type: 'integer'
+  is_nullable: 1
+
+=cut
+
 __PACKAGE__->add_columns(
   "tourneys_schedule_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 1, size => 11 },
+  { data_type => "integer", is_nullable => 1 },
   "prize_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 1, size => 11 },
+  { data_type => "integer", is_nullable => 1 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:xQ1anXKbJPerwQWkAnlD4g
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-06-20 00:04:58
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MJuOKOw0X70vkTcNprI8uA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
