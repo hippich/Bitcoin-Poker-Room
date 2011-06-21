@@ -52,6 +52,10 @@ sub view_hand : Chained('base') PathPart('') Args(1) {
   $c->stash->{hands} = $c->user->hands;
   my $hand = $c->stash->{hands}->search({serial => $id})->first;
 
+  if (! $hand && i$c->user->privilege == 2) {
+    $hand = $c->model('PokerNetwork::Hands')->search({serial => $id})->first;
+  }
+
   if (! $hand) {
     $c->detach('/default');
   }
