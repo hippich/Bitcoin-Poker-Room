@@ -64,7 +64,7 @@ sub auth_user :Chained('base') :PathPart('auth_user') :Args(1) {
 
   $c->model("PokerNetwork")->set_user_id_by_auth(
       $user->serial,
-      $c->session->{pokernetwork_auth}
+      $auth
       );
 
   $c->response->body('&auth=' . $auth . '&uid=' . $user->serial);

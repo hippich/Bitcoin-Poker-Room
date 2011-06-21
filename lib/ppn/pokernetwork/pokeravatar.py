@@ -136,6 +136,7 @@ class PokerAvatar:
         self.user.serial = serial
         self.user.name = player_info.name
         self.user.privilege = User.REGULAR
+        self.user.affiliate = player_info.affiliate
         self.user.url = player_info.url
         self.user.outfit = player_info.outfit
         self._setDefaultLocale(player_info.locale)
