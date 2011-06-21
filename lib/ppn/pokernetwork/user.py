@@ -95,12 +95,10 @@ class User:
     def getBalance(self, currency_serial):
         cursor = self.db.cursor()
         sql = ( "SELECT amount FROM user2money " +
-                "WHERE user_serial = %d AND currency_serial = %d" )
-        if self.verbose:
-            self.message(sql)
+                "WHERE user_serial = %s AND currency_serial = %s" )
         cursor.execute(sql, (self.serial, currency_serial))
         if cursor.rowcount > 1:
-            self.error("getBalance(%d) expected one row got %d" % ( self.serial, cursor.rowcount ))
+            self.error("getBalance(%s) expected one row got %s" % ( self.serial, cursor.rowcount ))
             cursor.close()
             return 0
         elif cursor.rowcount == 1:
@@ -112,22 +110,22 @@ class User:
 
     def increaseBalance(self, amount, currency_serial):
         cursor = self.db.cursor()
-        sql = "UPDATE user2money SET amount = amount + %d WHERE user_serial = %d AND currency_serial = %d"
+        sql = "UPDATE user2money SET amount = amount + %s WHERE user_serial = %s AND currency_serial = %s"
         cursor.execute(sql, (amount, self.serial, currency_serial))
         if cursor.rowcount == 0:
-            sql = "INSERT INTO user2money (user_serial, currency_serial, amount) VALUES (%d, %d, %d)"
+            sql = "INSERT INTO user2money (user_serial, currency_serial, amount) VALUES (%s, %s, %s)"
             cursor.execute(sql, ( self.serial, currency_serial, amount ))
         #TODO: this could use more auditing
         return True
 
     def decreaseBalance(self, amount, currency_serial):
         cursor = self.db.cursor()
-        sql = ( "UPDATE user2money SET amount = amount - %d"
-                " WHERE user_serial = %d AND currency_serial = %d AND amount >= %d"
+        sql = ( "UPDATE user2money SET amount = amount - %s"
+                " WHERE user_serial = %s AND currency_serial = %s AND amount >= %s"
               )
         cursor.execute(sql, (amount, self.serial, currency_serial, amount))
         return cursor.rowcount
 
 
     def __str__(self):
-        return "serial = %d, name = %s, url = %s, outfit = %s, privilege = %d, affiliate = %d" % ( self.serial, self.name, self.url, self.outfit, self.privilege, self.affiliate )
+        return "serial = %s, name = %s, url = %s, outfit = %s, privilege = %s, affiliate = %s" % ( self.serial, self.name, self.url, self.outfit, self.privilege, self.affiliate )

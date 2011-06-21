@@ -1990,6 +1990,7 @@ class PokerService(service.Service):
             return PacketPokerUserInfo(serial = serial)
         row = cursor.fetchone()
         if row['email'] == None: row['email'] = ""
+        if row['affiliate'] == None: row['affiliate'] = 0
 
         packet = PacketPokerUserInfo(serial = serial,
                                      name = row['name'],
