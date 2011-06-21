@@ -15,15 +15,15 @@ requires 'namespace::autoclean';
 requires 'Config::General'; # This should reflect the config file format you've chosen
                  # See Catalyst::Plugin::ConfigLoader for supported formats
 requires 'Cache::Memcached';
-requires 'Catalyst::Session';
-requires 'Catalyst::Session::Store::FastMmap';
-requires 'Catalyst::Session::State::Cookie';
-requires 'Catalyst::Static::Simple';
-requires 'Catalyst::Authentication';
+requires 'Catalyst::Plugin::Session';
+requires 'Catalyst::Plugin::Session::Store::FastMmap';
+requires 'Catalyst::Plugin::Session::State::Cookie';
+requires 'Catalyst::Plugin::Static::Simple';
+requires 'Catalyst::Plugin::Authentication';
 requires 'String::Random';
 requires 'Catalyst::Controller::HTML::FormFu' => '0.09003';
 requires 'Catalyst::Plugin::StackTrace';
-requires 'DBIx::Class::EncodedColum';
+requires 'DBIx::Class::EncodedColumn';
 requires 'DBIx::Class::TimeStamp';
 requires 'JSON::RPC::Client';
 requires 'JSON::XS';
