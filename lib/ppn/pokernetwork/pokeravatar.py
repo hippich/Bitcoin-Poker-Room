@@ -976,7 +976,7 @@ class PokerAvatar:
             self.sendPacketVerbose(packet)
             return (packet.seat != -1)
         else:
-            self.message("attempt to get seat for player %d by player %d that is not the owner of the game" % ( packet.serial, self.getSerial() ))
+            self.message("attempt to get seat for player '%s' by player '%s' that is not the owner of the game" % ( str(packet.serial), str(self.getSerial()) ))
             return False
     # -------------------------------------------------------------------------
     def performPacketPokerBuyIn(self, packet, table, game):
