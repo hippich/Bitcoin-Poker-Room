@@ -480,7 +480,10 @@ class PokerSite(server.Site):
         return True
         
     def updateSession(self, session):
-        serial = session.avatar.getSerial()
+        try:
+          serial = session.avatar.getSerial()
+        except AttributeError:
+          serial = 0
         #
         # There is no need to consider the case where session.memcache_serial is
         # zero because nothing needs updating in memcache.
