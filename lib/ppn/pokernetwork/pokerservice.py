@@ -49,7 +49,6 @@ from twisted.web.client import getPage
 from twisted.python.runtime import seconds
 
 from pokernetwork.user import User
-from pokernetwork.affiliate import Affiliate
 
 try:
     from OpenSSL import SSL
@@ -2230,12 +2229,9 @@ class PokerService(service.Service):
 
         user = User(serial, self.db)
         withdraw = min(user.getBalance(currency_serial), amount)
-        if user.affiliate != 0:
-            aff = Affiliate(user.affiliate, self.db)
-            result = aff.withdraw(user, withdraw)
-            if result == None:
-                print "buyInPlayer: Couldn't withdraw from affiliate"
-                return 0
+        if not user.pullMoney(withdraw):
+            self.message("buyInPlayer: Couldn't pull %d money for user %d, continuing with local balance" % (withdraw, serial))
+            withdraw = min(user.getLocalBalance(currency_serial), withdraw)
 
         cursor = self.db.cursor()
         sql = ( "UPDATE user2money,user2table SET "
@@ -2335,6 +2331,11 @@ class PokerService(service.Service):
             status = False
         cursor.close()
         self.databaseEvent(event = PacketPokerMonitorEvent.LEAVE, param1 = serial, param2 = table_id)
+
+        user = User(serial, self.db)
+        if not user.pushMoney():
+            self.error("failed to push money back to affiliate %d" % user.affiliate)
+
         return status
 
     def updatePlayerRake(self, currency_serial, serial, amount):

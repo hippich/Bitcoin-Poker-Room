@@ -113,14 +113,40 @@ class User:
         
         return self.privilege >= privilege
 
-    def getBalance(self, currency_serial):
-        money = 0
-        print "Getting balance for user with affiliate %d" % self.affiliate
-        if self.affiliate != 0:
-            # TODO: currency serial?
-            affiliate = Affiliate(self.affiliate, self.db)
-            money += affiliate.getUserBalance(self.name)
+    # If this is a federated user, pull enough money from their affiliate to cover the amount.
+    def pullMoney(self, amount):
+        localBalance = self.getLocalBalance(1)
+        if localBalance >= amount:
+            return True
+        elif self.affiliate == 0:
+            return False
 
+        affiliate = Affiliate(self.affiliate, self.db)
+        withdrawAmt = amount - localBalance
+        print "User: attempting to withdraw %d to cover requested amount %d" % (withdrawAmt, amount)
+        result = affiliate.withdraw(self, withdrawAmt)
+        if result == None:
+            return False
+
+        return True
+
+    def pushMoney(self):
+        if self.affiliate == 0:
+            return True
+
+        localBalance = self.getLocalBalance(1)
+        if localBalance <= 0:
+            return True
+
+        affiliate = Affiliate(self.affiliate, self.db)
+        print "User: attempting to deposit balance %d" % localBalance
+        result = affiliate.deposit(self, localBalance)
+        if result == None:
+            return False
+
+        return True
+
+    def getLocalBalance(self, currency_serial):
         cursor = self.db.cursor()
         sql = ( "SELECT amount FROM user2money " +
                 "WHERE user_serial = %s AND currency_serial = %s" )
@@ -130,10 +156,21 @@ class User:
             cursor.close()
             return 0
         elif cursor.rowcount == 1:
-            (dbMoney,) = cursor.fetchone()
-            money += dbMoney
+            (money,) = cursor.fetchone()
+            cursor.close()
+            return money
 
         cursor.close()
+        return 0
+        
+    def getBalance(self, currency_serial):
+        money = 0
+        if self.affiliate != 0:
+            # TODO: currency serial?
+            affiliate = Affiliate(self.affiliate, self.db)
+            money += affiliate.getUserBalance(self.name)
+        
+        money += self.getLocalBalance(currency_serial)
         return money
 
     def increaseBalance(self, amount, currency_serial):

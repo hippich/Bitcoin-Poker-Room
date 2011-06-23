@@ -72,10 +72,10 @@ class Affiliate:
 
         endpoint = "deposit/%s/%d" % (user.name, amount)
         
-        print "Affiliate: Attempting withdraw of %d from endpoint %s" % (amount, self.serviceUrl + endpoint)
+        print "Affiliate: Attempting deposit of %d to endpoint %s" % (amount, self.serviceUrl + endpoint)
         try:
             u = urlopen(self.serviceUrl + endpoint)
-            result = u.read()
+            result = u.read().rstrip()
             if (result != "OK"):
                 user.increaseBalance(amount, 1)
                 return None
