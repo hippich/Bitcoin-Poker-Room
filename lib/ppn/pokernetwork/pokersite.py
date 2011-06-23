@@ -470,11 +470,15 @@ class PokerSite(server.Site):
             self.sessions[key].expire()
         
     def persistSession(self, session):
-        if len(session.avatar.tables) <= 0 and len(session.avatar.tourneys) <= 0 and (not session.avatar.explain or len(session.avatar.explain.games.getAll()) <= 0):
-            session.expire()
-            if self.resthost:
-                self.memcache.delete(session.uid)
+        try:
+            if len(session.avatar.tables) <= 0 and len(session.avatar.tourneys) <= 0 and (not session.avatar.explain or len(session.avatar.explain.games.getAll()) <= 0):
+                session.expire()
+                if self.resthost:
+                    self.memcache.delete(session.uid)
+                return False
+        except AttributeError:
             return False
+
         if self.resthost:
             self.memcache.set(session.uid, self.resthost, time = self.cookieTimeout)
         return True
