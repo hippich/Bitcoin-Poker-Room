@@ -13,6 +13,10 @@
 # along with this program in a file in the toplevel directory called
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
+
+# The affiliate protocol is built to pass amounts in satoshis.
+# It currently takes bitcents as input and output until consumers take satoshis.
+
 from re import match
 from urllib2 import urlopen, HTTPError
 
@@ -46,11 +50,15 @@ class Affiliate:
         try:
             u = urlopen(self.serviceUrl + endpoint)
             userBalance = int(u.read())
-            return min(userBalance, self.getAvailable())
+            # TODO: bitcent to satoshi conversion
+            return min(userBalance, self.getAvailable()) / 10000
         except HTTPError:
             return 0
 
     def withdraw(self, user, amount):
+        # TODO: bitcent to satoshi conversion
+        centAmount = amount;
+        amount = amount * 10000
         if (self.balance + self.escrow) < amount:
             return None
 
@@ -65,13 +73,17 @@ class Affiliate:
         except HTTPError:
             return None
 
-        user.increaseBalance(amount, 1)
+        user.increaseBalance(centAmount, 1)
         self.decreaseBalance(amount)
         print "Affiliate: Successfully withdrew money"
         return amount
 
     def deposit(self, user, amount):
-        if user.decreaseBalance(amount, 1) != 1:
+        # TODO: bitcent to satoshi conversion
+        centAmount = amount;
+        amount = amount * 10000
+
+        if user.decreaseBalance(centAmount, 1) != 1:
             return None
 
         endpoint = "deposit/%s/%d" % (user.name, amount)
@@ -81,10 +93,10 @@ class Affiliate:
             u = urlopen(self.serviceUrl + endpoint)
             result = u.read().rstrip()
             if (result != "OK"):
-                user.increaseBalance(amount, 1)
+                user.increaseBalance(centAmount, 1)
                 return None
         except HTTPError:
-            user.increaseBalance(amount, 1)
+            user.increaseBalance(centAmount, 1)
             return None
 
         self.increaseBalance(amount)
