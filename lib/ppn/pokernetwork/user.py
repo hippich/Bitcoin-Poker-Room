@@ -25,6 +25,8 @@
 from re import match
 
 from pokernetwork.pokerpackets import PacketPokerSetAccount
+from pokernetwork.affiliate import *
+from MySQLdb.cursors import DictCursor
 
 NAME_LENGTH_MAX = 50
 NAME_LENGTH_MIN = 5
@@ -68,13 +70,32 @@ class User:
     ADMIN = 2
 
     def __init__(self, serial = 0, db = None):
+        self.db = db
         self.serial = serial
         self.name = "anonymous"
+        self.email = ""
         self.url = "random"
         self.outfit = "random"
         self.affiliate = 0
         self.privilege = None
-        self.db = db
+        
+        if db != None:
+            cursor = self.db.cursor(DictCursor)
+            sql = "SELECT name,email,skin_url,skin_outfit,affiliate,privilege FROM users WHERE serial = %s"
+            cursor.execute(sql, self.serial)
+            if cursor.rowcount != 1:
+                print "ERROR: couldn't find serial " + self.serial
+                return
+
+            row = cursor.fetchone()
+            if row['email'] != None: self.email = row['email']
+            if row['affiliate'] != None: self.affiliate = row['affiliate']
+            self.name = row['name']
+            self.url = row['skin_url']
+            self.outfit = row['skin_outfit']
+            self.privilege = row['privilege']
+
+            
 
     def logout(self):
         self.serial = 0
@@ -93,6 +114,13 @@ class User:
         return self.privilege >= privilege
 
     def getBalance(self, currency_serial):
+        money = 0
+        print "Getting balance for user with affiliate %d" % self.affiliate
+        if self.affiliate != 0:
+            # TODO: currency serial?
+            affiliate = Affiliate(self.affiliate, self.db)
+            money += affiliate.getUserBalance(self.name)
+
         cursor = self.db.cursor()
         sql = ( "SELECT amount FROM user2money " +
                 "WHERE user_serial = %s AND currency_serial = %s" )
@@ -102,9 +130,9 @@ class User:
             cursor.close()
             return 0
         elif cursor.rowcount == 1:
-            (money,) = cursor.fetchone()
-        else:
-            money = 0
+            (dbMoney,) = cursor.fetchone()
+            money += dbMoney
+
         cursor.close()
         return money
 
@@ -120,7 +148,7 @@ class User:
 
     def decreaseBalance(self, amount, currency_serial):
         cursor = self.db.cursor()
-        sql = ( "UPDATE user2money SET amount = amount - %s"
+        sql = ( "UPDATE user2money SET amount = amount - %s" +
                 " WHERE user_serial = %s AND currency_serial = %s AND amount >= %s"
               )
         cursor.execute(sql, (amount, self.serial, currency_serial, amount))

@@ -48,6 +48,9 @@ from twisted.internet import protocol, reactor, defer
 from twisted.web.client import getPage
 from twisted.python.runtime import seconds
 
+from pokernetwork.user import User
+from pokernetwork.affiliate import Affiliate
+
 try:
     from OpenSSL import SSL
     HAS_OPENSSL=True
@@ -914,8 +917,7 @@ class PokerService(service.Service):
             serial = winners.pop(0)
             if prize <= 0:
                 continue
-            u = User(serial)
-            u.db = self.db
+            u = User(serial, self.db)
             u.increaseBalance(prize, prize_currency)
             self.databaseEvent(event = PacketPokerMonitorEvent.PRIZE, param1 = serial, param2 = prize_currency, param3 = prize)
 
@@ -1895,8 +1897,7 @@ class PokerService(service.Service):
         cursor.close()
 
     def getMoney(self, serial, currency_serial):
-        u = User(serial)
-        u.db = self.db
+        u = User(serial, self.db)
         return u.getBalance(currency_serial)
 
     def cashIn(self, packet):
@@ -1981,22 +1982,15 @@ class PokerService(service.Service):
         return self.getPlayerPlaces(serial)
 
     def getUserInfo(self, serial):
-        cursor = self.db.cursor(DictCursor)
-
-        sql = ( "SELECT rating,affiliate,email,name FROM users WHERE serial = " + str(serial) )
-        cursor.execute(sql)
-        if cursor.rowcount != 1:
-            self.error("getUserInfo(%d) expected one row got %d" % ( serial, cursor.rowcount ))
+        user = User(serial, self.db)
+        if user.name == "anonymous":
             return PacketPokerUserInfo(serial = serial)
-        row = cursor.fetchone()
-        if row['email'] == None: row['email'] = ""
-        if row['affiliate'] == None: row['affiliate'] = 0
-
+        
         packet = PacketPokerUserInfo(serial = serial,
-                                     name = row['name'],
-                                     email = row['email'],
-                                     rating = row['rating'],
-                                     affiliate = row['affiliate'])
+                                     name = user.name,
+                                     email = user.email,
+                                     affiliate = user.affiliate)
+        cursor = self.db.cursor(DictCursor)
         sql = ( " SELECT user2money.currency_serial,user2money.amount,user2money.points,CAST(SUM(user2table.bet) + SUM(user2table.money) AS UNSIGNED) AS in_game "
                 "        FROM user2money LEFT JOIN (pokertables,user2table) "
                 "        ON (user2table.user_serial = user2money.user_serial  AND "
@@ -2007,9 +2001,13 @@ class PokerService(service.Service):
             self.message(sql)
         cursor.execute(sql)
         for row in cursor:
+            # HACK/TODO: currently this only supports one currency. affiliate balances are magic money and can be used for any currency.
+            currency_serial = row['currency_serial']
             if not row['in_game']: row['in_game'] = 0
             if not row['points']: row['points'] = 0
-            packet.money[row['currency_serial']] = ( row['amount'], row['in_game'], row['points'] )
+            packet.money[currency_serial] = ( user.getBalance(currency_serial), row['in_game'], row['points'] )
+        if len(packet.money) == 0:
+            packet.money[1] = ( user.getBalance(1), 0, 0 )
         if self.verbose > 2:
             self.message("getUserInfo: " + str(packet))
         return packet
@@ -2230,7 +2228,15 @@ class PokerService(service.Service):
         # unaccounted money is delivered regardless
         if not currency_serial: return amount
 
-        withdraw = min(self.getMoney(serial, currency_serial), amount)
+        user = User(serial, self.db)
+        withdraw = min(user.getBalance(currency_serial), amount)
+        if user.affiliate != 0:
+            aff = Affiliate(user.affiliate, self.db)
+            result = aff.withdraw(user, withdraw)
+            if result == None:
+                print "buyInPlayer: Couldn't withdraw from affiliate"
+                return 0
+
         cursor = self.db.cursor()
         sql = ( "UPDATE user2money,user2table SET "
                 " user2table.money = user2table.money + " + str(withdraw) + ", "

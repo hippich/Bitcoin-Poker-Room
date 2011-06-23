@@ -14,63 +14,72 @@
 # "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
 #
 from re import match
-import urllib
+from urllib2 import urlopen, HTTPError
 
 import MySQLdb
 
-def getAffiliateInfo(db, serial):
-    cursor = db.cursor()
-    sql = "SELECT serial,balance,escrow,prefix,service_url FROM affiliates WHERE serial = %d"
-    cursor.execute(sql, serial)
-    if cursor.rowcount == 0:
-        return Affiliate()
-
-    (serial,balance,escrow,prefix,serviceUrl) = cursor.fetchone()
-    cursor.close()
-
-    a = Affiliate(serial)
-    a.balance = balance
-    a.escrow = escrow
-    a.prefix = prefix
-    a.serviceUrl = serviceUrl
-    a.db = db
-    return a
-
 class Affiliate:
-    def __init__(self, serial = 0):
+    def __init__(self, serial = 0, db = None):
         self.serial = serial
-        self.balance = 0
-        self.escrow = 0
-        self.prefix = "BTC"
-        self.serviceUrl = "http://example.com/"
-        self.db = None
+        self.db = db
+        if db == None:
+            self.balance = 0
+            self.escrow = 0
+            self.prefix = "BTC"
+            self.serviceUrl = "http://example.com/"
+            return
+
+        cursor = db.cursor()
+        sql = "SELECT serial,balance,escrow,prefix,service_url FROM affiliates WHERE serial = %s"
+        cursor.execute(sql, serial)
+        if cursor.rowcount == 0:
+            return
+        (self.serial,self.balance,self.escrow,self.prefix,self.serviceUrl) = cursor.fetchone()
+        cursor.close()
 
     def getUserBalance(self, username):
         endpoint = "balance/" + username
-        u = urllib.urlopen(self.serviceUrl + endpoint)
-        return int(u.read())
+        print "Affiliate: Getting balance from endpoint " + self.serviceUrl + endpoint
+        try:
+            u = urlopen(self.serviceUrl + endpoint)
+            return int(u.read())
+        except HTTPError:
+            return 0
 
     def withdraw(self, user, amount):
         if (self.balance + self.escrow) < amount:
             return None
 
-        endpoint = "withdraw/" + user.name + "/" + amount
-        u = urllib.urlopen(self.serviceUrl + endpoint)
-        result = u.read()
-        if (result != "OK"):
+        endpoint = "withdraw/%s/%d" % (user.name, amount)
+        print "Affiliate: Attempting withdraw of %d from endpoint %s" % (amount, self.serviceUrl + endpoint)
+        try:
+            u = urlopen(self.serviceUrl + endpoint)
+            result = u.read().rstrip()
+            if (result != "OK"):
+                print "Affiliate: Received non-OK response: " + result
+                return None
+        except HTTPError:
             return None
 
         user.increaseBalance(amount, 1)
         self.decreaseBalance(amount)
+        print "Affiliate: Successfully withdrew money"
+        return amount
 
     def deposit(self, user, amount):
         if user.decreaseBalance(amount, 1) != 1:
             return None
 
         endpoint = "deposit/%s/%d" % (user.name, amount)
-        u = urllib.urlopen(self.serviceUrl + endpoint)
-        result = u.read()
-        if (result != "OK"):
+        
+        print "Affiliate: Attempting withdraw of %d from endpoint %s" % (amount, self.serviceUrl + endpoint)
+        try:
+            u = urlopen(self.serviceUrl + endpoint)
+            result = u.read()
+            if (result != "OK"):
+                user.increaseBalance(amount, 1)
+                return None
+        except HTTPError:
             user.increaseBalance(amount, 1)
             return None
 
@@ -78,8 +87,8 @@ class Affiliate:
         return amount
 
     def increaseBalance(self, amount):
-        cursor = db.cursor()
-        sql = "UPDATE affiliates SET balance = balance + %d WHERE serial = %d"
+        cursor = self.db.cursor()
+        sql = "UPDATE affiliates SET balance = balance + %s WHERE serial = %s"
         cursor.execute(sql, (amount, self.serial))
         if cursor.rowcount != 1:
             return False
@@ -87,8 +96,8 @@ class Affiliate:
         return True
 
     def decreaseBalance(self, amount):
-        cursor = db.cursor()
-        sql = "UPDATE affiliates SET balance = balance - %d WHERE serial = %d"
+        cursor = self.db.cursor()
+        sql = "UPDATE affiliates SET balance = balance - %s WHERE serial = %s"
         cursor.execute(sql, (amount, self.serial))
         if cursor.rowcount != 1:
             return False
