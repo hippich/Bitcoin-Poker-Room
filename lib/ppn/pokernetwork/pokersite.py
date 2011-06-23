@@ -105,9 +105,13 @@ def args2packets(args):
 class Request(server.Request):
 
     def getSession(self):
-        uid = self.args.get('uid', [self.site._mkuid()])[0]
-        auth = self.args.get('auth', [self.site._mkuid()])[0]
+        uid = self.args.get('uid', [None])[0]
+        auth = self.args.get('auth', [None])[0]
         explain = self.args.get('explain', ['yes'])[0] == 'yes'
+
+	if uid == None: uid = self.site._mkuid()
+	if auth == None: auth = self.site._mkuid()
+
         try:
             self.session = self.site.getSession(uid, auth, explain)
         except KeyError:
