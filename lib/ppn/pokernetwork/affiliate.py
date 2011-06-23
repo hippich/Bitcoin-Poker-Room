@@ -37,12 +37,16 @@ class Affiliate:
         (self.serial,self.balance,self.escrow,self.prefix,self.serviceUrl) = cursor.fetchone()
         cursor.close()
 
+    def getAvailable(self):
+        return self.escrow + self.balance
+
     def getUserBalance(self, username):
         endpoint = "balance/" + username
         print "Affiliate: Getting balance from endpoint " + self.serviceUrl + endpoint
         try:
             u = urlopen(self.serviceUrl + endpoint)
-            return int(u.read())
+            userBalance = int(u.read())
+            return min(userBalance, self.getAvailable())
         except HTTPError:
             return 0
 
