@@ -109,8 +109,8 @@ class Request(server.Request):
         auth = self.args.get('auth', [None])[0]
         explain = self.args.get('explain', ['yes'])[0] == 'yes'
 
-	if uid == None: uid = self.site._mkuid()
-	if auth == None: auth = self.site._mkuid()
+        if uid == None: uid = self.site._mkuid()
+        if auth == None: auth = self.site._mkuid()
 
         try:
             self.session = self.site.getSession(uid, auth, explain)
