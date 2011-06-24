@@ -519,6 +519,7 @@ class PokerSite(server.Site):
             # If the memcache session is gone, trash the current session
             # if it exists.
             #
+            self.message("Memcached returned None for auth: %s, uid: %s" % (auth, uid))
             if self.sessions.has_key(uid):
                 self.sessions[uid].expire()
         else:
