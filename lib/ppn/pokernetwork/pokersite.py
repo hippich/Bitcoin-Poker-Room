@@ -105,9 +105,13 @@ def args2packets(args):
 class Request(server.Request):
 
     def getSession(self):
-        uid = self.args.get('uid', [self.site._mkuid()])[0]
-        auth = self.args.get('auth', [self.site._mkuid()])[0]
+        uid = self.args.get('uid', [None])[0]
+        auth = self.args.get('auth', [None])[0]
         explain = self.args.get('explain', ['yes'])[0] == 'yes'
+
+        if uid == None: uid = self.site._mkuid()
+        if auth == None: auth = self.site._mkuid()
+
         try:
             self.session = self.site.getSession(uid, auth, explain)
         except KeyError:
@@ -470,17 +474,24 @@ class PokerSite(server.Site):
             self.sessions[key].expire()
         
     def persistSession(self, session):
-        if len(session.avatar.tables) <= 0 and len(session.avatar.tourneys) <= 0 and (not session.avatar.explain or len(session.avatar.explain.games.getAll()) <= 0):
-            session.expire()
-            if self.resthost:
-                self.memcache.delete(session.uid)
+        try:
+            if len(session.avatar.tables) <= 0 and len(session.avatar.tourneys) <= 0 and (not session.avatar.explain or len(session.avatar.explain.games.getAll()) <= 0):
+                session.expire()
+                if self.resthost:
+                    self.memcache.delete(session.uid)
+                return False
+        except AttributeError:
             return False
+
         if self.resthost:
             self.memcache.set(session.uid, self.resthost, time = self.cookieTimeout)
         return True
         
     def updateSession(self, session):
-        serial = session.avatar.getSerial()
+        try:
+          serial = session.avatar.getSerial()
+        except AttributeError:
+          serial = 0
         #
         # There is no need to consider the case where session.memcache_serial is
         # zero because nothing needs updating in memcache.
@@ -516,6 +527,7 @@ class PokerSite(server.Site):
             # If the memcache session is gone, trash the current session
             # if it exists.
             #
+            self.message("Memcached returned None for auth: %s, uid: %s" % (auth, uid))
             if self.sessions.has_key(uid):
                 self.sessions[uid].expire()
         else:
