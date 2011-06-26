@@ -70,6 +70,21 @@ sub auth_user :Chained('base') :PathPart('auth_user') :Args(1) {
   $c->response->body('&auth=' . $auth . '&uid=' . $user->serial);
 }
 
+=head2 tables
+
+Get a JSON-encoded list of tables.
+
+=cut
+
+sub tables :Chained('base') :PathPart('tables.json') :Args(0) {
+    my ($self, $c) = @_;
+    
+    my @tables = $c->model("PokerNetwork::Pokertables")->cash_games();
+
+    $c->stash->{json} = \@tables;
+    $c->forward('View::JSON');
+}
+
 =head1 AUTHOR
 
 Isis,,,

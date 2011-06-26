@@ -45,15 +45,7 @@ sub auto :Private {
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    my $tables_rs = $c->model("PokerNetwork::Pokertables")->search({
-                                currency_serial => 1,
-                                tourney_serial => 0,
-                          },
-                          {
-                                order_by => {
-                                  -desc => 'players',
-                                },
-                          });
+    my $tables_rs = $c->model("PokerNetwork::Pokertables")->cash_games();
 
     my $tables_structure;
     my $tables;

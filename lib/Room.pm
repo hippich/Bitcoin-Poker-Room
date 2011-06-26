@@ -66,6 +66,10 @@ __PACKAGE__->config(
     'View::TT' => {
         ENCODING => 'UTF-8',
     },
+
+    'View::JSON' => {
+        expose_stash    => 'json',
+    },
 );
 
 __PACKAGE__->config->{email} = [qw/Sendmail/];

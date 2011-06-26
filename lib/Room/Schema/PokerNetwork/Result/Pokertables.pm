@@ -226,8 +226,20 @@ __PACKAGE__->add_unique_constraint("name", ["name"]);
 # Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-06-20 00:04:58
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:03qIRp51EfbC8ioC8+X0Pg
 
+sub TO_JSON {
+    my $self = shift;
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+    return {
+        id => int($self->serial),
+        seats => int($self->seats),
+        players => int($self->players),
+        waiting => int($self->waiting),
+        timeout => int($self->player_timeout),
+        variant => $self->variant,
+        structure => $self->betting_structure,
+        name => $self->name,
+    };
+}
 
 =head1 AUTHOR
 

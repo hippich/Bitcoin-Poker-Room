@@ -14,8 +14,8 @@ sub affiliate_username {
   my ($self, $affiliate_serial, $username) = @_;
 
   return $self->search({
-    affiliate => { '=' => $affiliate_serial },
-    name => { '=' => $username }
+    affiliate => $affiliate_serial,
+    name => $username
   });
 }
 
