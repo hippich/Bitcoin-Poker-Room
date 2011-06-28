@@ -1676,13 +1676,16 @@ class PokerGame:
         #
         # Get his seat back
         #
+        player = self.serial2player[serial]
+
         if self.verbose >= 1: self.message("removing player %d from game" % (serial))
-        if not self.serial2player[serial].seat in self.seats_left:
-            self.seats_left.insert(0, self.serial2player[serial].seat)
+        if not player.seat in self.seats_left:
+            self.seats_left.insert(0, player.seat)
         else:
-            self.error("%d alreay in seats_left" % self.serial2player[serial].seat)
+            self.error("%d already in seats_left" % player.seat)
         # Record ratholing
-        self.ratholes[serial] = (self.serial2player[serial].money, datetime.now())
+        if player.money > 0:
+            self.ratholes[serial] = (player.money, datetime.now())
         #
         # Forget about him
         #
