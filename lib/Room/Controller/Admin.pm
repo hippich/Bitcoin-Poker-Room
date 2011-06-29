@@ -60,7 +60,12 @@ sub user :Chained('base') :Args(1) {
 sub withdrawals :Chained('base') :Args(0) {
   my ($self, $c) = @_;
 
+  my $page = $c->req->params->{'page'};
+  $page = 1 if $page < 1;
+
   $c->stash->{withdrawals} = $c->model("PokerNetwork::Withdrawal")->search({}, { 
+      rows => 50,
+      page => $page,
       order_by => { 
         -desc => 'withdrawal_id' 
       } 
