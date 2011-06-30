@@ -60,9 +60,7 @@ sub view_hand : Chained('base') PathPart('') Args(1) {
     $c->detach('/default');
   }
 
-  use Data::Dumper;
   $c->stash->{hand} = $hand->get_parsed_history;
-  $c->stash->{hand_dump} = Dumper($hand->get_parsed_history);
 }
 
 

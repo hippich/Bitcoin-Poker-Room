@@ -5,7 +5,7 @@
   <h3>Withdrawal info</h3>
   <dl>
     <dt>User:</dt>
-    <dd>[% withdrawal.user.name %]</dd>
+    <dd><a href="[% c.uri_for("/admin/user/" _ withdrawal.user.serial) %]">[% withdrawal.user.name  | html %]</a></dd>
 
     <dt>Amount:</dt>
     <dd>[% withdrawal.currency.symbol %][% withdrawal.amount %]</dd>
