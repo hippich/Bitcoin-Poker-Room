@@ -26,6 +26,7 @@ sub base : Chained PathPart('user/hands') CaptureArgs(0) {
     );
   }
 
+  $c->stash->{user} = $c->user;
 }
 
 =head2 index

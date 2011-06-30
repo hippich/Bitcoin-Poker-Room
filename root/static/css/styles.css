@@ -228,3 +228,11 @@ th {
   margin: 0.5em 0 0.5em 2em;
   padding: 0.5em 0 0.5em 0.5em;
 }
+
+.positive-result {
+  background: #CCFFCC;
+}
+
+.negative-result {
+  background: #FFCCCC;
+}
