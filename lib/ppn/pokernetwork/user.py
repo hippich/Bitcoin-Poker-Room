@@ -73,6 +73,7 @@ class User:
         self.db = db
         self.serial = serial
         self.name = "anonymous"
+        self.displayName = self.name
         self.email = ""
         self.url = "random"
         self.outfit = "random"
@@ -91,6 +92,13 @@ class User:
             if row['email'] != None: self.email = row['email']
             if row['affiliate'] != None: self.affiliate = row['affiliate']
             self.name = row['name']
+
+            if self.affiliate == 0:
+                self.displayName = row['name']
+            else:
+                affiliate = Affiliate(self.affiliate, db)
+                self.displayName = affiliate.prefix + row['name']
+
             self.url = row['skin_url']
             self.outfit = row['skin_outfit']
             self.privilege = row['privilege']
@@ -100,6 +108,7 @@ class User:
     def logout(self):
         self.serial = 0
         self.name = "anonymous"
+        self.displayName = self.name
         self.url = "random"
         self.outfit = "random"
         self.privilege = None

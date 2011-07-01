@@ -49,6 +49,7 @@ from twisted.web.client import getPage
 from twisted.python.runtime import seconds
 
 from pokernetwork.user import User
+from pokernetwork.affiliate import Affiliate
 
 try:
     from OpenSSL import SSL
@@ -1986,7 +1987,7 @@ class PokerService(service.Service):
             return PacketPokerUserInfo(serial = serial)
         
         packet = PacketPokerUserInfo(serial = serial,
-                                     name = user.name,
+                                     name = user.displayName,
                                      email = user.email,
                                      affiliate = user.affiliate)
         cursor = self.db.cursor(DictCursor)
