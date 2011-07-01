@@ -1,12 +1,16 @@
 [% META title = 'Games history' %]
 
 <table>
-  <tr><th>Hand #</th><th>Players</th><th>Date</th><th>Action</th></tr>
+  <tr><th>Hand #</th><th>Players</th><th>Date</th><th>Result</th><th>Action</th></tr>
   [% WHILE (hand = hands.next) %]
-    <tr>
+    [% money = hand.get_amounts(user.serial) -%]
+    [% result = money.share - money.total -%]
+
+    <tr class="[% IF result > 0 %]positive-result[% ELSIF result < 0 %]negative-result[% END %]">
       <td>[% hand.serial %]</td>
       <td>[% hand.get_all_players.join(', ') %]</td>
       <td>[% hand.created %]</td>
+      <td>[% result / 100 %] ([% money.total / 100 %] / [% money.share  / 100 %])</td>
       <td><a href='[% c.uri_for('/user/hands/' _ hand.serial) %]'>View</a></td>
     </tr>
   [% END %]

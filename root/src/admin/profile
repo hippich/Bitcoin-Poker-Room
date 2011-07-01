@@ -1,6 +1,12 @@
 [% META title = 'User' %]
 [% PROCESS admin/admin_submenu %]
 
+<div class="secondary-menu">
+  <ul>
+    <li><a href="[% c.uri_for('/admin/user/' _ user.serial _ '/hands') %]">View user's hands.</a></li>
+  </ul>
+</div>
+
 <div class='user-info'>
   <div id='user-general'>
     <h2 class="account-info">Account info:</h2>

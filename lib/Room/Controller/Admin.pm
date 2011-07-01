@@ -50,17 +50,57 @@ sub index :Chained('base') :PathPart('') :Args(0) {
 }
 
 
-sub user :Chained('base') :Args(1) {
+sub user :Chained('base') :CaptureArgs(1) {
   my ($self, $c, $user_id) = @_;
   
   $c->stash->{user} = $c->model("PokerNetwork::Users")->find($user_id);
 }
 
 
+sub profile :Chained('user') :PathPart('') :Args(0) {}
+
+
+sub hands :Chained('user') :Args(0) {
+  my ($self, $c) = @_;
+  my $page = $c->req->params->{'page'};
+  $page = 1 if $page < 1;
+
+  $c->stash->{hands} = $c->stash->{user}->hands->search(undef, {
+    rows => 50,
+    page => $page,
+    order_by => {
+      -desc => 'serial',
+    }
+  });
+
+  $c->stash->{template} = 'user/hand/index';
+}
+
+
+sub view_hand :Chained('user') :PathPart('hands') :Args(1) {
+  my ($self, $c, $id) = @_;
+
+  my $hand = $c->model('PokerNetwork::Hands')->search({serial => $id})->first;
+
+  if (! $hand) {
+    $c->detach('/default');
+  }
+
+  $c->stash->{hand} = $hand->get_parsed_history;
+  
+  $c->stash->{template} = 'user/hand/view_hand';
+}
+
+
 sub withdrawals :Chained('base') :Args(0) {
   my ($self, $c) = @_;
 
+  my $page = $c->req->params->{'page'};
+  $page = 1 if $page < 1;
+
   $c->stash->{withdrawals} = $c->model("PokerNetwork::Withdrawal")->search({}, { 
+      rows => 50,
+      page => $page,
       order_by => { 
         -desc => 'withdrawal_id' 
       } 

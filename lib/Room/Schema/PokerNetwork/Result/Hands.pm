@@ -92,6 +92,24 @@ __PACKAGE__->many_to_many(
   users => 'userhands', 'user'
 );
 
+sub get_amounts {
+  my ($self, $serial) = @_;
+
+  my ($totals_string) = $self->description =~ /'total': {([^}]+)}/;
+  my ($shares_string) = $self->description =~ /'serial2share': {([^}]+)}/;
+
+  # Sometimes Python adds L to integers
+  $totals_string =~ s/(\d+)L/\1/g;
+  $shares_string =~ s/(\d+)L/\1/g;
+
+  my ($total) = $totals_string =~ /$serial: ([\.\d]+)/;
+  my ($share) = $shares_string =~ /$serial: ([\.\d]+)/;
+
+  $share = 0 unless $share > 0;
+
+  return {total => $total, share => $share};
+}
+
 sub get_parsed_history {
   my $self = shift;
   my $parsed_history;
