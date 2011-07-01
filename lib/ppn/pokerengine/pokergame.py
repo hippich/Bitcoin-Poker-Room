@@ -1132,7 +1132,7 @@ class PokerGame:
                 if player and player.wait_for != 'first_round':
                   if player.missed_blind == None:
                     player.missed_blind = what
-                  if player.missed_blind == "big" and what == "big":
+                  if what == "big":
                     player.missed_big_blind_count += 1
                     if self.verbose > 5: self.message("%d big blind count is now %d because of %s" % (player.serial, player.missed_big_blind_count, what))
                 index += 1
@@ -1204,11 +1204,11 @@ class PokerGame:
                     player.blind = None
             index += 1
         if self.verbose > 2:
-            showblinds = lambda player: "%02d:%s:%s:%s" % ( player.serial, player.blind, player.missed_blind, player.wait_for )
-            self.message("updateBlinds: in game (blind:missed:wait) " + join(map(showblinds, self.playersInGame())))
+            showblinds = lambda player: "%02d:%s:%s:%d:%s" % ( player.serial, player.blind, player.missed_blind, player.missed_big_blind_count, player.wait_for )
+            self.message("updateBlinds: in game (blind:missed:num:wait) " + join(map(showblinds, self.playersInGame())))
             players = self.playersAll()
             players.sort(lambda a,b: int(a.seat - b.seat))
-            self.message("updateBlinds: all     (blind:missed:wait) " + join(map(showblinds, players)))
+            self.message("updateBlinds: all     (blind:missed:num:wait) " + join(map(showblinds, players)))
         
     def handsMap(self):
         pockets = {}
