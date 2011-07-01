@@ -341,9 +341,15 @@ class PokerBot:
                                                 serial = serial))
         elif desired_action == "raise":
             (min_bet, max_bet, to_call) = game.betLimits(serial)
+            
+            current_bet = game.serial2player[serial].bet
+            raiseAmount = min_bet * 2
+
+            raiseTo = min(max_bet, raiseAmount) + current_bet + to_call
+
             protocol.sendPacket(PacketPokerRaise(game_id = game.id,
                                                  serial = serial,
-                                                 amount = min_bet * 2))
+                                                 amount = raiseTo))
         else:
             print "=> unexpected actions = %s" % actions
         self.factory.can_disconnect = True

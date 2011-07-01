@@ -452,8 +452,8 @@ def history2messages(game, history, serial2name = str, pocket_messages = False, 
             messages.append( _("%(name)s folds") % { 'name' : serial2name(serial)} )
 
         elif type == "raise":
-            (type, serial, amount) = event
-            messages.append( _("%(name)s raises %(amount)s") % { 'name' : serial2name(serial), 'amount' : PokerChips.tostring(amount) } )
+            (type, serial, amount, payAmount) = event
+            messages.append( _("%(name)s raises to %(amount)s") % { 'name' : serial2name(serial), 'amount' : PokerChips.tostring(amount) } )
 
         elif type == "canceled":
             (type, serial, amount) = event
@@ -1477,23 +1477,17 @@ class PokerGame:
             self.position = self.player_list.index(serial)
         else:
             raise UserWarning, "unknown position info %s" % info["position"]
-        #
-        # In theory, when there is a live bet from the blind/ant round,
-        # last_bet should be set to big_blind - small_blind. However, this
-        # is useless in practice because the minimum bet will always be
-        # higher than this number. Since the purpose of last_bet is to define
-        # the minimum bet when this minimum is a consequence of a bet that
-        # is larger than the minimum bet, setting it to zero is equivalent
-        # to setting it to the actual difference between the big_blind and
-        # the small_blind for all intented purposes.
-        #
         self.last_bet = 0
+
         if self.isFirstRound():
             #
             # The first round takes the live blinds/antes
             # (is there any game with live antes ?)
             #
             self.blindAnteMoveToFirstRound()
+            if self.blind_info:
+                self.last_bet = self.blind_info["big"]
+
         else:
             self.side_pots['contributions'][self.current_round] = {}
             self.uncalled = 0
@@ -1957,7 +1951,7 @@ class PokerGame:
         self.bet(serial, amount)
         return True
 
-    def callNraise(self, serial, amount):
+    def callNraise(self, serial, raiseTo):
         if self.isBlindAnteRound() or not self.canAct(serial):
             self.error("player %d cannot raise. state = %s" %
                        (serial, self.state))
@@ -1970,17 +1964,25 @@ class PokerGame:
             return False
 
         (min_bet, max_bet, to_call) = self.betLimits(serial)
-        if amount < min_bet:
-            amount = min_bet
-        elif amount > max_bet:
-            amount = max_bet
-        if self.verbose >= 1: self.message("player %d raises %d" % (serial, amount))
-        self.historyAdd("raise", serial, amount)
+
+        player = self.serial2player[serial]
+
         highest_bet = self.highestBetNotFold()
-        self.money2bet(serial, amount)
+        payAmount = raiseTo - player.bet
+        raiseAmount = payAmount - to_call
+        
+        if raiseAmount < min_bet and payAmount < player.money:
+            if self.verbose >= 2: self.message("player %d raised less than min bet %d (bet %d)" % (serial, min_bet, raiseAmount))
+            return False
+        elif raiseAmount > max_bet:
+            if self.verbose >= 2: self.message("player %d raised more than max bet %d (bet %d)" % (serial, max_bet, raiseAmount))
+            return False
+
+        if self.verbose >= 1: self.message("player %d raises %d to %d" % (serial, raiseAmount, raiseTo))
+        self.historyAdd("raise", serial, raiseTo, payAmount)
+        self.money2bet(serial, payAmount)
         if self.isRunning():
-            last_bet = self.highestBetNotFold() - highest_bet
-            self.last_bet = max(self.last_bet, last_bet)
+            self.last_bet = max(self.last_bet, raiseAmount)
             self.round_cap_left -= 1
             if self.verbose > 2: self.message("round cap left %d" % self.round_cap_left)
             self.runCallbacks("round_cap_decrease", self.round_cap_left)
@@ -3569,9 +3571,10 @@ class PokerGame:
         #
         # A player can't bet more than he has
         #
-        min_bet = min(money, min_bet + to_call)
-        max_bet = min(money, max_bet + to_call)
-        return (min_bet, max_bet, to_call)
+        min_bet = min(money, min_bet)
+        max_bet = min(money, max_bet)
+        retval = (min_bet, max_bet, to_call)
+        return retval
 
     def potAndBetsAmount(self):
         pot = self.pot
