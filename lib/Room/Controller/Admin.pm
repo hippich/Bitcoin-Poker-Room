@@ -50,12 +50,38 @@ sub index :Chained('base') :PathPart('') :Args(0) {
 }
 
 
+sub users :Chained('base') :Args(0) {
+  my ($self, $c) = @_;
+  my $name = $c->req->params->{'name'};
+  my $email = $c->req->params->{'email'};
+  my $page = $c->req->params->{'page'};
+  $page = 1 if $page < 1;
+
+  my $search;
+  $search->{ 'LOWER(me.name)' } = { 'LIKE' => '%'. $name .'%' } unless $name eq '';
+  $search->{ 'LOWER(me.email)' } = { 'LIKE' => '%'. $name .'%' } unless $email eq '';
+
+  $c->stash->{users} = $c->model('PokerNetwork::Users')->search({
+   'LOWER(name)' => { 'LIKE' => '%'. $name .'%' },
+   'LOWER(email)' => { 'LIKE' => '%'. $email .'%' },
+  }, {
+    rows => 50,
+    page => $page,
+    order_by => 'name' 
+  });
+}
+
+
 sub user :Chained('base') :CaptureArgs(1) {
   my ($self, $c, $user_id) = @_;
   
   $c->stash->{user} = $c->model("PokerNetwork::Users")->find($user_id);
 }
 
+sub kick :Chained('user') :Args(0) {
+  my ($self, $c) = @_;
+
+}
 
 sub profile :Chained('user') :PathPart('') :Args(0) {}
 

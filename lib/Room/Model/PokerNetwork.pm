@@ -69,12 +69,19 @@ sub get_user_id_by_auth {
 sub set_user_id_by_auth {
   my ($self, $user_id, $auth) = @_;
 
+  if ($self->{pokernetwork_memcache}->get('uid::' . $user_id)) {
+    $self->{pokernetwork_memcache}->delete($_);
+  }
+
+  $self->{pokernetwork_memcache}->set('uid::' . $user_id, $auth);
   return $self->{pokernetwork_memcache}->set($auth, $user_id);
 }
 
 sub logout {
   my ($self, $auth) = @_;
 
+  my $uid = $self->{pokernetwork_memcache}->get($auth);
+  $self->{pokernetwork_memcache}->delete('uid::'. $uid);
   return $self->{pokernetwork_memcache}->delete($auth);
 }
 

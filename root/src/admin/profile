@@ -4,6 +4,7 @@
 <div class="secondary-menu">
   <ul>
     <li><a href="[% c.uri_for('/admin/user/' _ user.serial _ '/hands') %]">View user's hands.</a></li>
+    <li><a href="[% c.uri_for('/admin/user/' _ user.serial _ '/kick') %]">Kick user.</a></li>
   </ul>
 </div>
 
