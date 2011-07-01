@@ -5087,7 +5087,12 @@
                         }
                     };
                 }
-                $('#raise' + id).unbind('click').click(click).show();
+
+                var raiseLabel = _("Bet")
+                if (betLimit.call > 0 || player.bet > 0) {
+                    raiseLabel = _("Raise")
+                }
+                $('#raise' + id).html(jpoker.plugins.playerSelf.templates.action.supplant({ action: raiseLabel })).unbind('click').click(click).show();
             }
             jpoker.plugins.playerSelf.callback.sound.in_position(server);
             $(window).focus();
@@ -5291,7 +5296,11 @@
         template: '<div class=\'jpoker_raise_label\'>{raise_label}</div><div class=\'jpoker_raise_bound jpoker_raise_min\'>{raise_min}</div><div class=\'jpoker_raise_current\' title=\'{raise_current_title}\'>{raise_current}</div><div class=\'jpoker_raise_bound jpoker_raise_max\'>{raise_max}</div><div class=\'ui-slider-1\'><div class=\'ui-slider-handle\'></div></div>',
         getHTML: function(betLimit) {
             var t = this.template;
-            return t.supplant({raise_label: _("Raise"),
+            var label = _("Bet")
+            if (betLimit.call > 0 || player.bet > 0) {
+                label = _("Raise")
+            }
+            return t.supplant({raise_label: label,
                                                 raise_min: jpoker.chips.SHORT(betLimit.min),
                                                 raise_current_title: Math.floor(betLimit.min*100),
                                                 raise_current: jpoker.chips.SHORT(betLimit.min),

@@ -409,7 +409,7 @@ class PokerTable:
                                                serial = serial))
 
             elif type == "raise":
-                (type, serial, amount, payAmount) = event
+                (type, serial, amount, payAmount, raiseAmount) = event
                 packets.append(PacketPokerRaise(game_id = game_id,
                                                 serial = serial,
                                                 amount = amount))
@@ -533,7 +533,7 @@ class PokerTable:
                 pass
             
             elif type == "raise":
-                (type, serial, raiseTo, payAmount) = event
+                (type, serial, raiseTo, payAmount, raiseAmount) = event
                 if not updates.has_key(serial):
                     updates[serial] = 0
                 updates[serial] -= payAmount

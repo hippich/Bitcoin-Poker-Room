@@ -452,8 +452,11 @@ def history2messages(game, history, serial2name = str, pocket_messages = False, 
             messages.append( _("%(name)s folds") % { 'name' : serial2name(serial)} )
 
         elif type == "raise":
-            (type, serial, amount, payAmount) = event
-            messages.append( _("%(name)s raises to %(amount)s") % { 'name' : serial2name(serial), 'amount' : PokerChips.tostring(amount) } )
+            (type, serial, raiseTo, payAmount, raiseAmount) = event
+            if raiseAmount == raiseTo:
+                messages.append( _("%(name)s bets %(raiseTo)s") % { 'name' : serial2name(serial), 'raiseTo' : PokerChips.tostring(raiseTo) } )
+            else:
+                messages.append( _("%(name)s raises %(raiseAmount)s to %(raiseTo)s") % { 'name' : serial2name(serial), 'raiseAmount' : PokerChips.tostring(raiseAmount), 'raiseTo' : PokerChips.tostring(raiseTo) } )
 
         elif type == "canceled":
             (type, serial, amount) = event
@@ -1979,7 +1982,7 @@ class PokerGame:
             return False
 
         if self.verbose >= 1: self.message("player %d raises %d to %d" % (serial, raiseAmount, raiseTo))
-        self.historyAdd("raise", serial, raiseTo, payAmount)
+        self.historyAdd("raise", serial, raiseTo, payAmount, raiseAmount)
         self.money2bet(serial, payAmount)
         if self.isRunning():
             self.last_bet = max(self.last_bet, raiseAmount)
