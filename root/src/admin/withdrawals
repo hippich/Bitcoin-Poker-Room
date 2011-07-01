@@ -31,3 +31,11 @@
     [% END %]
   </tbody>
 </table>
+
+[% IF withdrawals.pager.next_page %]
+<span style="float: right"><a href="[% c.uri_for('/admin/withdrawals', undef, { page => withdrawals.pager.next_page}) %]">Next &gt;&gt;</a></span>
+[% END %]
+
+[% IF withdrawals.pager.previous_page %]
+<span style="float: left"><a href="[% c.uri_for('/admin/withdrawals', undef, { page => withdrawals.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
+[% END %]
