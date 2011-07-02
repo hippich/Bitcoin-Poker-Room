@@ -644,6 +644,7 @@ CREATE TABLE `withdrawal` (
   `user_serial` int(11) NOT NULL,
   `currency_serial` int(11) NOT NULL,
   `amount` float NOT NULL,
+  `dest` text NOT NULL,
   `processed` int(11) NOT NULL,
   `info` text NOT NULL,
   `created_at` datetime NOT NULL,
