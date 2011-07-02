@@ -1,4 +1,5 @@
 <ul class='admin_submenu'>
   <li><a href='[% c.uri_for('/admin') %]'>Admin Dashboard</a></li>
   <li><a href='[% c.uri_for('/admin/withdrawals') %]'>Withdrawals</a></li>
+  <li><a href='[% c.uri_for('/admin/users') %]'>Users</a></li>
 </ul>

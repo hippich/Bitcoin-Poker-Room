@@ -708,12 +708,14 @@ class PokerExplain:
         if found:
             if self.verbose:
                 self.message(" => bet min=%d, max=%d, step=%d, to_call=%d" % ( min_bet, max_bet, found, to_call))
+            player = game.getPlayer(serial)
+            bet = player.bet
             packets.append(PacketPokerBetLimit(game_id = game.id,
-                                               min = min_bet,
-                                               max = max_bet,
+                                               min = min_bet + bet + to_call,
+                                               max = max_bet + bet + to_call,
                                                step = game.getChipUnit(),
                                                call = to_call,
-                                               allin = game.getPlayer(serial).money,
+                                               allin = player.money + bet,
                                                pot = game.potAndBetsAmount() + to_call * 2))
         else:
             self.error("no chip value (%s) is suitable to step from min_bet = %d to max_bet = %d" % ( self.chips_values, min_bet, max_bet ))

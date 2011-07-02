@@ -115,7 +115,7 @@ class Request(server.Request):
         try:
             self.session = self.site.getSession(uid, auth, explain)
         except KeyError:
-            self.session = self.site.makeSession(uid, auth, explain)
+            self.session = self.site.makeSession(0, auth, explain)
         self.session.touch()
         return self.session
 
