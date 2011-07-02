@@ -2111,6 +2111,7 @@
                 case 'PacketPokerTimeoutWarning':
                 case 'PacketPokerTimeoutNotice':
                 case 'PacketPokerMuckRequest':
+                case 'PacketPokerSelfInPosition':
                     table.notifyUpdate(packet);
                     break;
 
@@ -3705,6 +3706,7 @@
                 jpoker.plugins.table.dealer(id, table, packet.dealer);
                 break;
 
+            case 'PacketPokerSelfInPosition':
             case 'PacketPokerPosition':
                 jpoker.plugins.table.position(id, table, packet.serial);
                 jpoker.plugins.table.timeout(id, table, packet.serial, 1.0);
@@ -4984,7 +4986,7 @@
                 
                 if(betLimit.max > betLimit.min) {
                     var raise = $('#raise_range' + id);
-                    raise.html(jpoker.plugins.raise.getHTML(betLimit));
+                    raise.html(jpoker.plugins.raise.getHTML(betLimit, player));
                     raise.show(); // must be visible otherwise outerWeight/outerWidth returns 0
 
                     var raise_input = $('#raise_input' + id);
@@ -5294,7 +5296,7 @@
     //
     jpoker.plugins.raise = {
         template: '<div class=\'jpoker_raise_label\'>{raise_label}</div><div class=\'jpoker_raise_bound jpoker_raise_min\'>{raise_min}</div><div class=\'jpoker_raise_current\' title=\'{raise_current_title}\'>{raise_current}</div><div class=\'jpoker_raise_bound jpoker_raise_max\'>{raise_max}</div><div class=\'ui-slider-1\'><div class=\'ui-slider-handle\'></div></div>',
-        getHTML: function(betLimit) {
+        getHTML: function(betLimit, player) {
             var t = this.template;
             var label = _("Bet")
             if (betLimit.call > 0 || player.bet > 0) {
