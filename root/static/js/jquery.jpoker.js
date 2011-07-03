@@ -4780,7 +4780,12 @@
                 $('.jpoker_auto_action', auto_action_element).show();
                 if (table.betLimit.call > 0) {
                     $('.jpoker_auto_check', auto_action_element).hide();
-                    $('.jpoker_call_amount', auto_action_element).text(jpoker.chips.SHORT(table.betLimit.call));
+                    var call = table.betLimit.call;
+                    var bal = player.money;
+                    if (call > bal) {
+                        call = bal;
+                    }
+                    $('.jpoker_call_amount', auto_action_element).text(jpoker.chips.SHORT(call));
                 } else {
                     $('.jpoker_auto_call', auto_action_element).hide();
                 }
@@ -4793,13 +4798,18 @@
             var auto_action_element = $('#auto_action' + id);
             if (player.in_game) {
                 if (table.betLimit.call > 0) {
+                    var call = table.betLimit.call;
+                    var bal = player.money;
+                    if (call > bal) {
+                        call = bal;
+                    }
                     $('.jpoker_auto_action', auto_action_element).show();
                     $('input[name=auto_check]')[0].checked = false;
                     $('input[name=auto_call]')[0].checked = false;
                     $('input[name=auto_raise]')[0].checked = false;
                     $('.jpoker_auto_check', auto_action_element).hide();
                     $('.jpoker_auto_call', auto_action_element).show();
-                    $('.jpoker_call_amount', auto_action_element).text(jpoker.chips.SHORT(table.betLimit.call));
+                    $('.jpoker_call_amount', auto_action_element).text(jpoker.chips.SHORT(call));
                 }
             }
         },
@@ -4973,8 +4983,13 @@
             ).show();
             
             if(betLimit.call > 0) {
+                    var call = betLimit.call;
+                    var money = player.money;
+                    if (call > money) {
+                        call = money;
+                    }
                 var call_element = $('#call' + id);
-                $('.jpoker_call_amount', call_element).text(jpoker.chips.SHORT(betLimit.call));
+                $('.jpoker_call_amount', call_element).text(jpoker.chips.SHORT(call));
                 call_element.unbind('click').click(function() { $(this).unbind('click'); return send('Call'); }).show();
             } else {
                 $('#check' + id).unbind('click').click(function() { $(this).unbind('click'); return send('Check'); }).show();

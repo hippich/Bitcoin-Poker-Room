@@ -712,7 +712,7 @@ class PokerExplain:
             bet = player.bet
             packets.append(PacketPokerBetLimit(game_id = game.id,
                                                min = min_bet + bet + to_call,
-                                               max = max_bet + bet + to_call,
+                                               max = max_bet + bet,
                                                step = game.getChipUnit(),
                                                call = to_call,
                                                allin = player.money + bet,

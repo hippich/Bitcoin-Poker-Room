@@ -3149,7 +3149,7 @@ class PokerGame:
 
         if amount > player.money:
             self.error("money2bet: %d > %d" % (amount, player.money))
-            amount = player.money
+            raise ValueError("money2bet: requested amount %d more than %d stack (%d)" % (amount, player.money. serial))
         player.money -= amount
         player.bet += amount
         self.runCallbacks("money2bet", serial, amount)
