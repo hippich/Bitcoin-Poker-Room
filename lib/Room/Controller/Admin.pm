@@ -52,23 +52,19 @@ sub index :Chained('base') :PathPart('') :Args(0) {
 
 sub users :Chained('base') :Args(0) {
   my ($self, $c) = @_;
-  my $name = $c->req->params->{'name'};
-  my $email = $c->req->params->{'email'};
-  my $page = $c->req->params->{'page'};
+  my $name = $c->req->params->{'name'} || '';
+  my $email = $c->req->params->{'email'} || '';
+  my $page = $c->req->params->{'page'} || 0;
   $page = 1 if $page < 1;
 
-  my $search;
-  $search->{ 'LOWER(me.name)' } = { 'LIKE' => '%'. $name .'%' } unless $name eq '';
-  $search->{ 'LOWER(me.email)' } = { 'LIKE' => '%'. $name .'%' } unless $email eq '';
-
-  $c->stash->{users} = $c->model('PokerNetwork::Users')->search({
-   'LOWER(name)' => { 'LIKE' => '%'. $name .'%' },
-   'LOWER(email)' => { 'LIKE' => '%'. $email .'%' },
-  }, {
+  $c->stash->{users} = $c->model('PokerNetwork::Users')->search(undef, {
     rows => 50,
     page => $page,
     order_by => 'name' 
   });
+
+  $c->stash->{users} = $c->stash->{users}->search({ 'name' => { 'LIKE' => '%'. $name .'%' } }) unless $name eq '';
+  $c->stash->{users} = $c->stash->{users}->search({ 'email' => { 'LIKE' => '%'. $email .'%' } }) unless $email eq '';
 }
 
 

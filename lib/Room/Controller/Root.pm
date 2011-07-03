@@ -44,6 +44,10 @@ sub auto :Path {
 
     $c->require_ssl;
 
+    if ($c->config->{offline} && !($c->user && $c->user->privilege == 2)) {
+      $c->res->body('Working on updates. Should be up and running shortly.');
+    }
+
     if ($c->user) {
       if (!$c->session->{pokernetwork_auth}) {
         my $auth_id_generator = new String::Random;
