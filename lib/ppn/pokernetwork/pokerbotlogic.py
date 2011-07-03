@@ -342,10 +342,12 @@ class PokerBot:
         elif desired_action == "raise":
             (min_bet, max_bet, to_call) = game.betLimits(serial)
             
-            current_bet = game.serial2player[serial].bet
+            player = game.serial2player[serial]
             raiseAmount = min_bet * 2
 
-            raiseTo = min(max_bet, raiseAmount) + current_bet + to_call
+            raiseTo = min(max_bet, raiseAmount) + player.bet + to_call
+
+            if raiseTo > (player.money + player.bet): raiseTo = (player.money + player.bet)
 
             protocol.sendPacket(PacketPokerRaise(game_id = game.id,
                                                  serial = serial,

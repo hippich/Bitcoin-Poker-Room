@@ -1972,6 +1972,12 @@ class PokerGame:
 
         highest_bet = self.highestBetNotFold()
         payAmount = raiseTo - player.bet
+        if payAmount > player.money:
+            if self.verbose >= 2: self.message("player %d tried to pay more (%d) than their stack (%d)" % (serial, payAmount, player.money))
+            return False
+        elif payAmount < 0:
+            if self.verbose >= 2: self.message("player %d tried to pay a negative amount (%d)" % (serial, payAmount))
+            return False
         raiseAmount = payAmount - to_call
         
         if raiseAmount < min_bet and payAmount < player.money:

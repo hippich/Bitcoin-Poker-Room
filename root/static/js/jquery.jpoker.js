@@ -5042,10 +5042,14 @@
                         if(server) {
                             var amount = parseInt($('.jpoker_raise_current', raise).attr('title'), 10);
                             if (!isNaN(amount)) {
+                                if (amount > betLimit.allin*100) {
+                                    amount = betLimit.allin*100
+                                }
+
                                 server.sendPacket({ 'type': 'PacketPokerRaise',
                                             'serial': serial,
                                             'game_id': game_id,
-                                            'amount': parseInt($('.jpoker_raise_current', raise).attr('title'), 10)
+                                            'amount': amount
                                             });
                             } else {
                                 jpoker.error('raise with NaN amount: ' + $('.jpoker_raise_current', raise).attr('title'));
