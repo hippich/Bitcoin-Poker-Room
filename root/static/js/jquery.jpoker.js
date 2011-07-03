@@ -5084,7 +5084,7 @@
                             server.sendPacket({ 'type': 'PacketPokerRaise',
                                         'serial': serial,
                                         'game_id': game_id,
-                                        'amount': 0
+                                        'amount': betLimit.min*100
                                         });
                         }
                     };
