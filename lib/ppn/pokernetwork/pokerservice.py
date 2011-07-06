@@ -245,7 +245,7 @@ class PokerService(service.Service):
             packet.game_id = 0
         cursor.close()
         return packet
-        
+
     def setupTourneySelectInfo(self):
         #
         # load module that provides additional tourney information
@@ -264,7 +264,7 @@ class PokerService(service.Service):
                 s = None
             self.tourney_select_info = module.Handle(self, s)
             getattr(self.tourney_select_info, '__call__')
-            
+
     def startService(self):
         self.monitors = []
         self.db = PokerDatabase(self.settings)
@@ -431,7 +431,7 @@ class PokerService(service.Service):
         outputStr = "Aces"
         try:
             # I am not completely sure poker-engine should be hardcoded here like this...
-            transObj = gettext.translation('poker-engine', 
+            transObj = gettext.translation('poker-engine',
                                                 languages=[lang], codeset=codeset)
             transObj.install()
             myGetTextFunc = transObj.gettext
@@ -946,12 +946,12 @@ class PokerService(service.Service):
                         player.tourneys.remove(tourney.serial)
             self.tourneyDeleteRouteActual(tourney.serial)
         self.timer[key] = reactor.callLater(max(self._ping_delay*2, wait*2), doTourneyDeleteRoute)
-        
+
     def tourneyDeleteRouteActual(self, tourney_serial):
         cursor = self.db.cursor()
         cursor.execute("DELETE FROM route WHERE tourney_serial = %s", tourney_serial)
         cursor.close()
-    
+
     def tourneyGameFilled(self, tourney, game):
         table = self.getTable(game.id)
         cursor = self.db.cursor()
@@ -1065,13 +1065,13 @@ class PokerService(service.Service):
                 break
         if found:
             if found.state != TOURNAMENT_STATE_REGISTERING:
-                self.error("tourney %d is a satellite of %d but %d is in state %s instead of the expected state %s" % 
+                self.error("tourney %d is a satellite of %d but %d is in state %s instead of the expected state %s" %
                            ( tourney.serial, found.schedule_serial, found.schedule_serial, found.state, TOURNAMENT_STATE_REGISTERING) )
                 return ( 0, TOURNAMENT_STATE_REGISTERING )
             return ( found.serial, None )
         else:
             return ( 0, False )
-                
+
     def tourneySatelliteSelectPlayer(self, tourney, serial, rank):
         if tourney.satellite_of == 0:
             return False
@@ -1091,7 +1091,7 @@ class PokerService(service.Service):
         if registrations <= 0:
             return False
         serials = filter(lambda serial: serial not in tourney.satellite_registrations, tourney.winners)
-        for serial in serials: 
+        for serial in serials:
             packet = PacketPokerTourneyRegister(serial = serial, game_id = tourney.satellite_of)
             if self.tourneyRegister(packet = packet, via_satellite = True):
                 tourney.satellite_registrations.append(serial)
@@ -1147,7 +1147,7 @@ class PokerService(service.Service):
         for row in cursor.fetchall():
             self.getPage('http://' + row['host'] + ':' + str(row['port']) + '/TOURNEY_START?tourney_serial=' + tourney_serial)
         cursor.close()
-        
+
     def tourneyNotifyStart(self, tourney_serial):
         manager = self.tourneyManager(tourney_serial)
         if manager.type != PACKET_POKER_TOURNEY_MANAGER:
@@ -1166,7 +1166,7 @@ class PokerService(service.Service):
                 if user2properties.has_key(str(avatar.getSerial())) and avatar.explain:
                     calls.append(reactor.callLater(0.01, send, avatar))
         return calls
-        
+
     def tourneyManager(self, tourney_serial):
         packet = PacketPokerTourneyManager()
         packet.tourney_serial = tourney_serial
@@ -1291,7 +1291,7 @@ class PokerService(service.Service):
             return self.tourney_select_info(self, packet, tourneys)
         else:
             return None
-    
+
     def tourneyRegister(self, packet, via_satellite = False):
         serial = packet.serial
         tourney_serial = packet.game_id
@@ -1316,7 +1316,7 @@ class PokerService(service.Service):
             for avatar in avatars:
                 avatar.sendPacketVerbose(error)
             return False
-            
+
         if tourney.isRegistered(serial):
             error = PacketError(other_type = PACKET_POKER_TOURNEY_REGISTER,
                                 code = PacketPokerTourneyRegister.ALREADY_REGISTERED,
@@ -1904,7 +1904,7 @@ class PokerService(service.Service):
                 self.message(message)
             cursor2 = self.db.cursor()
             cursor2.execute("REPLACE INTO route VALUES (0,%s,%s,%s)", ( row['serial'], int(seconds()), self.resthost_serial))
-            cursor2.close()            
+            cursor2.close()
         cursor.close()
 
     def getMoney(self, serial, currency_serial):
@@ -2602,7 +2602,24 @@ class PokerService(service.Service):
             tourney_serial = description['tourney'].serial
 
         cursor = self.db.cursor()
-        sql = "INSERT pokertables ( resthost_serial, seats, player_timeout, muck_timeout, currency_serial, name, variant, betting_structure, skin, tourney_serial ) VALUES ( %s, %s, %s, %s, %s, %s,  %s, %s, %s, %s ) " % self.db.literal((
+
+        sql = """INSERT INTO pokertables \
+        (resthost_serial, seats, player_timeout, muck_timeout, currency_serial,
+         name, variant, betting_structure, skin, tourney_serial)
+         VALUES (%s, %s, %s, %s, %s, %s,  %s, %s, %s, %s)
+         ON DUPLICATE KEY UPDATE
+            serial=LAST_INSERT_ID(serial),
+            resthost_serial=VALUES(resthost_serial),
+            seats=VALUES(seats),
+            player_timeout=VALUES(player_timeout),
+            muck_timeout=VALUES(muck_timeout),
+            currency_serial=VALUES(currency_serial),
+            name=VALUES(name),
+            variant=VALUES(variant),
+            betting_structure=VALUES(betting_structure),
+            skin=VALUES(skin),
+            tourney_serial=VALUES(tourney_serial)
+        """ % self.db.literal((
             self.resthost_serial,
             description['seats'],
             description.get('player_timeout', 60),
@@ -2613,12 +2630,26 @@ class PokerService(service.Service):
             description['betting_structure'],
             description.get('skin', 'default'),
             tourney_serial ))
+
         if self.verbose > 1:
             self.message("createTable: %s" % sql)
+
         cursor.execute(sql)
-        if cursor.rowcount != 1:
-            self.error("inserted %d rows (expected 1): %s " % ( cursor.rowcount, sql ))
-            # FIXME: sr #2273 notes that this should return None from right here if rowcount == 0
+
+        # From: http://dev.mysql.com/doc/refman/5.1/en/insert-on-duplicate.html
+        # With ON DUPLICATE KEY UPDATE, the affected-rows value per row is 1 if
+        # the row is inserted as a new row and 2 if an existing row is updated.
+        #
+        # cursor.rowcount represents the number of inserted rows, which will be
+        # 0 when a row is updated (the table already exists), or 1 when a new
+        # row is inserted (the table does not exist).
+        if cursor.rowcount == 0:
+            self.message('updated row in pokertables for table %s'
+                         % description['name'])
+        elif cursor.rowcount == 1:
+            self.message('inserted row into pokertables for table %s'
+                         % description['name'])
+
         if hasattr(cursor, "lastrowid"):
             id = cursor.lastrowid
         else:
