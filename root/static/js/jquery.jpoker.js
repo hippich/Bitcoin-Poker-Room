@@ -5019,7 +5019,7 @@
                                   current.html(jpoker.chips.SHORT(ui.value/100.0));
                                   current.attr('title', ui.value);
                                   if (! sliding) {
-                                    $('.jpoker_raise_input', raise_input).val(jpoker.chips.SHORT(ui.value/100.0));
+                                    $('.jpoker_raise_input', raise_input).val(ui.value/100.0);
                                   }
                                 },
                                 slide: function(event, ui) {
@@ -5027,7 +5027,7 @@
                                   current.html(jpoker.chips.SHORT(ui.value/100.0));
                                   current.attr('title', ui.value);
                                   if (! sliding) {
-                                    $('.jpoker_raise_input', raise_input).val(jpoker.chips.SHORT(ui.value/100.0));
+                                    $('.jpoker_raise_input', raise_input).val(ui.value/100.0);
                                   }
                                 }
                     });
@@ -5037,7 +5037,7 @@
                       var value = parseFloat($('.jpoker_raise_input', raise_input).val().replace(',', '.'));
                       if (isNaN(value)) {
                           value = $('.ui-slider-1', raise).slider('value', 0);
-                          $('.jpoker_raise_input', raise_input).val(jpoker.chips.SHORT(value/100.0));
+                          $('.jpoker_raise_input', raise_input).val(value/100.0);
                       } else {
                           $('.ui-slider-1', raise).slider('value', value*100);
                       }
@@ -5054,19 +5054,17 @@
                     click = function() {
                         var server = jpoker.getServer(url);
                         if(server) {
-                            var amount = parseInt($('.jpoker_raise_current', raise).attr('title'), 10);
+                            var amount = parseInt($('.jpoker_raise_input', raise_input).attr('value'), 10);
                             if (!isNaN(amount)) {
-                                if (amount > betLimit.allin*100) {
-                                    amount = betLimit.allin*100
-                                }
-
+                                amount = Math.min(amount, betLimit.max);
+                                amount = Math.min(amount, betLimit.allin);
                                 server.sendPacket({ 'type': 'PacketPokerRaise',
                                             'serial': serial,
                                             'game_id': game_id,
-                                            'amount': amount
+                                            'amount': amount*100
                                             });
                             } else {
-                                jpoker.error('raise with NaN amount: ' + $('.jpoker_raise_current', raise).attr('title'));
+                                jpoker.error('raise with NaN amount: ' + $('.jpoker_raise_input', raise_input).attr('value'));
                             }
                         }
                     };
@@ -5098,11 +5096,12 @@
                     click = function() {
                         $(this).unbind('click');
                         var server = jpoker.getServer(url);
+                        var amount = Math.min(betLimit.min, betLimit.allin)*100;
                         if(server) {
                             server.sendPacket({ 'type': 'PacketPokerRaise',
                                         'serial': serial,
                                         'game_id': game_id,
-                                        'amount': betLimit.min*100
+                                        'amount': amount
                                         });
                         }
                     };
