@@ -1,4 +1,24 @@
-.jpoker_table {font-size: 10px; font-family: "trebuchet MS",arial,helvetica,sans-serif; }
+.jpoker_table {
+  font-size: 10px; 
+  font-family: "trebuchet MS",arial,helvetica,sans-serif; 
+}
+
+body {
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.jpoker_chat_input,
+.jpoker_ptable_table_info,
+.jpoker_chat_history_player_box,
+.jpoker_chat_history_dealer_box {
+  -moz-user-select: text;
+  -khtml-user-select: text;
+  -webkit-user-select: text;
+  user-select: text;
+}
 
 .jpoker_table .jpoker_avatar {
     background-image: none;
