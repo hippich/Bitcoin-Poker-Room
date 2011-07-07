@@ -4749,11 +4749,12 @@
                                         'serial': server.serial,
                                         'game_id': table.id,
                                         'amount': parseInt($('.jpoker_rebuy_current', rebuy).attr('title'), 10)
-                                        });
-                            if ($('.jpoker_auto_sitin input', rebuy).is(':checked')) {
-                                $('#sitin' + id).click();
-                            }
-                            server.preferences.auto_sitin = $('.jpoker_auto_sitin input', rebuy).is(':checked');
+                            }, function() {
+                              if ($('.jpoker_auto_sitin input', rebuy).is(':checked')) {
+                                  $('#sitin' + id).click();
+                              }
+                              server.preferences.auto_sitin = $('.jpoker_auto_sitin input', rebuy).is(':checked');
+                            });
                         } else {
                             jpoker.error('rebuy with NaN amount: ' + $('.jpoker_rebuy_current', rebuy).attr('title'));
                         }
