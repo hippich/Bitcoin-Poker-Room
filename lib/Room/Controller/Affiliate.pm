@@ -59,13 +59,15 @@ sub auth_user :Chained('base') :PathPart('auth_user') :Args(1) {
     $user->insert();
   }
 
-  my $auth_id_generator = new String::Random;
-  my $auth = $auth_id_generator->randregex('[A-Z0-9]{40}');
+  my $auth = $c->model("PokerNetwork")->get_auth_by_user_id($user->serial);
 
-  $c->model("PokerNetwork")->set_user_id_by_auth(
+  if (!$auth) {
+    my $auth_id_generator = new String::Random;
+    $auth = $auth_id_generator->randregex('[A-Z0-9]{40}');
+    $c->model("PokerNetwork")->set_user_id_by_auth(
       $user->serial,
-      $auth
-      );
+      $auth);
+  }
 
   $c->response->body('&auth=' . $auth . '&uid=' . $user->serial);
 }

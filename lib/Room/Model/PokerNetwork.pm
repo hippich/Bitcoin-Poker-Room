@@ -66,6 +66,12 @@ sub get_user_id_by_auth {
   return $self->{pokernetwork_memcache}->get($auth);
 }
 
+sub get_auth_by_user_id {
+  my ($self, $user_id) = @_;
+
+  return $self->{pokernetwork_memcache}->get('uid::' . $user_id);
+}
+
 sub set_user_id_by_auth {
   my ($self, $user_id, $auth) = @_;
 
