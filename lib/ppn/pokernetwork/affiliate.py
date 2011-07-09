@@ -52,7 +52,7 @@ class Affiliate:
             userBalance = int(u.read())
             # TODO: bitcent to satoshi conversion
             return min(userBalance, self.getAvailable()) / 10000
-        except HTTPError:
+        except (HTTPError, ValueError):
             return 0
 
     def withdraw(self, user, amount):
@@ -97,9 +97,11 @@ class Affiliate:
                 return None
         except HTTPError:
             user.increaseBalance(centAmount, 1)
+            print "Affiliate: failed to deposit money"
             return None
 
         self.increaseBalance(amount)
+        print "Affiliate: successfully deposited money"
         return amount
 
     def increaseBalance(self, amount):
