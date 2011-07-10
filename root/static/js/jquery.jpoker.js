@@ -5055,7 +5055,7 @@
                     click = function() {
                         var server = jpoker.getServer(url);
                         if(server) {
-                            var amount = parseInt($('.jpoker_raise_input', raise_input).attr('value'), 10);
+                            var amount = parseFloat($('.jpoker_raise_input', raise_input).attr('value'), 10);
                             if (!isNaN(amount)) {
                                 amount = Math.min(amount, betLimit.max);
                                 amount = Math.min(amount, betLimit.allin);
