@@ -134,7 +134,7 @@ class PokerDatabase:
 
     def error(self, string):
         self.message("*ERROR* " + string)
-        
+
     def close(self):
         if hasattr(self, 'db'):
             self.db.close()
@@ -159,7 +159,7 @@ class PokerDatabase:
         if cursor.rowcount not in (0, 1):
             raise ExceptionUpgradeFailed, "%s: changed %d rows, expected one or zero" % ( sql, cursor.rowcount )
         cursor.close()
-        
+
     def checkVersion(self):
         if version != self.version:
             self.message("database version %s must be the same as the poker-network version %s" % ( self.version, version ))
@@ -190,6 +190,11 @@ class PokerDatabase:
 
     def getVersion(self):
         return self.version
+
+    def commit(self):
+        """If the database and the tables support transactions, this commits the
+        current transaction; otherwise it does nothing."""
+        return self.db.commit()
 
     def cursor(self, *args, **kwargs):
         return self.db.cursor(*args, **kwargs)

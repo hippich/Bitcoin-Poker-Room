@@ -41,7 +41,7 @@ try:
 except:
         print "openSSL not available."
         HAS_OPENSSL=False
-        
+
 
 from twisted.application import internet, service, app
 from twisted.web import resource,server
@@ -50,6 +50,8 @@ from pokernetwork.pokernetworkconfig import Config
 from pokernetwork.pokerservice import PokerTree, PokerRestTree, PokerService, IPokerFactory
 from pokernetwork.pokersite import PokerSite
 from twisted.manhole import telnet
+
+DEFAULT_CONFIG_PATH = '/etc/poker-network/poker.server.xml'
 
 def makeService(configuration):
     settings = Config([''])
@@ -68,7 +70,7 @@ def makeService(configuration):
     #
     tcp_port = settings.headerGetInt("/server/listen/@tcp")
     internet.TCPServer(tcp_port, poker_factory
-                       ).setServiceParent(serviceCollection)    
+                       ).setServiceParent(serviceCollection)
 
     tcp_ssl_port = settings.headerGetInt("/server/listen/@tcp_ssl")
     if HAS_OPENSSL and tcp_ssl_port:
@@ -105,6 +107,20 @@ def makeService(configuration):
             internet.SSLServer(http_ssl_port, http_site, SSLContextFactory(settings)
                                ).setServiceParent(serviceCollection)
 
+    # API
+    api_sqlite_db = settings.headerGet("/server/api/@sqlite_db")
+    api_http_port = settings.headerGetInt("/server/api/@http_port")
+    if api_http_port and api_sqlite_db:
+        import sqlite3
+        import pokernetwork.apiserver as apiserver
+        from pokernetwork.apiservice import APIService
+        api_service = APIService(poker_service)
+        db = sqlite3.connect(api_sqlite_db)
+        secret_store = apiserver.OAuthSecretStore(db)
+        api_site = server.Site(apiserver.Root(api_service, secret_store))
+        internet.TCPServer(api_http_port,
+                           api_site).setServiceParent(serviceCollection)
+
     #
     # TELNET twisted.manhole (without SSL)
     #
@@ -118,19 +134,21 @@ def makeService(configuration):
 	    manhole_service.setServiceParent(serviceCollection)
 	    if settings.headerGetInt("/server/@verbose") > 0:
 		    print  "PokerManhole: manhole is useful for debugging, use with telnet admin/admin, however, it can be a security risk and should be used only during debugging"
-    
+
     return serviceCollection
+
 
 def makeApplication(argv):
     default_path = "/etc/poker-network" + sys.version[:3] + "/poker.server.xml"
     if not exists(default_path):
-        default_path = "/etc/poker-network/poker.server.xml"
-    configuration = argv[-1][-4:] == ".xml" and argv[-1] or default_path    
+        default_path = DEFAULT_CONFIG_PATH
+    configuration = argv[-1][-4:] == ".xml" and argv[-1] or default_path
     application = service.Application('poker')
     serviceCollection = service.IServiceCollection(application)
     poker_service = makeService(configuration)
     poker_service.setServiceParent(serviceCollection)
     return application
+
 
 def run():
     if platform.system() != "Windows":

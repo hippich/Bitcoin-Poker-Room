@@ -86,13 +86,13 @@ class PokerPredefinedDecks:
     def __init__(self, decks):
         self.decks = decks
         self.index = 0
-        
+
     def shuffle(self, deck):
         deck[:] = self.decks[self.index][:]
         self.index += 1
         if self.index >= len(self.decks):
             self.index = 0
-        
+
 class PokerTable:
 
     def __init__(self, factory, id = 0, description = None):
@@ -150,7 +150,7 @@ class PokerTable:
 
     def error(self, string):
         self.message("*ERROR* " + string)
-            
+
     def isValid(self):
         return hasattr(self, "factory")
 
@@ -159,14 +159,14 @@ class PokerTable:
             self.message("destroy table %d" % self.game.id)
         if self.transient:
             self.factory.destroyTable(self.game.id)
-            
+
         self.broadcast(PacketPokerTableDestroy(game_id = self.game.id))
         for avatars in self.avatar_collection.values():
             for avatar in avatars:
                 del avatar.tables[self.game.id]
         for avatar in self.observers:
             del avatar.tables[self.game.id]
-            
+
         self.factory.deleteTable(self)
         del self.factory
 
@@ -185,17 +185,17 @@ class PokerTable:
         else:
             info = self.factory.getPlayerInfo(serial)
         return info
-        
+
     def listPlayers(self):
         players = []
         game = self.game
         for serial in game.serialsAll():
             players.append((self.getName(serial), game.getPlayerMoney(serial), 0))
         return players
-        
+
     def createCache(self):
         return { "board": PokerCards(), "pockets": {} }
-    
+
     def cancelDealTimeout(self):
         info = self.timer_info
         if info.has_key("dealTimeout"):
@@ -214,7 +214,7 @@ class PokerTable:
             game.beginTurn(hand_serial)
             for player in game.playersAll():
                 player.getUserData()['ready'] = True
-        
+
     def historyReset(self):
         self.history_index = 0
         self.cache = self.createCache()
@@ -237,7 +237,7 @@ class PokerTable:
                                 skin = self.skin,
                                 currency_serial = self.currency_serial,
                                 tourney_serial = self.tourney and self.tourney.serial or 0)
-                
+
     def cards2packets(self, game_id, board, pockets, cache):
         packets = []
         #
@@ -268,7 +268,7 @@ class PokerTable:
 
         if not type(packets) is ListType:
             packets = ( packets, )
-            
+
         for packet in packets:
             keys = game.serial2player.keys()
             if self.factory.verbose > 1:
@@ -296,7 +296,7 @@ class PokerTable:
             return private
         else:
             return packet
-        
+
     def history2packets(self, history, game_id, cache):
         game_index = 0
         player_list_index = 7
@@ -332,13 +332,13 @@ class PokerTable:
                                                 hands_count = hands_count,
                                                 time = time,
                                                 level = level))
-                
+
             elif type == "wait_for":
                 (type, serial, reason) = event
                 packets.append(PacketPokerWaitFor(game_id = game_id,
                                                   serial = serial,
                                                   reason = reason))
-                
+
             elif type == "player_list":
                 (type, player_list) = event
                 packets.append(PacketPokerInGame(game_id = game_id,
@@ -354,11 +354,11 @@ class PokerTable:
                 (type, position) = event
                 packets.append(PacketPokerPosition(game_id = game_id,
                                                    position = position))
-                
+
             elif type == "showdown":
                 (type, board, pockets) = event
                 packets.extend(self.cards2packets(game_id, board, pockets, cache))
-                
+
             elif type == "blind_request":
                 (type, serial, amount, dead, state) = event
                 packets.append(PacketPokerBlindRequest(game_id = game_id,
@@ -370,7 +370,7 @@ class PokerTable:
             elif type == "wait_blind":
                 (type, serial) = event
                 pass
-                    
+
             elif type == "blind":
                 (type, serial, amount, dead) = event
                 packets.append(PacketPokerBlind(game_id = game_id,
@@ -392,17 +392,17 @@ class PokerTable:
 
             elif type == "all-in":
                 pass
-            
+
             elif type == "call":
                 (type, serial, amount) = event
                 packets.append(PacketPokerCall(game_id = game_id,
                                                serial = serial))
-                
+
             elif type == "check":
                 (type, serial) = event
                 packets.append(PacketPokerCheck(game_id = game_id,
                                                 serial = serial))
-                
+
             elif type == "fold":
                 (type, serial) = event
                 packets.append(PacketPokerFold(game_id = game_id,
@@ -419,17 +419,17 @@ class PokerTable:
                 packets.append(PacketPokerCanceled(game_id = game_id,
                                                    serial = serial,
                                                    amount = amount))
-                
+
             elif type == "muck":
                 (type, muckable_serials) = event
                 packets.append(PacketPokerMuckRequest(game_id = game_id,
                                                       muckable_serials = muckable_serials))
-            
+
             elif type == "rake":
                 (type, amount, serial2rake) = event
                 packets.append(PacketPokerRake(game_id = game_id,
                                                value = amount))
-                
+
             elif type == "end":
                 (type, winners, showdown_stack) = event
                 packets.append(PacketPokerState(game_id = game_id,
@@ -441,23 +441,23 @@ class PokerTable:
                 (type, serial) = event
                 packets.append(PacketPokerSitOut(game_id = game_id,
                                                  serial = serial))
-                    
+
             elif type == "rebuy":
                 (type, serial, amount) = event
                 packets.append(PacketPokerRebuy(game_id = game_id,
                                                 serial = serial,
                                                 amount = amount))
-                    
+
             elif type == "leave":
                 (type, quitters) = event
                 for (serial, seat) in quitters:
                     packets.append(PacketPokerPlayerLeave(game_id = game_id,
                                                           serial = serial,
                                                           seat = seat))
-                
+
             elif type == "finish":
                 pass
-            
+
             else:
                 self.error("history2packets: unknown history type %s " % type)
         return packets
@@ -471,37 +471,37 @@ class PokerTable:
             type = event[0]
             if type == "game":
                 pass
-            
+
             elif type == "wait_for":
                 pass
-            
+
             elif type == "rebuy":
                 pass
-            
+
             elif type == "player_list":
                 pass
-            
+
             elif type == "round":
                 pass
-            
+
             elif type == "showdown":
                 pass
-                
+
             elif type == "rake":
                 (type, amount, serial2rake) = event
-                
+
             elif type == "muck":
                 pass
-                
+
             elif type == "position":
                 pass
-                
+
             elif type == "blind_request":
                 pass
-            
+
             elif type == "wait_blind":
                 pass
-            
+
             elif type == "blind":
                 (type, serial, amount, dead) = event
                 if not updates.has_key(serial):
@@ -510,7 +510,7 @@ class PokerTable:
 
             elif type == "ante_request":
                 pass
-            
+
             elif type == "ante":
                 (type, serial, amount) = event
                 if not updates.has_key(serial):
@@ -519,19 +519,19 @@ class PokerTable:
 
             elif type == "all-in":
                 pass
-            
+
             elif type == "call":
                 (type, serial, amount) = event
                 if not updates.has_key(serial):
                     updates[serial] = 0
                 updates[serial] -= amount
-                
+
             elif type == "check":
                 pass
-                
+
             elif type == "fold":
                 pass
-            
+
             elif type == "raise":
                 (type, serial, raiseTo, payAmount, raiseAmount) = event
                 if not updates.has_key(serial):
@@ -544,7 +544,7 @@ class PokerTable:
                     if not updates.has_key(serial):
                         updates[serial] = 0
                     updates[serial] += amount
-                
+
             elif type == "end":
                 (type, winners, showdown_stack) = event
                 game_state = showdown_stack[0]
@@ -559,14 +559,14 @@ class PokerTable:
 
             elif type == "leave":
                 pass
-            
+
             elif type == "finish":
                 (type, hand_serial) = event
                 self.factory.saveHand(self.compressedHistory(game.historyGet()), hand_serial)
                 self.factory.updateTableStats(game, len(self.observers), len(self.waiting))
                 transient = self.transient and 1 or 0
                 self.factory.databaseEvent(event = PacketPokerMonitorEvent.HAND, param1 = hand_serial, param2 = transient)
-            
+
             else:
                 self.error("syncDatabase: unknown history type %s " % type)
 
@@ -588,7 +588,7 @@ class PokerTable:
         if self.history_index < len(game.historyGet()):
             game.historyReduce()
             self.history_index = len(game.historyGet())
-            
+
     def compressedHistory(self, history):
         new_history = []
         cached_pockets = None
@@ -598,10 +598,10 @@ class PokerTable:
             if ( type == "all-in" or
                  type == "wait_for" ) :
                 pass
-            
+
             elif type == "game":
                 new_history.append(event)
-                
+
             elif type == "round":
                 (type, name, board, pockets) = event
 
@@ -630,7 +630,7 @@ class PokerTable:
                     board = None
 
                 new_history.append((type, board, pockets))
-            
+
             elif ( type == "call" or
                    type == "check" or
                    type == "fold" or
@@ -644,26 +644,26 @@ class PokerTable:
 
             elif type == "rake":
                 new_history.append(event)
-                
+
             elif type == "end":
                 (type, winners, showdown_stack) = event
                 new_history.append(event)
 
             elif type == "sitOut":
                 new_history.append(event)
-            
+
             elif type == "muck":
                 pass
-                    
+
             elif type == "leave":
                 pass
-                
+
             elif type == "finish":
                 pass
-            
+
             elif type == "rebuy":
                 pass
-            
+
             else:
                 self.error("compressedHistory: unknown history type %s " % type)
 
@@ -717,7 +717,7 @@ class PokerTable:
             type = event[0]
             if type == "end":
                 self.factory.tourneyEndTurn(self.tourney, game.id)
-        
+
     def autoDeal(self):
         self.cancelDealTimeout()
         if not self.allReadyToPlay():
@@ -733,10 +733,10 @@ class PokerTable:
                         if self.factory.verbose > 1:
                             self.message("Player %d marked as having a bugous PokerProcessingHand protocol" %  player.serial)
                             avatar.bugous_processing_hand = True
-            
+
         self.beginTurn()
         self.update()
-        
+
     def autoDealCheck(self, autodeal_check, delta):
         if self.factory.verbose > 2:
             self.message("autoDealCheck")
@@ -775,7 +775,7 @@ class PokerTable:
                     avatar.sendPacket(packet)
             return True
         return False
-    
+
     def scheduleAutoDeal(self):
         self.cancelDealTimeout()
         if self.factory.shutting_down:
@@ -861,7 +861,7 @@ class PokerTable:
         if notready and self.factory.verbose > 3:
             self.message("allReadyToPlay: waiting for " + join(notready, ","))
         return status
-        
+
     def readyToPlay(self, serial):
         self.updatePlayerUserData(serial, 'ready', True)
         return PacketAck()
@@ -869,7 +869,7 @@ class PokerTable:
     def processingHand(self, serial):
         self.updatePlayerUserData(serial, 'ready', False)
         return PacketAck()
-        
+
     def update(self):
         if self.update_recursion:
             if self.factory.verbose >= 0:
@@ -883,7 +883,7 @@ class PokerTable:
         history_tail = game.historyGet()[self.history_index:]
 
         try:
-            self.updateTimers(history_tail)        
+            self.updateTimers(history_tail)
             packets = self.history2packets(history_tail, game.id, self.cache);
             self.syncDatabase()
             self.delayedActions()
@@ -947,7 +947,7 @@ class PokerTable:
 
     def isSerialObserver(self, serial):
         return serial in [ avatar.getSerial() for avatar in self.observers ]
-    
+
     def isOpen(self):
         return self.game.is_open
 
@@ -961,7 +961,7 @@ class PokerTable:
     def observer2seated(self, avatar):
         self.observers.remove(avatar)
         self.avatar_collection.add(avatar.getSerial(), avatar)
-        
+
     def quitPlayer(self, avatar, serial):
         game = self.game
         if self.isSit(avatar):
@@ -997,7 +997,7 @@ class PokerTable:
 
         player = game.getPlayer(serial)
         seat = player and player.seat
-        
+
         if not game.removePlayer(serial):
             self.error("kickPlayer did not succeed in removing player %d from game %d" % ( serial, game.id ))
             return
@@ -1034,7 +1034,7 @@ class PokerTable:
                 # have the option to leave.
                 #
                 pass
-                
+
         if self.isJoined(avatar):
             #
             # The player is no longer connected to the table
@@ -1071,7 +1071,7 @@ class PokerTable:
                 return False
 
         return True
-        
+
     def movePlayer(self, avatars, serial, to_game_id, reason = ""):
         game = self.game
         #
@@ -1172,7 +1172,7 @@ class PokerTable:
         self.observer2seated(avatar)
         game.comeBack(serial)
         return True
-            
+
     def joinPlayer(self, avatar, serial, reason = ""):
         game = self.game
         #
@@ -1223,7 +1223,7 @@ class PokerTable:
             # Sit back immediately, as if we just seated
             #
             game.comeBack(serial)
-            
+
         return True
 
     def seatPlayer(self, avatar, serial, seat):
@@ -1249,7 +1249,7 @@ class PokerTable:
         amount = 0
         if self.transient:
             amount = game.buyIn(serial)
-            
+
         if not self.factory.seatPlayer(serial, game.id, amount):
             return False
 
@@ -1288,7 +1288,7 @@ class PokerTable:
             self.error("player %d can't set auto blind/ante before getting a seat" % serial)
             return False
         return avatar.autoBlindAnte(self, serial, auto)
-        
+
     def muckAccept(self, avatar, serial):
         game = self.game
         if not self.isSeated(avatar):
@@ -1302,7 +1302,7 @@ class PokerTable:
             self.error("player %d can't deny muck before getting a seat" % serial)
             return False
         return game.muck(serial, want_to_muck = False)
-    
+
     def sitPlayer(self, avatar, serial):
         game = self.game
         if not self.isSeated(avatar):
@@ -1310,7 +1310,7 @@ class PokerTable:
             return False
 
         return avatar.sitPlayer(self, serial)
-        
+
     def destroyPlayer(self, avatar, serial):
         self.factory.joinedCountDecrease()
         if avatar in self.observers:
@@ -1340,7 +1340,7 @@ class PokerTable:
 
         amount = self.factory.buyInPlayer(avatar.getSerial(), game.id, self.currency_serial, max(amount, game.buyIn(avatar.getSerial())))
         return avatar.setMoney(self, amount)
-        
+
     def rebuyPlayerRequest(self, avatar, amount):
         game = self.game
         if not self.isSeated(avatar):
@@ -1364,13 +1364,13 @@ class PokerTable:
 
         if amount == 0:
             amount = game.buyIn(serial)
-            
+
         amount = self.factory.buyInPlayer(serial, game.id, self.currency_serial, min(amount, maximum))
 
         if amount == 0:
             self.error("player %d is broke and cannot rebuy" % serial)
             return False
-        
+
         if not game.rebuy(serial, amount):
             self.error("player %d rebuy denied" % serial)
             return False
@@ -1379,7 +1379,7 @@ class PokerTable:
                                         serial = serial,
                                         amount = amount))
         return True
-        
+
     def playerWarningTimer(self, serial):
         game = self.game
         info = self.timer_info
@@ -1418,7 +1418,7 @@ class PokerTable:
             self.update()
         else:
             self.updatePlayerTimers()
-        
+
     def muckTimeoutTimer(self):
         if self.factory.verbose:
             self.message("muck timed out")
@@ -1427,7 +1427,7 @@ class PokerTable:
             self.game.muck(serial, want_to_muck = True)
         self.cancelMuckTimer()
         self.update()
-        
+
     def cancelMuckTimer(self):
         info = self.timer_info
         timer = info["muckTimeout"]
@@ -1435,7 +1435,7 @@ class PokerTable:
             if timer.active():
                 timer.cancel()
             info["muckTimeout"] = None
-    
+
     def cancelPlayerTimers(self):
         info = self.timer_info
 
@@ -1445,18 +1445,18 @@ class PokerTable:
                 timer.cancel()
             info["playerTimeout"] = None
         info["playerTimeoutSerial"] = 0
-        
+
     def updateTimers(self, history = ()):
         self.updateMuckTimer(history)
         self.updatePlayerTimers()
-        
+
     def updateMuckTimer(self, history):
         for event in history:
-            type = event[0]            
+            type = event[0]
             if type == "muck":
                 self.cancelMuckTimer()
                 self.timer_info["muckTimeout"] = reactor.callLater(self.muckTimeout, self.muckTimeoutTimer)
-    
+
     def updatePlayerTimers(self):
         game = self.game
         info = self.timer_info
