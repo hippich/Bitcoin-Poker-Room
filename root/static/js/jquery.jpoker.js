@@ -2342,31 +2342,6 @@
                 this.stats = packet;
                 this.notifyUpdate(packet);
                 break;
-                                                
-                case 'PacketPokerBlindRequest':
-                case 'PacketPokerAnteRequest':
-                    serial = packet.serial;
-                    game_id = parseInt(packet.game_id);
-                    if (packet.state != "late") {
-                        server.sendPacket({ 'type': 'PacketPokerBlind',
-                                            'serial': serial,
-                                            'game_id': game_id,
-                                            'amount': packet.amount,
-                                            'dead': packet.dead
-                                            });
-
-                        server.sendPacket({ 'type': 'PacketPokerAutoBlindAnte',
-                                            'serial': serial,
-                                            'game_id': game_id
-                                            });
-                    }
-                    else {
-                    server.sendPacket({ 'type': 'PacketPokerWaitBigBlind',
-                                        'serial': serial,
-                                        'game_id': game_id
-                                        });
-                    }
-                    break;
                 }
             }
 
@@ -2427,6 +2402,33 @@
                 case 'PacketPokerTableMove':
                 this.notifyUpdate(packet);
                 break;
+
+                case 'PacketPokerBlindRequest':
+                case 'PacketPokerAnteRequest':
+                    serial = packet.serial;
+                    if (server.serial != serial) break;
+                    
+                    game_id = parseInt(packet.game_id);
+                    if (packet.state != "late") {
+                        server.sendPacket({ 'type': 'PacketPokerBlind',
+                                            'serial': serial,
+                                            'game_id': game_id,
+                                            'amount': packet.amount,
+                                            'dead': packet.dead
+                                            });
+
+                        server.sendPacket({ 'type': 'PacketPokerAutoBlindAnte',
+                                            'serial': serial,
+                                            'game_id': game_id
+                                            });
+                    }
+                    else {
+                    server.sendPacket({ 'type': 'PacketPokerWaitBigBlind',
+                                        'serial': serial,
+                                        'game_id': game_id
+                                        });
+                    }
+                    break;
 
                 }
             }
