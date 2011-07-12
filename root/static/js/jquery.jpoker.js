@@ -504,12 +504,12 @@
                 if(chips >= magnitude || magnitude == 1) {
                     if(chips / magnitude < 10) {
                         chips = chips / ( magnitude / 100 );
-                        return parseInt(chips / 100, 10) + this.fraction + parseInt((chips/10) % 10, 10) + parseInt(chips % 10, 10) + unit[0];
+                        return Math.round(chips / 100, 10) + this.fraction + Math.round((chips/10) % 10, 10) + Math.round(chips % 10, 10) + unit[0];
                     } else if(chips / magnitude < 100) {
                         chips = chips / ( magnitude / 10 );
-                        return parseInt(chips / 10, 10) + this.fraction + parseInt(chips % 10, 10) + unit[0];
+                        return Math.round(chips / 10, 10) + this.fraction + Math.round(chips % 10, 10) + unit[0];
                     } else {
-                        return parseInt(chips / magnitude, 10) + unit[0];
+                        return Math.round(chips / magnitude, 10) + unit[0];
                     }
                 }
                 unit.shift();
@@ -5081,7 +5081,7 @@
                                 server.sendPacket({ 'type': 'PacketPokerRaise',
                                             'serial': serial,
                                             'game_id': game_id,
-                                            'amount': amount*100
+                                            'amount': Math.round(amount*100)
                                             });
                             } else {
                                 jpoker.error('raise with NaN amount: ' + $('.jpoker_raise_input', raise_input).attr('value'));
@@ -5094,7 +5094,7 @@
                                 server.sendPacket({ 'type': 'PacketPokerRaise',
                                             'serial': serial,
                                             'game_id': game_id,
-                                            'amount': betLimit.allin*100
+                                            'amount': Math.round(betLimit.allin*100)
                                             });
                             }
                         }).show();
@@ -5121,7 +5121,7 @@
                             server.sendPacket({ 'type': 'PacketPokerRaise',
                                         'serial': serial,
                                         'game_id': game_id,
-                                        'amount': amount
+                                        'amount': Math.round(amount)
                                         });
                         }
                     };
