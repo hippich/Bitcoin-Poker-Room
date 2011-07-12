@@ -503,13 +503,13 @@
             for(var magnitude = 1000000000; magnitude > 0; magnitude /= 1000) {
                 if(chips >= magnitude || magnitude == 1) {
                     if(chips / magnitude < 10) {
-                        chips = chips / ( magnitude / 100 );
-                        return Math.round(chips / 100, 10) + this.fraction + Math.round((chips/10) % 10, 10) + Math.round(chips % 10, 10) + unit[0];
+                        chips = Math.round(chips / ( magnitude / 100 ));
+                        return parseInt(chips / 100, 10) + this.fraction + parseInt( (chips/10) % 10, 10) + parseInt(chips % 10, 10) + unit[0];
                     } else if(chips / magnitude < 100) {
-                        chips = chips / ( magnitude / 10 );
-                        return Math.round(chips / 10, 10) + this.fraction + Math.round(chips % 10, 10) + unit[0];
+                        chips = Math.round(chips / ( magnitude / 10 ));
+                        return parseInt(chips / 10, 10) + this.fraction + parseInt(chips % 10, 10) + unit[0];
                     } else {
-                        return Math.round(chips / magnitude, 10) + unit[0];
+                        return parseInt(chips / magnitude, 10) + unit[0];
                     }
                 }
                 unit.shift();
