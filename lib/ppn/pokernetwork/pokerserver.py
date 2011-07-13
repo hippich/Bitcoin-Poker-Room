@@ -46,6 +46,7 @@ except:
 from twisted.application import internet, service, app
 from twisted.web import resource,server
 
+from pokernetwork import pokerdatabase
 from pokernetwork.pokernetworkconfig import Config
 from pokernetwork.pokerservice import PokerTree, PokerRestTree, PokerService, IPokerFactory
 from pokernetwork.pokersite import PokerSite
@@ -60,7 +61,9 @@ def makeService(configuration):
         sys.exit(1)
 
     serviceCollection = service.MultiService()
-    poker_service = PokerService(settings)
+
+    poker_database = pokerdatabase.PokerDatabase(settings)
+    poker_service = PokerService(settings, poker_database)
     poker_service.setServiceParent(serviceCollection)
 
     poker_factory = IPokerFactory(poker_service)
@@ -108,18 +111,16 @@ def makeService(configuration):
                                ).setServiceParent(serviceCollection)
 
     # API
-    api_sqlite_db = settings.headerGet("/server/api/@sqlite_db")
-    api_http_port = settings.headerGetInt("/server/api/@http_port")
-    if api_http_port and api_sqlite_db:
-        import sqlite3
-        import pokernetwork.apiserver as apiserver
-        from pokernetwork.apiservice import APIService
-        api_service = APIService(poker_service)
-        db = sqlite3.connect(api_sqlite_db)
-        secret_store = apiserver.OAuthSecretStore(db)
+    api_ssl_port = settings.headerGetInt("/server/listen/@api_ssl")
+    if HAS_OPENSSL and api_ssl_port:
+        from pokernetwork import apiserver, apiservice
+        secret_store = apiserver.APIUserStore(poker_database)
+        api_service = apiservice.APIService(poker_service)
         api_site = server.Site(apiserver.Root(api_service, secret_store))
-        internet.TCPServer(api_http_port,
-                           api_site).setServiceParent(serviceCollection)
+        internet.SSLServer(api_ssl_port, api_site, SSLContextFactory(settings)
+                          ).setServiceParent(serviceCollection)
+    else:
+        print 'Could not create API service!'
 
     #
     # TELNET twisted.manhole (without SSL)

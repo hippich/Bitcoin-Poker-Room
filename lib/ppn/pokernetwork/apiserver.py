@@ -11,42 +11,71 @@ from twisted.python import log
 from twisted.web import http, resource
 
 
-def _JSON_response(request, status_code, json_obj):
-    request.setResponseCode(status_code)
-    result_string = json.dumps(json_obj)
-    request.setHeader('Content-Length', str(len(result_string)))
-    request.setHeader('Content-Type', 'application/json; charset=UTF-8')
-    return result_string
+class APIUserStore(object):
+    SCHEMA = """CREATE TABLE IF NOT EXISTS `api_users` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `email` varchar(255) NOT NULL,
+      `api_key` varchar(255) NOT NULL,
+      `secret` varchar(255) NOT NULL,
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `key_secret` (`api_key`,`secret`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;"""
 
+    def __init__(self, db):
+        self.db = db
+        self.__create_table_if_not_exists()
 
-class OAuthSecretStore(object):
-    def __init__(self, db_conn):
-        self.db_conn = db_conn
-        self.__create_table()
+    def __create_table_if_not_exists(self):
+        with closing(self.db.cursor()) as cursor:
+            cursor.execute(self.SCHEMA)
+            self.db.commit()
 
-    def __create_table(self):
-        with closing(self.db_conn.cursor()) as cursor:
-            cursor.execute('CREATE TABLE IF NOT EXISTS oauth_secrets '
-                '(key TEXT NOT NULL UNIQUE, secret TEXT NOT NULL UNIQUE)')
-            self.db_conn.commit()
-
-    def get_secret(self, key):
+    def get_secret(self, api_key):
         """
         Returns the secret corresponding to `key` or None if `key` is not found.
         """
-        with closing(self.db_conn.cursor()) as cursor:
-            cursor.execute('SELECT secret FROM oauth_secrets WHERE key=?',
-                           (key,))
+        with closing(self.db.cursor()) as cursor:
+            cursor.execute('SELECT secret FROM api_users WHERE api_key=%s',
+                           (api_key,))
             row = cursor.fetchone()
             if row:
                 return row[0]
             return None
 
-    def save_secret(self, key, secret):
-        with closing(self.db_conn.cursor()) as cursor:
-            cursor.execute('INSERT INTO oauth_secrets (key, secret) VALUES '
-                           '(?, ?)', (key, secret))
-            self.db_conn.commit()
+    def get_users(self):
+        """
+        Returns a list of dictionaries containing the following keys: id,
+        email, key, secret.
+        """
+        with closing(self.db.cursor()) as cursor:
+            cursor.execute('SELECT id, email, api_key, secret FROM api_users')
+            return cursor.fetchall()
+
+    def add_user(self, email, api_key, secret):
+        with closing(self.db.cursor()) as cursor:
+            cursor.execute('INSERT INTO api_users (email, api_key, secret) '
+                           'VALUES (%s, %s, %s)', (email, api_key, secret))
+            self.db.commit()
+
+    def remove_users_by_email(self, email):
+        with closing(self.db.cursor()) as cursor:
+            cursor.execute('DELETE FROM api_users WHERE email=%s', (email,))
+            self.db.commit()
+
+    def remove_user_by_key(self, api_key):
+        with closing(self.db.cursor()) as cursor:
+            cursor.execute('DELETE FROM api_users WHERE api_key=%s',
+                           (api_key,))
+            self.db.commit()
+
+
+def _JSON_response(request, status_code, json_obj):
+    request.setResponseCode(status_code)
+    result_string = json.dumps(json_obj)
+    request.setHeader('Content-Type', 'application/json; charset=UTF-8')
+    request.setHeader('Cache-Control', 'no-store')
+    request.setHeader('Pragma', 'no-cache')
+    return result_string
 
 
 class OAuthResource(resource.Resource):
@@ -87,11 +116,11 @@ class OAuthResource(resource.Resource):
         oauth_request = oauth2.Request.from_request(request.method, url,
                                                     headers=headers,
                                                     parameters=args)
-        try:
-            key = args['oauth_consumer_key']
-            secret = self.secret_store.get_secret(key)
-        except:
-            raise oauth2.Error('Unauthorized')
+
+        key = args['oauth_consumer_key']
+        secret = self.secret_store.get_secret(key)
+        if secret is None:
+            raise oauth2.Error('Invalid Consumer Key')
 
         consumer = oauth2.Consumer(key=key, secret=secret)
         self.oauth_server.verify_request(oauth_request, consumer, None)
@@ -104,9 +133,14 @@ class OAuthResource(resource.Resource):
             try:
                 self._validate_request(request)
                 return render_method(self, request)
+            except (oauth2.MissingSignature, ValueError, KeyError), e:
+                status = http.BAD_REQUEST
+                return _JSON_response(request, status,
+                                      {'error': 'bad_request',
+                                       'status': status})
             except oauth2.Error:
                 status = http.UNAUTHORIZED
-                return _JSON_response(request, http.UNAUTHORIZED,
+                return _JSON_response(request, status,
                                       {'error': 'unauthorized',
                                        'status': status})
             except:
@@ -149,14 +183,3 @@ class Root(resource.Resource):
         self.putChild('refresh_table_config',
                       RefreshTableConfig(api_service, secret_store))
 
-
-if __name__ == '__main__':
-    from twisted.web.server import Site
-    from twisted.internet import reactor
-    class SecretStore:
-        def get_secret(self, key):
-            return 'some_secret'
-    secret_store = SecretStore()
-    factory = Site(Root(None, secret_store))
-    reactor.listenTCP(8880, factory)
-    reactor.run()

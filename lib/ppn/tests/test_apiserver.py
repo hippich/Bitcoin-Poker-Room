@@ -9,7 +9,7 @@ from twisted.trial import unittest
 from twisted.web import http, server
 from twisted.web.test.test_web import DummyRequest
 
-from pokernetwork.apiserver import RefreshTableConfig, OAuthResource
+from pokernetwork.apiserver import OAuthResource
 
 
 class DummyHTTPHeaders:
@@ -60,7 +60,9 @@ class MockAPISecretStore(object):
 
 
     def get_secret(self, key):
-        return self.secrets[key]
+        if key in self.secrets:
+            return self.secrets[key]
+        return None
 
 
 class MockOAuthResource(OAuthResource):
@@ -111,7 +113,7 @@ class OAuthResourceTests(unittest.TestCase):
 
 
     def test_bad_oauth_request(self):
-        return self._test_request(OAuthRequest(), http.UNAUTHORIZED)
+        return self._test_request(OAuthRequest(), http.BAD_REQUEST)
 
 
     def test_unauthorized_oauth_request_bad_secret(self):
