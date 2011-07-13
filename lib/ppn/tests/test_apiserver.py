@@ -1,14 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-import time
-
-import oauth2
 from twisted.internet.defer import succeed
 from twisted.trial import unittest
 from twisted.web import http, server
 from twisted.web.test.test_web import DummyRequest
 
+from pokernetwork import apiclient
 from pokernetwork.apiserver import OAuthResource
 
 
@@ -27,26 +25,10 @@ class OAuthRequest(DummyRequest):
         return self.uri
 
 
-def _build_oauth2_request(url, key, secret, method='GET'):
-    """
-    Returns an HMAC_SHA1 signed oauth2.Request object."""
-    consumer = oauth2.Consumer(key=key, secret=secret)
-    params = {
-        'oauth_version': "1.0",
-        'oauth_nonce': oauth2.generate_nonce(),
-        'oauth_timestamp': int(time.time()),
-        'oauth_consumer_key': consumer.key
-    }
-    signed_request = oauth2.Request(method=method, url=url, parameters=params)
-    signature_method = oauth2.SignatureMethod_HMAC_SHA1()
-    signed_request.sign_request(signature_method, consumer, None)
-    return signed_request
-
-
 def _build_dummy_request(key, secret, method='GET'):
     dummy_request = OAuthRequest()
-    oauth2_request = _build_oauth2_request(dummy_request.uri, key, secret,
-                                           method)
+    oauth2_request = apiclient.build_request(dummy_request.uri, key, secret,
+                                             method)
     print 'OAuth2 signed URL:\n', oauth2_request.to_url()
     for arg, value in oauth2_request.iteritems():
         dummy_request.addArg(arg, value)

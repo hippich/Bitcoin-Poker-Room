@@ -13,8 +13,9 @@ class RequestError(Exception):
     pass
 
 
-def build_request(url, consumer, method='GET'):
+def build_request(url, key, secret, method='GET'):
     """Returns a signed HMAC_SHA1 oauth2.Request object."""
+    consumer = oauth2.Consumer(key=key, secret=secret)
     params = {
         'oauth_version': "1.0",
         'oauth_nonce': oauth2.generate_nonce(),
@@ -29,8 +30,7 @@ def build_request(url, consumer, method='GET'):
 
 
 def perform_api_request(url, key, secret):
-    consumer = oauth2.Consumer(key=key, secret=secret)
-    request = build_request(url, consumer)
+    request = build_request(url, key, secret)
     request_url = request.to_url()
 
     print 'REQUEST:', urllib2.unquote(request_url)
