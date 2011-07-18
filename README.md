@@ -135,10 +135,11 @@ and create soft links to Room's code:
 
 And repeat for /usr/share/pyshared.
 
-Install Python bitstring package:
+Install Python bitstring and oauth2 packages:
 
     sudo apt-get install python-pip 
-    sudo pip install bitstring
+    sudo pip install bitstring 
+    sudo pip install oauth2
 
 And restart poker server:
 
