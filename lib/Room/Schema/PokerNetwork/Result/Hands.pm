@@ -64,8 +64,8 @@ sub get_amounts {
   my ($shares_string) = $self->description =~ /'serial2share': {([^}]+)}/;
 
   # Sometimes Python adds L to integers
-  $totals_string =~ s/(\d+)L/\1/g;
-  $shares_string =~ s/(\d+)L/\1/g;
+  $totals_string =~ s/(\d+)L/$1/g;
+  $shares_string =~ s/(\d+)L/$1/g;
 
   my ($total) = $totals_string =~ /$serial: ([\.\d]+)/;
   my ($share) = $shares_string =~ /$serial: ([\.\d]+)/;
