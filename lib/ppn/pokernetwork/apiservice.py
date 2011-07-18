@@ -47,8 +47,9 @@ class APIService(object):
         """
         config = self.reload_server_config()
 
-        config_tables = {table['name']: table for table in
-                         config.headerGetProperties('/server/table')}
+        config_tables = {}
+        for table in config.headerGetProperties('/server/table'):
+            config_tables[table['name']] = table
 
         active_table_names = set()
         tables_to_delete = []
