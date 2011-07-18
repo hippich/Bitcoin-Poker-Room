@@ -62,8 +62,7 @@ sub auto :Path {
 
     if ($c->user) {
       if (!$c->session->{pokernetwork_auth}) {
-        my $auth_id_generator = new String::Random;
-        $c->session->{pokernetwork_auth} = $auth_id_generator->randregex('[A-Z0-9]{40}');
+        $c->session->{pokernetwork_auth} = $c->sessionid;
       }
       
       $c->model("PokerNetwork")->set_user_id_by_auth(
