@@ -17,9 +17,9 @@
 </table>
 
 [% IF hands.pager.next_page %]
-<span style="float: right"><a href="[% c.uri_for('/user/hands', undef, { page => hands.pager.next_page}) %]">Next &gt;&gt;</a></span>
+<span style="float: right"><a href="[% c.uri_for(c.action, undef, { page => hands.pager.next_page}) %]">Next &gt;&gt;</a></span>
 [% END %]
 
 [% IF hands.pager.previous_page %]
-<span style="float: left"><a href="[% c.uri_for('/user/hands', undef, { page => hand.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
+<span style="float: left"><a href="[% c.uri_for(c.action, undef, { page => hand.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
 [% END %]
