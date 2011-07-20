@@ -34,6 +34,10 @@ And configure it to use initial data from /dev/urandom. To do this edit file
 
     HRNGDEVICE=/dev/urandom 
 
+Restart rng-tools by:
+
+    sudo /etc/init.d/rng-tools restart
+
 Install Apache web server:
 
     sudo apt-get install apache2
