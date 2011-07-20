@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use base 'DBIx::Class';
+use Data::Dumper;
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
@@ -82,6 +83,65 @@ sub get_parsed_history {
   my %players_by_id;
 
   my $h = $self->__parse_hands();
+
+  ## state of the hand history
+  ## flop = 1
+  ## turn = 2
+  ## river = 3
+
+  my $handstate = -1;
+  my @flop;
+  my @turn;
+  my @river;
+  my $showdown;
+  my $rakeindex;
+
+  for(my $y = 0; $y < @{$h}; $y = $y + 1)
+  {
+	my $x = $h->[$y];
+	if($x->[0] eq "round")
+	{
+		switch($x->[1])
+		{
+			# store the flop so we can recreate turn and river
+			case 'flop' 	{ if($handstate < 1) { $handstate = 1; } }
+			case 'turn' 	{ if($handstate < 2) { $handstate = 2; } }
+			case 'river' 	{ if($handstate < 3) { $handstate = 3; } }
+		}
+	}
+	# Save the showdown.  This only exists if state != 3
+	if($x->[0] eq "showdown")
+	{
+		
+		$showdown = $x->[1];
+		@flop 	= ($showdown->[0],$showdown->[1],$showdown->[2]);
+		if($handstate != 3)
+		{
+			@turn 	= ($showdown->[0],$showdown->[1],$showdown->[2],$showdown->[3]);
+			@river	= ($showdown->[0],$showdown->[1],$showdown->[2],$showdown->[3],$showdown->[4]);
+		}
+	}
+
+	if($x->[0] eq "rake")
+	{
+		$rakeindex = $y;
+	}
+  }
+
+  my @turnblob = ('round','turn',\@turn);
+  my @riverblob = ('round','river',\@river);
+
+  if($handstate == 2)
+  {
+  	splice(@{$h},$rakeindex, 0, @riverblob);
+  }
+
+  if($handstate == 1)
+  {
+  	splice(@{$h},$rakeindex , 0, \@turnblob );
+  	splice(@{$h},$rakeindex + 1, 0, \@riverblob);
+  }
+
   $parsed_history->{game_history} = $h;
   $parsed_history->{self} = $self;
 
@@ -100,10 +160,10 @@ sub get_parsed_history {
   }
   $parsed_history->{players} = \@players;
   $parsed_history->{players_by_id} = \%players_by_id;
-
-
   return $parsed_history;
 }
+
+sub println { local $,=""; print +( @_ ? @_ : $_ ), "\n\n" }
 
 sub __parse_hands {
   my $self = shift;
