@@ -88,6 +88,14 @@ sub get_parsed_history {
   foreach my $uid (@{$h->[0]->[7]}) {
     my $player = $self->result_source->schema->resultset("Users")->find($uid);
     push @players, $player;
+
+    if (! $player) {
+      $player = $self->result_source->schema->resultset("Users")->new({
+          serial => $uid,
+          name => 'Anonymous',
+      });
+    }
+
     $players_by_id{$player->serial} = $player;
   }
   $parsed_history->{players} = \@players;
