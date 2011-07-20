@@ -355,7 +355,7 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
   }
 
   $c->stash->{balance} = $balance;
-  $c->stash->{current_balance} = floor($balance->amount * 100) / 100;
+  $c->stash->{current_balance} = $balance->amount;
 
   if ($form->submitted_and_valid) {
     my $address = $form->params->{bitcoin_address};

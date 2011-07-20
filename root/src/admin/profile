@@ -27,7 +27,7 @@
     <table>
       <tr><th>ID</th><th>Date</th><th>Amount</th></tr>
       [% FOR deposit IN user.deposits %]
-        <tr><td>[% deposit.deposit_id %]</td><td>[% deposit.created_at %]</td><td>[% deposit.amount | format('%.2f') %]</td></tr>
+        <tr><td>[% deposit.deposit_id %]</td><td>[% deposit.created_at %]</td><td>[% deposit.amount %]</td></tr>
       [% END %]
     </table>
   </div>

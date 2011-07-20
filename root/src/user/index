@@ -28,7 +28,7 @@
 <ul class="user-balances">
   [% FOR balance IN c.user.balances %]
     <li>
-      [% balance.amount * 100 | format('%.2f') %] Chips ([% balance.amount | format('%.2f') %] [% balance.currency.symbol %])
+      [% balance.amount * 100 | format('%.2f') %] Chips ([% balance.amount %] [% balance.currency.symbol %])
       - <span><a href="[% c.uri_for('/user/deposit/bitcoin') %]">Deposit</a></span>
     </li>
   [% END %]
@@ -42,7 +42,7 @@
   <table>
     <tr><th>ID</th><th>Date</th><th>Amount</th></tr>
     [% FOR deposit IN c.user.deposits %]
-      <tr><td>[% deposit.deposit_id %]</td><td>[% deposit.created_at %]</td><td>[% deposit.amount | format('%.2f') %]</td></tr>
+      <tr><td>[% deposit.deposit_id %]</td><td>[% deposit.created_at %]</td><td>[% deposit.amount %]</td></tr>
     [% END %]
   </table>
 </div>

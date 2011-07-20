@@ -12,7 +12,7 @@
   <tr><th>ID</th><th>Name</th><th>Email</th><th>Address</th><th>Balance</th></tr>
 
   [% WHILE (user = users.next) %]
-    <tr><td>[% user.serial %]</td><td><a href="[% c.uri_for("/admin/user/" _ user.serial) %]">[% user.name | html %]</a></td><td>[% user.email | html %]</td><td>[% user.bitcoin_address | html %]</td><td>[% user.balances.first.amount / 100  | format('%.2f') %] Chips</td></tr>
+    <tr><td>[% user.serial %]</td><td><a href="[% c.uri_for("/admin/user/" _ user.serial) %]">[% user.name | html %]</a></td><td>[% user.email | html %]</td><td>[% user.bitcoin_address | html %]</td><td>[% user.balances.first.amount  %] Chips</td></tr>
   [% END %]
 </table>
 
