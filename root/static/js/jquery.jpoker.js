@@ -19,6 +19,7 @@
 
 (function($) {
     var _ = $.gt.gettext;
+    var bBet = false;
 
     if(!String.prototype.supplant) {
         //
@@ -2046,6 +2047,11 @@
                     for(var j = packet.cards.length; j < table.board.length; j++) {
                         table.board[j] = null;
                     }
+		    // we reset bet state to false on every street except preflop
+		    if(packet.cards.length == 0)
+		    	bBet = true;
+		    else
+			bBet = false;
                     table.notifyUpdate(packet);
                     break;
 
@@ -2212,6 +2218,7 @@
                 this.stats = undefined;
             },
 
+
             handler: function(server, table, packet) {
                 if(jpoker.verbose > 0) {
                     jpoker.message('player.handler ' + JSON.stringify(packet));
@@ -2254,7 +2261,15 @@
                 break;
 
                 case 'PacketPokerRaise':
-                this.action = _("raise");
+		if(bBet == false)
+		{
+			this.action = _("bet");
+			bBet = true;
+		}
+		else
+		{
+			this.action = _("raise");
+		}
                 this.notifyUpdate(packet);
                 break;
 
