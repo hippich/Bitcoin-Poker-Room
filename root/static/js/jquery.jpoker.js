@@ -3557,6 +3557,8 @@
                         wait_for_bb: _("Wait for BB")
             }));
 
+            $('#jpoker_wait_for_bb').hide();
+
             $('.jpoker_chat_input', game_window).hide();
             jpoker.plugins.playerSelf.hide(id);
             for(var serial in table.serial2player) {
@@ -4544,6 +4546,9 @@
                   $(this).removeClass('hover');
                 });
             }
+
+            $('#jpoker_wait_for_bb').show();
+
             //
             // rebuy
             //
