@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+from pokernetwork import tableconfigutils
+
 
 class Error(RuntimeError):
     pass
@@ -28,27 +30,26 @@ class APIService(object):
     def remove_table(self, table_name):
         pass
 
-    def reload_server_config(self):
-        """
-        Reloads and returns the current pokernetwork.pokernetworkconfig.Config.
-        """
-        config = self.poker_service.settings
-        config.reload()
-        return config
-
     def refresh_table_config(self):
         """
-        Reloads the server config then performs the following algorithm:
+        Create/modify/delete tables at runtime, by loading table descriptions
+        (XML <table /> nodes) from the server config and table configs.
 
-            For each table that has no seated players:
-                - If the table is not listed in the config, delete the table.
-                - Otherwise, update the table settings to the settings in the
-                  config.
+        Gets table descriptions from the server config and table configs, then
+        performs the following algorithm:
+
+            For each active table that has NO seated players:
+                - If the table has no associated table description, then delete
+                  it.
+                - Otherwise, modify the table's attributes to match its
+                  associated table description.
+
+            For each table description, d:
+                - If a table with name d['name'] is not running on the server,
+                  then create it.
         """
-        config = self.reload_server_config()
-
         config_tables = {}
-        for table in config.headerGetProperties('/server/table'):
+        for table in self.poker_service.get_table_descriptions():
             config_tables[table['name']] = table
 
         active_table_names = set()
@@ -63,6 +64,6 @@ class APIService(object):
         for table_id in tables_to_delete:
             self.poker_service.deleteTable(self.poker_service.tables[table_id])
 
-        for table_name, table_settings in config_tables.iteritems():
+        for table_name, table_description in config_tables.iteritems():
             if table_name not in active_table_names:
-                self.poker_service.createTable(0, table_settings)
+                self.poker_service.createTable(0, table_description)

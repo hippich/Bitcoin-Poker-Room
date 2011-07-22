@@ -96,6 +96,7 @@ from pokernetwork import pokeravatar
 from pokernetwork.user import User
 from pokernetwork import pokercashier
 from pokernetwork import pokernetworkconfig
+from pokernetwork import tableconfigutils
 from pokerauth import get_auth_instance
 from datetime import date
 
@@ -265,6 +266,9 @@ class PokerService(service.Service):
             self.tourney_select_info = module.Handle(self, s)
             getattr(self.tourney_select_info, '__call__')
 
+    def get_table_descriptions(self):
+        return tableconfigutils.get_table_descriptions(self.settings)
+
     def startService(self):
         self.monitors = []
         self.setupTourneySelectInfo()
@@ -314,8 +318,10 @@ class PokerService(service.Service):
             except locale.Error, le:
                 self.error('Unable to restore original locale: %s' % le)
 
-        for description in self.settings.headerGetProperties("/server/table"):
-            self.createTable(0, description)
+        table_descriptions = self.get_table_descriptions()
+        for table_description in table_descriptions:
+            self.createTable(0, table_description)
+
         self.cleanupTourneys()
         self.updateTourneysSchedule()
         self.messageCheck()
@@ -2667,7 +2673,7 @@ class PokerService(service.Service):
         return table
 
     def cleanupCrashedTables(self):
-        for description in self.settings.headerGetProperties("/server/table"):
+        for description in self.get_table_descriptions():
             self.cleanupCrashedTable("pokertables.name = %s" % self.db.literal((description['name'],)))
         self.cleanupCrashedTable("pokertables.resthost_serial = %d" % self.resthost_serial)
 
