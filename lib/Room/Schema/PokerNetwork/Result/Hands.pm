@@ -137,7 +137,6 @@ sub get_parsed_history {
     return $parsed_history;
 }
 
-sub println { local $,=""; print +( @_ ? @_ : $_ ), "\n\n" }
 
 sub __parse_hands {
   my $self = shift;
