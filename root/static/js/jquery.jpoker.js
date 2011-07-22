@@ -1908,6 +1908,7 @@
     };
 
     jpoker.table.defaults = {
+        betThisRound: false,
         delay: {
             showdown: 5000
         }
@@ -2046,6 +2047,13 @@
                     for(var j = packet.cards.length; j < table.board.length; j++) {
                         table.board[j] = null;
                     }
+            
+                    // we reset bet state to false on every street except preflop
+                    if(packet.cards.length == 0) {
+                        table.betThisRound = true;
+                    } else {
+                        table.betThisRound = false;
+                    }
                     table.notifyUpdate(packet);
                     break;
 
@@ -2160,7 +2168,7 @@
                 }
 
                 if(serial in table.serial2player) {
-                    table.serial2player[serial].handler(server, self, packet);
+                    table.serial2player[serial].handler(server, table, packet);
                 }
 
                 return true;
@@ -2212,6 +2220,7 @@
                 this.stats = undefined;
             },
 
+
             handler: function(server, table, packet) {
                 if(jpoker.verbose > 0) {
                     jpoker.message('player.handler ' + JSON.stringify(packet));
@@ -2254,7 +2263,16 @@
                 break;
 
                 case 'PacketPokerRaise':
-                this.action = _("raise");
+                
+                if(table.betThisRound == false)
+                {
+                    this.action = _("bet");
+                    table.betThisRound = true;
+                }
+                else
+                {
+                    this.action = _("raise");
+                }
                 this.notifyUpdate(packet);
                 break;
 
@@ -2370,8 +2388,8 @@
                 jpoker.player.prototype.uninit.call(this);
             },
 
-            handler: function(server, game_id, packet) {
-                jpoker.player.prototype.handler.call(this, server, game_id, packet);
+            handler: function(server, table, packet) {
+                jpoker.player.prototype.handler.call(this, server, table, packet);
 
                 if(jpoker.verbose > 0) {
                     jpoker.message('playerSelf.handler ' + JSON.stringify(packet));

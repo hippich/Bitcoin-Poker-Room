@@ -3574,7 +3574,7 @@ class PokerGame:
                 if re.match("[0-9]+$", info["max"]):
                     max_bet = int(info["max"])
                 elif info["max"] == "pot":
-                    max_bet = max(self.potAndBetsAmount() + to_call, min_bet)
+                    max_bet = max(self.potAndBetsAmount() + (to_call * 2), min_bet)
             else:
                 max_bet = money
         #
