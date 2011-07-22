@@ -2405,29 +2405,35 @@
 
                 case 'PacketPokerBlindRequest':
                 case 'PacketPokerAnteRequest':
+                    $('.jpoker_timeout').hide();
+
                     serial = packet.serial;
                     if (server.serial != serial) break;
-                    
                     game_id = parseInt(packet.game_id);
-                    if (packet.state != "late") {
-                        server.sendPacket({ 'type': 'PacketPokerBlind',
-                                            'serial': serial,
-                                            'game_id': game_id,
-                                            'amount': packet.amount,
-                                            'dead': packet.dead
-                                            });
 
-                        server.sendPacket({ 'type': 'PacketPokerAutoBlindAnte',
-                                            'serial': serial,
-                                            'game_id': game_id
-                                            });
+                    if (packet.state != "late" || !$('#jpoker_wait_for_bb input').attr('checked')) {
+                        server.sendPacket({ 
+                            'type': 'PacketPokerBlind',
+                            'serial': serial,
+                            'game_id': game_id,
+                            'amount': packet.amount,
+                            'dead': packet.dead
+                        });
+
+                        server.sendPacket({ 
+                          'type': 'PacketPokerAutoBlindAnte',
+                          'serial': serial,
+                          'game_id': game_id
+                        });
                     }
                     else {
-                    server.sendPacket({ 'type': 'PacketPokerWaitBigBlind',
-                                        'serial': serial,
-                                        'game_id': game_id
-                                        });
+                        server.sendPacket({ 
+                            'type': 'PacketPokerWaitBigBlind',
+                            'serial': serial,
+                            'game_id': game_id
+                        });
                     }
+
                     break;
 
                 }
@@ -3529,6 +3535,10 @@
                         chat_history_dealer_label: _("dealer")
             }));
 
+            game_fixed.append(this.templates.wait_for_bb.supplant({
+                        wait_for_bb: _("Wait for BB")
+            }));
+
             $('.jpoker_chat_input', game_window).hide();
             jpoker.plugins.playerSelf.hide(id);
             for(var serial in table.serial2player) {
@@ -3812,6 +3822,8 @@
                 break;
 
             case 'PacketPokerShowdown':
+                $('.jpoker_timeout').hide();
+
                 if(packet.showdown_stack && packet.showdown_stack.length > 0) {
                     var serial2delta = packet.showdown_stack[0].serial2delta;
                     if(serial2delta && server.serial in serial2delta && serial2delta[server.serial] > 0) {
@@ -3880,6 +3892,7 @@
         tourney_break: '<div>{label}</div><div>{date}</div>',
         powered_by: '',
         chat: '<div class=\'jpoker_chat_input\'><input value=\'chat here\' type=\'text\' width=\'100%\' maxlength=\'128\' /></div><div class=\'jpoker_chat_history_player_box\'><div class=\'jpoker_chat_history_player_heading\'>{chat_history_player_label}</div><div class=\'jpoker_chat_history_player\'></div></div><div class=\'jpoker_chat_history_dealer_box\'><div class=\'jpoker_chat_history_dealer_heading\'>{chat_history_dealer_label}</div><div class=\'jpoker_chat_history_dealer\'></div></div>',
+        wait_for_bb: '<div id="jpoker_wait_for_bb"><input type="checkbox" checked /> <span>{wait_for_bb}</span>',
         placeholder: _("connecting to table {name}"),
         table_info: '<div class=\'jpoker_table_info_name\'><span class=\'jpoker_table_info_name_label\'>{name_label}</span>{name}</div><div class=\'jpoker_table_info_variant\'><span class=\'jpoker_table_info_variant_label\'>{variant_label}</span>{variant}</div><div class=\'jpoker_table_info_blind\'><span class=\'jpoker_table_info_blind_label\'>{betting_structure_label}</span>{betting_structure}</div><div class="jpoker_table_info_hand"></div><div class=\'jpoker_table_info_seats\'><span class=\'jpoker_table_info_seats_label\'>{seats_label}</span>{max_players}</div><div class=\'jpoker_table_info_flop\'>{percent_flop}<span class=\'jpoker_table_info_flop_label\'>{percent_flop_label}</span></div><div class=\'jpoker_table_info_player_timeout\'><span class=\'jpoker_table_info_player_timeout_label\'>{player_timeout_label}</span>{player_timeout}</div><div class=\'jpoker_table_info_muck_timeout\'><span class=\'jpoker_table_info_muck_timeout_label\'>{muck_timeout_label}</span>{muck_timeout}</div><div class=\'jpoker_table_info_level\'></div>',
         date: '',
@@ -4539,40 +4552,45 @@
             // sitout
             //
             $('#sitout' + id).html(jpoker.plugins.playerSelf.templates.sitout.supplant({ sitout: _("sit out") }));
+
             $('#sitout' + id).click(function() {
-                    var info = jpoker.getServerTablePlayer(url, table.id, serial);
-                    if(info.server && info.server.loggedIn()) {
-                        server.sendPacket({ 'type': 'PacketPokerSitOut',
-                                    'game_id': table.id,
-                                    'serial': serial });
-                        $(this).hide();
-                    }
-                    return false;
-                }).hover(function(){
-                        $(this).addClass('hover');
-                    },function(){
-                        $(this).removeClass('hover');
-                    });
-
-
-            $('<div id=\'sitout_fold' + id  + '\'>').insertAfter('#sitout' + id).addClass('jpoker_ptable_sitout_fold').html(jpoker.plugins.playerSelf.templates.sitout.supplant({ sitout: _("fold/sit out") })).click(function() {
                 var info = jpoker.getServerTablePlayer(url, table.id, serial);
-                    if(info.server && info.server.loggedIn()) {
-                        info.player.sit_out_fold_sent = true;
-                        server.sendPacket({ 'type': 'PacketPokerSitOut',
-                                    'game_id': table.id,
-                                    'serial': serial });
-                        server.sendPacket({ 'type': 'PacketPokerFold',
-                                    'game_id': table.id,
-                                    'serial': serial });
-                        $(this).hide();
-                    }
-                    return false;
-                }).hover(function(){
-                        $(this).addClass('hover');
-                    },function(){
-                        $(this).removeClass('hover');
-                    });
+                if(info.server && info.server.loggedIn()) {
+                    server.sendPacket({ 'type': 'PacketPokerSitOut',
+                                'game_id': table.id,
+                                'serial': serial });
+                    $(this).hide();
+                }
+                return false;
+            }).hover(function(){
+                $(this).addClass('hover');
+            },function(){
+                $(this).removeClass('hover');
+            });
+
+
+            $('<div id=\'sitout_fold' + id  + '\'>')
+              .insertAfter('#sitout' + id)
+              .addClass('jpoker_ptable_sitout_fold')
+              .html(jpoker.plugins.playerSelf.templates.sitout.supplant({ sitout: _("fold/sit out") }))
+              .click(function() {
+                  var info = jpoker.getServerTablePlayer(url, table.id, serial);
+                      if(info.server && info.server.loggedIn()) {
+                          info.player.sit_out_fold_sent = true;
+                          server.sendPacket({ 'type': 'PacketPokerSitOut',
+                                      'game_id': table.id,
+                                      'serial': serial });
+                          server.sendPacket({ 'type': 'PacketPokerFold',
+                                      'game_id': table.id,
+                                      'serial': serial });
+                          $(this).hide();
+                      }
+                      return false;
+              }).hover(function(){
+                  $(this).addClass('hover');
+              },function(){
+                  $(this).removeClass('hover');
+              });
 
             //
             // sitin
@@ -4677,22 +4695,24 @@
             // autoaction
             //
             var auto_action_element = $('#auto_action' + id).html(jpoker.plugins.playerSelf.templates.auto_action.supplant({
-                        id: id,
-                        auto_check_fold_label: _("Check/Fold"),
-                        auto_check_call_label: _("Check/Call any"),
-                        auto_raise_label: _("Raise"),
-                        auto_check_label: _("check"),
-                        auto_call_label: _("Call")
-                    }));
+                id: id,
+                auto_check_fold_label: _("Check/Fold"),
+                auto_check_call_label: _("Check/Call any"),
+                auto_raise_label: _("Raise"),
+                auto_check_label: _("check"),
+                auto_call_label: _("Call")
+            }));
+
             $('.jpoker_auto_action', auto_action_element).hide();
+
             $('input[type=checkbox]', auto_action_element).click(function() {
-                    var clicked = this;
-                    $('input[type=checkbox]', auto_action_element).each(function() {
-                            if (this != clicked) {
-                                this.checked = false;
-                            }
-                        });
+                var clicked = this;
+                $('input[type=checkbox]', auto_action_element).each(function() {
+                    if (this != clicked) {
+                        this.checked = false;
+                    }
                 });
+            });
 
             //
             // hand strength
