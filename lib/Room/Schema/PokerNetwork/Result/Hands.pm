@@ -77,90 +77,64 @@ sub get_amounts {
 }
 
 sub get_parsed_history {
-  my $self = shift;
-  my $parsed_history;
-  my @players;
-  my %players_by_id;
 
-  my $h = $self->__parse_hands();
+    my $self = shift;
+    my ($parsed_history, @players, %players_by_id);
 
-  ## state of the hand history
-  ## flop = 1
-  ## turn = 2
-  ## river = 3
+    my $h = $self->__parse_hands();
 
-  my $handstate = -1;
-  my @flop;
-  my @turn;
-  my @river;
-  my $showdown;
-  my $rakeindex;
+    my ($handstate, @flop, @turn, @river, $showdown, $rakeindex);
+    my %rounds = ( 'pre-flop' => 0, 'flop' => 1, 'turn' => 2, 'river' => 3 ); 
 
-  for(my $y = 0; $y < @{$h}; $y = $y + 1)
-  {
-	my $x = $h->[$y];
-	if($x->[0] eq "round")
-	{
-		switch($x->[1])
-		{
-			# store the flop so we can recreate turn and river
-			case 'flop' 	{ if($handstate < 1) { $handstate = 1; } }
-			case 'turn' 	{ if($handstate < 2) { $handstate = 2; } }
-			case 'river' 	{ if($handstate < 3) { $handstate = 3; } }
-		}
-	}
-	# Save the showdown.  This only exists if state != 3
-	if($x->[0] eq "showdown")
-	{
-		
-		$showdown = $x->[1];
-		@flop 	= ($showdown->[0],$showdown->[1],$showdown->[2]);
-		if($handstate != 3)
-		{
-			@turn 	= ($showdown->[0],$showdown->[1],$showdown->[2],$showdown->[3]);
-			@river	= ($showdown->[0],$showdown->[1],$showdown->[2],$showdown->[3],$showdown->[4]);
-		}
-	}
+    for(my $y = 0; $y < @{$h}; $y = $y + 1) {
+        my $x = $h->[$y];
 
-	if($x->[0] eq "rake")
-	{
-		$rakeindex = $y;
-	}
-  }
+        if($x->[0] eq "round") {
+          $handstate = $x->[1];
+        }
 
-  my @turnblob = ('round','turn',\@turn);
-  my @riverblob = ('round','river',\@river);
+        # Save the showdown.  This only exists if state ne 'river'
+        if($x->[0] eq "showdown") {
+          $showdown = $x->[1];
 
-  if($handstate == 2)
-  {
-  	splice(@{$h},$rakeindex, 0, @riverblob);
-  }
+          @flop = @{$showdown}[0..2];
+          @turn = @{$showdown}[0..3];
+          @river = @{$showdown}[0..4];
+        }
 
-  if($handstate == 1)
-  {
-  	splice(@{$h},$rakeindex , 0, \@turnblob );
-  	splice(@{$h},$rakeindex + 1, 0, \@riverblob);
-  }
-
-  $parsed_history->{game_history} = $h;
-  $parsed_history->{self} = $self;
-
-  foreach my $uid (@{$h->[0]->[7]}) {
-    my $player = $self->result_source->schema->resultset("Users")->find($uid);
-    push @players, $player;
-
-    if (! $player) {
-      $player = $self->result_source->schema->resultset("Users")->new({
-          serial => $uid,
-          name => 'Anonymous',
-      });
+        if($x->[0] eq "rake") {
+            $rakeindex = $y;
+        }
     }
 
-    $players_by_id{$player->serial} = $player;
-  }
-  $parsed_history->{players} = \@players;
-  $parsed_history->{players_by_id} = \%players_by_id;
-  return $parsed_history;
+    my @flopblob = ('round','flop',\@flop);
+    my @turnblob = ('round','turn',\@turn);
+    my @riverblob = ('round','river',\@river);
+
+    splice(@{$h}, $rakeindex, 0, \@riverblob) unless $rounds{ $handstate } > 2;
+    splice(@{$h}, $rakeindex, 0, \@turnblob) unless $rounds{ $handstate } > 1;
+    splice(@{$h}, $rakeindex, 0, \@flopblob) unless $rounds{ $handstate } > 0;
+
+    $parsed_history->{game_history} = $h;
+    $parsed_history->{self} = $self;
+
+    foreach my $uid (@{$h->[0]->[7]}) {
+        my $player = $self->result_source->schema->resultset("Users")->find($uid);
+        push @players, $player;
+
+        if (! $player) {
+            $player = $self->result_source->schema->resultset("Users")->new({
+                serial => $uid,
+                name => 'Anonymous',
+            });
+        }
+
+        $players_by_id{$player->serial} = $player;
+    }
+
+    $parsed_history->{players} = \@players;
+    $parsed_history->{players_by_id} = \%players_by_id;
+    return $parsed_history;
 }
 
 sub println { local $,=""; print +( @_ ? @_ : $_ ), "\n\n" }
