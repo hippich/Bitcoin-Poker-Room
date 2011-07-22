@@ -47,6 +47,17 @@ sub index :Chained('base') :PathPart('') :Args(0) {
   my $row = $rs->first;
 
   $c->stash->{total_ingame_balance} = $row->get_column('total_amount') / 10000;
+
+  $rs = $c->model("PokerNetwork::User2Table")->search(
+            {},
+            {
+              '+select' => [{ SUM => 'money + bet' }],
+              '+as'     => [qw/total_on_tables/],
+           });
+
+  $row = $rs->first;
+
+  $c->stash->{total_ingame_on_tables} = $row->get_column('total_on_tables') / 10000;
 }
 
 

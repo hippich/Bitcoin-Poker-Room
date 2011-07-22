@@ -7,4 +7,7 @@
   
   <dt>Current In Game Bitcoin accounts total balance:</dt>
   <dd>[% total_ingame_balance %]</dd>
+
+  <dt>Current money on tables:</dt>
+  <dd>[% total_ingame_on_tables %]</dd>
 </dl>
