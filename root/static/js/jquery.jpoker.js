@@ -1252,6 +1252,9 @@
                 server.spawnTable(server, packet);
                 break;
 
+                // The server sends a PacketPokerMessage when broadcasting
+                // informative announcements to players, such as scheduled
+                // maintenance.
                 case 'PacketPokerMessage':
                 case 'PacketPokerGameMessage':
                 jpoker.dialog(packet.string);
