@@ -2705,12 +2705,25 @@ class PokerService(service.Service):
             self.error("deleted %d rows (expected 1): %s " % ( cursor.rowcount, sql ))
         cursor.close()
 
-    def broadcast(self, packet):
+    def broadcast_to_all(self, packet):
+        """
+        Broadcasts a packet to all clients.
+        """
         for avatar in self.avatars:
-            if hasattr(avatar, "protocol") and avatar.protocol:
+            avatar.sendPacketVerbose(packet)
+
+    def broadcast_to_player(self, packet, player_serial):
+        """
+        Broadcasts a packet to a specific player.
+
+        Returns True if the message was sent successfully (i.e. a player with
+        serial `player_serial` is currently logged in).
+        """
+        for avatar in self.avatars:
+            if avatar.getSerial() == player_serial:
                 avatar.sendPacketVerbose(packet)
-            else:
-                self.message("broadcast: avatar %s excluded" % str(avatar))
+                return True
+        return False
 
     def messageCheck(self):
         cursor = self.db.cursor()
@@ -2718,7 +2731,7 @@ class PokerService(service.Service):
                        "       sent = 'n' AND send_date < FROM_UNIXTIME(" + str(int(seconds())) + ")")
         rows = cursor.fetchall()
         for (serial, message) in rows:
-            self.broadcast(PacketMessage(string = message))
+            self.broadcast_to_all(PacketMessage(string = message))
             cursor.execute("UPDATE messages SET sent = 'y' WHERE serial = %d" % serial)
         cursor.close()
         self.cancelTimer('messages')

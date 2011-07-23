@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import BaseHTTPServer
 import optparse
 import sys
 import time
@@ -9,11 +10,7 @@ import urllib2
 import oauth2
 
 
-class RequestError(Exception):
-    pass
-
-
-def build_request(url, key, secret, method='GET'):
+def build_request(url, key, secret, body=''):
     """Returns a signed HMAC_SHA1 oauth2.Request object."""
     consumer = oauth2.Consumer(key=key, secret=secret)
     params = {
@@ -23,47 +20,80 @@ def build_request(url, key, secret, method='GET'):
         'oauth_consumer_key': consumer.key
     }
 
-    req = oauth2.Request(method=method, url=url, parameters=params)
+    method = 'GET'
+    if body is not '':
+        method = 'POST'
+
+    req = oauth2.Request(method=method, url=url, body=body,
+                         parameters=params)
     signature_method = oauth2.SignatureMethod_HMAC_SHA1()
     req.sign_request(signature_method, consumer, None)
     return req
 
 
-def perform_api_request(url, key, secret):
-    request = build_request(url, key, secret)
-    request_url = request.to_url()
+def __perform_api_request(request):
+    url = request.to_url()
+    body = request.body
 
-    print 'REQUEST:', urllib2.unquote(request_url)
-
-    response_code = 200
-    response_data = None
+    response_code = None
+    response_data = ''
+    response_headers = {}
     try:
-        u = urllib2.urlopen(request_url)
-        response_data = u.read()
-    except urllib2.HTTPError, e:
-        response_code = e.code
-        response_data = e.read()
+        request = urllib2.Request(url)
+        if body is not '':
+            headers = {'Content-Type': 'application/json',
+                       'Content-Length': str(len(body))}
+            request = urllib2.Request(url, body, headers)
+        response = urllib2.urlopen(request)
+        response_code = response.code
+        response_headers = response.info()
+        response_data = response.read()
     except urllib2.URLError, e:
-        raise RequestError(e)
+        if hasattr(e, 'reason'):
+            print 'Failed to perform request: ', e.reason
+            return
+        elif hasattr(e, 'code'):
+            response_code = e.code
+            response_headers = e.info()
+            response_data = e.read()
 
-    print 'RESPONSE: [%d] %s' % (response_code, response_data)
+    status = BaseHTTPServer.BaseHTTPRequestHandler.responses[response_code][0]
+    print 'Status:', response_code, status
+    for header in response_headers:
+        print header, ':', response_headers[header]
+    print
+    print response_data
 
 
 if __name__ == '__main__':
-    usage = '%prog [OPTIONS] URL'
+    usage = '%prog [--sign] [-k|--key <API_KEY>] [-s|--secret <SECRET>] '\
+            '[-b|--body <BODY>] <URL>'
     parser = optparse.OptionParser(usage=usage)
     parser.add_option('-k', '--key', dest='key', metavar='API_KEY',
-                      help='required')
+                      help='Required')
     parser.add_option('-s', '--secret', dest='secret', metavar='SECRET',
-                      help='required')
+                      help='Required')
+    parser.add_option('-b', '--body', dest='body', default='', metavar='BODY',
+                      help='If specified, a POST request will be '
+                           'performed with BODY as the request body.')
+    parser.add_option('--sign', action='store_true', dest='sign',
+                      help='Generates a signed request URL. Does not perform '
+                           'the request.')
     options, args = parser.parse_args()
-    try:
-        url = args[0]
-        key = options.key
-        secret = options.secret
-    except Exception, e:
+
+    key = options.key
+    secret = options.secret
+    body = options.body
+
+    if len(args) < 1 or key is None or secret is None:
         parser.print_help()
-        print e
         sys.exit(1)
 
-    perform_api_request(url, key, secret)
+    url = args[0]
+
+    request = build_request(url, key, secret, body)
+
+    print '\n', urllib2.unquote(request.to_url()), '\n'
+
+    if not options.sign:
+        __perform_api_request(request)

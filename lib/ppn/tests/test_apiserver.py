@@ -7,7 +7,7 @@ from twisted.web import http, server
 from twisted.web.test.test_web import DummyRequest
 
 from pokernetwork import apiclient
-from pokernetwork.apiserver import OAuthResource
+from pokernetwork import apiserver
 
 
 class DummyHTTPHeaders:
@@ -20,19 +20,16 @@ class OAuthRequest(DummyRequest):
         DummyRequest.__init__(self, [''])
         self.requestHeaders = DummyHTTPHeaders()
 
-
     def URLPath(self):
         return self.uri
 
 
-def _build_dummy_request(key, secret, method='GET'):
+def _build_dummy_request(key, secret, body=''):
     dummy_request = OAuthRequest()
     oauth2_request = apiclient.build_request(dummy_request.uri, key, secret,
-                                             method)
-    print 'OAuth2 signed URL:\n', oauth2_request.to_url()
+                                             body)
     for arg, value in oauth2_request.iteritems():
         dummy_request.addArg(arg, value)
-    print 'Dummy URLPath:\n', dummy_request.URLPath()
     return dummy_request
 
 
@@ -40,20 +37,19 @@ class MockAPISecretStore(object):
     def __init__(self, secrets):
         self.secrets = secrets
 
-
     def get_secret(self, key):
         if key in self.secrets:
             return self.secrets[key]
         return None
 
 
-class MockOAuthResource(OAuthResource):
+class MockOAuthResource(apiserver.OAuthResource):
     def __init__(self, secret_store):
-        OAuthResource.__init__(self, secret_store)
+        apiserver.OAuthResource.__init__(self, secret_store)
 
     def render_GET(self, request):
         request.setResponseCode(http.OK)
-        return "success"
+        return "{}"
 
 
 def _render(resource, request):
@@ -88,23 +84,19 @@ class OAuthResourceTests(unittest.TestCase):
         d.addCallback(rendered)
         return d
 
-
     def test_successful_oauth_request(self):
         request = _build_dummy_request(self.key, self.secret)
+        print request
         return self._test_request(request, http.OK)
-
 
     def test_bad_oauth_request(self):
         return self._test_request(OAuthRequest(), http.BAD_REQUEST)
-
 
     def test_unauthorized_oauth_request_bad_secret(self):
         request = _build_dummy_request(self.key, 'bad_secret')
         return self._test_request(request, http.UNAUTHORIZED)
 
-
     def test_unauthorized_oauth_request_bad_key(self):
         request = _build_dummy_request('bad_key', self.secret)
         self.resource.render(request)
         self.assertEquals(request.responseCode, http.UNAUTHORIZED)
-
