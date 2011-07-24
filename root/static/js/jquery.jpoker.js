@@ -831,7 +831,8 @@
                     try {
                         this.notify(id, packet);
                     } catch(e) {
-                        this.error(e); // delegate exception handling to the error function
+                        var error = 'ID: ' + id + ', Packet: ' + JSON.stringify(packet) + ', ' + e;
+                        this.error(error); // delegate exception handling to the error function
                         return false; // error will throw and this statement will never be reached
                     }
                     return true;
