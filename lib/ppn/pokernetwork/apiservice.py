@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from pokernetwork import tableconfigutils
+import pokerpackets
 
 
 class Error(RuntimeError):
@@ -14,6 +14,20 @@ class APIService(object):
 
     def __init__(self, poker_service):
         self.poker_service = poker_service
+
+    def broadcast_to_all(self, message):
+        """
+        Broadcasts a PacketPokerMessage packet to all clients.
+        """
+        packet = pokerpackets.PacketPokerMessage(string=message)
+        self.poker_service.broadcast_to_all(packet)
+
+    def broadcast_to_player(self, message, player_serial):
+        """
+        Broadcasts a PacketPokerMessage packet to a specific player.
+        """
+        packet = pokerpackets.PacketPokerMessage(string=message)
+        return self.poker_service.broadcast_to_player(packet, player_serial)
 
     def get_active_tables(self):
         """Returns a list of pokernetwork.pokertable.PokerTable objects

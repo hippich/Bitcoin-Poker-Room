@@ -44,7 +44,13 @@ def fromutf8(tree, encoding = 'ISO-8859-1'):
     return __walk(tree, lambda x: x.encode(encoding))
 
 def toutf8(tree, encoding = 'ISO-8859-1'):
-    return __walk(tree, lambda x: unicode(x, encoding))
+    # make sure we do not decode a string that is already Unicode, otherwise
+    # we'll get a "TypeError: decoding Unicode is not supported"
+    def convert(s):
+        if isinstance(s, unicode):
+            return s
+        return unicode(s, encoding)
+    return __walk(tree, convert)
 
 def __walk(tree, convert):
     if type(tree) is TupleType or type(tree) is ListType:
@@ -156,7 +162,7 @@ class Session(server.Session):
         self.site.resource.service.destroyAvatar(self.avatar)
         del self.avatar
         self.expired = True
-    
+
     def checkExpired(self):
         try:
             #
@@ -171,7 +177,7 @@ class Session(server.Session):
             return True
         except KeyError:
             return False
-        
+
 class PokerResource(resource.Resource):
 
     def __init__(self, service):
@@ -226,7 +232,7 @@ class PokerResource(resource.Resource):
                 self.error("(%s:%s) " % request.findProxiedIP() + str(body))
             if not request.finished:
                 request.finish()
-                    
+
             #
             # Return a value that is not a Failure so that the next
             # incoming request is accepted (otherwise the server keeps
@@ -322,7 +328,7 @@ class PokerImageUpload(resource.Resource):
         session = request.getSession()
         if session.avatar.isLogged():
             serial = request.getSession().avatar.getSerial()
-            data = request.args['filename'][0]    
+            data = request.args['filename'][0]
             packet = PacketPokerPlayerImage(image = base64.b64encode(data), serial = serial)
             self.service.setPlayerImage(packet)
             result_string = 'image uploaded'
@@ -466,13 +472,13 @@ class PokerSite(server.Site):
     # prevent calling the startFactory method of site.Server
     # to disable loging.
     #
-    def startFactory(self): 
+    def startFactory(self):
         pass
-        
-    def stopFactory(self): 
+
+    def stopFactory(self):
         for key in self.sessions.keys():
             self.sessions[key].expire()
-        
+
     def persistSession(self, session):
         try:
             if len(session.avatar.tables) <= 0 and len(session.avatar.tourneys) <= 0 and (not session.avatar.explain or len(session.avatar.explain.games.getAll()) <= 0):
@@ -486,7 +492,7 @@ class PokerSite(server.Site):
         if self.resthost:
             self.memcache.set(session.uid, self.resthost, time = self.cookieTimeout)
         return True
-        
+
     def updateSession(self, session):
         try:
           serial = session.avatar.getSerial()
@@ -563,14 +569,14 @@ class PokerSite(server.Site):
                 self.makeSessionFromUidAuth(uid, auth, explain).memcache_serial = memcache_serial
                 if memcache_serial > 0:
                     self.sessions[uid].avatar.relogin(memcache_serial)
-                
+
         return self.sessions[uid]
 
     def makeSessionFromUidAuth(self, uid, auth, explain):
         session = self.sessions[uid] = self.sessionFactory(self, uid, auth, explain)
         session.startCheckingExpiration(self.sessionCheckTime)
         return session
-        
+
     def makeSession(self, uid, auth, explain):
         session = self.makeSessionFromUidAuth(uid, auth, explain)
         session.memcache_serial = 0
