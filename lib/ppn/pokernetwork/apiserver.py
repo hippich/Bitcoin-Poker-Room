@@ -4,6 +4,7 @@
 from contextlib import closing
 from functools import wraps
 import json
+import warnings
 
 import oauth2
 
@@ -27,8 +28,13 @@ class APIUserStore(object):
 
     def __create_table_if_not_exists(self):
         with closing(self.db.cursor()) as cursor:
-            cursor.execute(self.SCHEMA)
-            self.db.commit()
+            # MySQLdb raises a warning when api_users already exists:
+            # "Warning: Table 'api_users' already exists
+            # cursor.execute(self.SCHEMA)"
+            with warnings.catch_warnings():
+                warnings.filterwarnings('ignore', "Table '\w+' already exists")
+                cursor.execute(self.SCHEMA)
+                self.db.commit()
 
     def get_secret(self, api_key):
         """
