@@ -42,6 +42,7 @@ requires 'Catalyst::Plugin::RequireSSL';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Authentication::Store::DBIx::Class';
 requires 'Catalyst::Model::Bitcoin';
+requires 'HTML::FormFu::Model::DBIC';
 
 
 test_requires 'Test::More' => '0.88';
