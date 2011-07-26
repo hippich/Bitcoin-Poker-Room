@@ -96,6 +96,7 @@ from pokernetwork import pokeravatar
 from pokernetwork.user import User
 from pokernetwork import pokercashier
 from pokernetwork import pokernetworkconfig
+from pokernetwork import tableconfigutils
 from pokerauth import get_auth_instance
 from datetime import date
 
@@ -265,6 +266,9 @@ class PokerService(service.Service):
             self.tourney_select_info = module.Handle(self, s)
             getattr(self.tourney_select_info, '__call__')
 
+    def get_table_descriptions(self):
+        return tableconfigutils.get_table_descriptions(self.settings)
+
     def startService(self):
         self.monitors = []
         self.setupTourneySelectInfo()
@@ -314,8 +318,10 @@ class PokerService(service.Service):
             except locale.Error, le:
                 self.error('Unable to restore original locale: %s' % le)
 
-        for description in self.settings.headerGetProperties("/server/table"):
-            self.createTable(0, description)
+        table_descriptions = self.get_table_descriptions()
+        for table_description in table_descriptions:
+            self.createTable(0, table_description)
+
         self.cleanupTourneys()
         self.updateTourneysSchedule()
         self.messageCheck()
@@ -2667,7 +2673,7 @@ class PokerService(service.Service):
         return table
 
     def cleanupCrashedTables(self):
-        for description in self.settings.headerGetProperties("/server/table"):
+        for description in self.get_table_descriptions():
             self.cleanupCrashedTable("pokertables.name = %s" % self.db.literal((description['name'],)))
         self.cleanupCrashedTable("pokertables.resthost_serial = %d" % self.resthost_serial)
 
@@ -2699,12 +2705,25 @@ class PokerService(service.Service):
             self.error("deleted %d rows (expected 1): %s " % ( cursor.rowcount, sql ))
         cursor.close()
 
-    def broadcast(self, packet):
+    def broadcast_to_all(self, packet):
+        """
+        Broadcasts a packet to all clients.
+        """
         for avatar in self.avatars:
-            if hasattr(avatar, "protocol") and avatar.protocol:
+            avatar.sendPacketVerbose(packet)
+
+    def broadcast_to_player(self, packet, player_serial):
+        """
+        Broadcasts a packet to a specific player.
+
+        Returns True if the message was sent successfully (i.e. a player with
+        serial `player_serial` is currently logged in).
+        """
+        for avatar in self.avatars:
+            if avatar.getSerial() == player_serial:
                 avatar.sendPacketVerbose(packet)
-            else:
-                self.message("broadcast: avatar %s excluded" % str(avatar))
+                return True
+        return False
 
     def messageCheck(self):
         cursor = self.db.cursor()
@@ -2712,7 +2731,7 @@ class PokerService(service.Service):
                        "       sent = 'n' AND send_date < FROM_UNIXTIME(" + str(int(seconds())) + ")")
         rows = cursor.fetchall()
         for (serial, message) in rows:
-            self.broadcast(PacketMessage(string = message))
+            self.broadcast_to_all(PacketMessage(string = message))
             cursor.execute("UPDATE messages SET sent = 'y' WHERE serial = %d" % serial)
         cursor.close()
         self.cancelTimer('messages')

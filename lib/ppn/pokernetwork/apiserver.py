@@ -4,6 +4,7 @@
 from contextlib import closing
 from functools import wraps
 import json
+import warnings
 
 import oauth2
 
@@ -27,8 +28,13 @@ class APIUserStore(object):
 
     def __create_table_if_not_exists(self):
         with closing(self.db.cursor()) as cursor:
-            cursor.execute(self.SCHEMA)
-            self.db.commit()
+            # MySQLdb raises a warning when api_users already exists:
+            # "Warning: Table 'api_users' already exists
+            # cursor.execute(self.SCHEMA)"
+            with warnings.catch_warnings():
+                warnings.filterwarnings('ignore', "Table '\w+' already exists")
+                cursor.execute(self.SCHEMA)
+                self.db.commit()
 
     def get_secret(self, api_key):
         """
@@ -69,9 +75,9 @@ class APIUserStore(object):
             self.db.commit()
 
 
-def _JSON_response(request, status_code, json_obj):
+def _JSON_response(request, status_code=http.OK, response_dict={}):
     request.setResponseCode(status_code)
-    result_string = json.dumps(json_obj)
+    result_string = json.dumps(response_dict, separators=(',', ':'))
     request.setHeader('Content-Type', 'application/json; charset=UTF-8')
     request.setHeader('Cache-Control', 'no-store')
     request.setHeader('Pragma', 'no-cache')
@@ -104,7 +110,7 @@ class OAuthResource(resource.Resource):
         header.
         """
         url = str(request.URLPath())
-        headers = dict(request.requestHeaders.getAllRawHeaders()),
+        headers = dict(request.requestHeaders.getAllRawHeaders())
 
         args = {}
         for key, values in request.args.iteritems():
@@ -133,22 +139,18 @@ class OAuthResource(resource.Resource):
             try:
                 self._validate_request(request)
                 return render_method(self, request)
-            except (oauth2.MissingSignature, ValueError, KeyError), e:
+            except (oauth2.MissingSignature, ValueError, KeyError):
                 status = http.BAD_REQUEST
-                return _JSON_response(request, status,
-                                      {'error': 'bad_request',
-                                       'status': status})
+                return _JSON_response(request, status, {'error': 'bad_request'})
             except oauth2.Error:
                 status = http.UNAUTHORIZED
-                return _JSON_response(request, status,
-                                      {'error': 'unauthorized',
-                                       'status': status})
+                return _JSON_response(request, status, {'error':
+                                                        'unauthorized'})
             except:
                 log.err()
                 status = http.INTERNAL_SERVER_ERROR
                 return _JSON_response(request, status,
-                                      {'error': 'internal_server_error',
-                                       'status': status})
+                                      {'error': 'internal_server_error'})
         return wrapper
 
     @_oauth_protect
@@ -158,11 +160,25 @@ class OAuthResource(resource.Resource):
         """
         m = getattr(self, 'render_' + request.method, None)
         if not m:
-            from twisted.web.error import UnsupportedMethod
             allowedMethods = (getattr(self, 'allowedMethods', 0) or
                               resource._computeAllowedMethods(self))
-            raise UnsupportedMethod(allowedMethods)
+
+            status = http.NOT_ALLOWED
+            description = 'Unsupported method. Allowed methods: %s' \
+                              % str(allowedMethods)
+            json = {'error': 'method_not_allowed',
+                    'error_description': description}
+            request.setHeader('Allow', ', '.join(allowedMethods))
+            return _JSON_response(request, status, json)
         return m(request)
+
+
+def get_json_request_body(request):
+    """
+    Deserializes the request's body into a Python object. See the documentation
+    for json.loads: http://docs.python.org/library/json.html
+    """
+    return json.loads(request.content.read())
 
 
 class RefreshTableConfig(OAuthResource):
@@ -174,7 +190,51 @@ class RefreshTableConfig(OAuthResource):
 
     def render_GET(self, request):
         self.api_service.refresh_table_config()
-        return ''
+        return _JSON_response(request)
+
+
+class BroadcastMessageToPlayerSerial(OAuthResource):
+    def __init__(self, player_serial, api_service, secret_store):
+        OAuthResource.__init__(self, secret_store)
+        self.api_service = api_service
+        self.player_serial = player_serial
+
+    def render_POST(self, request):
+        json_request_body = get_json_request_body(request)
+        message = json_request_body['message']
+        success = self.api_service.broadcast_to_player(message,
+                                                       self.player_serial)
+        if success:
+            return _JSON_response(request)
+        description = 'Could not broadcast message to player with serial %s'\
+                            % self.player_serial
+        response = {'error': 'bad_request', 'error_description': description}
+        return _JSON_response(request, http.BAD_REQUEST, response)
+
+
+class BroadcastMessageToPlayer(OAuthResource):
+    def __init__(self, api_service, secret_store):
+        OAuthResource.__init__(self, secret_store)
+        self.api_service = api_service
+
+    def getChild(self, name, request):
+        player_serial = int(name)
+        return BroadcastMessageToPlayerSerial(player_serial, self.api_service,
+                                              self.secret_store)
+
+
+class BroadcastMessage(OAuthResource):
+    def __init__(self, api_service, secret_store):
+        OAuthResource.__init__(self, secret_store)
+        self.api_service = api_service
+        self.putChild('player', BroadcastMessageToPlayer(api_service,
+                                                         secret_store))
+
+    def render_POST(self, request):
+        json_request_body = get_json_request_body(request)
+        message = json_request_body['message']
+        self.api_service.broadcast_to_all(message)
+        return _JSON_response(request)
 
 
 class Root(resource.Resource):
@@ -182,4 +242,6 @@ class Root(resource.Resource):
         resource.Resource.__init__(self)
         self.putChild('refresh_table_config',
                       RefreshTableConfig(api_service, secret_store))
+        self.putChild('broadcast',
+                      BroadcastMessage(api_service, secret_store))
 
