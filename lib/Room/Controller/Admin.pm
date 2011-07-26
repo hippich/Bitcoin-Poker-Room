@@ -18,19 +18,35 @@ Catalyst Controller.
 
 =cut
 
+=head2 auto 
+
+Protect access to all admin-related actions to users with 
+privilege == 2
+
+=cut
+sub auto :Private {
+  my ($self, $c) = @_;
+
+  if (!$c->user || $c->user->privilege != 2) {
+    $c->res->redirect( '/404-not-found' );
+    return 0;
+  }
+}
+
+
+=head2 base 
+ 
+Beginning of the chain 
+
+=cut
+sub base :Chained :PathPart('admin') :CaptureArgs(0) {
+  my ($self, $c) = @_;
+}
+
 
 =head2 index
 
 =cut
-
-sub base :Chained :PathPart('admin') :CaptureArgs(0) {
-  my ($self, $c) = @_;
-
-  if (!$c->user || $c->user->privilege != 2) {
-    $c->detach( '/default' );
-  }
-}
-
 
 sub index :Chained('base') :PathPart('') :Args(0) {
   my ($self, $c) = @_;
