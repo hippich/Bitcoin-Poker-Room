@@ -2855,13 +2855,15 @@
     //
     // tourneyDetails
     //
-    jpoker.plugins.tourneyDetails = function(url, game_id, name, options) {
+    jpoker.plugins.tourneyDetails = function(url, game_id, name, options, server_options) {
 
         game_id = parseInt(game_id, 10);
 
         var tourneyDetails = jpoker.plugins.tourneyDetails;
         var opts = $.extend({}, tourneyDetails.defaults, options);
-        var server = jpoker.url2server({ url: url });
+
+        server_options.url = url;
+        var server = jpoker.url2server(server_options);
 
         return this.each(function() {
                 var $this = $(this);
