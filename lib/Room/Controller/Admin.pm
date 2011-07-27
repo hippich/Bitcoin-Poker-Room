@@ -31,6 +31,8 @@ sub auto :Private {
     $c->res->redirect( '/404-not-found' );
     return 0;
   }
+
+  1;
 }
 
 
@@ -111,8 +113,7 @@ sub profile :Chained('user') :PathPart('') :Args(0) {}
 
 sub hands :Chained('user') :Args(0) {
   my ($self, $c) = @_;
-  my $page = $c->req->params->{'page'};
-  $page = 1 if $page < 1;
+  my $page = $c->req->params->{'page'} || 1;
 
   $c->stash->{hands} = $c->stash->{user}->hands->search(undef, {
     rows => 50,
