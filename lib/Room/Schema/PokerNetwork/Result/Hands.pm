@@ -71,7 +71,7 @@ sub get_amounts {
   my ($total) = $totals_string =~ /$serial: ([\.\d]+)/;
   my ($share) = $shares_string =~ /$serial: ([\.\d]+)/;
 
-  $share = 0 unless $share > 0;
+  $share = $share || 0;
 
   return {total => $total, share => $share};
 }
