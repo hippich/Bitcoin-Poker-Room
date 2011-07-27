@@ -43,6 +43,7 @@ requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Authentication::Store::DBIx::Class';
 requires 'Catalyst::Model::Bitcoin';
 requires 'HTML::FormFu::Model::DBIC';
+requires 'DBIx::Class::DateTime::Epoch';
 
 
 test_requires 'Test::More' => '0.88';
