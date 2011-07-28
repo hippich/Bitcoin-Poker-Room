@@ -1912,9 +1912,6 @@
 
     jpoker.table.defaults = {
         betThisRound: false,
-        delay: {
-            showdown: 5000
-        }
     };
 
     jpoker.table.prototype = $.extend({}, jpoker.watchable.prototype, {
@@ -2165,7 +2162,6 @@
                     break;
 
                 case 'PacketPokerShowdown':
-                    server.delayQueue(game_id, jpoker.now()+table.delay.showdown);
                     table.notifyUpdate(packet);
                     break;
                 }
