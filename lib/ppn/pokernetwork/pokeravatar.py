@@ -1276,7 +1276,7 @@ class PokerAvatar:
         
     def connectionLost(self, reason):
         if self.service.verbose > 3:
-            self.message("connection lost for %s/%d" % ( self.getName(), self.getSerial() ))
+            self.message("connection lost for %s/%d: %s" % ( self.getName(), self.getSerial(), reason ))
         for table in self.tables.values():
             table.disconnectPlayer(self, self.getSerial())
         self.logout()
