@@ -263,7 +263,7 @@ class PokerResource(resource.Resource):
             #
             if packet.type != PACKET_POKER_LONG_POLL_RETURN:
                 session.site.updateSession(session)
-                session.site.persistSession(session)
+                #session.site.persistSession(session)
             #
             # Format answer
             #
