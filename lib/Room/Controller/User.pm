@@ -69,6 +69,8 @@ sub login :Local :Args(0) :FormConfig {
           $c->res->redirect(
             $c->req->param('destination')
           );
+
+          return 1;
         }
         
         $c->res->redirect(
