@@ -3643,12 +3643,15 @@ class PokerGame:
 
     def maxBuyIn(self, serial = -1):
         if serial not in self.ratholes:
+            if self.verbose >= 6: self.message("maxBuyIn: serial not in ratholes - %d" % ( self.max_buy_in )) 
             return self.max_buy_in
 
         (amount, time) = self.ratholes[serial]
         if (datetime.now() - time).seconds > 15*60 or amount < self.max_buy_in:
+            if self.verbose >= 6: self.message("maxBuyIn: from self.max_buy_in - %d" % ( amount )) 
             return self.max_buy_in
 
+        if self.verbose >= 6: self.message("maxBuyIn: from ratholes - %d" % ( amount )) 
         return amount
 
     def bestBuyIn(self, serial = -1):
