@@ -65,8 +65,8 @@ class PokerRake:
 
         if game.verbose >= 2: game.message("Rake: calculated rake from %d pot as %2.2f (%0.2f from change)" % (rakeablePot, decimalRake, self.change))
 
-        self.change = decimalRake - decimalRake.to_integral()
-        rake = int(decimalRake.to_integral())
+        self.change = decimalRake - decimalRake.to_integral_value(ROUND_DOWN)
+        rake = int(decimalRake.to_integral_value(ROUND_DOWN))
 
         if game.verbose >= 2: game.message("Rake: taking %d rake" % rake)
 
