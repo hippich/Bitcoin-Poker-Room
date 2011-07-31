@@ -74,6 +74,17 @@ sub index :Path :Args(0) {
 }
 
 
+=head2 my 
+
+Return all tables curreny user is sit at.
+
+=cut
+sub my :Local :Args(0) {
+    my ($self, $c) = @_;
+
+    $c->stash->{tables} = $c->user->tables;
+}
+
 =head2 table 
 
 Begin of table actions chain. 

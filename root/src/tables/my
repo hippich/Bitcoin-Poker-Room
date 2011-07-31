@@ -1,0 +1,32 @@
+[% META title = 'My tables' %]
+
+<div class="tables-notice">
+  <p>
+  <strong>Please note:</strong> all bets are in Chips. I.e. 1/2 table have 0.01 BTC small blind and 0.02 BTC big blind.
+  </p>
+</div>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Variant</th>
+    <th>Betting Structure</th>
+    <th>Players</th>
+    <th>Timeout</th>
+    <th>Average pot</th>
+    <th>Hand per hour</th>
+  </tr>
+
+  [% WHILE (table = tables.next) %]
+  <tr>
+    <td><a class="popup-window" rel="table" href="/static/table.html?game_id=[% table.serial %]&auth=[% c.session.pokernetwork_auth %]&uid=[% c.user.serial %]">[% table.name %]</a></td>
+    <td>[% table.variant %]</td>
+    <td>[% table.betting_structure %]</td>
+    <td>[% table.players %]</td>
+    <td>[% table.player_timeout %]</td>
+    <td>[% table.average_pot / 100 %]</td>
+    <td>[% table.hands_per_hour %]</td>
+  </tr>
+  [% END %]
+</table>
+
