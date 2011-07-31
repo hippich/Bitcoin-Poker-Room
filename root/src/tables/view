@@ -1,0 +1,102 @@
+[% META nowrap = 1 %]
+<html>
+  <head>
+  
+    <link rel="stylesheet" type="text/css" href="/static/css/calendar-win2k-cold-1.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpokeradmin.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_chat.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_common.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_login.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_page.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_regular_tourney_list.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_server_status.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_sitngo_tourney_list.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_table_layout.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_table_list.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_table.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_tablepicker.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_tablesorter_pager.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_timeout.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_tourney_details.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_tourney_placeholder.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/jpoker_user_info.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/jquery/ui.1.8/themes/smoothness/jquery.ui.all.css">
+
+    <link rel="stylesheet" type="text/css" href="/static/css/styles_buttons.css">
+
+    <script language="JavaScript" type="text/javascript" src="/static/jquery/jquery-1.5.2.min.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/static/jquery/ui.1.8/ui/jquery-ui-1.8.4.custom.js"></script>
+    
+    <script language="JavaScript" type="text/javascript" src="/static/js/jquery.ajaxretry.js?a"></script>
+    <script language="JavaScript" type="text/javascript" src="/static/js/jquery.ajaxQueue.js?b"></script> 
+    <script language="JavaScript" type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/static/js/jquery.gettext.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/static/js/jquery.tablesorter.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/static/js/jquery.query.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/static/js/jquery.form.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/static/js/json2.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/static/js/jquery.jpoker.js?d"></script>
+    <script language="JavaScript" type="text/javascript" src="/static/js/mockup.js"></script>
+    <script language="JavaScript" type="text/javascript" src="/static/js/bproom.js"></script>
+
+    <script type="text/javascript">
+      $.jpoker.verbose = 2;
+
+      var restURL = "[% url %]";
+      var uid = [% uid %];
+      var auth = "[% auth %]";
+      var game_id = [% table.serial %];
+
+      var table_state = 'open';
+      
+      $(document).ready(function() {
+          var server;
+          
+          jQuery(window).bind(
+              'beforeunload',
+              function() {
+                if (table_state == "open" && uid != "") {
+                  return 'Are you sure you want to leave this table?';
+                }
+              }
+          );
+
+          if ($.jpoker.servers[restURL]) {
+            server = $.jpoker.servers[restURL];
+          }
+          else {
+            server = $.jpoker.url2server({
+              url: restURL,
+              auth: 'auth=' + auth,
+              serial: uid
+            });
+          }
+          
+          server.spawnTable = function(server, packet) {
+            $('#main').empty();
+
+            if (packet.game_id == game_id) {
+              $('#main').jpoker('table', restURL, packet.game_id, packet.name);
+            }
+          }
+          
+          $.jpoker.plugins.table.callback.quit = function(table, packet) {
+            setTimeout(function() { 
+              table_state = 'close';
+              window.close(); 
+            }, 100);
+          };
+
+          server.tableJoin(game_id);
+      });
+    </script>
+  </head>
+  <body>
+
+    <div id="main"></div>
+  
+  </body>
+</html>
+

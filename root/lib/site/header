@@ -4,8 +4,9 @@
 
 <ul class='menu'>
   <li class='first'><a href='[% c.uri_for('/') %]'>Home</a></li>
+  <li><a href='[% c.uri_for('/tables') %]'>Tables</a></li>
   [% IF c.user %]
-    <li><a href='[% c.uri_for('/tables') %]'>Tables</a></li>
+    <li><a href='[% c.uri_for('/tourneys') %]'>Tourneys</a></li>
     <li><a href='[% c.uri_for('/user') %]'>My Account</a></li>
     <li><a href='[% c.uri_for('/user/deposit/bitcoin') %]'>Deposit</a></li>
     <li><a href='[% c.uri_for('/user/withdraw/bitcoin') %]'>Withdraw</a></li>

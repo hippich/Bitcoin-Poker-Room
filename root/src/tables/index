@@ -37,6 +37,13 @@
   </div>
 
   <div class="tables">
+
+    [% IF not c.user %]
+      <div class="non-logged-in-notice">
+        <p>You will need to <a href="[% c.uri_for('/user/login') %]">login</a> in order to sit at any of these tables.</p>
+      </div>
+    [% END %]
+
     <div class="tables-notice">
       <p>
       <strong>Please note:</strong> all bets are in Chips. I.e. 1/2 table have 0.01 BTC small blind and 0.02 BTC big blind.
@@ -58,7 +65,7 @@
 
           [% FOREACH table IN popular_tables %]
           <tr>
-            <td><a class="popup-window" rel="table" href="/static/table.html?game_id=[% table.serial %]&auth=[% c.session.pokernetwork_auth %]&uid=[% c.user.serial %]">[% table.name %]</a></td>
+            <td><a class="popup-window" rel="table" href="[% c.uri_for('/table/' _ table.serial _ '/view') %]">[% table.name %]</a></td>
             <td>[% table.variant %]</td>
             <td>[% table.betting_structure %]</td>
             <td>[% table.players %]</td>

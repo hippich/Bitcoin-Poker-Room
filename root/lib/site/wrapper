@@ -1,4 +1,4 @@
-[% IF template.name.match('\.(css|js|txt)');
+[% IF template.name.match('\.(css|js|txt)') OR nowrap OR template.nowrap;
      debug("Passing page through as text: $template.name");
      content;
    ELSE;

@@ -18,30 +18,11 @@ Catalyst Controller.
 
 =cut
 
-
-sub auto :Private {
-  my ($self, $c) = @_;
-
-  if (! $c->user) {
-    $c->response->redirect(
-      $c->uri_for(
-        '/user/login',
-        '',
-        {
-          'destination' => $c->uri_for( $c->action )
-        }
-      )
-    );
-  }
-
-  1;
-}
-
-
 =head2 index
 
-=cut
+Show list of all existing tables.
 
+=cut
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
@@ -90,6 +71,34 @@ sub index :Path :Args(0) {
     $c->stash->{tables} = $tables;
     $c->stash->{tables_structure} = $tables_structure;
     $c->stash->{popular_tables} = \@popular_tables;
+}
+
+
+=head2 table 
+
+Begin of table actions chain. 
+
+=cut
+sub table :Chained :CaptureArgs(1) {
+    my ($self, $c, $game_id) = @_;
+
+    $c->stash->{table} = $c->model('PokerNetwork::Pokertables')->find($game_id);
+
+    $c->redirect('/404-not-found') unless $c->stash->{table};
+
+    $c->stash->{url} = $c->config->{rest_url} || '/POKER_REST';
+    $c->stash->{uid} = ($c->user) ? $c->user->serial : 0;
+    $c->stash->{auth} = $c->session->{pokernetwork_auth} || 'N';
+}
+
+
+=head2 view 
+
+View table 
+
+=cut 
+sub view :Chained('table') :Args(0) {
+    my ($self, $c) = @_;
 }
 
 =head1 AUTHOR
