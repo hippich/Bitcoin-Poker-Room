@@ -149,7 +149,7 @@ class PokerService(service.Service):
 
     implements(IPokerService)
 
-    def __init__(self, settings, db):
+    def __init__(self, settings):
         if type(settings) is StringType:
             settings_object = pokernetworkconfig.Config(['.'])
             settings_object.doc = libxml2.parseMemory(settings, len(settings))
@@ -201,7 +201,7 @@ class PokerService(service.Service):
             self.refill = refill[0]
         else:
             self.refill = None
-        self.db = db
+        self.db = None
         self.cashier = None
         self.poker_auth = None
         self.timer = {}
@@ -271,6 +271,7 @@ class PokerService(service.Service):
 
     def startService(self):
         self.monitors = []
+        self.db = PokerDatabase(self.settings)
         self.setupTourneySelectInfo()
         self.setupLadder()
         self.setupResthost()

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<bet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="bet.xsd" name="30-60 limit" table-stakes="yes" unit="500" buy-in="15000" best-buy-in="90000" max-buy-in="100000000" poker_engine_version="1.3.6">
+
+    <description>Limit 30/60</description>
+
+    <blind small="1500" big="3000"/>
+
+    <all_in method="side"/> 
+
+    <variants ids="omaha omaha8 holdem">
+      <round name="pre-flop" fixed="3000" cap="3"/>
+      <round name="flop" fixed="3000" cap="3"/>
+      <round name="turn" fixed="6000" cap="3"/>
+      <round name="river" fixed="6000" cap="3"/>
+    </variants>
+
+    <variants ids="7stud 7stud8">
+      <round name="pre-flop" fixed="3000" cap="3"/>
+      <round name="third" fixed="3000" cap="3"/>
+      <round name="fourth" fixed="3000" cap="3"/>
+      <round name="fifth" fixed="6000" cap="3"/>
+      <round name="sixth" fixed="6000" cap="3"/>
+      <round name="seventh" fixed="6000" cap="3"/>
+    </variants>
+</bet>

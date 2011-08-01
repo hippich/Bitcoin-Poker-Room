@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- 
+   session_timeout must be at least 6 x session_check
+   session_check must be at lower than ping
+   cookie_timeout must be greater than session_timeout
+   if a PHPSESSID is involved (auth module) cookie_timeout must be 
+      greater than PHPSESSID timeout
+ -->
+<server xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="server.xsd" ping="20" autodeal="yes" max_joined="4000" max_queued_client_packets="500" cleanup="yes" simultaneous="4" max_missed_round="5" verbose="0" chat="yes" memcached="127.0.0.1:11211" session_timeout="60" session_check="10" cookie_timeout="1200" sng_timeout="3600" long_poll_timeout="20" remove_completed="1" admin="false" poker_network_version="2.0.0">
+
+<!-- max_queued_client_packets defaults to 500 if you leave it out.
+     max_missed_round defaults to 10 if you leave it out.
+     max_joined defaults to 4000 if you leave it out.  -->
+
+  <language value="en.ISO-8859-1"/>
+  <language value="en_US.ISO-8859-1"/>
+  <language value="en_GB.ISO-8859-1"/>
+  <language value="en_CA.ISO-8859-1"/>
+  <language value="fr_FR.ISO-8859-1"/>
+  <language value="fr.ISO-8859-1"/>
+  <language value="fr_FX.ISO-8859-1"/>
+  <language value="fr_BE.ISO-8859-1"/>
+  <language value="fr_CA.ISO-8859-1"/>
+  <language value="de.ISO-8859-1"/>
+  <language value="de_DE.ISO-8859-1"/>
+  <language value="es.ISO-8859-1"/>
+  <language value="es_ES.ISO-8859-1"/>
+  <language value="nl.ISO-8859-1"/>
+  <language value="nl_NL.ISO-8859-1"/>
+  <language value="it.ISO-8859-1"/>
+  <language value="it_IT.ISO-8859-1"/>
+  <language value="pt.ISO-8859-1"/>
+  <language value="pt_PT.ISO-8859-1"/>
+  <language value="da.ISO-8859-1"/>
+  <language value="da_DK.ISO-8859-1"/>
+  <language value="fi.ISO-8859-1"/>
+  <language value="fi_FI.ISO-8859-1"/>
+  <language value="nb.ISO-8859-1"/>
+  <language value="nb_NO.ISO-8859-1"/>
+  <language value="sv.ISO-8859-1"/>
+  <language value="sv_SE.ISO-8859-1"/>
+
+<!-- language settings above are for client-side localization support, set
+     via the PacketPokerSetLocale().  Note that *only* ISO-8859-1 codesets
+     are currently supported!  If you use ISO-8859-1 codsets, clients
+     using the JSON interface (and perhaps even the packet interface) will
+     receive *incorrectly encoded* strings.  -->
+
+  <stats type="RankPercentile"/>
+
+<!-- the stats setting has one argument, type, that should match a Lookup
+     class implemented in pokernetwork/userstats.py. Only one <stats> tag
+     is permitted. -->
+
+  <delays autodeal_tournament_min="15" autodeal="18" autodeal_max="120" autodeal_check="15" round="12" position="60" showdown="30" finish="18" messages="60" breaks_check="30" extra_wait_tourney_break="60" extra_wait_tourney_start="60" extra_wait_tourney_finish="30"/>
+
+<!-- extra_waits are additional wait times before hands are dealt at
+     various points of the tourney (and at the end).  If they are left
+     out, they all default to 0.
+  -->
+
+  <table name="One" variant="holdem" betting_structure="2-4-limit" seats="10" player_timeout="60" currency_serial="1" max_missed_round="2"/>
+  <table name="Two" variant="holdem" betting_structure="10-20-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Three" variant="holdem" betting_structure="10-20-pot-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Four" variant="holdem" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Antigua" variant="holdem" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Cairo" variant="holdem" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Mont" variant="holdem" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Nancy" variant="holdem" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Corail" variant="holdem" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Legend" variant="holdem" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Chip" variant="holdem" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Relax" variant="holdem" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Speed" variant="holdem" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Un" variant="holdem" betting_structure="2-4-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Deux" variant="holdem" betting_structure="10-20-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Trois" variant="holdem" betting_structure="10-20-pot-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Quatre" variant="holdem" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+
+  <table name="Five" variant="omaha" betting_structure="2-4-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Six" variant="omaha" betting_structure="10-20-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Seven" variant="omaha" betting_structure="10-20-pot-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Eight" variant="omaha" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+
+  <table name="Nine" variant="omaha8" betting_structure="2-4-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Ten" variant="omaha8" betting_structure="10-20-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Eleven" variant="omaha8" betting_structure="10-20-pot-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Twelve" variant="omaha8" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+
+  <table name="Thirty" variant="7stud" betting_structure="ante-10-20-limit" seats="8" player_timeout="60" currency_serial="1"/>
+  <table name="Fourty" variant="7stud" betting_structure="ante-5-10-limit" seats="8" player_timeout="60" currency_serial="1"/>
+
+  <table name="Lyearnys" variant="holdem" betting_structure=".02-.04-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Ingwskel" variant="holdem" betting_structure=".05-.10-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Cerrt" variant="holdem" betting_structure=".10-.25-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Therrd" variant="holdem" betting_structure=".25-.50-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Issgar" variant="holdem" betting_structure=".50-1-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Torray" variant="holdem" betting_structure="1-2-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Uskeluina" variant="holdem" betting_structure="2-4-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Oilde" variant="holdem" betting_structure="3-6-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Cheper" variant="holdem" betting_structure="5-10-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Syfar" variant="holdem" betting_structure="10-20-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Rhoine" variant="holdem" betting_structure="30-60-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Mosolor" variant="holdem" betting_structure="50-100-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+  <table name="Cayrryns" variant="holdem" betting_structure="100-200-no-limit" seats="10" player_timeout="60" currency_serial="1"/>
+
+  <listen tcp="19380" tcp_ssl="19381" http="19382" http_ssl="19383" rest="19384" rest_ssl="19385"/>
+  <!-- <listen ... manhole="%(manhole_port)i" />  -->
+  <!-- manhole is useful for debugging, use with telnet admin/admin, 
+       however, it can be a security risk and should be used only during debugging -->
+  <!-- <resthost host="localhost" port="19384" path="/POKER_REST" /> -->
+
+  <!-- <auth script="/usr/local/share/poker-network/pokerauth.py"/> -->
+
+  <!-- <rest_filter>/usr/share/pyshared/pokernetwork/nullfilter.py</rest_filter> -->
+  <!-- <rest_filter>/usr/share/pyshared/pokernetwork/sessionproxyfilter.py</rest_filter> -->
+  <!-- <tourney_select_info settings="/etc/poker/poker.prizes.xml">/usr/share/pyshared/pokernetwork/tourneyselectinfo.py</tourney_select_info> -->
+  <cashier acquire_timeout="5" pokerlock_queue_timeout="30" user_create="yes"/>
+  <refill serial="1" amount="5000000"/>
+  <database name="@POKER_DATABASE@" host="@POKER_DBHOST@" port="3306" user="@POKER_DBUSER@" password="@POKER_DBUSER_PASSWORD@" root_user="@POKER_DBROOT@" root_password="@POKER_DBROOT_PASSWORD@" schema="@POKER_NETWORK_PKGDATADIR@/schema.sql" command="@MYSQL@"/>
+  <path>@POKER_ENGINE_PKGSYSCONFDIR@ @POKER_NETWORK_PKGSYSCONFDIR@</path>
+  <users temporary="BOT"/>
+</server>

@@ -1,0 +1,22 @@
+<?xml version='1.0'  encoding='iso-8859-1' ?>
+<server xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="server.xsd"
+  	autodeal="yes"
+    simultaneous="4"
+    verbose="3"
+    chat="yes" >
+
+  <delays autodeal="3" round="2" position="1" showdown="7" finish="3" />
+  
+  <table name="Fourty"	variant="7stud" betting_structure="ante-5-10-limit" seats="8" player_timeout="60" custom_money="0" />
+
+  <listen tcp="19480"
+          tcp_ssl="19481" 
+          http="19482" 
+          http_ssl="19483" />
+
+  <database name="pokernetworktest" host="localhost" user="pokernetworktest" password="pokernetwork"
+            command="/usr/bin/mysql" />
+  <path>/etc/poker-engine ../conf</path> 
+  <users temporary="BOT" />
+</server>

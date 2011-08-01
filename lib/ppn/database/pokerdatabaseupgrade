@@ -1,0 +1,64 @@
+#!/usr/bin/python 
+# -*- coding: iso-8859-1; mode: python -*-
+#
+# Copyright (C) 2004, 2005, 2006 Mekensleep <licensing@mekensleep.com>
+#                                24 rue vieille du temple, 75004 Paris
+#
+# This software's license gives you freedom; you can copy, convey,
+# propagate, redistribute and/or modify this program under the terms of
+# the GNU Affero General Public License (AGPL) as published by the Free
+# Software Foundation, either version 3 of the License, or (at your
+# option) any later version of the AGPL.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero
+# General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program in a file in the toplevel directory called
+# "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
+#
+# Authors:
+#  Loic Dachary <loic@gnu.org>
+#
+import getopt, sys
+sys.path.insert(0, "..")
+
+from pokernetwork.pokernetworkconfig import Config
+from pokernetwork.pokerdatabase import PokerDatabase
+
+def usage():
+    print """
+pokerdatabaseupgrade [--help] [--dry-run] [--upgrades=directory] [configuration.xml]
+"""
+    
+def main():
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "hdu", ["help", "dry-run", "upgrades=" ])
+    except getopt.GetoptError:
+        usage()
+        sys.exit(2)
+    directory = "NONE/share/poker-network"
+    settings_file = "NONE/etc/poker-network/poker.server.xml"
+    dry_run = False
+    for o, a in opts:
+        if o in ("-h", "--help"):
+            usage()
+            sys.exit()
+        if o in ("-d", "--dry-run"):
+            dry_run = True
+        if o in ("-u", "--upgrades"):
+            directory = a
+
+    if len(args) > 0:
+        (settings_file, ) = args
+
+    settings = Config([''])
+    settings.load(settings_file)
+    db = PokerDatabase(settings)
+    db.upgrade(directory, dry_run)
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())

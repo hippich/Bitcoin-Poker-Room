@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<poker xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="poker.xsd" poker_engine_version="1.0.25">
+
+    <variant type="community" name="Hold'em" id="holdem">
+
+      <wins ways="1">
+	<winner id="1" type="hand" order="high"/>
+      </wins>
+
+      <board layout="straight"/>
+
+      <players max="22"/>
+
+      <deck>
+	2h 2d 2c 2s 3h 3d 3c 3s 4h 4d 4c 4s 5h 5d 5c 5s 6h 6d 6c 6s 7h 7d
+	7c 7s 8h 8d 8c 8s 9h 9d 9c 9s Th Td Tc Ts Jh Jd Jc Js Qh Qd Qc Qs
+	Kh Kd Kc Ks Ah Ad Ac As
+      </deck>
+
+      <community useMin="3" useMax="5">
+	<position card="b1" x="1" y="1"/>
+	<position card="b2" x="2" y="1"/>
+	<position card="b3" x="3" y="1"/>
+	<position card="b4" x="1.5" y="2"/>
+	<position card="b5" x="2.5" y="2"/>
+      </community>
+
+      <hand useMin="0" useMax="2">
+	<position card="p1" x="1"/>
+	<position card="p2" x="1"/>
+      </hand>
+      
+      <round name="pre-flop" id="1">
+	<deal card="down" id="p1"/>
+	<deal card="down" id="p2"/>
+	<position type="under-the-gun"/>
+	<action type="bet"/>
+      </round>
+
+      <round name="flop" id="2">
+	<deal card="board" id="b1"/>
+	<deal card="board" id="b2"/>
+	<deal card="board" id="b3"/>
+	<position type="next-to-dealer"/>
+	<action type="bet"/>
+      </round>
+
+      <round name="turn" id="3">
+	<deal card="board" id="b4"/>
+	<position type="next-to-dealer"/>
+	<action type="bet"/>
+      </round>
+
+      <round name="river" id="4">
+	<deal card="board" id="b5"/>
+	<position type="next-to-dealer"/>
+	<action type="bet"/>
+      </round>
+
+    </variant>
+</poker>

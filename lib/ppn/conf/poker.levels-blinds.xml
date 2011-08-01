@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<levels xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="levels.xsd" poker_engine_version="1.3.6">
+  <level small="1500" big="2500"/>
+  <level small="2500" big="5000"/>
+  <level small="5000" big="10000"/>
+  <level small="7500" big="15000"/>
+
+  <level small="10000" big="20000"/>
+  <level small="15000" big="30000"/>
+  <level small="25000" big="50000"/>
+  <level small="35000" big="70000"/>
+  <level small="50000" big="100000"/>
+  <level small="75000" big="150000"/>
+
+  <level small="100000" big="200000"/>
+  <level small="150000" big="300000"/>
+  <level small="250000" big="500000"/>
+  <level small="350000" big="700000"/>
+  <level small="500000" big="1000000"/>
+  <level small="750000" big="1500000"/>
+
+  <level small="1000000" big="2000000"/>
+  <level small="1500000" big="3000000"/>
+  <level small="2500000" big="3000000"/>
+  <level small="3500000" big="7000000"/>
+  <level small="5000000" big="10000000"/>
+  <level small="7500000" big="15000000"/>
+
+  <level small="10000000" big="20000000"/>
+  <level small="15000000" big="30000000"/>
+  <level small="25000000" big="30000000"/>
+  <level small="35000000" big="70000000"/>
+  <level small="50000000" big="100000000"/>
+  <level small="75000000" big="150000000"/>
+</levels>

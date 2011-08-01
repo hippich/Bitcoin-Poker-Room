@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<bet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="bet.xsd" name="2-4 limit" table-stakes="yes" unit="100" buy-in="10000" max-buy-in="10000" poker_engine_version="1.3.6">
+
+    <description>Limit 2/4</description>
+
+    <blind small="100" big="200" change="double" frequency="10" unit="hand"/>
+
+    <all_in method="side"/> 
+
+    <variants ids="omaha omaha8 holdem">
+      <round name="pre-flop" pow_level="200" cap="3"/>
+      <round name="flop" pow_level="200" cap="3"/>
+      <round name="turn" pow_level="400" cap="3"/>
+      <round name="river" pow_level="400" cap="3"/>
+    </variants>
+
+    <variants ids="7stud 7stud8">
+      <round name="pre-flop" pow_level="200" cap="3"/>
+      <round name="third" pow_level="200" cap="3"/>
+      <round name="fourth" pow_level="200" cap="3"/>
+      <round name="fifth" pow_level="400" cap="3"/>
+      <round name="sixth" pow_level="400" cap="3"/>
+      <round name="seventh" pow_level="400" cap="3"/>
+    </variants>
+</bet>

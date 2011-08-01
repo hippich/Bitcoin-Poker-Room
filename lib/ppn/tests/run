@@ -1,0 +1,147 @@
+#!/bin/bash
+# -*- sh -*-
+#
+# Copyright (C) 2008, 2009 Loic Dachary <loic@dachary.org>
+# Copyright (C) 2006 Mekensleep <licensing@mekensleep.com>x
+#                    24 rue vieille du temple, 75004 Paris
+#
+# This software's license gives you freedom; you can copy, convey,
+# propagate, redistribute and/or modify this program under the terms of
+# the GNU Affero General Public License (AGPL) as published by the Free
+# Software Foundation (FSF), either version 3 of the License, or (at your
+# option) any later version of the AGPL published by the FSF.
+#
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero
+# General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program in a file in the toplevel directory called
+# "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
+#
+# Authors:
+#  Loic Dachary <loic@dachary.org>
+#
+set -e
+
+echo "RUNNING: $*" 
+
+. ${top_srcdir}/tests/setupMysqlVariables
+
+if ! $MYSQL_ROOT_CMD -e "show databases" >/dev/null 2>&1 ; then
+    echo "skipped because $MYSQL_ROOT_CMD -e \"show databases\" fails"
+    if echo $XFAIL_TESTS | fgrep `basename "$1"` > /dev/null ; then
+        exit 1
+    else
+        exit 0
+    fi
+fi
+#
+# User for currency test
+#
+echo "CREATE USER 'currency'@ '%' IDENTIFIED BY '********';" | $MYSQL_ROOT_CMD > /dev/null 2>&1 || true
+echo "GRANT ALL PRIVILEGES ON * . * TO 'currency'@ '%' IDENTIFIED BY '********'" | $MYSQL_ROOT_CMD > /dev/null 2>&1 || true
+
+: ${srcdir:=.}
+export srcdir
+: ${top_srcdir:=..}
+export top_srcdir
+
+#
+# As of Fri Apr 21 16:48:04 CEST 2006, valgrind only works on python2.4 on Debian/unstable
+# Don't "show-reachable" because poker-interface heavily relies on static variables
+#
+if [ "@VALGRIND@" -a "2.7" = "2.4" ] ; then
+    VALGRIND="@VALGRIND@ --quiet --suppressions=/usr/lib/valgrind/debian.supp --suppressions=/usr/lib/valgrind/xfree-4.supp --suppressions=${srcdir}/poker-interface-sid.supp --num-callers=50 --leak-check=full"
+fi
+
+#
+# For some reason php5 is unhappy if TZ is not set.
+#
+if [ -z "$TZ" ]; then
+    export TZ=Europe/Paris
+fi
+
+DEFAULT_COVERAGE_FILES=$(echo ${top_srcdir}/pokernetwork/*.py) 
+: ${COVERAGE_FILES:=$DEFAULT_COVERAGE_FILES}
+
+COVERAGE_100_PERCENT="
+../pokerclient2d/__init__
+../pokernetwork/__init__
+../pokernetwork/pokerexplain
+../pokernetwork/pokergameclient
+../pokernetwork/pokernetworkconfig
+../pokernetwork/pokerclientpackets
+../pokernetwork/OLDpokerclientpackets
+../pokernetwork/currencyclient
+../pokernetwork/pokerpackets
+../pokernetwork/pokeravatar
+../pokernetwork/pokertable
+../pokernetwork/pokerlock
+../pokernetwork/pokerdatabase
+../pokernetwork/pokermemcache
+../pokernetwork/pokerservice
+../pokernetwork/pokerserver
+../pokernetwork/pokerauth
+../pokernetwork/protocol
+../pokernetwork/server
+../pokernetwork/client
+../pokernetwork/proxy
+../pokernetwork/countfilter
+../pokernetwork/pokercashier
+../pokernetwork/pokerauthmysql
+../pokernetwork/user
+../pokernetwork/userstats
+../pokernetwork/attrpack
+../pokernetwork/tourneyattrs
+../pokernetwork/pokersite
+../pokernetwork/packets
+../pokernetwork/version
+"
+
+case "$1" in 
+
+*coverage-reset) /usr/bin/python ${srcdir}/coverage.py -e ;;
+
+*coverage-report) 
+        echo 
+        echo "Before commiting a modification to the code, check all lines"
+        echo "modified or added are covered by the tests."
+        echo "cd /tmp ; svn co svn+ssh://loic@svn.gna.org/svn/pokersource/trunk/poker-network"
+        echo "cd poker-network ; autoreconf -fi ; ./configure ; make check"
+        echo "diff -ru tests/annotated /usr/src/pokersource/poker-network/tests/annotated | grep '^\+!'"
+        echo 
+        output=$( /usr/bin/python ${srcdir}/coverage.py -m -r ${COVERAGE_FILES} )
+        rm -fr annotated ; mkdir annotated
+        /usr/bin/python ${srcdir}/coverage.py -a -d annotated ${COVERAGE_FILES}
+        echo "$output"
+        for file in ${COVERAGE_100_PERCENT} ; do
+            if echo "$output" | grep "$file" > /dev/null ; then
+                if ! echo "$output" | grep "$file.*100%" > /dev/null ; then
+                    echo "FAIL: tests do not cover 100% of the $file code"
+                    exit 1
+                fi
+            fi
+        done
+        ;;
+
+*upgrade) ./upgrade ;;
+
+*.php) 
+        file=$(basename $1)
+        mkdir -p phpunit/$file
+        /usr/bin/php -d zend_extension=$(pecl config-get ext_dir)/xdebug.so  --report phpunit/$file $(basename $file .php)
+        ;;
+
+
+*.py)   /usr/bin/python -u ${srcdir}/coverage.py -x "$1" ;;
+# shows all functions called
+#*.py) pydb --fntrace --basename "$1" ;;
+
+*) 
+        echo unknown test $1
+        exit 1
+        ;;
+esac
+

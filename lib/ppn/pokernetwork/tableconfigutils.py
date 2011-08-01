@@ -78,16 +78,20 @@ def merge_tables(server_config_tables, table_config_tables):
                            to table properties (name, variant, seats,
                            etc.)
     """
-    tables = {}
-    for table in table_config_tables:
-        tables[table['name']] = table
+    tables = []
+    table_names = set()
 
-    for table in server_config_tables:
+    def try_add_table(table):
         table_name = table['name']
-        if table_name not in tables:
-            tables[table_name] = table
+        if table_name not in table_names:
+            table_names.add(table_name)
+            tables.append(table)
 
-    return tables.values()
+    for table in table_config_tables:
+        try_add_table(table)
+    for table in server_config_tables:
+        try_add_table(table)
+    return tables
 
 
 def get_table_descriptions(server_config,
@@ -106,8 +110,7 @@ def get_table_descriptions(server_config,
     `table_node_xpath`: the XPath expression used to find table nodes in each
                         config file
     """
-    if server_config.path:
-        server_config.reload()
+    server_config.reload()
 
     server_config_tables = __get_tables(server_config)
     table_config_tables = parse_table_configs(table_configs_dir)

@@ -1,0 +1,51 @@
+<?xml version='1.0'  encoding='iso-8859-1' ?>
+<server xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="server.xsd"
+  	autodeal="yes"
+	simultaneous="4"
+	verbose="0"
+        poker_network_version="2.0.0"
+	chat="yes" >
+
+  <delays autodeal="3" round="2" position="1" showdown="5" finish="3" />
+  
+  <table name="One"	variant="holdem" betting_structure="2-4-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Two"	variant="holdem" betting_structure="10-15-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Three"	variant="holdem" betting_structure="10-15-pot-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Four"	variant="holdem" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Antigua"	variant="holdem" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Cairo"	variant="holdem" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Mont"	variant="holdem" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Nancy"	variant="holdem" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Corail"	variant="holdem" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Legend"	variant="holdem" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Chip"	variant="holdem" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Relax"	variant="holdem" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Speed"	variant="holdem" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Un"	variant="holdem" betting_structure="2-4-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Deux"	variant="holdem" betting_structure="10-15-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Trois"	variant="holdem" betting_structure="10-15-pot-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Quatre"	variant="holdem" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+
+  <table name="Five"	variant="omaha" betting_structure="2-4-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Six"	variant="omaha" betting_structure="10-15-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Seven"	variant="omaha" betting_structure="10-15-pot-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Eight"	variant="omaha" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+
+  <table name="Nine"	variant="omaha8" betting_structure="2-4-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Ten"	variant="omaha8" betting_structure="10-15-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Eleven"	variant="omaha8" betting_structure="10-15-pot-limit" seats="10" timeout="60" custom_money="0" />
+  <table name="Twelve"	variant="omaha8" betting_structure="15-30-no-limit" seats="10" timeout="60" custom_money="0" />
+
+  <table name="Thirty"	variant="7stud" betting_structure="ante-10-15-pot-limit" seats="8" timeout="60" custom_money="0" />
+  <table name="Fourty"	variant="7stud" betting_structure="ante-5-10-limit" seats="8" timeout="60" custom_money="0" />
+
+  <listen tcp="19380"
+          tcp_ssl="19381" 
+          http="19382"
+          http_ssl="19383"/>
+
+  <database name="@POKER_DATABASE@" host="@POKER_DBHOST@" user="@POKER_DBUSER@" password="@POKER_DBUSER_PASSWORD@" />
+  <path>@POKER_ENGINE_PKGDATADIR@/conf @POKER_NETWORK_PKGSYSCONFDIR@</path> 
+  <users temporary="BOT" />
+</server>
