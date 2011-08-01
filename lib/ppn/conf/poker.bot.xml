@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="poker-bot.xsd" delays="false" wait="1" reconnect="yes" watch="no" level="1" cash_in="no" ping="10" verbose="0" no_display_packets="yes" rebuy="yes" name_prefix="BOT" poker_network_version="2.0.0">
+  <delays position="0" begin_round="0" end_round="0" end_round_last="0" showdown="5" lag="15"/>
+  <name>test</name>
+  <passwd>test</passwd>
+  <servers>localhost:19380</servers>
+  <muck>yes</muck>
+  <auto_post>yes</auto_post>
+  <currency id="1">/usr/bin/wget wget --quiet -O - 'http://localhost/poker-web/currency_one.php?id=1&amp;command=get_note&amp;value=5000000&amp;count=100&amp;autocommit=yes'</currency>
+  <path>NONE/etc/poker-engine</path> 
+
+  <table name="One">
+    <bot name="foo" password="oof" />
+    <bot name="bar" password="rab" />
+  </table>
+  <table name="Two" count="4"/>
+  <table name="Three" count="4"/>
+  <table name="Four" count="4"/>
+  <table name="Antigua" count="4"/>
+  <table name="Cairo" count="4"/>
+  <table name="Mont" count="4"/>
+  <table name="Nancy" count="4"/>
+  <table name="Corail" count="4"/>
+  <table name="Legend" count="4"/>
+  <table name="Chip" count="4"/>
+  <table name="Relax" count="4"/>
+  <table name="Speed" count="4"/>
+  <table name="Un" count="1"/>
+  <table name="Deux" count="2"/>
+  <table name="Trois" count="9"/>
+  <table name="Quatre" count="10"/>
+
+  <table name="Five" count="4"/>
+  <table name="Six" count="4"/>
+  <table name="Seven" count="4"/>
+  <table name="Eight" count="4"/>
+
+  <table name="Nine" count="4"/>
+  <table name="Ten" count="4"/>
+  <table name="Eleven" count="4"/>
+  <table name="Twelve" count="4"/>
+
+  <table name="Thirty" count="4"/>
+  <table name="Fourty" count="4"/>
+
+  <tournament name="sitngo4" count="3"/>
+  <tournament name="sitngo8" count="7"/>
+  <tournament name="sitngo20" count="19"/>
+  <tournament name="sitngo50" count="49"/>
+  <tournament name="Ositngo4" count="3"/>
+  <tournament name="Ositngo8" count="7"/>
+  <tournament name="Ositngo20" count="19"/>
+  <tournament name="Ositngo50" count="49"/>
+
+</settings>
