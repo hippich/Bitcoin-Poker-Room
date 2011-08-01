@@ -62,8 +62,7 @@ def makeService(configuration):
 
     serviceCollection = service.MultiService()
 
-    poker_database = pokerdatabase.PokerDatabase(settings)
-    poker_service = PokerService(settings, poker_database)
+    poker_service = PokerService(settings)
     poker_service.setServiceParent(serviceCollection)
 
     poker_factory = IPokerFactory(poker_service)
@@ -114,6 +113,7 @@ def makeService(configuration):
     api_ssl_port = settings.headerGetInt("/server/listen/@api_ssl")
     if HAS_OPENSSL and api_ssl_port:
         from pokernetwork import apiserver, apiservice
+        poker_database = pokerdatabase.PokerDatabase(settings)
         secret_store = apiserver.APIUserStore(poker_database)
         api_service = apiservice.APIService(poker_service)
         api_site = server.Site(apiserver.Root(api_service, secret_store))
@@ -155,13 +155,13 @@ def run():
     if platform.system() != "Windows":
         if not sys.modules.has_key('twisted.internet.reactor'):
                 print "installing poll reactor"
+                from twisted.internet import pollreactor
                 pollreactor.install()
         else:
                 print "poll reactor already installed"
     from twisted.internet import reactor
     application = makeApplication(sys.argv)
     app.startApplication(application, None)
-    from twisted.internet import pollreactor
     reactor.run()
 
 if __name__ == '__main__':
