@@ -115,9 +115,9 @@ exampleHand =  [ \
         ('call', 6, 626), \
         ('check', 1), \
         ('fold', 1), \
-        ('raise', 1, 888), \
+        ('raise', 1, 888, 888, 666), \
 # Note: 3 appears first here to test something appearing first as a raise.
-        ('raise', 10, 976), \
+        ('raise', 10, 976, 976, 754), \
         ('canceled', 4, 10), \
         ('rake', 7, { 1 : 7}), \
         ('end', [8, 1], [{ 'serial2share': { 8: 888, 1: 233 } }]), \
@@ -1296,7 +1296,7 @@ class PokerTableTestCase(PokerTableTestCaseBase):
     def test40_destroy_table_with_observers(self):
         """Test table destruction with observers at the table"""
         p1 = self.createPlayer(1, clientClass=MockClientWithTableDict)
-        self.table.seated2observer(p1, 1)
+        self.table.seated2observer(p1)
         d = p1.waitFor(PACKET_POKER_TABLE_DESTROY)
         self.table.destroy()
          # Make sure we can't update once table is destroyed.
@@ -1464,16 +1464,6 @@ class PokerTableTestCase(PokerTableTestCaseBase):
         self.table.syncDatabase = lambda: None
         self.table.muckTimeoutTimer()
         self.assertEquals([], self.table.game.muckable_serials)
-    # -------------------------------------------------------------------
-    def test49_seated2observer_bug(self):
-        a = self.createPlayer(1)
-        a.getSerial = lambda: 0
-        self.message = ""
-        def error(message):
-            self.message = message
-        self.table.error = error
-        self.table.seated2observer(a, 1)
-        self.assertEquals("pokertable.seated2observer: avatar.user.serial (0) doesn't match serial argument (1)", self.message)
 
 # -------------------------------------------------------------------
 
@@ -1955,16 +1945,20 @@ class PokerTableRejoinTestCase(PokerTableTestCaseBase):
         self.table.scheduleAutoDeal()
         d = player1.waitFor(PACKET_POKER_START)
         def quitPlayer(x):
+            thisPlayer = self.table.game.serial2player[1]
             self.table.quitPlayer(player1, 1)
-            self.assertEquals(True, self.table.game.serial2player[1].isAuto())
+            self.assertEquals(True, thisPlayer.isAuto())
+            print "quit"
         def joinPlayer(x):
             self.table.joinPlayer(player1, 1)
             d = player1.waitFor(PACKET_POKER_PLAYER_ARRIVE)
+            print "join"
             return d
         def checkAutoFlag(x):
             playerArrive1 = [p for p in player1.packets if p.type == PACKET_POKER_PLAYER_ARRIVE and p.serial == 1]
             self.assertEquals(False, self.table.game.serial2player[1].isAuto())
             self.assertEquals(False, playerArrive1[0].auto)
+            print "auto"
         d.addCallback(quitPlayer)
         d.addCallback(joinPlayer)
         d.addCallback(checkAutoFlag)
