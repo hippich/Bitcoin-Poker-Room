@@ -619,10 +619,8 @@ class PokerService(service.Service):
 
         sql = ( " SELECT * FROM tourneys_schedule WHERE " +
                 "          active = 'y' AND " +
-                "          resthost_serial = %s AND " +
-                "          ( respawn = 'y' OR " +
-                "            register_time < %s )" ) % self.db.literal((self.resthost_serial, int(seconds()) )
-                )
+                "          resthost_serial = %s") % self.db.literal(self.resthost_serial)
+                
         cursor.execute(sql)
         result = cursor.fetchall()
         self.tourneys_schedule = dict(zip(map(lambda schedule: schedule['serial'], result), result))
@@ -652,14 +650,8 @@ class PokerService(service.Service):
         #
         # One time tournaments
         #
-        one_time = []
-        for serial in self.tourneys_schedule.keys():
-            schedule = self.tourneys_schedule[serial]
-            if ( schedule['respawn'] == 'n' and
-                 int(schedule['register_time']) < now ):
-                one_time.append(schedule)
-                del self.tourneys_schedule[serial]
-        for schedule in one_time:
+        for schedule in filter(lambda schedule: schedule['respawn'] == 'n', self.tourneys_schedule.values()):
+            del self.tourneys_schedule[ schedule['serial'] ]
             self.spawnTourney(schedule)
 
         #
@@ -778,6 +770,10 @@ class PokerService(service.Service):
             self.schedule2tourneys[schedule_serial] = []
         self.schedule2tourneys[schedule_serial].append(tourney)
         self.tourneys[tourney.serial] = tourney
+
+        # Allow PokerTournament finalize init procedure.
+        tourney.finalize()
+
         return tourney
 
     def deleteTourney(self, tourney):
