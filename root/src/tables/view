@@ -43,6 +43,8 @@
 
     <script type="text/javascript">
       $.jpoker.verbose = 2;
+      $.jpoker.sound_directory = '/static/';
+      $.jpoker.dialog_options = { width: '300px', height: 'auto', autoOpen: false, dialog: true, title: 'Bet Coin Message'};
 
       var restURL = "[% url %]";
       var uid = [% uid %];
