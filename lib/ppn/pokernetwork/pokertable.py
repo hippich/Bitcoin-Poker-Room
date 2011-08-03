@@ -166,6 +166,10 @@ class PokerTable:
                 del avatar.tables[self.game.id]
         for avatar in self.observers:
             del avatar.tables[self.game.id]
+            
+        self.cancelDealTimeout()
+        self.cancelMuckTimer()
+        self.cancelPlayerTimers()
 
         self.factory.deleteTable(self)
         del self.factory
@@ -1085,6 +1089,7 @@ class PokerTable:
         money = game.serial2player[serial].money
 
         sit_out = self.movePlayerFrom(serial, to_game_id)
+
         for avatar in avatars:
             self.destroyPlayer(avatar, serial)
 
@@ -1209,7 +1214,6 @@ class PokerTable:
         # Player is now an observer, unless he is seated
         # at the table.
         #
-        avatar.join(self, reason = reason)
         self.factory.joinedCountIncrease()
         if not self.game.isSeated(avatar.getSerial()):
             self.observers.append(avatar)
@@ -1226,6 +1230,8 @@ class PokerTable:
             # Sit back immediately, as if we just seated
             #
             game.comeBack(serial)
+        
+        avatar.join(self, reason = reason)
 
         return True
 
