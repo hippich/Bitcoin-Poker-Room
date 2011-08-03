@@ -156,7 +156,7 @@ __PACKAGE__->many_to_many(
 );
 
 __PACKAGE__->has_many(
-  'usertables' => 'Room::Schema::PokerNetwork::Result::User2tourney',
+  'usertourneys' => 'Room::Schema::PokerNetwork::Result::User2tourney',
   { 'foreign.user_serial' => 'self.serial' },
 );
 __PACKAGE__->many_to_many(
