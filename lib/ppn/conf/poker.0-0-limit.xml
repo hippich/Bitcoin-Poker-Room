@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<bet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="bet.xsd" name="0-0 limit" table-stakes="yes" unit="100" buy-in="5000" best-buy-in="5000" max-buy-in="500000" poker_engine_version="1.3.6">
+
+    <description>No blind, no antes</description>
+
+    <all_in method="side"/> 
+
+    <variants ids="omaha omaha8 holdem">
+      <round name="pre-flop" min="1500" cap="8"/>
+      <round name="flop" min="1500" cap="8"/>
+      <round name="turn" min="3000" cap="8"/>
+      <round name="river" min="3000" cap="-1"/>
+    </variants>
+
+    <variants ids="7stud 7stud8">
+      <round name="first" min="1500" cap="8"/>
+      <round name="third" min="1500" cap="8"/>
+      <round name="fourth" min="1500" cap="8"/>
+      <round name="fifth" min="3000" cap="8"/>
+      <round name="sixth" min="3000" cap="8"/>
+      <round name="seventh" min="3000" cap="-1"/>
+    </variants>
+</bet>

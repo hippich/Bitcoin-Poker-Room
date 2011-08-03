@@ -745,6 +745,8 @@ class PokerGame:
 
     def sit(self, serial):
         player = self.serial2player[serial]
+        if player.isSit():
+            return False
         if not player.isBuyInPayed() or self.isBroke(serial):
             if self.verbose > 0: self.error("sit: refuse to sit player %d because buy in == %s instead of True or broke == %s instead of False" % ( serial, player.buy_in_payed, self.isBroke(serial) ))
             return False

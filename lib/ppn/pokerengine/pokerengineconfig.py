@@ -47,14 +47,17 @@ class Config:
 
     def __del__(self):
         self.free()
-        
+
     def free(self):
         if self.doc: self.doc.freeDoc()
         self.doc = None
         if self.header: self.header.xpathFreeContext()
         self.header = None
-        
+
     def reload(self):
+        if self.path is None or self.path == "<string>"\
+           or not os.path.exists(self.path):
+            return
         self.free()
         self.doc = libxml2.parseFile(self.path)
         self.header = self.doc.xpathNewContext()
@@ -121,13 +124,13 @@ class Config:
         if not self.upgrade_dry_run:
             self.headerSet("/child::*/@" + version_attribute, str(software_version))
             self.save()
-        
+
     def save(self):
         if not self.path:
             if self.verbose >= 0: print "unable to write back, invalid path"
             return
         self.doc.saveFile(self.path)
-        
+
     def headerGetList(self, name):
         result = self.header.xpathEval(name)
         return [o.content for o in result]
@@ -138,15 +141,15 @@ class Config:
             return int(string)
         else:
             return 0
-        
+
     def headerGet(self, name):
         results = self.header.xpathEval(name)
         return results and results[0].content or ""
-        
+
     def headerSet(self, name, value):
         results = self.header.xpathEval(name)
         results[0].setContent(value)
-        
+
     def headerGetProperties(self, name):
         results = []
         for node in self.header.xpathEval(name):

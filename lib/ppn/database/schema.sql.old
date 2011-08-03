@@ -1,0 +1,622 @@
+-- -*-sql-*- 
+--
+-- Copyright (C) 2008, 2009 Loic Dachary <loic@dachary.org>
+-- Copyright (C)       2009 Johan Euphrosine <proppy@aminche.com>
+-- Copyright (C) 2004, 2005, 2006 Mekensleep <licensing@mekensleep.com>
+--                                24 rue vieille du temple, 75004 Paris
+--
+-- This software's license gives you freedom; you can copy, convey,
+-- propagate, redistribute and/or modify this program under the terms of
+-- the GNU Affero General Public License (AGPL) as published by the Free
+-- Software Foundation, either version 3 of the License, or (at your
+-- option) any later version of the AGPL.
+--
+-- This program is distributed in the hope that it will be useful, but
+-- WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Affero
+-- General Public License for more details.
+--
+-- You should have received a copy of the GNU Affero General Public License
+-- along with this program in a file in the toplevel directory called
+-- "AGPLv3".  If not, see <http://www.gnu.org/licenses/>.
+--
+-- Authors:
+--  Loic Dachary <loic@gnu.org>
+--
+--
+-- NOTE: Be careful when you change the default tourney parameters in this
+-- file!  Some of the tests, most notably, test-pokerservice.py.in, use
+-- this schema, and make assumptions about the tourney setup.
+
+DROP TABLE IF EXISTS server;
+
+CREATE TABLE server (
+  version VARCHAR(16) NOT NULL
+) ENGINE=InnoDB CHARSET=utf8;
+
+INSERT INTO server (version) VALUES ("2.0.0");
+
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+  serial INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  -- number of seconds since 1970, argument to from_unixtime()
+  created INT UNSIGNED NOT NULL,
+  -- user name matching the regexp ^[a-zA-Z][a-zA-Z0-9_]{5,50}$
+  name VARCHAR(64),
+  -- optional email address matching the regexp .*.@.*\..*$
+  email VARCHAR(128),   
+  -- serial of the users record to which this user is affiliated
+  affiliate INT UNSIGNED DEFAULT 0,
+  -- client interpreted URL from which the player avatar can be downloaded
+  skin_url VARCHAR(255) DEFAULT "random",
+  -- client interpreted textual description of the player aspect
+  skin_outfit TEXT,
+  -- base64 encoded player picture of type skin_image_type
+  skin_image TEXT,
+  -- the type of the base64 encoded skin_image field content
+  skin_image_type VARCHAR(32) DEFAULT "image/png",
+  -- clear text password matching the regexp ^[a-zA-Z0-9]{5,15}$
+  password VARCHAR(32),
+  -- 1 is a regular player, 0 is an observer and cannot play, 2 is admin
+  privilege INT DEFAULT 1,
+  -- locale
+  locale VARCHAR(32) DEFAULT "en_US",
+
+  rating INT DEFAULT 1000,
+  future_rating FLOAT DEFAULT 1000,
+  games_count INT DEFAULT 0,
+  
+  PRIMARY KEY (serial),
+  KEY name_idx (name),
+  UNIQUE KEY email_idx (email)
+) ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS users_private;
+
+CREATE TABLE users_private (
+  serial INT UNSIGNED NOT NULL,
+  firstname VARCHAR(255) DEFAULT "",
+  lastname VARCHAR(255) DEFAULT "",
+  addr_street VARCHAR(255) DEFAULT "",
+  addr_street2 VARCHAR(255) DEFAULT "",
+  addr_zip VARCHAR(64) DEFAULT "",
+  addr_town VARCHAR(64) DEFAULT "",
+  addr_state VARCHAR(128) DEFAULT "",
+  addr_country VARCHAR(64) DEFAULT "",
+  phone VARCHAR(64) DEFAULT "",
+  gender CHAR DEFAULT '',
+  birthdate DATE,
+  verified CHAR DEFAULT 'n',
+  verified_time INT DEFAULT 0,
+
+  PRIMARY KEY (serial)
+) ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS user2money;
+
+CREATE TABLE user2money (
+  user_serial INT UNSIGNED NOT NULL,
+  currency_serial INT UNSIGNED NOT NULL,
+  amount BIGINT NOT NULL,
+  rake BIGINT DEFAULT 0 NOT NULL,
+  points BIGINT DEFAULT 0 NOT NULL,
+
+  PRIMARY KEY (user_serial,currency_serial)
+)  ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS currencies;
+
+CREATE TABLE currencies (
+  serial INT NOT NULL AUTO_INCREMENT UNIQUE,
+  url CHAR(255) NOT NULL UNIQUE,
+  symbol CHAR(8),
+  name CHAR(32),
+  cash_out INT,
+
+  PRIMARY KEY (serial, url)
+)  ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS safe;
+
+CREATE TABLE safe (
+  currency_serial INT NOT NULL,
+  serial INT NOT NULL,
+  name CHAR(40) NOT NULL,
+  value BIGINT NOT NULL,
+
+  PRIMARY KEY (currency_serial, serial, value)
+)  ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS counter;
+
+CREATE TABLE counter (
+  transaction_id CHAR(40) NOT NULL,
+  user_serial INT NOT NULL,
+  currency_serial INT NOT NULL,
+  serial INT NOT NULL,
+  name CHAR(40) NOT NULL,
+  value BIGINT NOT NULL,
+  status CHAR DEFAULT 'y' NOT NULL,
+  application_data VARCHAR(255) DEFAULT '' NOT NULL,
+
+  PRIMARY KEY (currency_serial, name, serial)
+)  ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS user2table;
+
+CREATE TABLE user2table (
+  user_serial INT UNSIGNED NOT NULL,
+  table_serial INT UNSIGNED NOT NULL,
+  money INT DEFAULT 0 NOT NULL,
+  bet INT DEFAULT 0 NOT NULL,
+
+  PRIMARY KEY (user_serial,table_serial)
+)  ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS pokertables;
+
+CREATE TABLE pokertables (
+  serial INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  resthost_serial INT UNSIGNED DEFAULT 0 NOT NULL,
+  seats TINYINT DEFAULT 10,
+  average_pot INT UNSIGNED DEFAULT 0,
+  hands_per_hour INT UNSIGNED DEFAULT 0,
+  percent_flop TINYINT DEFAULT 0,
+  players TINYINT DEFAULT 0,
+  observers INT UNSIGNED DEFAULT 0,
+  waiting TINYINT DEFAULT 0,
+  player_timeout INT UNSIGNED DEFAULT 60,
+  muck_timeout INT UNSIGNED DEFAULT 5,
+  currency_serial INT NOT NULL,
+  name VARCHAR(255) NOT NULL UNIQUE,
+  variant VARCHAR(255) NOT NULL,
+  betting_structure VARCHAR(255) NOT NULL,
+  skin VARCHAR(255) DEFAULT "default" NOT NULL,
+  tourney_serial INT UNSIGNED DEFAULT 0 NOT NULL,
+
+  PRIMARY KEY (serial),
+  KEY pokertables_name (name),
+  KEY pokertables_variant (variant),
+  KEY pokertables_players (players),
+  KEY pokertables_betting_structure (betting_structure),
+  KEY pokertables_currency_serial (currency_serial),
+  KEY (resthost_serial)
+)  ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS hands;
+
+CREATE TABLE hands (
+  serial INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  created TIMESTAMP NOT NULL,
+  name VARCHAR(32),
+  description TEXT NOT NULL,
+
+  PRIMARY KEY (serial)
+)  ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS user2hand;
+
+CREATE TABLE user2hand (
+  user_serial INT NOT NULL,
+  hand_serial INT NOT NULL,
+
+  PRIMARY KEY (user_serial, hand_serial)
+)  ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS session;
+
+CREATE TABLE session (
+  user_serial INT NOT NULL,
+  started INT DEFAULT 0,
+  ended INT DEFAULT 0,
+  ip VARCHAR(16),
+
+  PRIMARY KEY (user_serial, ip)
+)  ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS session_history;
+
+CREATE TABLE session_history (
+  user_serial INT NOT NULL,
+  started INT DEFAULT 0,
+  ended INT DEFAULT 0,
+  ip VARCHAR(16),
+
+  KEY session_history_serial (user_serial)
+)  ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS tourneys_schedule;
+
+CREATE TABLE tourneys_schedule (
+  serial INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  resthost_serial INT UNSIGNED DEFAULT 0 NOT NULL,
+  name VARCHAR(200),
+  -- Description that will be shown in tournament lists
+  description_short VARCHAR(64),
+  -- Description that will be shown on a detailed page about
+  -- the tournament.
+  description_long TEXT,
+  -- The maximum number of players allowed to register in the tournament
+  players_quota INT DEFAULT 10,
+  -- The minimum number of players to start the tournament. If the 
+  -- number of registered players in the tournament is less than this
+  -- limit, the tournament is canceled.
+  players_min INT DEFAULT 2,
+  -- Poker variant (holdem, omaha, omaha8, 7stud)
+  variant VARCHAR(32),
+  -- Betting structure (.01-.02-no-limit, .01-.02-pot-limit, .02-.04-limit, .02-.04-no-limit, .02-.04-pot-limit, .02..04-limit, .05-.10-limit, .05-.10-no-limit, .05-.10-pot-limit, .05..10-limit, .10-.25-limit, .10-.25-no-limit, .10-.25-pot-limit, .25-.50-limit, .25-.50-no-limit, .25-.50-pot-limit, .25..50-limit, .50-1-limit, .50-1-no-limit, .50-1-pot-limit, .50.1-limit, 0-0-limit, 1-2-limit, 1-2-no-limit, 1-2-pot-limit, 10-15-limit, 10-15-pot-limit, 10-20-limit, 10-20-no-limit, 10-20-pot-limit, 100-200-limit, 100-200-no-limit, 100-200-pot-limit, 15-30-limit, 150-300-limit, 2-4-limit, 2-4-no-limit, 2-4-pot-limit, 200-400-limit, 3-6-limit, 3-6-no-limit, 3-6-pot-limit, 30-60-limit, 30-60-no-limit, 30-60-pot-limit, 4-8-limit, 5-10-limit, 5-10-no-limit, 5-10-pot-limit, 50-100-limit, 50-100-no-limit, 50-100-pot-limit)
+  betting_structure VARCHAR(32),
+  -- Number of seats, in the range 2 and 10 included.
+  seats_per_game INT DEFAULT 10,
+  -- Maximum number of seconds before a player times out when in position.
+  player_timeout INT DEFAULT 60,
+  -- Serial of the currency required to pay the buyin.
+  currency_serial INT,
+  -- Serial of the currency in which the prizes will be payed (same as currency_serial if zero)
+  prize_currency INT UNSIGNED DEFAULT 0,
+  -- Minimum prize pool in cents.
+  prize_min INT DEFAULT 0,
+  -- Serial number of the player (serial field of the users table) 
+  -- who guarantees the minimum prize set in the prize_min field
+  -- if the total buyin payed by the players is not enough.
+  bailor_serial INT DEFAULT 0,
+  -- Tournament buyin in cent.
+  buy_in INT DEFAULT 0,
+  -- Tournament rake in cent.
+  rake INT DEFAULT 0,
+  -- y for sit&go tournament, n for regular tournament
+  sit_n_go CHAR DEFAULT 'y',
+  -- Number of seconds for the first breaks.
+  breaks_first INT DEFAULT 7200,
+  -- Number of seconds between breaks after the first break.
+  breaks_interval INT DEFAULT 3600,
+  -- Number of seconds of each break.
+  breaks_duration INT DEFAULT 300,
+  -- Unused.
+  rebuy_delay INT DEFAULT 0,
+  -- Unused.
+  add_on INT DEFAULT 0,
+  -- Unused.
+  add_on_delay INT DEFAULT 60,
+  -- Unix timestamp of the tournament start.
+  start_time INT DEFAULT 0,
+  -- Unix timestamp of the registration start.
+  register_time INT DEFAULT 0,
+  -- n : the tournament is ignored by the server, y : the tournament
+  -- is considered by the server.
+  active CHAR DEFAULT 'y',
+  -- y : the tournament restarts when complete, n : the tournament does
+  -- not restart when complete.
+  respawn CHAR DEFAULT 'n',
+  -- Unused.
+  respawn_interval INT DEFAULT 0,
+  -- Format string to override the currency_serial field from date 
+  -- %d 	Day of the month as a decimal number [01,31]. 	 
+  -- %H 	Hour (24-hour clock) as a decimal number [00,23]. 	 
+  -- %I 	Hour (12-hour clock) as a decimal number [01,12]. 	 
+  -- %j 	Day of the year as a decimal number [001,366]. 	 
+  -- %m 	Month as a decimal number [01,12]. 	 
+  -- %M 	Minute as a decimal number [00,59]. 	 
+  -- %S 	Second as a decimal number [00,61]. 
+  -- %U 	Week number of the year (Sunday as the first day of the week) as a decimal number [00,53]. All days in a new year preceding the first Sunday are considered to be in week 0.
+  -- %w 	Weekday as a decimal number [0(Sunday),6]. 	 
+  -- %W 	Week number of the year (Monday as the first day of the week) as a decimal number [00,53]. All days in a new year preceding the first Monday are considered to be in week 0.
+  -- %y 	Year without century as a decimal number [00,99]. 	 
+  -- %Y 	Year with century as a decimal number. 	 
+  -- The string can only contain the placeholders documented above
+  -- Example: '%Y%m' 
+  --
+  currency_serial_from_date_format VARCHAR(16) DEFAULT NULL,
+  --
+  -- Format string to override the prize_currency field from date.
+  -- The semantics is the same as currency_serial_from_date_format.
+  --
+  prize_currency_from_date_format VARCHAR(16) DEFAULT NULL,
+  --
+  -- If 0 the tournament is not a satellite, if > 0 the tournament
+  -- is a satellite and satellite_player_count is
+  -- taken into account. The value is a reference to the serial  
+  -- field of the tourneys_schedule table. 
+  --
+  satellite_of INT UNSIGNED DEFAULT 0,
+  --
+  -- If 1 the users cannot register to the tournament unless they
+  -- participated in a satellite. See the TourneyRegister packet
+  -- for more information. If 0 the users can register if they pay
+  -- the buyin.
+  -- 
+  via_satellite TINYINT DEFAULT 0,
+  --
+  -- The number of tournament winners that will be registered to the
+  -- satellite_of tournament. The winners that are already registered
+  -- to satellite_of are ignored. If satellite_player_count is 10 
+  -- and 2 of the top 10 are already registered, the remaining 2
+  -- will be drawn from the top 12 winners.
+  --
+  satellite_player_count INT UNSIGNED DEFAULT 0,
+
+  PRIMARY KEY (serial),
+  KEY tourneys_schedule_active_index (active),
+  KEY tourneys_schedule_register_time_index (register_time)
+
+)  ENGINE=InnoDB CHARSET=utf8;
+
+--
+-- Holdem sit and go
+--
+-- SEE NOTE ABOVE BEFORE CHANGING!!!!
+INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+VALUES ( 'sitngo2', 'Sit and Go 2 players, Holdem', 'Sit and Go 2 players', '2', 'holdem', 'level-15-30-no-limit', '2', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'sitngo3', 'Sit and Go 3 players, Holdem', 'Sit and Go 3 players', '3', 'holdem', 'level-15-30-no-limit', '3', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'sitngo4', 'Sit and Go 4 players, Holdem', 'Sit and Go 4 players', '4', 'holdem', 'level-15-30-no-limit', '4', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'sitngo5', 'Sit and Go 5 players, Holdem', 'Sit and Go 5 players', '5', 'holdem', 'level-15-30-no-limit', '5', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'sitngo6', 'Sit and Go 6 players, Holdem', 'Sit and Go 6 players', '6', 'holdem', 'level-15-30-no-limit', '6', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'sitngo7', 'Sit and Go 7 players, Holdem', 'Sit and Go 7 players', '7', 'holdem', 'level-15-30-no-limit', '7', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'sitngo8', 'Sit and Go 8 players, Holdem', 'Sit and Go 8 players', '8', 'holdem', 'level-15-30-no-limit', '8', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'sitngo9', 'Sit and Go 9 players, Holdem', 'Sit and Go 9 players', '9', 'holdem', 'level-15-30-no-limit', '9', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'sitngo10', 'Sit and Go single table, Holdem', 'Sit and Go single table', '10', 'holdem', 'level-15-30-no-limit', '10', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'sitngo20', 'Sit and Go 2 tables, Holdem', 'Sit and Go 2 tables', '20', 'holdem', 'level-15-30-no-limit', '10', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'sitngo30', 'Sit and Go 3 tables, Holdem', 'Sit and Go 3 tables', '30', 'holdem', 'level-15-30-no-limit', '10', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'sitngo50', 'Sit and Go 5 tables, Holdem', 'Sit and Go 5 tables', '50', 'holdem', 'level-15-30-no-limit', '10', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+-- --
+-- -- Omaha sit and go
+-- --
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'Ositngo2', 'Sit and Go 2 players, Omaha', 'Sit and Go 2 players', '2', 'omaha', 'level-15-30-no-limit', '2', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'Ositngo3', 'Sit and Go 3 players, Omaha', 'Sit and Go 3 players', '3', 'omaha', 'level-15-30-no-limit', '3', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'Ositngo4', 'Sit and Go 4 players, Omaha', 'Sit and Go 4 players', '4', 'omaha', 'level-15-30-no-limit', '4', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'Ositngo5', 'Sit and Go 5 players, Omaha', 'Sit and Go 5 players', '5', 'omaha', 'level-15-30-no-limit', '5', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'Ositngo6', 'Sit and Go 6 players, Omaha', 'Sit and Go 6 players', '6', 'omaha', 'level-15-30-no-limit', '6', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'Ositngo7', 'Sit and Go 7 players, Omaha', 'Sit and Go 7 players', '7', 'omaha', 'level-15-30-no-limit', '7', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'Ositngo8', 'Sit and Go 8 players, Omaha', 'Sit and Go 8 players', '8', 'omaha', 'level-15-30-no-limit', '8', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'Ositngo9', 'Sit and Go 9 players, Omaha', 'Sit and Go 9 players', '9', 'omaha', 'level-15-30-no-limit', '9', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'Ositngo10', 'Sit and Go single table, Omaha', 'Sit and Go single table', '10', 'omaha', 'level-15-30-no-limit', '10', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'Ositngo20', 'Sit and Go 2 tables, Omaha', 'Sit and Go 2 tables', '20', 'omaha', 'level-15-30-no-limit', '10', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'Ositngo30', 'Sit and Go 3 tables, Omaha', 'Sit and Go 3 tables', '30', 'omaha', 'level-15-30-no-limit', '10', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- INSERT INTO `tourneys_schedule` ( `name`, `description_short` , `description_long` , `players_quota` , `variant` , `betting_structure` , `seats_per_game` , `currency_serial` , `buy_in` , `rake` , `sit_n_go` , `start_time` , `register_time` , `respawn` , `respawn_interval` )
+-- VALUES ( 'Ositngo50', 'Sit and Go 5 tables, Omaha', 'Sit and Go 5 tables', '50', 'omaha', 'level-15-30-no-limit', '10', 1, '300000', '0', 'y', '0', '0', 'y', '0' );
+
+-- SEE NOTE ABOVE BEFORE CHANGING!!!!
+INSERT INTO `tourneys_schedule` (`serial`, `name`, `description_short`, `description_long`, `players_quota`, `variant`, `betting_structure`, `seats_per_game`, `currency_serial`, `buy_in`, `rake`, `sit_n_go`, `breaks_interval`, `rebuy_delay`, `add_on`, `add_on_delay`, `start_time`, `register_time`, `respawn`, `respawn_interval`, `players_min`) VALUES ('', 'regular1', 'Holdem No Limit Freeroll', 'Holdem No Limit Freeroll', '1000', 'holdem', 'level-001', '10', 1, '0', '0', 'n', '60', '30', '1', '60', unix_timestamp(now() + INTERVAL 2 MINUTE), unix_timestamp(now() - INTERVAL 1 HOUR), 'n', '0', 3);
+
+DROP TABLE IF EXISTS tourneys;
+
+CREATE TABLE tourneys (
+  serial INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  resthost_serial INT UNSIGNED DEFAULT 0 NOT NULL,
+  name VARCHAR(200),
+  description_short VARCHAR(64),
+  description_long TEXT,
+  players_quota INT DEFAULT 10,
+  players_min INT DEFAULT 2,
+  variant VARCHAR(32),
+  betting_structure VARCHAR(32),
+  seats_per_game INT DEFAULT 10,
+  player_timeout INT DEFAULT 60,
+  currency_serial INT,
+  prize_currency INT UNSIGNED DEFAULT 0,
+  prize_min INT DEFAULT 0,
+  bailor_serial INT DEFAULT 0,
+  buy_in INT DEFAULT 0,
+  rake INT DEFAULT 0,
+  sit_n_go CHAR DEFAULT 'y',
+  breaks_first INT DEFAULT 7200,
+  breaks_interval INT DEFAULT 3600,
+  breaks_duration INT DEFAULT 300,
+  rebuy_delay INT DEFAULT 0,
+  add_on INT DEFAULT 0,
+  add_on_delay INT DEFAULT 60,
+  start_time INT DEFAULT 0,
+  satellite_of INT UNSIGNED DEFAULT 0,
+  via_satellite TINYINT DEFAULT 0,
+  satellite_player_count INT UNSIGNED DEFAULT 0,
+
+  finish_time INT DEFAULT 0,
+  state VARCHAR(16) DEFAULT "registering",
+  schedule_serial INT,
+  add_on_count INT DEFAULT 0,
+  rebuy_count INT DEFAULT 0,
+
+  PRIMARY KEY (serial),
+  KEY tourneys_start_time_index (start_time),
+  KEY state (state, finish_time)
+)  ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS user2tourney;
+
+CREATE TABLE user2tourney (
+  user_serial INT NOT NULL,
+  currency_serial INT UNSIGNED NOT NULL,
+  tourney_serial INT NOT NULL,
+  table_serial INT,
+  rank INT DEFAULT -1,
+
+  PRIMARY KEY (user_serial, tourney_serial),
+  KEY user_serial (user_serial, currency_serial, tourney_serial),
+  KEY rank (rank),
+  KEY tourney_serial (tourney_serial)
+)  ENGINE=InnoDB CHARSET=utf8;
+
+--
+-- Default users
+--
+INSERT INTO users (serial, name, privilege) VALUES (1, ' rake ', 0);
+
+INSERT INTO users (serial, name, password, privilege) VALUES (2, 'admin', 'REPLACE', 2);
+INSERT INTO users_private (serial) VALUES (2);
+
+INSERT INTO users (serial, name, password, privilege) VALUES (3, 'admin_web', 'REPLACE', 1);
+INSERT INTO users_private (serial) VALUES (3);
+
+DROP TABLE IF EXISTS users_transactions;
+--
+-- Transactions between users
+--
+CREATE TABLE users_transactions (
+  from_serial INT UNSIGNED NOT null,
+  to_serial INT UNSIGNED NOT null,
+  modified TIMESTAMP,
+  amount INT DEFAULT 0,
+  currency_serial INT NOT NULL,
+  status CHAR DEFAULT 'n',
+  notes TEXT,
+
+  KEY (from_serial,to_serial)
+) ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS affiliates;
+--
+-- Affiliate description
+--
+create table affiliates (
+  serial INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  modified TIMESTAMP,
+  created INT UNSIGNED NOT NULL,
+
+  users_count INT UNSIGNED DEFAULT 0,
+  users_rake INT UNSIGNED DEFAULT 0,
+  users_points INT UNSIGNED DEFAULT 0,
+
+  --
+  -- percentage of the rake assigned to the affiliate
+  --
+  share INT UNSIGNED DEFAULT 0, 
+
+  companyname VARCHAR(255) DEFAULT "",
+  firstname VARCHAR(255) DEFAULT "",
+  lastname VARCHAR(255) DEFAULT "",
+  addr_street VARCHAR(255) DEFAULT "",
+  addr_street2 VARCHAR(255) DEFAULT "",
+  addr_zip VARCHAR(64) DEFAULT "",
+  addr_town VARCHAR(64) DEFAULT "",
+  addr_state VARCHAR(128) DEFAULT "",
+  addr_country VARCHAR(64) DEFAULT "",
+  phone VARCHAR(64) DEFAULT "",
+
+  url TEXT,
+  notes TEXT,
+
+  PRIMARY KEY (serial)
+) ENGINE=InnoDB CHARSET=utf8;
+
+DROP TABLE IF EXISTS messages;
+
+CREATE TABLE messages (
+  serial INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  send_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  message TEXT DEFAULT '',
+  sent CHAR DEFAULT 'n',
+
+  PRIMARY KEY (serial, send_date, sent)
+) ENGINE=InnoDB CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS chat_messages;
+
+CREATE TABLE chat_messages (
+  serial INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  player_serial INT UNSIGNED NOT NULL,
+  game_id INT UNSIGNED NOT NULL,
+  message TEXT DEFAULT '',
+  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
+
+  PRIMARY KEY (serial)
+) ENGINE=MyISAM CHARSET=utf8;
+
+DROP TABLE IF EXISTS monitor;
+
+CREATE TABLE monitor (
+  -- primary key
+  serial BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  -- creation date
+  created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  -- for more information about the following, see
+  -- pokerpackets.py PacketPokerMonitorEvent documentation
+  event TINYINT NOT NULL,
+  param1 BIGINT NOT NULL,
+  param2 BIGINT NOT NULL,
+  param3 BIGINT NOT NULL,
+
+  PRIMARY KEY (serial)
+) ENGINE=MyISAM;
+
+DROP TABLE IF EXISTS resthost;
+
+CREATE TABLE resthost (
+  serial INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  name VARCHAR(255),
+  host VARCHAR(255),
+  port INT UNSIGNED,
+  path VARCHAR(255),
+
+  PRIMARY KEY (serial)
+) ENGINE=MyISAM;
+
+DROP TABLE IF EXISTS route;
+
+CREATE TABLE route (
+  table_serial INT UNSIGNED,
+  tourney_serial INT UNSIGNED,
+  modified INT UNSIGNED,
+  resthost_serial INT UNSIGNED,
+  
+  PRIMARY KEY (table_serial, tourney_serial),
+  KEY (table_serial),
+  KEY (tourney_serial),
+  KEY (modified),
+  KEY (resthost_serial)
+) ENGINE=MyISAM;
+
+-- CREATE TABLE lastpoll (
+--   session CHAR(32) NOT NULL,
+--   user_serial INT UNSIGNED NOT NULL,
+--   table_serial INT UNSIGNED,
+--   tourney_serial INT UNSIGNED,
+--   polled INT UNSIGNED,
+  
+--   PRIMARY KEY (session, user_serial, table_serial, tourney_serial)
+-- ) ENGINE=MEMORY;

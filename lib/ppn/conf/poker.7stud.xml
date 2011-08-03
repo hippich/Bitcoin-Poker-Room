@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<poker xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="poker.xsd" poker_engine_version="1.3.6">
+
+    <variant type="stud" name="Stud 7" id="7stud">
+
+      <wins ways="1">
+	<winner id="1" type="hand" order="high"/>
+      </wins>
+
+      <board layout="straight"/>
+
+      <players max="8"/>
+
+      <deck>
+	2h 2d 2c 2s 3h 3d 3c 3s 4h 4d 4c 4s 5h 5d 5c 5s 6h 6d 6c 6s 7h 7d
+	7c 7s 8h 8d 8c 8s 9h 9d 9c 9s Th Td Tc Ts Jh Jd Jc Js Qh Qd Qc Qs
+	Kh Kd Kc Ks Ah Ad Ac As
+      </deck>
+
+      <community useMin="1" useMax="1">
+	<position card="b1" x="1" y="1"/>
+      </community>
+
+      <hand useMin="5" useMax="5">
+	<position card="p1" x="1"/>
+	<position card="p2" x="2"/>
+	<position card="p3" x="3"/>
+	<position card="p4" x="4"/>
+	<position card="p5" x="5"/>
+	<position card="p6" x="6"/>
+	<position card="p7" x="7"/>
+      </hand>
+      
+      <round name="third" id="1">
+	<deal card="down" id="p1"/>
+	<deal card="down" id="p2"/>
+	<deal card="up" id="p3"/>
+	<position type="low"/>
+	<action type="bet"/>
+      </round>
+
+      <round name="fourth" id="2">
+	<deal card="up" id="p4"/>
+	<position type="high"/>
+	<action type="bet"/>
+      </round>
+
+      <round name="fifth" id="3">
+	<deal card="up" id="p5"/>
+	<position type="high"/>
+	<action type="bet"/>
+      </round>
+
+      <round name="sixth" id="4">
+	<deal card="up" id="p6"/>
+	<position type="high"/>
+	<action type="bet"/>
+      </round>
+
+      <round name="seventh" id="5">
+	<deal card="down" id="p7"/>
+	<position type="high"/>
+	<action type="bet"/>
+      </round>
+
+    </variant>
+</poker>
