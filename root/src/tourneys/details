@@ -1,3 +1,4 @@
+[% META title = 'Tourney details' %]
 
   <script type="text/javascript">
     $.jpoker.verbose = 2;
