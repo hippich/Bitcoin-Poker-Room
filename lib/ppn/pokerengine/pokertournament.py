@@ -226,8 +226,14 @@ class PokerTournament:
         self.callback_move_player = lambda tournament, from_game_id, to_game_id, serial: self.movePlayer(from_game_id, to_game_id, serial)
         self.callback_remove_player = lambda tournament, game_id, serial: self.removePlayer(game_id, serial)
         self.callback_cancel = lambda tournament: True
+        
         self.loadPayouts()
         self.updateRegistering()
+
+    def finalize(self):
+        # Force save ANNOUNCED state into DB
+        if self.state == TOURNAMENT_STATE_ANNOUNCED:
+          self.callback_new_state(self, TOURNAMENT_STATE_ANNOUNCED, TOURNAMENT_STATE_ANNOUNCED)
 
     def loadPayouts(self):
         if self.sit_n_go == 'y':
