@@ -154,6 +154,12 @@ sub __filter_multi { my $self = shift; shift() * 100 }
 sub __filter_divide { my $self = shift; shift() / 100 }
 
 
+sub get_users_registered {
+    my ($self) = @_;
+
+    return $self->usertourneys->count;
+}
+
 =head1 AUTHOR
 
 Pavel Karoukin

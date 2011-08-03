@@ -25,7 +25,7 @@
         <td>
           [% t.state %]
           [% IF t.state == 'registering' %]
-            ([% t.users.count %] / [% t.players_quota %])
+            ([% t.get_users_registered %] / [% t.players_quota %])
           [% END %]
         </td>
       </tr>
