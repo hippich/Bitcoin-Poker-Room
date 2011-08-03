@@ -31,8 +31,16 @@ __PACKAGE__->set_primary_key("user_serial", "tourney_serial");
 # Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yoOcj0wl6dbSxMO3lcWsow
 
+__PACKAGE__->belongs_to(
+  user => 'Room::Schema::PokerNetwork::Result::Users',
+  { serial => 'user_serial' }
+);
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->belongs_to(
+  tourney => 'Room::Schema::PokerNetwork::Result::Tourneys',
+  { serial => 'tourney_serial' }
+);
+
 
 =head1 AUTHOR
 

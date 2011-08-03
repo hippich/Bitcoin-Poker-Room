@@ -1,0 +1,4 @@
+[% META title = 'Edit Tourney Schedule' %]
+[% PROCESS admin/admin_submenu %]
+
+[% form %]

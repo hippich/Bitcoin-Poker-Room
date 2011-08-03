@@ -124,8 +124,41 @@ __PACKAGE__->set_primary_key("serial");
 # Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:O2277E53gsHcqAQ/KwS6Cw
 
+__PACKAGE__->load_components( qw( DateTime::Epoch TimeStamp) );
+__PACKAGE__->add_columns(
+  "start_time",
+  { data_type => "INT", inflate_datetime => 'epoch', is_nullable => 1, size => 11 },
+  "register_time",
+  { data_type => "INT", inflate_datetime => 'epoch', is_nullable => 1, size => 11 },
+);
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->filter_column(
+  prize_min => {
+    filter_to_storage => '__filter_multi',
+    filter_from_storage =>  '__filter_divide',
+  }
+);
+
+
+__PACKAGE__->filter_column(
+  rake => {
+    filter_to_storage => '__filter_multi',
+    filter_from_storage =>  '__filter_divide',
+  }
+);
+
+
+__PACKAGE__->filter_column(
+  buy_in => {
+    filter_to_storage => '__filter_multi',
+    filter_from_storage =>  '__filter_divide',
+  }
+);
+
+
+sub __filter_multi { my $self = shift; shift() * 100 }
+sub __filter_divide { my $self = shift; shift() / 100 }
+
 
 =head1 AUTHOR
 

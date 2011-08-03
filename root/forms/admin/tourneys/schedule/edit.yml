@@ -1,0 +1,222 @@
+
+indicator: submit
+auto_fieldset: 1
+
+elements:
+
+  - type: Hidden
+    name: serial
+
+  - type: Text
+    name: name
+    label: Name
+    comment: Should be unique
+    constraints:
+      - type: DBIC::Unique
+        resultset: TourneysSchedule
+        id_field: serial
+
+  - type: Text
+    name: description_short
+    label: Description
+    constraints:
+      - Required
+
+  - type: Textarea
+    name: description_long
+    label: Long description 
+    
+  - type: Text
+    name: players_quota
+    label: Players quota
+    constraints:
+      - Required
+      - Number
+      
+  - type: Text
+    name: players_min
+    label: Minimum players 
+    constraints: 
+      - Required
+      - Number
+
+  - type: Select
+    name: variant
+    label: Variant
+    options:
+      - ['holdem', "Texas Hold'em"]
+      - ['omaha', 'Omaha']
+      - ['omaha8', 'Omaha8']
+    constraints:
+      - Required
+
+  - type: Select
+    name: betting_structure
+    label: Betting structure
+    options:
+      - ['level-001', 'Level 001']
+    constraints:
+      - Required
+
+  - type: Text
+    name: seats_per_game
+    label: Seats per game
+    constraints:
+      - Required
+      - Number
+      - type: MinRange
+        min: 2
+      - type: MaxRange
+        max: 10
+
+  - type: Text
+    name: player_timeout
+    label: Player timeout
+    constraints:
+      - Required
+      - Number
+
+  - type: Select
+    name: currency_serial
+    label: Currency
+    options: 
+      - [1, 'Bitcoin']
+    constraints:
+      - Required
+
+  - type: Text
+    name: prize_min
+    label: Minimum Prize 
+    comment: If total buy in will be less then this value additional money will be withdrawn from bailor's account
+    constraints:
+      - Required
+      - Number
+
+  - type: Text
+    name: bailor_serial
+    label: Bailor ID
+    constraints:
+      - Number
+
+  - type: Text
+    name: buy_in
+    label: Buyin 
+    constraints:
+      - Required
+      - Number
+
+  - type: Text
+    name: rake
+    label: Rake
+    constraints:
+      - Required
+      - Number
+
+  - type: Select 
+    name: sit_n_go
+    label: Type of tourney 
+    options: 
+      - ['y', "Sit'n'Go"]
+      - ['n', "MTT"]
+    constraints:
+      - Required
+
+  - type: Text
+    name: breaks_first
+    label: Breaks first
+    constraints:
+      - Required
+      - Number
+
+  - type: Text
+    name: breaks_interval
+    label: Breaks interval
+    constraints:
+      - Required
+      - Number
+
+  - type: Text
+    name: breaks_duration
+    label: Breaks duration
+    constraints:
+      - Required
+      - Number
+
+  - type: Text
+    name: rebuy_delay
+    label: Rebuy delay
+    constraints:
+      - Required
+      - Number
+
+  - type: Text
+    name: add_on
+    label: Add on
+    constraints:
+      - Required
+      - Number
+
+  - type: Text
+    name: add_on_delay
+    label: Add on delay
+    constraints:
+      - Required
+      - Number
+
+  - type: DateTime
+    name: register_time
+    label: Registration start 
+    auto_inflate: 1
+    strftime: '%s'
+    year:
+      less: 0
+      plus: 5
+    constraints:
+      - Required
+
+  - type: DateTime
+    name: start_time
+    label: Tourney start 
+    auto_inflate: 1
+    strftime: '%s'
+    year:
+      less: 0
+      plus: 5
+    constraints:
+      - Required
+
+  - type: Select 
+    name: respawn 
+    label: Repeat?
+    options: 
+      - ['y', 'Yes']
+      - ['n', 'No']
+
+  - type: Text
+    name: respawn_interval
+    label: Repeat interval
+    comment: In minutes between repeats
+    constraints:
+      - Number
+
+  - type: Select 
+    name: active 
+    label: Status
+    options: 
+      - ['y', 'Active']
+      - ['n', 'Suspended']
+
+
+  - type: Submit
+    value: Save
+    name: submit
+
+  - type: Submit
+    value: Cancel
+    name: cancel
+
+
+
+constraints:
+  - SingleValue
+

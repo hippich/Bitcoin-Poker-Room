@@ -2893,15 +2893,18 @@
                                 $('.jpoker_tourney_details_players table').tablesorter({widgets: ['zebra'], sortList: tourneyDetails.templates.players[packet.tourney.state].sortList});
                             }
 
-                            $('.jpoker_tourney_details_table', element).click(function() {
-                                    var table_details = $('.jpoker_tourney_details_table_details', element);
-                                    table_details.html(tourneyDetails.getHTMLTableDetails(id, packet, $(this).attr('id')));
-                                    tourneyDetails.callback.table_players_display_done(table_details);
-                                }).hover(function(){
-                                        $(this).addClass('hover');
-                                    },function(){
-                                        $(this).removeClass('hover');
-                                    });
+                            /**
+                             * Bugs: on new packet the whole table with players resets. When clicking on open table link - list of players expands.
+                             */
+                            /*$('.jpoker_tourney_details_table', element).click(function() {
+                                var table_details = $('.jpoker_tourney_details_table_details', element);
+                                table_details.html(tourneyDetails.getHTMLTableDetails(id, packet, $(this).attr('id')));
+                                tourneyDetails.callback.table_players_display_done(table_details);
+                            }).hover(function(){
+                                $(this).addClass('hover');
+                            },function(){
+                                $(this).removeClass('hover');
+                            });*/
 
                             if (opts.link_pattern === undefined) {
                                 $('.jpoker_tourney_details_tables_goto_table', element).click(function() {
@@ -3136,7 +3139,7 @@
             rows : '<tr id=\'{id}\' class=\'jpoker_tourney_details_table {oddEven}\' title=\'' + _("Click to show table details") + '\'><td>{table}</td><td>{players}</td><td>{max_money}</td><td>{min_money}</td><td>{goto_table}</td></tr>',
             footer : '</tbody></table></div>',
             goto_table_button: '<input class=\'jpoker_tourney_details_tables_goto_table\' type=\'submit\' value=\'{goto_table_label}\'></input>',
-            goto_table_link: '<a class=\'jpoker_tourney_details_tables_goto_table\' href=\'{link}\'>{goto_table_label}</a>'
+            goto_table_link: '<a class=\'jpoker_tourney_details_tables_goto_table\' onclick="javascript:popitup(\'{link}\');return false;" href=\'{link}\'>{goto_table_label}</a>'
         },
         table_players : {
             header : '<div class=\'jpoker_tourney_details_table_players\'><table cellspacing=\'0\'><thead><tr class=\'jpoker_thead_caption\'><th colspan=\'2\'>{caption}</th></tr><tr><th>{player}</th><th>{money}</th></tr></thead><tbody>',
@@ -3887,24 +3890,11 @@
     };
 
     jpoker.plugins.table.rank = function(table, packet, id) {
-        var rankDialog = $('#jpokerRankDialog');
-        if(rankDialog.size() === 0) {
-            $('body').append('<div id=\'jpokerRankDialog\' class=\'jpoker_jquery_ui\' />');
-            rankDialog = $('#jpokerRankDialog');
-            if(jpoker.verbose > 0) {
-                jpoker.message(jpoker.plugins.table.rank.options);
-            }
-            rankDialog.dialog(jpoker.plugins.table.rank.options);
-        }
         var rank = _(jpoker.plugins.table.templates.rank); // necessary because i18n is inactive when the template is first read
         packet.money = jpoker.chips.LONG(packet.money/100.0);
-        rankDialog.html(rank.supplant(packet)).dialog('open');
-        var url = table.url;
-        $('#jpokerRankDialog .jpoker_tournament_details').click(function() {
-                var server = jpoker.getServer(url);
-                if(server) {
-                    server.rankClick(server, packet.serial);
-                }});
+        var message = rank.supplant(packet);
+
+        $.jpoker.dialog(message);
     };
 
     jpoker.plugins.table.rank.options = { width: 'none', height: 'none', autoOpen: false, resizable: false, dialogClass: 'jpoker_dialog_rank'};
@@ -3919,7 +3909,7 @@
         table_info: '<div class=\'jpoker_table_info_name\'><span class=\'jpoker_table_info_name_label\'>{name_label}</span>{name}</div><div class=\'jpoker_table_info_variant\'><span class=\'jpoker_table_info_variant_label\'>{variant_label}</span>{variant}</div><div class=\'jpoker_table_info_blind\'><span class=\'jpoker_table_info_blind_label\'>{betting_structure_label}</span>{betting_structure}</div><div class="jpoker_table_info_hand"></div><div class=\'jpoker_table_info_seats\'><span class=\'jpoker_table_info_seats_label\'>{seats_label}</span>{max_players}</div><div class=\'jpoker_table_info_flop\'>{percent_flop}<span class=\'jpoker_table_info_flop_label\'>{percent_flop_label}</span></div><div class=\'jpoker_table_info_player_timeout\'><span class=\'jpoker_table_info_player_timeout_label\'>{player_timeout_label}</span>{player_timeout}</div><div class=\'jpoker_table_info_muck_timeout\'><span class=\'jpoker_table_info_muck_timeout_label\'>{muck_timeout_label}</span>{muck_timeout}</div><div class=\'jpoker_table_info_level\'></div>',
         date: '',
         pots: '<div class=\'jpoker_pots_align\'><span class=\'jpoker_pot jpoker_pot9\'>{chips}</span><span class=\'jpoker_pot jpoker_pot7\'>{chips}</span><span class=\'jpoker_pot jpoker_pot5\'>{chips}</span><span class=\'jpoker_pot jpoker_pot3\'>{chips}</span><span class=\'jpoker_pot jpoker_pot1\'>{chips}</span><span class=\'jpoker_pot jpoker_pot0\'>{chips}</span><span class=\'jpoker_pot jpoker_pot2\'>{chips}</span><span class=\'jpoker_pot jpoker_pot4\'>{chips}</span><span class=\'jpoker_pot jpoker_pot6\'>{chips}</span><span class=\'jpoker_pot jpoker_pot8\'>{chips}</span></div>',
-        rank: _("Won {money} chips, {rank} out of {players}. Click <span class=\'jpoker_tournament_details\'>here</span> to see the tournament details."),
+        rank: _("Won {money} chips, {rank} out of {players}."),
         sound: "{sound}"
     };
 
@@ -4311,7 +4301,7 @@
         },
 
         seat: function(seat, id, server, table) {
-            var selfPlayerLoggedButNotSit = server.loggedIn() && (table.serial2player[server.serial] === undefined);
+            var selfPlayerLoggedButNotSit = server.loggedIn() && (table.serial2player[server.serial] === undefined) && !table.is_tourney;
             if(table.seats[seat] !== null) {
                 $('#seat' + seat + id).show();
                 $('#sit_seat' + seat + id).hide();
@@ -4549,7 +4539,9 @@
                 });
             }
 
-            $('#jpoker_wait_for_bb').show();
+            if (! table.is_tourney) {
+              $('#jpoker_wait_for_bb').show();
+            }
 
             //
             // rebuy
@@ -4760,6 +4752,7 @@
             $('#sitout_fold' + id).hide();
             $('#rebuy' + id).hide();
             $('#options' + id).hide();
+            $('#jpoker_wait_for_bb').hide();
             $('.jpoker_chat_input', game_window).hide();
             game_window.removeClass('jpoker_self');
             $('#player_seat' + packet.seat + id).removeClass('jpoker_player_self');

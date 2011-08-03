@@ -117,8 +117,42 @@ __PACKAGE__->set_primary_key("serial");
 # Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7TyTlrEhWw004Jae61zkSw
 
+__PACKAGE__->has_many(
+  'usertourneys' => 'Room::Schema::PokerNetwork::Result::User2tourney',
+  { 'foreign.tourney_serial' => 'self.serial' },
+);
+__PACKAGE__->many_to_many(
+  users => 'usertourneys', 'user'
+);
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+
+__PACKAGE__->filter_column(
+  prize_min => {
+    filter_to_storage => '__filter_multi',
+    filter_from_storage =>  '__filter_divide',
+  }
+);
+
+
+__PACKAGE__->filter_column(
+  rake => {
+    filter_to_storage => '__filter_multi',
+    filter_from_storage =>  '__filter_divide',
+  }
+);
+
+
+__PACKAGE__->filter_column(
+  buy_in => {
+    filter_to_storage => '__filter_multi',
+    filter_from_storage =>  '__filter_divide',
+  }
+);
+
+
+sub __filter_multi { my $self = shift; shift() * 100 }
+sub __filter_divide { my $self = shift; shift() / 100 }
+
 
 =head1 AUTHOR
 

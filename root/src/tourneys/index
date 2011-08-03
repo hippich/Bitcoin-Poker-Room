@@ -1,0 +1,43 @@
+[% META title = 'Tourneys' %]
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Variant</th>
+      <th>Buy In</th>
+      <th>Minimal Prize</th>
+      <th>Seats</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    [% WHILE (t = tourneys.next) %]
+      <tr class="tourney-status-[% t.state %]">
+        <td><a href="[% c.uri_for('/tourneys/' _ t.serial) %]">[% t.name %]</a></td>
+        <td>[% t.description_short %]</td>
+        <td>[% t.variant %]</td>
+        <td>[% t.buy_in %] + [% t.rake %]</td>
+        <td>[% t.prize_min %]</td>  
+        <td>[% t.seats_per_game %]</td>
+        <td>
+          [% t.state %]
+          [% IF t.state == 'registering' %]
+            ([% t.users.count %] / [% t.players_quota %])
+          [% END %]
+        </td>
+      </tr>
+    [% END %]
+  </tbody>
+</table>
+
+[% IF tourneys.pager.next_page %]
+<span style="float: right"><a href="[% c.uri_for(c.action, c.captures, { page => tourneys.pager.next_page}) %]">Next &gt;&gt;</a></span>
+[% END %]
+
+[% IF tourneys.pager.previous_page %]
+<span style="float: left"><a href="[% c.uri_for(c.action, c.captures, { page => tourneys.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
+[% END %]
+

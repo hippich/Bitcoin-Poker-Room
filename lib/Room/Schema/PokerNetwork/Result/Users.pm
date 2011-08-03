@@ -148,6 +148,22 @@ __PACKAGE__->many_to_many(
 );
 
 __PACKAGE__->has_many(
+  'usertables' => 'Room::Schema::PokerNetwork::Result::User2table',
+  { 'foreign.user_serial' => 'self.serial' },
+);
+__PACKAGE__->many_to_many(
+  tables => 'usertables', 'pokertable'
+);
+
+__PACKAGE__->has_many(
+  'usertables' => 'Room::Schema::PokerNetwork::Result::User2tourney',
+  { 'foreign.user_serial' => 'self.serial' },
+);
+__PACKAGE__->many_to_many(
+  tourneys => 'usertourneys', 'tourneys'
+);
+
+__PACKAGE__->has_many(
   'deposits' => 'Room::Schema::PokerNetwork::Result::Deposits',
   { 'foreign.user_serial' => 'self.serial' },
 );
