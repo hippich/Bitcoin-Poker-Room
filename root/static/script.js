@@ -1,6 +1,5 @@
 var table_profile = {
-          table:
-          {
+          table: {
             height: 532,
             width: 763,
             resizable: 0,
@@ -60,5 +59,14 @@ var attach_behaviors = function(c) {
     return false;
   });
 
+  $("a.confirm", c).click(function() {
+    if (! confirm('Are you sure?')) {
+      return false;
+    }
+  });
 
+}
+
+function popitup(link) {
+  jQuery('<a rel="table" href="'+ link +'" />').popupwindow(table_profile).click();
 }
