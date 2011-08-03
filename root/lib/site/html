@@ -2,12 +2,29 @@
 <html>
  <head>
   <title>[% template.title or site.title %]</title>
+
   <link rel="stylesheet" href="[% c.uri_for('/static/css/styles.css') %]" type="text/css" />
-  <!--<link rel="stylesheet" href="[% c.uri_for('/static/jquery/ui.1.8/themes/smoothness/jquery.ui.all.css') %]" type="text/css" /> -->
   <script src="/static/jquery/jquery-1.5.2.min.js"></script>
-  <!--<script src="/static/jquery/ui.1.8/ui/jquery-ui-1.8.4.custom.js"></script>-->
   <script src="/static/js/jquery.popupwindow.js"></script>
   <script src="/static/script.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="/static/jquery/ui.1.8/themes/smoothness/jquery.ui.all.css">
+
+  <script language="JavaScript" type="text/javascript" src="/static/jquery/ui.1.8/ui/jquery-ui-1.8.4.custom.js"></script>
+  
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.ajaxretry.js?a"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.ajaxQueue.js?b"></script> 
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.gettext.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.tablesorter.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.tablesorter.pager.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.query.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.form.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/json2.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.jpoker.js?d"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/mockup.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/bproom.js"></script>
+
  </head>
  <body>
   <div id="wrapper">
