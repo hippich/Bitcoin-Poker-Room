@@ -12,7 +12,7 @@
 
    # define a data structure to hold sitewide data
    site = {
-     title     => 'Catalyst::View::TTSite Example Page',
+     title     => c.config.name,
      copyright => '2010 Bitcoin Poker Room',
    };
 
