@@ -40,7 +40,7 @@
 
     [% IF not c.user %]
       <div class="non-logged-in-notice">
-        <p>You will need to <a href="[% c.uri_for('/user/login') %]">login</a> in order to sit at any of these tables.</p>
+        <p>You will need to <a href="[% c.uri_for('/user/login', undef, { destination => '/tables' }) %]">login</a> in order to sit at any of these tables.</p>
       </div>
     [% END %]
 

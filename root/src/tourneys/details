@@ -1,5 +1,11 @@
 [% META title = 'Tourney details' %]
 
+  [% IF not c.user %]
+    <div class="non-logged-in-notice">
+      <p>You will need to <a href="[% c.uri_for('/user/login', undef, { destination => '/tourneys/' _ tourney.serial }) %]">login</a> in order to register at this tourney.</p>
+    </div>
+  [% END %]
+
   <script type="text/javascript">
     $.jpoker.verbose = 2;
     $.jpoker.sound_directory = '/static/';
@@ -9,9 +15,9 @@
       $('#main').jpoker('tourneyDetails', '/POKER_REST', [% tourney.serial %], 'somename', {
           link_pattern: '/table/{game_id}/view'
         }, {
-          url: '/POKER_REST',
-          auth: "auth=[% c.session.pokernetwork_auth %]",
-          serial: [% c.user.serial %]
+          url: '[% url %]',
+          auth: "auth=[% auth %]",
+          serial: [% uid %]
         }
       );
     });

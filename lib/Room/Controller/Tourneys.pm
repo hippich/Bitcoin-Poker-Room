@@ -43,6 +43,11 @@ Tourney details page. Here player can check tourney stats and register for tourn
 sub details :Path('') :Args(1) {
     my ($self, $c, $serial) = @_;
     $c->stash->{tourney} = $c->model('PokerNetwork::Tourneys')->find($serial);
+
+    $c->stash->{url} = $c->config->{rest_url} || '/POKER_REST';
+    $c->stash->{uid} = ($c->user) ? $c->user->serial : 0;
+    $c->stash->{auth} = $c->session->{pokernetwork_auth} || 'N';
+
     $c->res->redirect('/404-not-found') unless $c->stash->{tourney};
 }
 
