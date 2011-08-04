@@ -126,7 +126,7 @@ class ClientMockup:
         if self.deferred and self.type == packet.type:
                 reactor.callLater(0, lambda: self.deferred.callback(packet))
 
-    def join(self, table):
+    def join(self, table, reason = ""):
         self.joinedTables.append(table)
         self.tables[table.game.id] = table
 
@@ -239,29 +239,16 @@ VALUES ( 'Only6', 'Sit and Go 6 players and only 6 , Holdem', 'Sit and Go 6 play
 
             self.assertEquals(self.service.joined_count, 6)
 
+            # Check that we don't get a table with only one player.
             for game in sixTourney.games:
                 print game.__dict__
-                # Here is what exhibits the problem.  Some of the tables
-                # don't have more than 1 person at them!
                 self.failUnless(len(game.serial2player.keys()) >= 2)
 
+            # The test fails with dirty reactor unless we cancel this timeout.
             for game in sixTourney.games:
-                # This code is needed to make sure the test doesn't
-                # timeout with a reactor error bedcause the players
-                # timeout.  There may be an easier way to do that....
                 if len(game.serial2player.keys()) > 1:
                     table = self.service.getTable(game.id)
-                    in_position = game.getSerialInPosition()
-                    game.callNraise(in_position, game.maxBuyIn())
-                    in_position = game.getSerialInPosition()
-                    game.call(in_position)
-                    in_position = game.getSerialInPosition()
-                    game.call(in_position)
-                    in_position = game.getSerialInPosition()
-                    game.call(in_position)
-                    in_position = game.getSerialInPosition()
-                    game.call(in_position)
-                    table.update()
+                    table.cancelDealTimeout()
 
         d.addCallback(checkTourney)
 
@@ -287,9 +274,4 @@ if __name__ == '__main__':
         sys.exit(0)
     else:
         sys.exit(1)
-
-# Interpreted by emacs
-# Local Variables:
-# compile-command: "( cd .. ; ./config.status tests/test-tourneytablebalance.py ) ; ( cd ../tests ; make COVERAGE_FILES='' TESTS='test-tourneytablebalance.py' check )"
-# End:
 
