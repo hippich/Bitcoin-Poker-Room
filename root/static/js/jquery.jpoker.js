@@ -1238,19 +1238,29 @@
                 switch(packet.type) {
 
                 case 'PacketPokerTourneyStart':
-                server.tableJoin(packet.table_serial);
+                  server.tableJoin(packet.table_serial);
                 break;
 
                 case 'PacketPokerTable':
-                if(packet.id in server.tables) {
-                    server.tables[packet.id].reinit(packet);
-                } else {
-                    var table = new jpoker.table(server, packet);
-                    server.tables[packet.id] = table;
-                    server.notifyUpdate(packet);
-                }
-                packet.game_id = packet.id;
-                server.spawnTable(server, packet);
+                  if (server.onTourneyStart && packet.reason == 'TourneyStart') {
+                    try {
+                      server.onTourneyStart(packet.id);
+                    }
+                    catch (e) {
+                      alert("Popup blocker prevents table autospawn. Please disable all popup blockers for https://betco.in");
+                    }
+                  } 
+                  else {
+                    if(packet.id in server.tables) {
+                        server.tables[packet.id].reinit(packet);
+                    } else {
+                        var table = new jpoker.table(server, packet);
+                        server.tables[packet.id] = table;
+                        server.notifyUpdate(packet);
+                    }
+                    packet.game_id = packet.id;
+                    server.spawnTable(server, packet);
+                  }
                 break;
 
                 // The server sends a PacketPokerMessage when broadcasting

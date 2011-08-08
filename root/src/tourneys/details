@@ -17,7 +17,10 @@
         }, {
           url: '[% url %]',
           auth: "auth=[% auth %]",
-          serial: [% uid %]
+          serial: [% uid %],
+          onTourneyStart: function(game_id) {
+            popitup('/table/' + game_id + '/view', game_id);
+          }
         }
       );
     });

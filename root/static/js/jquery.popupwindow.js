@@ -64,26 +64,32 @@ jQuery.fn.popupwindow = function(p)
 		
 		jQuery(this).bind("click", function(){
 			var name = settings.createnew ? "PopUpWindow" + index : "PopUpWindow";
+      var thisObject = this;
 
       if (jQuery(this).attr('target') != '') {
         name = jQuery(this).attr('target');
       }
 
-			winObj = window.open(this.href, name, parameters);
+      if ( typeof thisObject._window == 'undefined' || thisObject._window.closed ) {
+        thisObject._window = window.open(thisObject.href, name, parameters);
+      }
+      else {
+        thisObject._window.focus();
+      } 
 			
 			if (settings.onUnload) {
 				// Incremental check for window status
 				// Attaching directly to window.onunlaod event causes invoke when document within window is reloaded
 				// (i.e. an inner refresh)
 				unloadInterval = setInterval(function() {
-					if (!winObj || winObj.closed) {
+					if (!thisObject._window || thisObject._window.closed) {
 						clearInterval(unloadInterval);	
 						settings.onUnload.call($(this));
 					}
 				},500);
 			}
 			
-			winObj.focus();
+			thisObject._window.focus();
 			
 			return false;
 		});
