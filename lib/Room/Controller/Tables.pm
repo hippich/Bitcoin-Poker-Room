@@ -95,7 +95,7 @@ sub table :Chained :CaptureArgs(1) {
 
     $c->stash->{table} = $c->model('PokerNetwork::Pokertables')->find($game_id);
 
-    $c->redirect('/404-not-found') unless $c->stash->{table};
+    $c->res->redirect('/404-not-found') unless $c->stash->{table};
 
     $c->stash->{url} = $c->config->{rest_url} || '/POKER_REST';
     $c->stash->{uid} = ($c->user) ? $c->user->serial : 0;
