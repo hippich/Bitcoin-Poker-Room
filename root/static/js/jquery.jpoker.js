@@ -3059,7 +3059,11 @@
                         if (link_pattern === undefined) {
                             row.goto_table = t.tables.goto_table_button.supplant({'goto_table_label': _("Go to table")});
                         } else {
-                            row.goto_table = t.tables.goto_table_link.supplant({'goto_table_label': _("Go to table"), 'link': link_pattern.supplant({game_id: table.substr(1)})});
+                            row.goto_table = t.tables.goto_table_link.supplant({
+                              'goto_table_label': _("Go to table"), 
+                              'link': link_pattern.supplant({game_id: table.substr(1)}), 
+                              'game_id': table.substr(1)
+                            });
                         }
                         row.oddEven = table_index&1 ? 'odd' : 'even';
                         html.push(t.tables.rows.supplant(row));
@@ -3139,7 +3143,7 @@
             rows : '<tr id=\'{id}\' class=\'jpoker_tourney_details_table {oddEven}\' title=\'' + _("Click to show table details") + '\'><td>{table}</td><td>{players}</td><td>{max_money}</td><td>{min_money}</td><td>{goto_table}</td></tr>',
             footer : '</tbody></table></div>',
             goto_table_button: '<input class=\'jpoker_tourney_details_tables_goto_table\' type=\'submit\' value=\'{goto_table_label}\'></input>',
-            goto_table_link: '<a class=\'jpoker_tourney_details_tables_goto_table\' onclick="javascript:popitup(\'{link}\');return false;" href=\'{link}\'>{goto_table_label}</a>'
+            goto_table_link: '<a class=\'jpoker_tourney_details_tables_goto_table\' onclick="javascript:popitup(\'{link}\', {game_id});return false;" target=\'tourney_{game_id}\' href=\'{link}\'>{goto_table_label}</a>'
         },
         table_players : {
             header : '<div class=\'jpoker_tourney_details_table_players\'><table cellspacing=\'0\'><thead><tr class=\'jpoker_thead_caption\'><th colspan=\'2\'>{caption}</th></tr><tr><th>{player}</th><th>{money}</th></tr></thead><tbody>',

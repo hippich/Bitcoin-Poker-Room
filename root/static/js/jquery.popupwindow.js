@@ -64,6 +64,11 @@ jQuery.fn.popupwindow = function(p)
 		
 		jQuery(this).bind("click", function(){
 			var name = settings.createnew ? "PopUpWindow" + index : "PopUpWindow";
+
+      if (jQuery(this).attr('target') != '') {
+        name = jQuery(this).attr('target');
+      }
+
 			winObj = window.open(this.href, name, parameters);
 			
 			if (settings.onUnload) {

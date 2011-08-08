@@ -67,6 +67,6 @@ var attach_behaviors = function(c) {
 
 }
 
-function popitup(link) {
-  jQuery('<a rel="table" href="'+ link +'" />').popupwindow(table_profile).click();
+function popitup(link, game_id) {
+  jQuery('<a rel="table" target="table_' + game_id + '" href="'+ link +'" />').popupwindow(table_profile).click();
 }
