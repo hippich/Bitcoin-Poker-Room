@@ -2,9 +2,11 @@ jQuery.fn.popupwindow = function(p)
 {
 
 	var profiles = p || {};
+  var prefix = Math.random() + '_';
 
 	return this.each(function(index){
 		var settings, parameters, mysettings, b, a, winObj;
+    var index = prefix + index;
 		
 		// for overrideing the default settings
 		mysettings = (jQuery(this).attr("rel") || "").split(",");
