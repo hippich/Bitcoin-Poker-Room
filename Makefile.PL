@@ -44,6 +44,8 @@ requires 'Catalyst::Authentication::Store::DBIx::Class';
 requires 'Catalyst::Model::Bitcoin';
 requires 'HTML::FormFu::Model::DBIC';
 requires 'DBIx::Class::DateTime::Epoch';
+requires 'CatalystX::RoleApplicator';
+requires 'Catalyst::TraitFor::Request::BrowserDetect';
 
 
 test_requires 'Test::More' => '0.88';
