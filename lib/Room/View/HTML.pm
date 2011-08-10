@@ -24,7 +24,31 @@ See L<Room>
 
 =head1 DESCRIPTION
 
-Catalyst TTSite View.
+Default HTML View for Room application.
+
+=cut 
+
+=head2 template_exists
+
+Test if View::TT can find template specified.
+
+=cut
+sub template_exists {
+    my ( $self, $subdir, $template ) = @_;
+
+    # Prevent access to files outside of include_path
+    my $base_dir = $self->include_path->[0]->subdir($subdir);
+    my $file_dir = $self->include_path->[0]->subdir($subdir)->file($template)->dir;
+
+    return 0 if !$file_dir->subsumes($base_dir);
+
+    # Iterate through all include paths to find template
+    foreach my $dir (@{ $self->include_path }) {
+        return 1 if ( -e $dir->subdir($subdir)->file($template) );
+    }
+
+    return 0;
+}
 
 =head1 AUTHOR
 
