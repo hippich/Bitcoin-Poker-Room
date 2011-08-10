@@ -10,7 +10,14 @@ Room::Controller::Pages - Custom pages controller.
 
 =head1 DESCRIPTION
 
-Catalyst Controller.
+Allows you to create pages inside View::HTML include path and 
+access these pages via /pages/[template_file_name] URLs. 
+
+Useful when you need to create simple static page and do not 
+want to create separate controller/action for it.
+
+Page templates should be saved to /pages/ folder inside 
+one of View::HTML include_path. 
 
 =head1 METHODS
 
