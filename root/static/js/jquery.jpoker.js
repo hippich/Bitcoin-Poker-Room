@@ -189,7 +189,7 @@
         console : window.console,
 
         message: function(str) {
-            if(jpoker.console) { jpoker.console.log(str); }
+            if(jpoker.console) { console.log(str); }
         },
 
         dialog_options: { width: '300px', height: 'auto', autoOpen: false, dialog: true, title: 'jpoker message'},
