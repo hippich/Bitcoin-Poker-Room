@@ -14,7 +14,6 @@ use CatalystX::RoleApplicator;
 #                 directory
 
 use Catalyst qw/
-    -Debug
     StackTrace
     ConfigLoader
     Static::Simple
