@@ -652,8 +652,7 @@ class PokerService(service.Service):
                        tourney.state == TOURNAMENT_STATE_CANCELED for tourney in
                        self.schedule2tourneys[schedule_serial]))):
                 current_timestamp = int(seconds())
-                # respawn_interval is in minutes; convert it to seconds
-                respawn_interval = int(schedule['respawn_interval']) * 60
+                respawn_interval = int(schedule['respawn_interval'])
                 old_register_time = int(schedule['register_time'])
                 old_start_time = int(schedule['start_time'])
                 if respawn_interval == 0:
