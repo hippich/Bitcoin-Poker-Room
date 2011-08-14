@@ -1,17 +1,96 @@
 <!-- BEGIN site/footer -->
-<div id="footer_menu">
-  <ul class='menu'>
-      <li class='first'><a href='[% c.uri_for('/') %]'>Home</a></li>
-      <li><a href='[% c.uri_for('/credits') %]'>Credits</a></li>
-      <li><a href='[% c.uri_for('/rake') %]'>About Rake</a></li>
-      <li><a href='http://github.com/hippich/Bitcoin-Poker-Room/archives/master'>Download sources</a></li>
-      <li><a href='http://github.com/hippich/Bitcoin-Poker-Room/issues'>Report bugs</a></li>
-      <li><a href='[% c.uri_for('/contactus') %]'>Contact Us</a></li>
-      <li class='last'><a target="_blank" href="http://webchat.freenode.net/?channels=betcoin">#betcoin</a></li> 
-  </ul>
+<div id="footer-wrapper">
+  <!-- FOOTER WRAPPER STARTS-->
+  <div id="footer-container">
+    <!-- FOOTER CONTAINER STARTS-->
+    <div id="footer">
+      <!-- FOOTER STARTS-->
+      <div class="one">
+        <!-- COLUMN CONTAINER STARTS-->
+        <div class="one-fourth">
+          <!-- COLUMN STARTS-->
+          <h4>About Us</h4>
+          <p>
+             Lorem ipsum dolor sit amet, tollite fit manibus individuationis omnibus civitas ad quia. Quaere allocutus ait regem ut sua etiam quantitas non solutionem invenisti. Venis potest flens ibidem quod eam in. Ambo una litus vita Apolloni codicellos iam.
+          </p>
+        </div>
+        <!-- COLUMN ENDS-->
+        <div class="one-fourth">
+          <!-- COLUMN STARTS-->
+          <h4>Latest Posts</h4>
+          <ul>
+            <!-- LATEST POSTS UL-->
+            <li>
+            <a href="blog.html">Custom iPhone App Design &amp; Programming Applications</a>
+            <p>
+               April 26, 2011 · <a href="blog.html">14 Comments</a>
+            </p>
+            </li>
+            <li>
+            <a href="blog.html">A New Approach To Web Design For Mobile Devices</a>
+            <p>
+               March 19, 2011 · <a href="blog.html">68 Comments</a>
+            </p>
+            </li>
+          </ul>
+          <!--END UL-->
+        </div>
+        <!-- COLUMN ENDS-->
+        <div class="one-fourth">
+          <!-- COLUMN STARTS-->
+          <h4>Stay in Touch</h4>
+          <ul class="social-links">
+            <!-- SOCIAL LINKS STARTS-->
+            <li><img src="/static/themes/betcoin/images/icons/facebook.png" width="16" height="16" alt="#"/><a href="#">Our Facebook page</a></li>
+            <li><img src="/static/themes/betcoin/images/icons/twitter.png" width="16" height="16" alt="#"/><a href="#">Follow us on Twitter</a></li>
+            <li><img src="/static/themes/betcoin/images/icons/rss.png" width="16" height="16" alt="#"/><a href="#">Our RSS Feeds</a></li>
+            <li><img src="/static/themes/betcoin/images/icons/vimeo.png" width="16" height="16" alt="#"/><a href="#">Our Vimeo Videos</a></li>
+          </ul>
+          <!-- SOCIAL LINKS ENDS-->
+        </div>
+        <!-- COLUMN ENDS-->
+        <div class="one-fourth last">
+          <!-- COLUMN STARTS-->
+          <h4>Latest Tweets</h4>
+          <div class="tweet"></div>
+        </div>
+        <!-- COLUMN ENDS-->
+      </div>
+      <!-- COLUMN CONTAINER ENDS-->
+    </div>
+    <!-- FOOTER ENDS-->
+  </div>
+  <!-- FOOTER CONTAINER ENDS-->
 </div>
-<div id="copyright">&copy; [% site.copyright %]</div>
-<!-- END site/footer -->
+<!-- FOOTER WRAPPER ENDS-->
+<div id="copyright-wrapper">
+  <!-- COPYRIGHTS WRAPPER STARTS-->
+  <div id="copyright">
+    <a id="copyright-logo" title="Homepage" href="/">
+      [% IF c.config.logo_bottom %]
+        <img src="[% c.config.logo_bottom %]" alt="[% c.config.name %]" />
+      [% ELSE %]
+        <span class="logo_bottom">[% c.config.name %]</span>
+      [% END %]
+    </a>
+    <div class="right">
+      <p>
+        <a href='[% c.uri_for('/') %]'>Home</a> /
+        <a href='[% c.uri_for('/credits') %]'>Credits</a> /
+        <a href='[% c.uri_for('/rake') %]'>About Rake</a> /
+        <a href='http://github.com/hippich/Bitcoin-Poker-Room/archives/master'>Download sources</a> /
+        <a href='http://github.com/hippich/Bitcoin-Poker-Room/issues'>Report bugs</a> /
+        <a href='[% c.uri_for('/contactus') %]'>Contact Us</a> /
+        <a target="_blank" href="http://webchat.freenode.net/?channels=betcoin">#betcoin</a> 
+      </p>
+      <span>&copy; [% site.copyright %]</span>
+    </div>
+  </div>
+  <!-- COPYRIGHTS ENDS-->
+</div>
+<!-- COPYRIGHTS WRAPPER ENDS-->
+</div>
+
 
 [% IF c.config.google_analytics_account %]
 <script type="text/javascript">
@@ -28,3 +107,5 @@
 
 </script>
 [% END %]
+
+<!-- END site/footer -->

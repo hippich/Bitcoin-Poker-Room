@@ -1,6 +1,5 @@
 <div id="header">[% PROCESS site/header %]</div>
 
-
 [% IF errors %]
 <div class="messages messages-error">
   [% FOREACH e IN errors %]
@@ -18,7 +17,8 @@
 [% END %]
 
 <div id="content">
-[% content %]
+  [% content %]
+  <div id="footer">
+    [% PROCESS site/footer %]
+  </div>
 </div>
-
-<div id="footer">[% PROCESS site/footer %]</div>

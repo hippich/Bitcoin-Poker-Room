@@ -1,20 +1,29 @@
-<!-- BEGIN site/header -->
-<h1 class="title">[% template.title or site.title %]</h1>
-
-
-<ul class='menu'>
-  <li class='first'><a href='[% c.uri_for('/') %]'>Home</a></li>
-  <li><a href='[% c.uri_for('/tables') %]'>Tables</a></li>
-  <li><a href='[% c.uri_for('/tourneys') %]'>Tourneys</a></li>
-  [% IF c.user %]
-    <li><a href='[% c.uri_for('/tables/my') %]'>My tables</a></li>
-    <li><a href='[% c.uri_for('/user') %]'>My Account</a></li>
-    <li><a href='[% c.uri_for('/user/deposit/bitcoin') %]'>Deposit</a></li>
-    <li><a href='[% c.uri_for('/user/withdraw/bitcoin') %]'>Withdraw</a></li>
-    <li class='last'><a href='[% c.uri_for('/user/logout') %]'>Log Out</a></li>
+<a id="logo" title="Homepage" href="/">
+  [% IF c.config.logo %]
+    <img src="[% c.config.logo %]" alt="[% c.config.name %]" />
   [% ELSE %]
-    <li><a href='[% c.uri_for('/user/login') %]'>Log In</a></li>
-    <li class='last'><a href='[% c.uri_for('/user/register') %]'>Register</a></li>
+    <span class="logo_top">[% c.config.name %]</span>
   [% END %]
-</ul>
+</a>
+
+<!-- BEGIN site/header -->
+<!-- <h1 class="title">[% template.title or site.title %]</h1> -->
+
+<div id="main_navigation" class="main-menu ">
+  <ul class='menu-list'>
+    <li class='first'><a href='[% c.uri_for('/') %]'>Home</a></li>
+    <li><a href='[% c.uri_for('/tables') %]'>Tables</a></li>
+    <li><a href='[% c.uri_for('/tourneys') %]'>Tourneys</a></li>
+    [% IF c.user %]
+      <li><a href='[% c.uri_for('/tables/my') %]'>My tables</a></li>
+      <li><a href='[% c.uri_for('/user') %]'>My Account</a></li>
+      <li><a href='[% c.uri_for('/user/deposit/bitcoin') %]'>Deposit</a></li>
+      <li><a href='[% c.uri_for('/user/withdraw/bitcoin') %]'>Withdraw</a></li>
+      <li class='last'><a href='[% c.uri_for('/user/logout') %]'>Log Out</a></li>
+    [% ELSE %]
+      <li><a href='[% c.uri_for('/user/login') %]'>Log In</a></li>
+      <li class='last'><a href='[% c.uri_for('/user/register') %]'>Register</a></li>
+    [% END %]
+  </ul>
+</div>
 <!-- END site/header -->

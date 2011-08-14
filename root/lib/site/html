@@ -1,39 +1,18 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
- <head>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
   <title>[% template.title or site.title %]</title>
-
-  [% IF c.req.browser.mobile() %]
-  <link rel="stylesheet" href="[% c.uri_for( c.config.mobile_css ) %]" type="text/css" />
-  [% ELSE %]
-  <link rel="stylesheet" href="[% c.uri_for( c.config.css ) %]" type="text/css" />
-  [% END %]
-
-  <script src="/static/jquery/jquery-1.5.2.min.js"></script>
-  <script src="/static/js/jquery.popupwindow.js"></script>
-  <script src="/static/script.js"></script>
-
-  <link rel="stylesheet" type="text/css" href="/static/jquery/ui.1.8/themes/smoothness/jquery.ui.all.css">
-
-  <script language="JavaScript" type="text/javascript" src="/static/jquery/ui.1.8/ui/jquery-ui-1.8.4.custom.js"></script>
-  
-  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.ajaxretry.js?a"></script>
-  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.ajaxQueue.js?b"></script> 
-  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.cookie.js"></script>
-  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.gettext.js"></script>
-  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.tablesorter.js"></script>
-  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.tablesorter.pager.js"></script>
-  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.query.js"></script>
-  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.form.js"></script>
-  <script language="JavaScript" type="text/javascript" src="/static/js/json2.js"></script>
-  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.jpoker.js?d"></script>
-  <script language="JavaScript" type="text/javascript" src="/static/js/mockup.js"></script>
-  <script language="JavaScript" type="text/javascript" src="/static/js/bproom.js"></script>
-
- </head>
- <body>
+  [% PROCESS site/styles %]
+  [% PROCESS site/js %]
+</head>
+<body>
   <div id="wrapper">
-    [% content %]
+    <div class="center">
+      <div id="container">
+        [% content %]
+      </div>
+    </div>
   </div>
- </body>
+</body>
 </html>
