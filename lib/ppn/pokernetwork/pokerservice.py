@@ -621,7 +621,7 @@ class PokerService(service.Service):
         sql = ( " SELECT * FROM tourneys_schedule WHERE " +
                 "          active = 'y' AND " +
                 "          resthost_serial = %s") % self.db.literal(self.resthost_serial)
-                
+
         cursor.execute(sql)
         result = cursor.fetchall()
         self.tourneys_schedule = dict(zip(map(lambda schedule: schedule['serial'], result), result))
@@ -643,10 +643,27 @@ class PokerService(service.Service):
         #
         # Respawning tournaments
         #
+        # (re)spawn tournaments that are not currently in play.
+        #
         for schedule in filter(lambda schedule: schedule['respawn'] == 'y', self.tourneys_schedule.values()):
             schedule_serial = schedule['serial']
-            if ( not self.schedule2tourneys.has_key(schedule_serial) or
-                 not filter(lambda tourney: tourney.state == TOURNAMENT_STATE_REGISTERING, self.schedule2tourneys[schedule_serial]) ):
+            if (not self.schedule2tourneys.has_key(schedule_serial)
+                or all((tourney.state == TOURNAMENT_STATE_COMPLETE or
+                       tourney.state == TOURNAMENT_STATE_CANCELED for tourney in
+                       self.schedule2tourneys[schedule_serial]))):
+                current_timestamp = int(seconds())
+                respawn_interval = int(schedule['respawn_interval'])
+                old_register_time = int(schedule['register_time'])
+                old_start_time = int(schedule['start_time'])
+                if respawn_interval == 0:
+                    new_register_time = current_timestamp
+                else:
+                    new_register_time = old_register_time
+                    while new_register_time < current_timestamp:
+                        new_register_time += respawn_interval
+                schedule['start_time'] = (new_register_time +
+                                          (old_start_time - old_register_time))
+                schedule['register_time'] = new_register_time
                 self.spawnTourney(schedule)
         #
         # One time tournaments
@@ -660,6 +677,13 @@ class PokerService(service.Service):
         #
         for tourney in filter(lambda tourney: tourney.sit_n_go == 'n', self.tourneys.values()):
             tourney.updateRunning()
+        #
+        # Update announced tournaments to registering
+        #
+        for tourney in filter(lambda tourney:
+                              tourney.state == TOURNAMENT_STATE_ANNOUNCED,
+                              self.tourneys.values()):
+            tourney.updateRegistering()
         #
         # Forget about old tournaments
         #
@@ -737,16 +761,19 @@ class PokerService(service.Service):
             tourney_serial = cursor.insert_id()
         if schedule['respawn'] == 'n':
             cursor.execute("UPDATE tourneys_schedule SET active = 'n' WHERE serial = %s" % schedule['serial'])
+        else:
+            cursor.execute("UPDATE tourneys_schedule SET register_time = %s, "
+                           "start_time = %s WHERE serial = %s",
+                           (schedule['register_time'], schedule['start_time'],
+                            schedule['serial']))
         cursor.execute("REPLACE INTO route VALUES (0,%s,%s,%s)", ( tourney_serial, int(seconds()), self.resthost_serial))
         cursor.close()
         self.spawnTourneyInCore(schedule, tourney_serial, schedule['serial'], currency_serial, prize_currency)
 
     def spawnTourneyInCore(self, tourney_map, tourney_serial, schedule_serial, currency_serial, prize_currency):
         tourney_map['start_time'] = int(tourney_map['start_time'])
-        if tourney_map['sit_n_go'] == 'y':
-            tourney_map['register_time'] = int(seconds()) - 1
-        else:
-            tourney_map['register_time'] = int(tourney_map.get('register_time', 0))
+        tourney_map['register_time'] = int(tourney_map.get('register_time',
+                                                           int(seconds()) - 1))
         tourney = PokerTournament(dirs = self.dirs, **tourney_map)
         tourney.serial = tourney_serial
         tourney.verbose = self.verbose
