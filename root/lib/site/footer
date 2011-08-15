@@ -11,40 +11,27 @@
           <!-- COLUMN STARTS-->
           <h4>About Us</h4>
           <p>
-             Lorem ipsum dolor sit amet, tollite fit manibus individuationis omnibus civitas ad quia. Quaere allocutus ait regem ut sua etiam quantitas non solutionem invenisti. Venis potest flens ibidem quod eam in. Ambo una litus vita Apolloni codicellos iam.
+             Open-source poker software powered by Bitcoin technology.
           </p>
         </div>
         <!-- COLUMN ENDS-->
         <div class="one-fourth">
           <!-- COLUMN STARTS-->
           <h4>Latest Posts</h4>
-          <ul>
-            <!-- LATEST POSTS UL-->
-            <li>
-            <a href="blog.html">Custom iPhone App Design &amp; Programming Applications</a>
-            <p>
-               April 26, 2011 · <a href="blog.html">14 Comments</a>
-            </p>
-            </li>
-            <li>
-            <a href="blog.html">A New Approach To Web Design For Mobile Devices</a>
-            <p>
-               March 19, 2011 · <a href="blog.html">68 Comments</a>
-            </p>
-            </li>
-          </ul>
+          <div id="blogspot-posts"></div>
           <!--END UL-->
         </div>
         <!-- COLUMN ENDS-->
         <div class="one-fourth">
           <!-- COLUMN STARTS-->
           <h4>Stay in Touch</h4>
+          <!-- SOCIAL LINKS STARTS-->
           <ul class="social-links">
-            <!-- SOCIAL LINKS STARTS-->
-            <li><img src="/static/themes/betcoin/images/icons/facebook.png" width="16" height="16" alt="#"/><a href="#">Our Facebook page</a></li>
-            <li><img src="/static/themes/betcoin/images/icons/twitter.png" width="16" height="16" alt="#"/><a href="#">Follow us on Twitter</a></li>
-            <li><img src="/static/themes/betcoin/images/icons/rss.png" width="16" height="16" alt="#"/><a href="#">Our RSS Feeds</a></li>
-            <li><img src="/static/themes/betcoin/images/icons/vimeo.png" width="16" height="16" alt="#"/><a href="#">Our Vimeo Videos</a></li>
+            [% IF c.config.facebook %]<li><a class="facebook-link" target="_blank" href="[% c.config.facebook %]">Our Facebook page</a></li>[% END %]
+            [% IF c.config.twitter %]<li><a class="twitter-link" target="_blank" href="[% c.config.twitter %]">Follow us on Twitter</a></li>[% END %]
+            [% IF c.config.github %]<li><a class="github-link" target="_blank" href="[% c.config.github %]">Our GitHub Project Page</a></li>[% END %]
+            [% IF c.config.irc %]<li><a class="irc-link" target="_blank" href="[% c.config.irc %]">IRC Chat</a></li>[% END %]
+            [% IF c.config.rss %]<li><a class="rss-link" target="_blank" href="[% c.config.rss %]">Our RSS Feeds</a></li>[% END %]
           </ul>
           <!-- SOCIAL LINKS ENDS-->
         </div>
@@ -57,6 +44,7 @@
         <!-- COLUMN ENDS-->
       </div>
       <!-- COLUMN CONTAINER ENDS-->
+      <div class="clear"></div>
     </div>
     <!-- FOOTER ENDS-->
   </div>
@@ -81,7 +69,7 @@
         <a href='http://github.com/hippich/Bitcoin-Poker-Room/archives/master'>Download sources</a> /
         <a href='http://github.com/hippich/Bitcoin-Poker-Room/issues'>Report bugs</a> /
         <a href='[% c.uri_for('/contactus') %]'>Contact Us</a> /
-        <a target="_blank" href="http://webchat.freenode.net/?channels=betcoin">#betcoin</a> 
+        <a target="_blank" href="http://webchat.freenode.net/?channels=betco.in">#betco.in</a> 
       </p>
       <span>&copy; [% site.copyright %]</span>
     </div>

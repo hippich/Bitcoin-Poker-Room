@@ -2,12 +2,10 @@
   [% IF c.config.logo %]
     <img src="[% c.config.logo %]" alt="[% c.config.name %]" />
   [% ELSE %]
-    <span class="logo_top">[% c.config.name %]</span>
+    <div class="logo-top">[% c.config.name %]</div>
+    <div class="logo-slogan">[% c.config.slogan %] <span style="color: black;">&spades;</span>&#9825;</div>
   [% END %]
 </a>
-
-<!-- BEGIN site/header -->
-<!-- <h1 class="title">[% template.title or site.title %]</h1> -->
 
 <div id="main_navigation" class="main-menu ">
   <ul class='menu-list'>
@@ -26,4 +24,6 @@
     [% END %]
   </ul>
 </div>
+
+<div class="clear"></div>
 <!-- END site/header -->

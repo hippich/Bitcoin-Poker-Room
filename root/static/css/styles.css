@@ -2,20 +2,20 @@ li {
   margin: 1em 0;
 }
 
-ul.menu {
+ul.menu-list {
   margin: 0;
   padding: 0;
   list-style: none;
   list-style-image: none;
 }
 
-ul.menu li {
+ul.menu-list li {
   display: inline;
   margin: 0 20px 0 0;
   padding: 0;
 }
 
-#header ul.menu {
+#header ul.menu-list {
   text-align: right;
   padding-bottom: 10px;
 }
@@ -56,14 +56,22 @@ body {
 #header {
     background-color: #e3e6ea;
     border-bottom: 1px solid #f08900;
+    padding: 4px 3%;
 }
 
 #footer {
     background-color: #e3e6ea;
-    text-align: center;
     border-top: 1px solid #f08900;
     width: 100%;
-    padding: 4px;
+    padding: 4px 3%;
+}
+
+#footer ul {
+    padding-left: 0;
+}
+
+#copyright {
+    text-align: center;
 }
 
 #content {
@@ -239,4 +247,55 @@ th {
 
 .schedule-status-y {
   background: #CFC;
+}
+
+.one, .one-half, .two-third, .one-third, .one-fourth, .one-fifth, .one-sixth ,.inner-content, .one-third-big { 
+	float:left; 
+}
+.one-half, .two-third, .one-third, .one-fourth, .one-fifth, .one-sixth, .inner-content,.one-third-big  {
+	margin-right: 3%;
+}
+.one {
+	width: 100%;
+}
+.one-half {
+	width: 49%;
+}
+.two-third {
+	width: 64%;
+}
+.one-third  {
+	width: 32%;
+}
+
+.one-third-big{ width: 33.3%;}
+.one-fourth {
+	width: 22.5%;
+}
+.one-fifth {
+	width: 17.5%;
+}
+.one-sixth {
+	width: 13.5%;
+}
+.last { 
+  margin-right: 0 !important;
+}
+
+#logo,
+#copyright-logo {
+  float: left;
+  margin: 4px 0 .5em 0;
+  font-size: 38px;
+  color: #222;
+  line-height: 24px;
+}
+
+.logo-slogan {
+  font-size: 14px;
+  color: #666;
+}
+
+#copyright-logo {
+  font-size: 24px;
 }

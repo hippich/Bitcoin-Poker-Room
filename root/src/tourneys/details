@@ -7,12 +7,12 @@
   [% END %]
 
   <script type="text/javascript">
-    $.jpoker.verbose = 2;
-    $.jpoker.sound_directory = '/static/';
-    $.jpoker.dialog_options = { width: '300px', height: 'auto', autoOpen: false, dialog: true, title: 'Bet Coin Message'};
+    jQuery.jpoker.verbose = 2;
+    jQuery.jpoker.sound_directory = '/static/';
+    jQuery.jpoker.dialog_options = { width: '300px', height: 'auto', autoOpen: false, dialog: true, title: 'The Room Message'};
 
-    $(document).ready(function() {
-      $('#main').jpoker('tourneyDetails', '/POKER_REST', [% tourney.serial %], 'somename', {
+    jQuery(document).ready(function() {
+      jQuery('#main').jpoker('tourneyDetails', '/POKER_REST', [% tourney.serial %], 'somename', {
           link_pattern: '/table/{game_id}/view'
         }, {
           url: '[% url %]',

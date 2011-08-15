@@ -1,7 +1,5 @@
 [% META title = 'Bitcoin Poker Room' %]
 
-<h2 class="content-title">Welcome</h2>
-
 <div class='right_column'>
   <div id="twitter" style="text-align: center;">
     <a href="https://twitter.com/betcoin"><img src="/static/img/STB-4.png" /></a>

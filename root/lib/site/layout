@@ -17,8 +17,10 @@
 [% END %]
 
 <div id="content">
+  [% IF template.notitle != 1 %]
+  <h1 class="title">[% template.title or site.title %]</h1>
+  [% END %]
+
   [% content %]
-  <div id="footer">
-    [% PROCESS site/footer %]
-  </div>
+  [% PROCESS site/footer %]
 </div>

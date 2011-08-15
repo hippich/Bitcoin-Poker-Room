@@ -1,0 +1,7 @@
+[% IF c.req.browser.mobile() %]
+<link rel="stylesheet" href="/static/css/styles-mobile.css" type="text/css" />
+[% ELSE %]
+<link rel="stylesheet" href="/static/css/styles.css" type="text/css" />
+[% END %]
+
+<link rel="stylesheet" type="text/css" href="/static/jquery/ui.1.8/themes/smoothness/jquery.ui.all.css">

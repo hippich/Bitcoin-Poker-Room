@@ -1,24 +1,25 @@
 [% META title = 'Tables list' %]
 
 <div class="tables-list-wrapper">
-  <div class="tables-categories">
+  <div class="tables-categories one-fourth">
+
     <div class="active popular-tables">
       <a href="#popular-tables">Popular</a>
     </div>
 
-    <ul class="table-variants">
+    <ul class="table-variants simple-nav">
       [% FOREACH game_variant = tables_structure %]
       <li>
-      [% game_variant.key %]
-      <ul class="table-seats">
+      <a href="#">[% game_variant.key %]</a>
+      <ul class="table-seats simple-nav">
         [% FOREACH game_seats = game_variant.value %]
         <li>
-        [% game_seats.key %]
-        <ul class="table-limits">
+        <a href="#">[% game_seats.key %]</a>
+        <ul class="table-limits simple-nav">
           [% FOREACH game_limit = game_seats.value %]
           <li>
-          [% game_limit.key %]
-          <ul class="game-bets">
+          <a href="#">[% game_limit.key %]</a>
+          <ul class="game-bets simple-nav">
             [% FOREACH game_bet = game_limit.value %]
             <li>
             <a href="#[% game_bet.value.hash %]">[% game_bet.key %]</a> ([% game_bet.value.players %])
@@ -36,7 +37,7 @@
     </ul>
   </div>
 
-  <div class="tables">
+  <div class="tables three-fourth">
 
     [% IF not c.user %]
       <div class="non-logged-in-notice">

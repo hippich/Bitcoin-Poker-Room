@@ -1,0 +1,23 @@
+<script type="text/javascript" src="http://www.google.com/jsapi?[% c.config.google_search_api_key %]"></script>
+
+<script src="/static/jquery/jquery-1.5.2.min.js"></script>
+<script src="/static/js/jquery.popupwindow.js"></script>
+<script src="/static/script.js"></script>
+
+<script src="/static/jquery/ui.1.8/ui/jquery-ui-1.8.4.custom.js"></script>
+
+<script src="/static/js/jquery.ajaxretry.js"></script>
+<script src="/static/js/jquery.ajaxQueue.js"></script> 
+<script src="/static/js/jquery.cookie.js"></script>
+<script src="/static/js/jquery.gettext.js"></script>
+<script src="/static/js/jquery.tablesorter.js"></script>
+<script src="/static/js/jquery.tablesorter.pager.js"></script>
+<script src="/static/js/jquery.query.js"></script>
+<script src="/static/js/jquery.form.js"></script>
+<script src="/static/js/json2.js"></script>
+<script src="/static/js/jquery.jpoker.js"></script>
+<script src="/static/js/mockup.js"></script>
+<script src="/static/js/bproom.js"></script>
+
+<script type="text/javascript" src="/static/js/jquery.tweet.js"></script>
+<script type="text/javascript" src="/static/js/date.format.js"></script>

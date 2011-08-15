@@ -13,7 +13,7 @@
    # define a data structure to hold sitewide data
    site = {
      title     => c.config.name,
-     copyright => '2010 Bitcoin Poker Room',
+     copyright => '2010 <a target="_blank" href="http://www.yepcorp.com/">Yep Corp Limited</a>',
    };
 
    # load up any other configuration items
