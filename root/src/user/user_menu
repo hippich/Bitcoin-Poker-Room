@@ -1,0 +1,8 @@
+<ul class="simple-nav">
+  <li><a href='[% c.uri_for('/user/hands') %]'>Hands history</a></li>
+  <li><a href="[% c.uri_for('/user/edit') %]">Edit Account</a></li>
+  <li><a href="[% c.uri_for('/user/deposit/bitcoin') %]">Deposit</a></li>
+  <li><a href="[% c.uri_for('/user/withdraw/bitcoin') %]">Withdraw</a></li>
+</ul>
+
+

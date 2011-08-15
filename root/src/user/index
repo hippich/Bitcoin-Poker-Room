@@ -1,77 +1,80 @@
 [% META title = 'User account' %]
 
-<div class="secondary-menu">
-  <ul>
-    <li><a href='[% c.uri_for('/user/hands') %]'>Hands history</a></li>
-  </ul>
-</div>
+<div class="one">
 
-<div class="profile-avatar">
-  <img src="[% c.uri_for("/AVATAR/" _ c.user.serial) %]" alt="[% c.user.name %] picture" />
-  <br />
-  <p>To change your avatar, make sure you have valid email set in your account
-  and change your picture on <a href="http://gravatar.com/emails/" target="_blank">gravatar.com</a></p>
-</div>
+  <div class="one-fourth">[% PROCESS user/user_menu %]</div>
 
-<h2 class="account-info">Account <span><sup><a href="[% c.uri_for('/user/edit') %]">Edit</a></sup></span></h2>
+  <div class="inner-content last">
+    <div class="profile-avatar">
+      <img src="[% c.uri_for("/AVATAR/" _ c.user.serial) %]" alt="[% c.user.name %] picture" />
+      <br />
+      <p>To change your avatar, make sure you have valid email set in your account
+      and change your picture on <a href="http://gravatar.com/emails/" target="_blank">gravatar.com</a></p>
+    </div>
 
-<ul>
-  <li><strong>Username:</strong> [% c.user.name %]</li>
-  <li><strong>Email:</strong> [% c.user.email %]</li>
-  <li><strong>Emergency bitcoin address:</strong> [% c.user.emergency_address %]</li>
-  <li><strong>Password:</strong> ***********</li>
-</ul>
+    <h2 class="account-info">Account </h2>
 
-[% IF c.user.balances %]
-<h2>Your balance</h2>
+    <ul>
+      <li><strong>Username:</strong> [% c.user.name %]</li>
+      <li><strong>Email:</strong> [% c.user.email %]</li>
+      <li><strong>Emergency bitcoin address:</strong> [% c.user.emergency_address %]</li>
+      <li><strong>Password:</strong> ***********</li>
+    </ul>
 
-<ul class="user-balances">
-  [% FOR balance IN c.user.balances %]
-    <li>
-      [% balance.amount * 100 | format('%.2f') %] Chips ([% balance.amount %] [% balance.currency.symbol %])
-      - <span><a href="[% c.uri_for('/user/deposit/bitcoin') %]">Deposit</a></span>
-    </li>
-  [% END %]
-</ul>
-[% END %]
+    [% IF c.user.balances %]
+    <h2>Your balance</h2>
 
-
-<div id='user-deposits'>
-  <h2 class="account-info">Deposits:</h2>
-
-  <table>
-    <tr><th>ID</th><th>Date</th><th>Amount</th></tr>
-    [% FOR deposit IN c.user.deposits %]
-      <tr><td>[% deposit.deposit_id %]</td><td>[% deposit.created_at %]</td><td>[% deposit.amount %]</td></tr>
-    [% END %]
-  </table>
-</div>
-
-<div id='user-withdrawal'>
-  <h2 class="account-info">Withdrawals:</h2>
-
-  <table class='withdrawals'>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Currency</th>
-        <th>Amount</th>
-        <th>Destination</th>
-        <th>Created</th>
-        <th>Processed</th>
-      </tr>
-    </thead>
-    <tbody>
-      [% FOR withdrawal IN c.user.withdrawals %]
-          <tr>
-            <td>[% withdrawal.id %]</td>
-            <td>[% withdrawal.currency.name %]</td>
-            <td>[% withdrawal.amount %]</td>
-            <td>[% withdrawal.dest  | html %]</td>
-            <td>[% withdrawal.created_at %]</td>
-            <td>[% withdrawal.processed_at %]</td>
-          </tr>
+    <ul class="user-balances">
+      [% FOR balance IN c.user.balances %]
+        <li>
+          [% balance.amount * 100 | format('%.2f') %] Chips ([% balance.amount %] [% balance.currency.symbol %])
+          - <span><a href="[% c.uri_for('/user/deposit/bitcoin') %]">Deposit</a></span>
+        </li>
       [% END %]
-    </tbody>
-  </table>
+    </ul>
+    [% END %]
+
+
+    <div id='user-deposits'>
+      <h2 class="account-info">Deposits:</h2>
+
+      <table>
+        <tr><th>ID</th><th>Date</th><th>Amount</th></tr>
+        [% FOR deposit IN c.user.deposits %]
+          <tr><td>[% deposit.deposit_id %]</td><td>[% deposit.created_at %]</td><td>[% deposit.amount %]</td></tr>
+        [% END %]
+      </table>
+    </div>
+
+    <div id='user-withdrawal'>
+      <h2 class="account-info">Withdrawals:</h2>
+
+      <table class='withdrawals'>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Currency</th>
+            <th>Amount</th>
+            <th>Destination</th>
+            <th>Created</th>
+            <th>Processed</th>
+          </tr>
+        </thead>
+        <tbody>
+          [% FOR withdrawal IN c.user.withdrawals %]
+              <tr>
+                <td>[% withdrawal.id %]</td>
+                <td>[% withdrawal.currency.name %]</td>
+                <td>[% withdrawal.amount %]</td>
+                <td>[% withdrawal.dest  | html %]</td>
+                <td>[% withdrawal.created_at %]</td>
+                <td>[% withdrawal.processed_at %]</td>
+              </tr>
+          [% END %]
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
+
+<div class="clear"></div>

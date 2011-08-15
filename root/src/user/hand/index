@@ -1,25 +1,34 @@
 [% META title = 'Games history' %]
 
-<table>
-  <tr><th>Hand #</th><th>Players</th><th>Date</th><th>Result</th><th>Action</th></tr>
-  [% WHILE (hand = hands.next) %]
-    [% money = hand.get_amounts(user.serial) -%]
-    [% result = money.share - money.total -%]
+<div class="one">
 
-    <tr class="[% IF result > 0 %]positive-result[% ELSIF result < 0 %]negative-result[% END %]">
-      <td>[% hand.serial %]</td>
-      <td>[% hand.get_all_players.join(', ') %]</td>
-      <td>[% hand.created %]</td>
-      <td>[% result / 100 %] ([% money.total / 100 %] / [% money.share  / 100 %])</td>
-      <td><a href='[% c.uri_for('/user/hands/' _ hand.serial) %]'>View</a></td>
-    </tr>
-  [% END %]
-</table>
+  <div class="one-fourth">[% PROCESS user/user_menu %]</div>
 
-[% IF hands.pager.next_page %]
-<span style="float: right"><a href="[% c.uri_for(c.action, c.req.captures, { page => hands.pager.next_page }) %]">Next &gt;&gt;</a></span>
-[% END %]
+  <div class="inner-content last">
+    <table>
+      <tr><th>Hand #</th><th>Players</th><th>Date</th><th>Result</th><th>Action</th></tr>
+      [% WHILE (hand = hands.next) %]
+        [% money = hand.get_amounts(user.serial) -%]
+        [% result = money.share - money.total -%]
 
-[% IF hands.pager.previous_page %]
-<span style="float: left"><a href="[% c.uri_for(c.action, c.req.captures, { page => hands.pager.previous_page }) %]">&lt;&lt; Prev</a></span>
-[% END %]
+        <tr class="[% IF result > 0 %]positive-result[% ELSIF result < 0 %]negative-result[% END %]">
+          <td>[% hand.serial %]</td>
+          <td>[% hand.get_all_players.join(', ') %]</td>
+          <td>[% hand.created %]</td>
+          <td>[% result / 100 %] ([% money.total / 100 %] / [% money.share  / 100 %])</td>
+          <td><a href='[% c.uri_for('/user/hands/' _ hand.serial) %]'>View</a></td>
+        </tr>
+      [% END %]
+    </table>
+
+    [% IF hands.pager.next_page %]
+    <span style="float: right"><a href="[% c.uri_for(c.action, c.req.captures, { page => hands.pager.next_page }) %]">Next &gt;&gt;</a></span>
+    [% END %]
+
+    [% IF hands.pager.previous_page %]
+    <span style="float: left"><a href="[% c.uri_for(c.action, c.req.captures, { page => hands.pager.previous_page }) %]">&lt;&lt; Prev</a></span>
+    [% END %]
+  </div>
+
+</div>
+<div class="clear"></div>

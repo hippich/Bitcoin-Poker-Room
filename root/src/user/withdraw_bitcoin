@@ -1,9 +1,17 @@
 [% META title = 'Withdraw' %]
 
-<p>
-  <strong>Available amount to withdraw:</strong> [% current_balance %] BTC ([% balance.amount * 100 | format('%.2f') %] Chips)
-</p>
+<div class="one">
 
-<p><i>Please note, larger amounts may require additional <strong>24 hours</strong> processing time. You will be notified if your withdrawal not processed immediately and require additional processing time.</i></p>
+  <div class="one-fourth">[% PROCESS user/user_menu %]</div>
 
-[% form %]
+  <div class="inner-content last">
+    <p>
+      <strong>Available amount to withdraw:</strong> [% current_balance %] BTC ([% balance.amount * 100 | format('%.2f') %] Chips)
+    </p>
+
+    <p><i>Please note, larger amounts may require additional <strong>24 hours</strong> processing time. You will be notified if your withdrawal not processed immediately and require additional processing time.</i></p>
+
+    [% form %]
+  </div>
+</div>
+<div class="clear"></div>

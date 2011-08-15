@@ -138,7 +138,7 @@ sub view_hand :Chained('user') :PathPart('hands') :Args(1) {
 
   $c->stash->{hand} = $hand->get_parsed_history;
   
-  $c->stash->{template} = 'user/hand/view_hand';
+  $c->stash->{template} = 'user/hand/view_hand_only';
 }
 
 
