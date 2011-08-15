@@ -5,7 +5,7 @@ use String::Random;
 use URI::Escape qw(uri_escape);
 use Digest::MD5 qw(md5_hex);
 
-BEGIN { extends 'Catalyst::Controller' }
+BEGIN { extends 'Catalyst::Controller::HTML::FormFu'; }
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -114,10 +114,39 @@ sub AVATAR :Global :Args(1) {
   }
 }
 
+sub contactus :Local :FormConfig {
+    my ($self, $c) = @_;
+    my $form = $c->stash->{form};
 
+    if ($form->submitted) {
+        if ($form->submitted_and_valid) {
+            # This is ugly. Need to refactor somehow later
+            my $message = "Name: ". $form->params->{name} . "\nEmail: ". $form->params->{email} ."\nText:\n". $form->params->{body};
+
+            $c->log->debug($message);
+
+            $c->email(
+                header => [
+                    From    => $form->params->{email},
+                    To      => $c->config->{site_email},
+                    Subject => $form->params->{subject},
+                ],
+                body => $message,
+            );
+
+            push @{$c->flash->{messages}}, "Message sent. Thank you.";
+
+            $c->res->redirect(
+              $c->action
+            );
+        }
+        else {
+            push @{$c->stash->{errors}}, "Please correct input and re-submit form.";
+        }
+    }
+}
 
 sub credits :Local {}
-sub contactus :Local {}
 sub rake :Local {}
 
 =head2 default

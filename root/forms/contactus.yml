@@ -1,0 +1,43 @@
+---
+indicator: submit
+auto_fieldset: 1
+
+elements:
+  - type: Text
+    name: name
+    label: Name
+    constraints:
+      - Required
+
+  - type: Text
+    name: email
+    label: Email
+    constraints:
+      - Required
+      - Email
+
+  - type: Text
+    name: subject
+    label: Subject
+    constraints:
+      - Required
+
+  - type: Textarea
+    name: body
+    label: Your Message
+    constraints:
+      - Required
+
+  - type: reCAPTCHA
+    name: recaptcha
+    public_key: 6Lds1LwSAAAAANbJelYz_47WQFRKbiVfjD3YXMHX
+    private_key: 6Lds1LwSAAAAAElmpFToH8Knj8py8cqHD-0Fihnx
+    recaptcha_options:
+      theme: white
+
+  - type: Submit
+    value: Send message
+    name: submit
+    
+constraints:
+  - SingleValue

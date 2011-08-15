@@ -1,5 +1,44 @@
 [% META title = 'Contact us' %]
 
-<p>IRC: freenode.com - <a target="_blank" href="http://webchat.freenode.net/?channels=betcoin">#betcoin</a></p>
+<div class="one">
+  <div class="one-half">
+    <h3>Frequently Asked Questions:</h3>
 
-<p>Please, send me email to <a href='mailto:pavel@yepcorp.com'>pavel@yepcorp.com</a> with any questions, suggestions or anything else =)</p>
+    <ul>
+      <li>
+        <p><strong>My controls at the table disappeared or table "froze"! What should I do?!!</strong></p>
+        <p>This happens when connection to our server was lost for a short moment and 
+        software were not able to recognize it. We are working on polishing this part.
+        In the mean time if this happens to you - press F5 button in table window.</p>
+      </li>
+
+      <li>
+        <p><strong>Where is my deposit?</strong></p>
+        <p>Bitcoin network uses "confirmations". Right now we accept transactions with 
+        just single confirmation. Your bitcoin client should show you number of received 
+        confirmations. If you used other ways to send bitcoins you can use 
+        <a href="http://blockexplorer.com" target="_blank">Block Explorer</a> to look
+        for information about your transaction.</p>
+      </li>
+
+      <li>
+        <p><strong>When my withdrawal will be processed?</strong></p>
+        <p>For security reasons we keep very limited number of bitcoins on server, 
+        therefore not all transactions are processed automatically. When server balance 
+        below amount you are trying to withdraw transaction queued for manual processing. 
+        We usually process transactions within 24 hours. Please use form on the right if 
+        you did not receive your withdrawal after 24 hours.</p>
+      </li>
+
+      <li>
+        <p><strong>How many chips I will get for 1 bitcoin?</strong></p>
+        <p>1 chip = 0.01 bitcoin. This means you will get 100 chips for your 1 bitcoin.</p>
+      </li>
+    </ul>
+  </div>
+  <div class="one-half last">
+    <h3>Contact Us:</h3>
+    [% form %]
+  </div>
+</div>
+
