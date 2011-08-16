@@ -1,5 +1,6 @@
 [% META title = 'Tourney details' %]
 
+<div class="one">
   [% IF not c.user %]
     <div class="non-logged-in-notice">
       <p>You will need to <a href="[% c.uri_for('/user/login', undef, { destination => '/tourneys/' _ tourney.serial }) %]">login</a> in order to register at this tourney.</p>
@@ -12,20 +13,23 @@
     jQuery.jpoker.dialog_options = { width: '300px', height: 'auto', autoOpen: false, dialog: true, title: 'The Room Message'};
 
     jQuery(document).ready(function() {
-      jQuery('#main').jpoker('tourneyDetails', '/POKER_REST', [% tourney.serial %], 'somename', {
-          link_pattern: '/table/{game_id}/view'
-        }, {
-          url: '[% url %]',
-          auth: "auth=[% auth %]",
-          serial: [% uid %],
-          onTourneyStart: function(game_id) {
-            popitup('/table/' + game_id + '/view', game_id);
+      setTimeout(function() {
+        jQuery('#main').jpoker('tourneyDetails', '/POKER_REST', [% tourney.serial %], 'somename', {
+            link_pattern: '/table/{game_id}/view'
+          }, {
+            url: '[% url %]',
+            auth: "auth=[% auth %]",
+            serial: [% uid %],
+            onTourneyStart: function(game_id) {
+              popitup('/table/' + game_id + '/view', game_id);
+            }
           }
-        }
-      );
+        );
+      }, 500);
     });
 
   </script>
 
   <div id="main">
   </div>
+</div>

@@ -41,64 +41,65 @@
     <script language="JavaScript" type="text/javascript" src="/static/js/mockup.js"></script>
     <script language="JavaScript" type="text/javascript" src="/static/js/bproom.js"></script>
 
-    <script type="text/javascript">
-      $.jpoker.verbose = 2;
-      $.jpoker.sound_directory = '/static/';
-      $.jpoker.dialog_options = { width: '300px', height: 'auto', autoOpen: false, dialog: true, title: 'Bet Coin Message'};
-
-      var restURL = "[% url %]";
-      var uid = [% uid %];
-      var auth = "[% auth %]";
-      var game_id = [% table.serial %];
-
-      var table_state = 'open';
-      
-      $(document).ready(function() {
-          var server;
-          
-          jQuery(window).bind(
-              'beforeunload',
-              function() {
-                if (table_state == "open" && uid != "") {
-                  return 'Are you sure you want to leave this table?';
-                }
-              }
-          );
-
-          if ($.jpoker.servers[restURL]) {
-            server = $.jpoker.servers[restURL];
-          }
-          else {
-            server = $.jpoker.url2server({
-              url: restURL,
-              auth: 'auth=' + auth,
-              serial: uid
-            });
-          }
-          
-          server.spawnTable = function(server, packet) {
-            $('#main').empty();
-
-            if (packet.game_id == game_id) {
-              $('#main').jpoker('table', restURL, packet.game_id, packet.name);
-            }
-          }
-          
-          $.jpoker.plugins.table.callback.quit = function(table, packet) {
-            setTimeout(function() { 
-              table_state = 'close';
-              window.close(); 
-            }, 100);
-          };
-
-          server.tableJoin(game_id);
-      });
-    </script>
   </head>
   <body>
 
     <div id="main"></div>
   
   </body>
+
+  <script type="text/javascript">
+    jQuery.jpoker.verbose = 2;
+    jQuery.jpoker.sound_directory = '/static/';
+    jQuery.jpoker.dialog_options = { width: '300px', height: 'auto', autoOpen: false, dialog: true, title: 'Bet Coin Message'};
+
+    var restURL = "[% url %]";
+    var uid = [% uid %];
+    var auth = "[% auth %]";
+    var game_id = [% table.serial %];
+
+    var table_state = 'open';
+    
+    jQuery(document).ready(function() {
+        var server;
+        
+        jQuery(window).bind(
+            'beforeunload',
+            function() {
+              if (table_state == "open" && uid != "") {
+                return 'Are you sure you want to leave this table?';
+              }
+            }
+        );
+
+        if (jQuery.jpoker.servers[restURL]) {
+          server = jQuery.jpoker.servers[restURL];
+        }
+        else {
+          server = jQuery.jpoker.url2server({
+            url: restURL,
+            auth: 'auth=' + auth,
+            serial: uid
+          });
+        }
+        
+        server.spawnTable = function(server, packet) {
+          jQuery('#main').empty();
+
+          if (packet.game_id == game_id) {
+            jQuery('#main').jpoker('table', restURL, packet.game_id, packet.name);
+          }
+        }
+        
+        jQuery.jpoker.plugins.table.callback.quit = function(table, packet) {
+          setTimeout(function() { 
+            table_state = 'close';
+            window.close(); 
+          }, 100);
+        };
+
+        server.tableJoin(game_id);
+    });
+  </script>
 </html>
 
