@@ -82,6 +82,11 @@ Return all tables curreny user is sit at.
 sub my :Local :Args(0) {
     my ($self, $c) = @_;
 
+    if (! $c->user) {
+        $c->res->redirect( '/404-not-found' ); 
+        return;
+    }
+
     $c->stash->{tables} = $c->user->tables;
 }
 
