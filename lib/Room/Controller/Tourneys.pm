@@ -27,7 +27,7 @@ sub index :Path :Args(0) {
 
     $c->stash->{tourneys} = $c->model('PokerNetwork::Tourneys')->search(undef, {
         page => $c->req->params->{page} || 1,
-        rows => 50,
+        rows => 20,
         order_by => {
             -desc => 'serial',
         },
