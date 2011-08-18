@@ -25,7 +25,9 @@ Show list of all tourneys
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->stash->{tourneys} = $c->model('PokerNetwork::Tourneys')->search(undef, {
+    $c->stash->{tourneys} = $c->model('PokerNetwork::Tourneys')->search({
+        state => { '<>' => 'canceled' },
+    }, {
         page => $c->req->params->{page} || 1,
         rows => 20,
         order_by => {
