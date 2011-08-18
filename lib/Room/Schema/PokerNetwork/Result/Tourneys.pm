@@ -117,6 +117,11 @@ __PACKAGE__->set_primary_key("serial");
 # Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7TyTlrEhWw004Jae61zkSw
 
+__PACKAGE__->load_components( qw( DateTime::Epoch TimeStamp) );
+
+
+# Relationships
+
 __PACKAGE__->has_many(
   'usertourneys' => 'Room::Schema::PokerNetwork::Result::User2tourney',
   { 'foreign.tourney_serial' => 'self.serial' },
@@ -125,6 +130,18 @@ __PACKAGE__->many_to_many(
   users => 'usertourneys', 'user'
 );
 
+# Inflators
+
+__PACKAGE__->add_columns(
+  "start_time",
+  { data_type => "INT", inflate_datetime => 'epoch', is_nullable => 1, size => 11 },
+  "finish_time",
+  { data_type => "INT", inflate_datetime => 'epoch', is_nullable => 1, size => 11 },
+);
+
+
+
+# Filters
 
 __PACKAGE__->filter_column(
   prize_min => {
