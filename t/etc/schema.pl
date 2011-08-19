@@ -17,7 +17,7 @@ return {
     ],
 
     fixture_sets => {
-        tourneys => {
+        tourneys => [
             Users => [
                 [ 'serial', 'name', 'email', 'password', 'privilege', 'created' ],
                 [ 22, 'admin', 'admin@test.com', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 0 ],
@@ -45,6 +45,6 @@ return {
                 [ 22, 1, 2071, 8251, 1 ],
                 [ 23, 1, 2071, 8251, 2 ], 
             ]
-        }
+        ]
     },
 };

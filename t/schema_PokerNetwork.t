@@ -5,7 +5,7 @@ use Test::DBIx::Class;
 
 fixtures_ok "tourneys", "Tourneys fixtures loaded.";
 
-ok my $user = Users->find({ email => 'admin@test.com' }), 'Fetch admin user object.';
+ok (my $user = Users->find({ email => 'admin@test.com' }), 'Fetch admin user object.');
 
 is $user->name, 'admin', 'This is admin.';
 
