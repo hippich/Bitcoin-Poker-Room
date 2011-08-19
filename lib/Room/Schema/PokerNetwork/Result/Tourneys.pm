@@ -123,11 +123,16 @@ __PACKAGE__->load_components( qw( DateTime::Epoch TimeStamp) );
 # Relationships
 
 __PACKAGE__->has_many(
-  'usertourneys' => 'Room::Schema::PokerNetwork::Result::User2tourney',
-  { 'foreign.tourney_serial' => 'self.serial' },
+    'usertourneys' => 'Room::Schema::PokerNetwork::Result::User2tourney',
+    { 'foreign.tourney_serial' => 'self.serial' },
 );
+
 __PACKAGE__->many_to_many(
-  users => 'usertourneys', 'user'
+    users => 'usertourneys', 'user'
+);
+
+__PACKAGE__->many_to_many(
+    tables => 'usertourneys', 'tourney_table'
 );
 
 # Inflators
@@ -175,6 +180,32 @@ sub get_users_registered {
     my ($self) = @_;
 
     return $self->usertourneys->count;
+}
+
+
+sub get_table_serial {
+    my ($self, $serial) = @_;
+    my $usertourneys = $self->usertourneys;
+    
+    return $usertourneys->first->table_serial unless $serial;
+
+    my $users = $usertourneys->find({user_serial => $serial});
+
+    return $users->table_serial unless !$users;
+
+    return $usertourneys->first->table_serial;
+}
+
+
+sub is_user_registered {
+    my ($self, $serial) = @_;
+
+    if ($self->usertourneys->find({user_serial => $serial})) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
 }
 
 =head1 AUTHOR

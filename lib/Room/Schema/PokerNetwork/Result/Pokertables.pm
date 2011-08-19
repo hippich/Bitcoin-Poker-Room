@@ -78,12 +78,20 @@ __PACKAGE__->add_unique_constraint("name", ["name"]);
 
 
 __PACKAGE__->has_many(
-  'usertables' => 'Room::Schema::PokerNetwork::Result::User2table',
-  { 'foreign.table_serial' => 'self.serial' },
+    'usertables' => 'Room::Schema::PokerNetwork::Result::User2table',
+    { 'foreign.table_serial' => 'self.serial' },
 );
+
 __PACKAGE__->many_to_many(
-  users => 'usertables', 'user'
+    users => 'usertables', 'user'
 );
+
+
+__PACKAGE__->has_one( 
+    tourney => 'Room::Schema::PokerNetwork::Result::Tourneys',
+    { 'foreign.serial' => 'self.tourney_serial' },
+);
+
 
 =head1 AUTHOR
 

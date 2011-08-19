@@ -100,6 +100,17 @@ sub table :Chained :CaptureArgs(1) {
 
     $c->stash->{table} = $c->model('PokerNetwork::Pokertables')->find($game_id);
 
+    if (my $tourney = $c->stash->{table}->tourney) {
+        if ($tourney->is_user_registered($c->user->serial)) {
+            $c->res->redirect(
+                $c->uri_for(
+                    '/tourneys/'. $tourney->serial .'/table'
+                )
+            );
+            return;
+        }
+    }
+
     $c->res->redirect('/404-not-found') unless $c->stash->{table};
 
     $c->stash->{url} = $c->config->{rest_url} || '/POKER_REST';

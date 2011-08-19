@@ -17,12 +17,19 @@ Catalyst Controller.
 =cut
 
 
+=head2 base 
+
+Chain start.
+
+=cut 
+sub base :Chained :PathPart('tourneys') :CaptureArgs(0) {}
+
 =head2 index
 
 Show list of all tourneys
 
 =cut
-sub index :Path :Args(0) {
+sub index :Chained('base') :PathPart('') :Args(0) {
     my ( $self, $c ) = @_;
 
     $c->stash->{tourneys} = $c->model('PokerNetwork::Tourneys')->search({
@@ -37,20 +44,40 @@ sub index :Path :Args(0) {
 }
 
 
+=head2 details_base 
+
+
+=cut
+sub tourney_base :Chained('base') :PathPart('') :CaptureArgs(1) {
+    my ($self, $c, $serial) = @_;
+    $c->stash->{tourney} = $c->model('PokerNetwork::Tourneys')->find($serial);
+    $c->res->redirect('/404-not-found') unless $c->stash->{tourney};
+
+    $c->stash->{url} = $c->config->{rest_url} || '/POKER_REST';
+    $c->stash->{uid} = ($c->user) ? $c->user->serial : 0;
+    $c->stash->{auth} = $c->session->{pokernetwork_auth} || 'N';
+}
+
 =head2 details 
 
 Tourney details page. Here player can check tourney stats and register for tourney.
 
 =cut
-sub details :Path('') :Args(1) {
+sub details :Chained('tourney_base') :PathPart('') :Args(0) {}
+
+
+=head2 table 
+
+For currently logged in user opens his table.
+
+=cut 
+sub table :Chained('tourney_base') :Args(0) {
     my ($self, $c, $serial) = @_;
-    $c->stash->{tourney} = $c->model('PokerNetwork::Tourneys')->find($serial);
 
-    $c->stash->{url} = $c->config->{rest_url} || '/POKER_REST';
-    $c->stash->{uid} = ($c->user) ? $c->user->serial : 0;
-    $c->stash->{auth} = $c->session->{pokernetwork_auth} || 'N';
+    my $table_serial = $c->stash->{tourney}->get_table_serial($c->user->serial);
+    $c->stash->{table} = $c->model("PokerNetwork::Pokertables")->find($table_serial);
 
-    $c->res->redirect('/404-not-found') unless $c->stash->{tourney};
+    $c->stash->{template} = 'tables/view';
 }
 
 =head1 AUTHOR

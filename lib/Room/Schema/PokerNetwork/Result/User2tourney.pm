@@ -41,6 +41,11 @@ __PACKAGE__->belongs_to(
   { serial => 'tourney_serial' }
 );
 
+__PACKAGE__->belongs_to(
+  tourney_table => 'Room::Schema::PokerNetwork::Result::Pokertables',
+  { serial => 'table_serial' }
+);
+
 
 =head1 AUTHOR
 
