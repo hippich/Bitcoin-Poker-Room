@@ -1263,14 +1263,6 @@
                   }
                 break;
 
-                // The server sends a PacketPokerMessage when broadcasting
-                // informative announcements to players, such as scheduled
-                // maintenance.
-                case 'PacketPokerMessage':
-                case 'PacketPokerGameMessage':
-                jpoker.dialog(packet.string);
-                break;
-
                 case 'PacketSerial':
                 server.setSerial(packet);
                 break;
@@ -2020,6 +2012,15 @@
                 var serial = packet.serial;
 
                 switch(packet.type) {
+
+                // The server sends a PacketPokerMessage when broadcasting
+                // informative announcements to players, such as scheduled
+                // maintenance.
+                case 'PacketPokerMessage':
+                case 'PacketPokerGameMessage':
+                jQuery.jpoker.dialog(packet.string);
+                break;
+
 
                 case 'PacketPokerBatchMode':
                     break;
@@ -2919,7 +2920,8 @@
                             if (opts.link_pattern === undefined) {
                                 $('.jpoker_tourney_details_tables_goto_table', element).click(function() {
                                         server.tableJoin(parseInt($(this).parent().parent().attr('id').substr(1), 10));
-                                    });
+                             
+                                });
                             }
 
 
@@ -3108,18 +3110,28 @@
     };
 
     jpoker.plugins.tourneyDetails.templates = {
-        layout: '{tname}{players}{info}{register}{prizes}{tables}{table_details}', // layout of the templates defined below
+        layout: '{tname}{players}{prizes}{info}{register}{tables}{table_details}', // layout of the templates defined below
         tname: '<div class=\'jpoker_tourney_name\'>{description_short}</div>',
         info: {
-            regular: '<div class=\'jpoker_tourney_details_info jpoker_tourney_details_{state}\'><div class=\'jpoker_tourney_details_info_description\'>{description_long}</div><div class=\'jpoker_tourney_details_info_registered\'>{registered} {registered_label}</div><div class=\'jpoker_tourney_details_info_players_quota\'>{players_quota} {players_quota_label}</div><div class=\'jpoker_tourney_details_info_start_time\'>{start_time_label} {start_time}</div><div class=\'jpoker_tourney_details_info_buy_in\'>{buy_in_label} {buy_in}</div></div>',
-            sitngo: '<div class=\'jpoker_tourney_details_info jpoker_tourney_details_{state}\'><div class=\'jpoker_tourney_details_info_description\'>{description_long}</div><div class=\'jpoker_tourney_details_info_registered\'>{registered} {registered_label}</div><div class=\'jpoker_tourney_details_info_players_quota\'>{players_quota} {players_quota_label}</div><div class=\'jpoker_tourney_details_info_buy_in\'>{buy_in_label} {buy_in}</div></div>'
+            regular: '<div class=\'jpoker_tourney_details_info jpoker_tourney_details_{state}\'>'
+                    +'<div class=\'jpoker_tourney_details_info_description\'>{description_long}</div>'
+                    +'<div class=\'jpoker_tourney_details_info_registered\'>{registered} {registered_label}</div>'
+                    +'<div class=\'jpoker_tourney_details_info_players_quota\'>{players_quota} {players_quota_label}</div>'
+                    +'<div class=\'jpoker_tourney_details_info_start_time\'>{start_time_label} {start_time}</div>'
+                    +'<div class=\'jpoker_tourney_details_info_buy_in\'>{buy_in_label} {buy_in}</div></div>',
+
+            sitngo:  '<div class=\'jpoker_tourney_details_info jpoker_tourney_details_{state}\'>'
+                    +'<div class=\'jpoker_tourney_details_info_description\'>{description_long}</div>'
+                    +'<div class=\'jpoker_tourney_details_info_registered\'>{registered} {registered_label}</div>'
+                    +'<div class=\'jpoker_tourney_details_info_players_quota\'>{players_quota} {players_quota_label}</div>'
+                    +'<div class=\'jpoker_tourney_details_info_buy_in\'>{buy_in_label} {buy_in}</div></div>'
         },
         players : {
             registering : {
-                header : '<table cellspacing=\'0\'><thead><tr class=\'jpoker_thead_caption\'><th>{caption}</th></tr><tr><th>{name}</th></tr></thead><tbody>',
+                header : '<table cellspacing=\'0\'><thead><tr class=\'jpoker_thead_caption\'><th>{caption}</th></tr></thead><tbody>',
                 rows : '<tr class=\'{oddEven}\'><td>{name}</td></tr>',
                 footer : '</tbody></table>',
-                 sortList : [[0,0]]
+                sortList : [[0,0]]
             },
             running : {
                 header : '<table cellspacing=\'0\'><thead><tr class=\'jpoker_thead_caption\'><th colspan=\'3\'>{caption}</th></tr><tr><th>{name}</th><th>{money}</th><th>{rank}</th></tr></thead><tbody>',
@@ -4911,7 +4923,7 @@
         },
 
         tableMove: function(player, packet, id) {
-            jpoker.plugins.playerSelf.callback.table_move(packet);
+            jpoker.plugins.playerSelf.callback.table_move(player, packet, id);
         },
 
         sit: function(player, id) {
@@ -5252,7 +5264,13 @@
 
             hand_strength: { display_done : function() { } },
         
-            table_move: function(packet) {
+            table_move: function(player, packet, id) {
+              if (packet.serial == player.serial) {
+                var server = jQuery.jpoker.servers[player.url];
+                game_id = packet.to_game_id;
+                server.tableJoin(packet.to_game_id);
+                jQuery.jpoker.dialog(_('Moved to table #') + packet.to_game_id);
+              }
             }
         }
     };
