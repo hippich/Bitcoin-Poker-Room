@@ -1,63 +1,71 @@
 [% META title = 'User' %]
-[% PROCESS admin/admin_submenu %]
 
-<div class="secondary-menu">
-  <ul>
-    <li><a href="[% c.uri_for('/admin/user/' _ user.serial _ '/hands') %]">View user's hands.</a></li>
-    <li><a href="[% c.uri_for('/admin/user/' _ user.serial _ '/kick') %]">Kick user.</a></li>
-  </ul>
-</div>
-
-<div class='user-info'>
-  <div id='user-general'>
-    <h2 class="account-info">Account info:</h2>
-    <ul>
-      <li><strong>Username:</strong> [% user.name  | html %]</li>
-      <li><strong>Email:</strong> [% user.email  | html %]</li>
-      <li><strong>Deposit bitcoin address:</strong> [% user.bitcoin_address  | html %]</li>
-      <li><strong>Emergency bitcoin address:</strong> [% user.emergency_address  | html %]</li>
-      <li><strong>Bitcoins received:</strong> [% user.bitcoins_received %]</li>
-      <li><strong>Balance:</strong> [% user.balances.first.amount %]</li>
-    </ul>
+<div class="one">
+  <div class="one-fourth">
+    [% PROCESS admin/admin_submenu %]
   </div>
 
-  <div id='user-deposits'>
-    <h2 class="account-info">Deposits:</h2>
+  <div>
+    <div class="secondary-menu">
+      <ul>
+        <li><a href="[% c.uri_for('/admin/user/' _ user.serial _ '/hands') %]">View user's hands.</a></li>
+        <li><a href="[% c.uri_for('/admin/user/' _ user.serial _ '/kick') %]">Kick user.</a></li>
+      </ul>
+    </div>
 
-    <table>
-      <tr><th>ID</th><th>Date</th><th>Amount</th></tr>
-      [% FOR deposit IN user.deposits %]
-        <tr><td>[% deposit.deposit_id %]</td><td>[% deposit.created_at %]</td><td>[% deposit.amount %]</td></tr>
-      [% END %]
-    </table>
-  </div>
+    <div class='user-info'>
+      <div id='user-general'>
+        <h2 class="account-info">Account info:</h2>
+        <ul>
+          <li><strong>Username:</strong> [% user.name  | html %]</li>
+          <li><strong>Email:</strong> [% user.email  | html %]</li>
+          <li><strong>Deposit bitcoin address:</strong> [% user.bitcoin_address  | html %]</li>
+          <li><strong>Emergency bitcoin address:</strong> [% user.emergency_address  | html %]</li>
+          <li><strong>Bitcoins received:</strong> [% user.bitcoins_received %]</li>
+          <li><strong>Balance:</strong> [% user.balances.first.amount %]</li>
+        </ul>
+      </div>
 
-  <div id='user-withdrawal'>
-    <h2 class="account-info">Withdrawals:</h2>
+      <div id='user-deposits'>
+        <h2 class="account-info">Deposits:</h2>
 
-    <table class='withdrawals'>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Currency</th>
-          <th>Amount</th>
-          <th>Destination</th>
-          <th>Created</th>
-          <th>Processed</th>
-        </tr>
-      </thead>
-      <tbody>
-        [% FOR withdrawal IN user.withdrawals %]
+        <table>
+          <tr><th>ID</th><th>Date</th><th>Amount</th></tr>
+          [% FOR deposit IN user.deposits %]
+            <tr><td>[% deposit.deposit_id %]</td><td>[% deposit.created_at %]</td><td>[% deposit.amount %]</td></tr>
+          [% END %]
+        </table>
+      </div>
+
+      <div id='user-withdrawal'>
+        <h2 class="account-info">Withdrawals:</h2>
+
+        <table class='withdrawals'>
+          <thead>
             <tr>
-              <td>[% withdrawal.id %]</td>
-              <td>[% withdrawal.currency.name %]</td>
-              <td>[% withdrawal.amount %]</td>
-              <td>[% withdrawal.dest  | html %]</td>
-              <td>[% withdrawal.created_at %]</td>
-              <td>[% withdrawal.processed_at %]</td>
+              <th>ID</th>
+              <th>Currency</th>
+              <th>Amount</th>
+              <th>Destination</th>
+              <th>Created</th>
+              <th>Processed</th>
             </tr>
-        [% END %]
-      </tbody>
-    </table>
+          </thead>
+          <tbody>
+            [% FOR withdrawal IN user.withdrawals %]
+                <tr>
+                  <td>[% withdrawal.id %]</td>
+                  <td>[% withdrawal.currency.name %]</td>
+                  <td>[% withdrawal.amount %]</td>
+                  <td>[% withdrawal.dest  | html %]</td>
+                  <td>[% withdrawal.created_at %]</td>
+                  <td>[% withdrawal.processed_at %]</td>
+                </tr>
+            [% END %]
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>

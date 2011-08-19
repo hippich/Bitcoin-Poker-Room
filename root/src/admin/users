@@ -1,29 +1,38 @@
 [% META title = 'Users' %]
-[% PROCESS admin/admin_submenu %]
 
-<form method="POST" action="[% c.uri_for('/admin/users') %]">
-  <label for="name">Name: </label><input type="text" name="name" id="name" value="[% c.req.params.name %]" />
-  <label for="name">Email: </label><input type="text" name="email" id="email" value="[% c.req.params.email %]" /> <br />
-  <input type="submit" value="Filter" /> <a href="[% c.uri_for('/admin/users') %]"> Reset </a>
-</form>
+<div class="one">
+  <div class="one-fourth">
+    [% PROCESS admin/admin_submenu %]
+  </div>
 
-[% IF users %]
-<table>
-  <tr><th>ID</th><th>Name</th><th>Email</th><th>Address</th><th>Balance</th></tr>
+  <div>
 
-  [% WHILE (user = users.next) %]
-    <tr><td>[% user.serial %]</td><td><a href="[% c.uri_for("/admin/user/" _ user.serial) %]">[% user.name | html %]</a></td><td>[% user.email | html %]</td><td>[% user.bitcoin_address | html %]</td><td>[% user.balances.first.amount  %] Chips</td></tr>
-  [% END %]
-</table>
+    <form method="POST" action="[% c.uri_for('/admin/users') %]">
+      <label for="name">Name: </label><input type="text" name="name" id="name" value="[% c.req.params.name %]" />
+      <label for="name">Email: </label><input type="text" name="email" id="email" value="[% c.req.params.email %]" /> <br />
+      <input type="submit" value="Filter" /> <a href="[% c.uri_for('/admin/users') %]"> Reset </a>
+    </form>
 
-[% IF users.pager.next_page %]
-<span style="float: right"><a href="[% c.uri_for(c.action, undef, { page => users.pager.next_page}) %]">Next &gt;&gt;</a></span>
-[% END %]
+    [% IF users %]
+    <table>
+      <tr><th>ID</th><th>Name</th><th>Email</th><th>Address</th><th>Balance</th></tr>
 
-[% IF users.pager.previous_page %]
-<span style="float: left"><a href="[% c.uri_for(c.action, undef, { page => users.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
-[% END %]
+      [% WHILE (user = users.next) %]
+        <tr><td>[% user.serial %]</td><td><a href="[% c.uri_for("/admin/user/" _ user.serial) %]">[% user.name | html %]</a></td><td>[% user.email | html %]</td><td>[% user.bitcoin_address | html %]</td><td>[% user.balances.first.amount  %] Chips</td></tr>
+      [% END %]
+    </table>
 
-[% ELSE %]
-<p>No results.</p>
-[% END %]
+    [% IF users.pager.next_page %]
+    <span style="float: right"><a href="[% c.uri_for(c.action, undef, { page => users.pager.next_page}) %]">Next &gt;&gt;</a></span>
+    [% END %]
+
+    [% IF users.pager.previous_page %]
+    <span style="float: left"><a href="[% c.uri_for(c.action, undef, { page => users.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
+    [% END %]
+
+    [% ELSE %]
+    <p>No results.</p>
+    [% END %]
+
+  </div>
+</div>

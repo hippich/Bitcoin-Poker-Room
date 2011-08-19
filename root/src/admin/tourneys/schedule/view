@@ -1,17 +1,24 @@
 [% META title = 'Tourney Schedule' %]
-[% PROCESS admin/admin_submenu %]
 
-<ul class="menu schedule-menu">
-  <li><a href="[% c.uri_for('/admin/tourneys/schedule/'_ schedule.serial _'/edit') %]">Edit</a></li>
-  <li><a class="confirm" href="[% c.uri_for('/admin/tourneys/schedule/'_ schedule.serial _'/delete') %]">Delete</a></li>
-  [% IF schedule.active == 'n' %]
-  <li><a href="[% c.uri_for('/admin/tourneys/schedule/'_ schedule.serial _'/activate') %]">Activate</a></li>
-  [% ELSE %]
-  <li><a href="[% c.uri_for('/admin/tourneys/schedule/'_ schedule.serial _'/deactivate') %]">Deactivate</a></li>
-  [% END %]
-</ul>
+<div class="one">
+  <div class="one-fourth">
+    [% PROCESS admin/admin_submenu %]
+  </div>
 
-<dl>
-  <dt>Name: </dt>
-  <dd>[% schedule.name %]</dd>
-</dl>
+  <div>
+    <ul class="menu-links secondary-menu">
+      <li><a href="[% c.uri_for('/admin/tourneys/schedule/'_ schedule.serial _'/edit') %]">Edit</a></li>
+      <li><a class="confirm" href="[% c.uri_for('/admin/tourneys/schedule/'_ schedule.serial _'/delete') %]">Delete</a></li>
+      [% IF schedule.active == 'n' %]
+      <li><a href="[% c.uri_for('/admin/tourneys/schedule/'_ schedule.serial _'/activate') %]">Activate</a></li>
+      [% ELSE %]
+      <li><a href="[% c.uri_for('/admin/tourneys/schedule/'_ schedule.serial _'/deactivate') %]">Deactivate</a></li>
+      [% END %]
+    </ul>
+
+    <dl>
+      <dt>Name: </dt>
+      <dd>[% schedule.name %]</dd>
+    </dl>
+  </div>
+</div>

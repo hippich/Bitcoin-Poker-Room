@@ -1,41 +1,50 @@
 [% META title = 'Withdrawals' %]
-[% PROCESS admin/admin_submenu %]
 
-<table class='withdrawals'>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>User</th>
-      <th>Currency</th>
-      <th>Amount</th>
-      <th>Created</th>
-      <th>Processed</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    [% WHILE (withdrawal = withdrawals.next) %]
+<div class="one">
+  <div class="one-fourth">
+    [% PROCESS admin/admin_submenu %]
+  </div>
+
+  <div>
+
+    <table class='withdrawals'>
+      <thead>
         <tr>
-          <td>[% withdrawal.id %]</td>
-          <td><a href="[% c.uri_for("/admin/user/" _ withdrawal.user.serial) %]">[% withdrawal.user.name  | html %]</a></td>
-          <td>[% withdrawal.currency.name %]</td>
-          <td>[% withdrawal.amount %]</td>
-          <td>[% withdrawal.created_at %]</td>
-          <td>[% withdrawal.processed_at %]</td>
-          <td>
-            <ul class='actions-list'>
-              <li><a href="[% c.uri_for('/admin/withdrawal/' _ withdrawal.id) %]">View</a></li>
-            </ul>
-          </td>
+          <th>ID</th>
+          <th>User</th>
+          <th>Currency</th>
+          <th>Amount</th>
+          <th>Created</th>
+          <th>Processed</th>
+          <th>Action</th>
         </tr>
+      </thead>
+      <tbody>
+        [% WHILE (withdrawal = withdrawals.next) %]
+            <tr>
+              <td>[% withdrawal.id %]</td>
+              <td><a href="[% c.uri_for("/admin/user/" _ withdrawal.user.serial) %]">[% withdrawal.user.name  | html %]</a></td>
+              <td>[% withdrawal.currency.name %]</td>
+              <td>[% withdrawal.amount %]</td>
+              <td>[% withdrawal.created_at %]</td>
+              <td>[% withdrawal.processed_at %]</td>
+              <td>
+                <ul class='actions-list'>
+                  <li><a href="[% c.uri_for('/admin/withdrawal/' _ withdrawal.id) %]">View</a></li>
+                </ul>
+              </td>
+            </tr>
+        [% END %]
+      </tbody>
+    </table>
+
+    [% IF withdrawals.pager.next_page %]
+    <span style="float: right"><a href="[% c.uri_for('/admin/withdrawals', undef, { page => withdrawals.pager.next_page}) %]">Next &gt;&gt;</a></span>
     [% END %]
-  </tbody>
-</table>
 
-[% IF withdrawals.pager.next_page %]
-<span style="float: right"><a href="[% c.uri_for('/admin/withdrawals', undef, { page => withdrawals.pager.next_page}) %]">Next &gt;&gt;</a></span>
-[% END %]
+    [% IF withdrawals.pager.previous_page %]
+    <span style="float: left"><a href="[% c.uri_for('/admin/withdrawals', undef, { page => withdrawals.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
+    [% END %]
 
-[% IF withdrawals.pager.previous_page %]
-<span style="float: left"><a href="[% c.uri_for('/admin/withdrawals', undef, { page => withdrawals.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
-[% END %]
+  </div>
+</div>

@@ -1,36 +1,45 @@
 [% META title = 'Tourney Schedules' %]
-[% PROCESS admin/admin_submenu %]
 
-<ul class="menu schedule-menu">
-  <li><a href="[% c.uri_for('/admin/tourneys/schedule/create') %]">Create new schedule</a></li>
-</ul>
+<div class="one">
+  <div class="one-fourth">
+    [% PROCESS admin/admin_submenu %]
+  </div>
 
-<table>
-  <thead>
-    <tr><th>ID</th><th>Name</th><th>Description</th><th>Operations</th></tr>
-  </thead>
+  <div>
+    <ul class="secondary-menu">
+      <li><a href="[% c.uri_for('/admin/tourneys/schedule/create') %]">Create new schedule</a></li>
+    </ul>
 
-  <tbody>
-    [% WHILE (s = schedules.next) %]
-      <tr class="schedule-status-[% s.active %]">
-        <td>[% s.serial %]</td>
-        <td><a href="[% c.uri_for('/admin/tourneys/schedule/' _ s.serial) %]">[% s.name %]</a></td>
-        <td>[% s.description_short %]</td>
-        <td>
-          <a href="[% c.uri_for('/admin/tourneys/schedule/'_ s.serial) %]">View</a> | 
-          <a href="[% c.uri_for('/admin/tourneys/schedule/'_ s.serial _'/edit') %]">Edit</a> | 
-          <a class="confirm" href="[% c.uri_for('/admin/tourneys/schedule/'_ s.serial _'/delete') %]">Delete</a> |
-          [% IF s.active == 'y' %]<a href="[% c.uri_for('/admin/tourneys/schedule/'_ s.serial _'/deactivate') %]">Deactivate</a>[% ELSE %]<a href="[% c.uri_for('/admin/tourneys/schedule/'_ s.serial _'/activate') %]">Activate</a>[% END %]
-        </td>
-      </tr>
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Name</th><th>Description</th><th>Operations</th></tr>
+      </thead>
+
+      <tbody>
+        [% WHILE (s = schedules.next) %]
+          <tr class="schedule-status-[% s.active %]">
+            <td>[% s.serial %]</td>
+            <td><a href="[% c.uri_for('/admin/tourneys/schedule/' _ s.serial) %]">[% s.name %]</a></td>
+            <td>[% s.description_short %]</td>
+            <td>
+              <a href="[% c.uri_for('/admin/tourneys/schedule/'_ s.serial) %]">View</a> | 
+              <a href="[% c.uri_for('/admin/tourneys/schedule/'_ s.serial _'/edit') %]">Edit</a> | 
+              <a class="confirm" href="[% c.uri_for('/admin/tourneys/schedule/'_ s.serial _'/delete') %]">Delete</a> |
+              [% IF s.active == 'y' %]<a href="[% c.uri_for('/admin/tourneys/schedule/'_ s.serial _'/deactivate') %]">Deactivate</a>[% ELSE %]<a href="[% c.uri_for('/admin/tourneys/schedule/'_ s.serial _'/activate') %]">Activate</a>[% END %]
+            </td>
+          </tr>
+        [% END %]
+      </tbody>
+    </table>
+
+    [% IF schedules.pager.next_page %]
+    <span style="float: right"><a href="[% c.uri_for(c.action, c.captures, { page => schedules.pager.next_page}) %]">Next &gt;&gt;</a></span>
     [% END %]
-  </tbody>
-</table>
 
-[% IF schedules.pager.next_page %]
-<span style="float: right"><a href="[% c.uri_for(c.action, c.captures, { page => schedules.pager.next_page}) %]">Next &gt;&gt;</a></span>
-[% END %]
+    [% IF schedules.pager.previous_page %]
+    <span style="float: left"><a href="[% c.uri_for(c.action, c.captures, { page => schedules.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
+    [% END %]
+  </div>
+</div>
 
-[% IF schedules.pager.previous_page %]
-<span style="float: left"><a href="[% c.uri_for(c.action, c.captures, { page => schedules.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
-[% END %]
+<div class="clear"></div>

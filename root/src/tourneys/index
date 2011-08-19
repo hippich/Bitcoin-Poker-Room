@@ -1,43 +1,44 @@
 [% META title = 'Tourneys' %]
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Variant</th>
-      <th>Buy In</th>
-      <th>Minimal Prize</th>
-      <th>Seats</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    [% WHILE (t = tourneys.next) %]
-      <tr class="tourney-status-[% t.state %]">
-        <td><a href="[% c.uri_for('/tourneys/' _ t.serial) %]">[% t.name %]</a></td>
-        <td>[% t.description_short %]</td>
-        <td>[% t.variant %]</td>
-        <td>[% t.buy_in %] + [% t.rake %]</td>
-        <td>[% t.prize_min %]</td>  
-        <td>[% t.seats_per_game %]</td>
-        <td>
-          [% t.state %]
-          [% IF t.state == 'registering' %]
-            ([% t.get_users_registered %] / [% t.players_quota %])
-          [% END %]
-        </td>
+<div class="one">
+  <table>
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th class="tourneys-list-name">Description</th>
+        <th>Buy In</th>
+        <th class="tourneys-list-min-prize">Minimal Prize</th>
+        <th>Seats</th>
+        <th>Start Time</th>
+        <th>Status</th>
       </tr>
-    [% END %]
-  </tbody>
-</table>
+    </thead>
 
-[% IF tourneys.pager.next_page %]
-<span style="float: right"><a href="[% c.uri_for(c.action, c.captures, { page => tourneys.pager.next_page}) %]">Next &gt;&gt;</a></span>
-[% END %]
+    <tbody>
+      [% WHILE (t = tourneys.next) %]
+        <tr class="tourney-status-[% t.state %]">
+          <td>[% IF t.sit_n_go == 'y' %]Sit'n'Go[% ELSE %]Regular[% END %], [% t.variant %]</td>
+          <td><a href="[% c.uri_for('/tourneys/' _ t.serial) %]">[% t.description_short %]</a></td>
+          <td>[% t.buy_in %] + [% t.rake %]</td>
+          <td>[% t.prize_min %]</td>  
+          <td>[% t.seats_per_game %]</td>
+          <td>[% t.start_time.strftime('%b %e %Y, %H:%M') %]</td>
+          <td>
+            [% t.state %]
+            [% IF t.state == 'registering' %]
+              ([% t.get_users_registered %] / [% t.players_quota %])
+            [% END %]
+          </td>
+        </tr>
+      [% END %]
+    </tbody>
+  </table>
 
-[% IF tourneys.pager.previous_page %]
-<span style="float: left"><a href="[% c.uri_for(c.action, c.captures, { page => tourneys.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
-[% END %]
+  [% IF tourneys.pager.next_page %]
+  <span style="float: right"><a href="[% c.uri_for(c.action, c.captures, { page => tourneys.pager.next_page}) %]">Next &gt;&gt;</a></span>
+  [% END %]
 
+  [% IF tourneys.pager.previous_page %]
+  <span style="float: left"><a href="[% c.uri_for(c.action, c.captures, { page => tourneys.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
+  [% END %]
+</div>

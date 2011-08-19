@@ -1,61 +1,70 @@
 [% META title = 'Withdrawals' %]
-[% PROCESS admin/admin_submenu %]
 
-<div class='withdrawal-info'>
-  <h3>Withdrawal info</h3>
-  <dl>
-    <dt>User:</dt>
-    <dd><a href="[% c.uri_for("/admin/user/" _ withdrawal.user.serial) %]">[% withdrawal.user.name  | html %]</a></dd>
+<div class="one">
+  <div class="one-fourth">
+    [% PROCESS admin/admin_submenu %]
+  </div>
 
-    <dt>Amount:</dt>
-    <dd>[% withdrawal.currency.symbol %][% withdrawal.amount %]</dd>
+  <div>
 
-    <dt>Destination:</dt>
-    <dd><a href="http://blockexplorer.com/address/[% withdrawal.dest | uri %]" target='_blank'>[% withdrawal.dest | html %]</a></dd>
+    <div class='withdrawal-info'>
+      <h3>Withdrawal info</h3>
+      <dl>
+        <dt>User:</dt>
+        <dd><a href="[% c.uri_for("/admin/user/" _ withdrawal.user.serial) %]">[% withdrawal.user.name  | html %]</a></dd>
 
-    <dt>Order status:</dt>
-    <dd>
-      [% SWITCH withdrawal.processed %]
-        [% CASE 0 %]
-          Not processed
-        [% CASE 1 %]
-          Processed
-        [% CASE -1 %]
-          Canceled
-      [% END %]
-    </dd>
+        <dt>Amount:</dt>
+        <dd>[% withdrawal.currency.symbol %][% withdrawal.amount %]</dd>
 
-    <dt>Order created:</dt>
-    <dd>[% withdrawal.created_at %]</dd>
+        <dt>Destination:</dt>
+        <dd><a href="http://blockexplorer.com/address/[% withdrawal.dest | uri %]" target='_blank'>[% withdrawal.dest | html %]</a></dd>
 
-    [% IF withdrawal.processed_at %]
-    <dt>Order processed:</dt>
-    <dd>[% withdrawal.processed_at %]</dd>
-    [% END %]
-  </dl>
-</div>
+        <dt>Order status:</dt>
+        <dd>
+          [% SWITCH withdrawal.processed %]
+            [% CASE 0 %]
+              Not processed
+            [% CASE 1 %]
+              Processed
+            [% CASE -1 %]
+              Canceled
+          [% END %]
+        </dd>
 
-<div class='withdrawal-additional-info'>
-  <h3>Additional information:</h3>
-  <form action='[% c.uri_for('/admin/withdrawal/' _ withdrawal.id _ '/info') %]' method='POST'>
-    <textarea name="withdrawal_info">[% withdrawal.info | html %]</textarea><br />
-    <input type='submit' name='Update' value='Update' />
-  </form>
-</div>
+        <dt>Order created:</dt>
+        <dd>[% withdrawal.created_at %]</dd>
 
-<div class='clear'></div>
+        [% IF withdrawal.processed_at %]
+        <dt>Order processed:</dt>
+        <dd>[% withdrawal.processed_at %]</dd>
+        [% END %]
+      </dl>
+    </div>
 
-<div class='withdrawal-actions'>
-  <h3>Actions</h3>
-  <ul class='actions-list'>
-  
-    [% IF !withdrawal.processed_at %]
-    <li><a class='confirm' href='[% c.uri_for('/admin/withdrawal/' _ withdrawal.id _ '/reprocess') %]'>Re-process</a></li>
-    <li><a class='confirm' href='[% c.uri_for('/admin/withdrawal/' _ withdrawal.id _ '/mark/processed') %]'>Mark processed</a></li>
-    [% ELSE %]
-    <li><a class='confirm' href='[% c.uri_for('/admin/withdrawal/' _ withdrawal.id _ '/mark/unprocessed') %]'>Mark unprocessed</a></li>
-    [% END %]
-    
-    <li><a class='confirm' href='[% c.uri_for('/admin/withdrawal/' _ withdrawal.id _ '/mark/canceled') %]'>Mark canceled</a></li>
-  </ul>
+    <div class='withdrawal-additional-info'>
+      <h3>Additional information:</h3>
+      <form action='[% c.uri_for('/admin/withdrawal/' _ withdrawal.id _ '/info') %]' method='POST'>
+        <textarea name="withdrawal_info">[% withdrawal.info | html %]</textarea><br />
+        <input type='submit' name='Update' value='Update' />
+      </form>
+    </div>
+
+    <div class='clear'></div>
+
+    <div class='withdrawal-actions'>
+      <h3>Actions</h3>
+      <ul class='actions-list'>
+      
+        [% IF !withdrawal.processed_at %]
+        <li><a class='confirm' href='[% c.uri_for('/admin/withdrawal/' _ withdrawal.id _ '/reprocess') %]'>Re-process</a></li>
+        <li><a class='confirm' href='[% c.uri_for('/admin/withdrawal/' _ withdrawal.id _ '/mark/processed') %]'>Mark processed</a></li>
+        [% ELSE %]
+        <li><a class='confirm' href='[% c.uri_for('/admin/withdrawal/' _ withdrawal.id _ '/mark/unprocessed') %]'>Mark unprocessed</a></li>
+        [% END %]
+        
+        <li><a class='confirm' href='[% c.uri_for('/admin/withdrawal/' _ withdrawal.id _ '/mark/canceled') %]'>Mark canceled</a></li>
+      </ul>
+    </div>
+
+  </div>
 </div>
