@@ -177,10 +177,6 @@ __PACKAGE__->has_many(
 sub get_bitcoin_deposit_address {
   my ($self) = @_;
 
-  if (! $self->data->bitcoin_address) {
-    
-  }
-
   return $self->data->bitcoin_address;
 }
 
