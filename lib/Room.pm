@@ -74,6 +74,22 @@ __PACKAGE__->config(
     'View::TT' => {
         ENCODING => 'UTF-8',
     },
+
+    'Plugin::Authentication' => {
+        default => {
+            credential => {
+                user_model => 'PokerNetwork::Users',
+                class => 'Password',
+                password_type => 'hashed',
+                password_field => 'password',
+                password_hash_type => 'SHA-1',
+            },
+            store => {
+                class => 'DBIx::Class',
+                user_model => 'PokerNetwork::Users',
+            },
+       },
+    },
 );
 
 __PACKAGE__->config->{email} = [qw/Sendmail/];
