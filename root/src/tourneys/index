@@ -42,3 +42,5 @@
   <span style="float: left"><a href="[% c.uri_for(c.action, c.captures, { page => tourneys.pager.previous_page}) %]">&lt;&lt; Prev</a></span>
   [% END %]
 </div>
+
+<div class="clear"></div>
