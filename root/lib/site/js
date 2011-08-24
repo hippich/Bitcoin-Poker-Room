@@ -1,5 +1,3 @@
-<script type="text/javascript" src="http://www.google.com/jsapi?[% c.config.google_search_api_key %]"></script>
-
 <script src="/static/jquery/jquery-1.5.2.min.js"></script>
 <script src="/static/js/jquery.popupwindow.js"></script>
 <script src="/static/script.js"></script>
