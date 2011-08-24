@@ -3,11 +3,7 @@ use warnings;
 use Test::More;
 use Test::DBIx::Class;
 
-fixtures_ok "tourneys", "Tourneys fixtures loaded.";
-
-ok (my $user = Users->find({ email => 'admin@test.com' }), 'Fetch admin user object.');
-
-is $user->name, 'admin', 'This is admin.';
+fixtures_ok "basic", "Tourneys fixtures loaded.";
 
 ok my $user_at_table = Pokertables->find(8251)->users->find(22), "Should be able to find this user.";
 

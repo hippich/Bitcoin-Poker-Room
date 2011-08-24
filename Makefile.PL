@@ -47,6 +47,8 @@ requires 'DBIx::Class::DateTime::Epoch';
 requires 'CatalystX::RoleApplicator';
 requires 'Catalyst::TraitFor::Request::BrowserDetect';
 requires 'Test::DBIx::Class';
+requires 'Crypt::Eksblowfish';
+requires 'Digest::SHA1';
 
 
 test_requires 'Test::More' => '0.88';

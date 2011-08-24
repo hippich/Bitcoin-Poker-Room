@@ -572,7 +572,7 @@ CREATE TABLE `users` (
   `skin_outfit` text,
   `skin_image` text,
   `skin_image_type` varchar(32) DEFAULT 'image/png',
-  `password` varchar(40) DEFAULT NULL,
+  `password` varchar(512) DEFAULT NULL,
   `privilege` int(11) DEFAULT '1',
   `locale` varchar(32) DEFAULT 'en_US',
   `rating` int(11) DEFAULT '1000',

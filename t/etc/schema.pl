@@ -17,11 +17,11 @@ return {
     ],
 
     fixture_sets => {
-        tourneys => [
+        basic => [
             Users => [
                 [ 'serial', 'name', 'email', 'password', 'privilege', 'created' ],
-                [ 22, 'admin', 'admin@test.com', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 0 ],
-                [ 23, 'test', 'test@test.com', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 0 ],
+                [ 22, 'admin', 'admin@test.com', 'admin', 1, 0 ],
+                [ 23, 'test', 'test@test.com', 'test', 1, 0 ],
             ],
 
             Pokertables => [

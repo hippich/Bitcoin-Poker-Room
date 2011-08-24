@@ -80,9 +80,7 @@ __PACKAGE__->config(
             credential => {
                 user_model => 'PokerNetwork::Users',
                 class => 'Password',
-                password_type => 'hashed',
-                password_field => 'password',
-                password_hash_type => 'SHA-1',
+                password_type => 'self_check',
             },
             store => {
                 class => 'DBIx::Class',

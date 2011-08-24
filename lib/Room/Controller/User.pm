@@ -251,7 +251,7 @@ sub edit :Local :Args(0) :FormConfig {
 
   if ($form->submitted_and_valid) {
 
-    if (! $c->get_auth_realm('default')->credential->check_password($c->user, {password => $form->params->{old_password}})) {
+    if (! $c->user->check_password( $form->params->{old_password} )) {
       $form->get_field("old_password")->get_constraint({ type => "Callback" })->force_errors(1);
       $form->process();
       return;

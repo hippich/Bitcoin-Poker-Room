@@ -101,19 +101,17 @@ __PACKAGE__->add_unique_constraint("email_idx", ["email"]);
 
 use JSON::XS;
 use Hash::AsObject;
+use Digest::SHA1 qw(sha1_hex);
 
 __PACKAGE__->add_columns(
-  'password' => {
-    data_type           => 'VARCHAR',
-    size                => 40,
-    encode_column       => 1,
-    encode_class        => 'Digest',
-    encode_check_method => 'check_password',
-    encode_args         => {
-                             algorithm    => 'SHA-1',
-                             format       => 'hex',
-                           },
-  },
+    'password' => {
+        data_type           => 'VARCHAR',
+        size                => 512,
+        encode_column       => 1,
+        encode_class        => 'Crypt::Eksblowfish::Bcrypt',
+        encode_args         => { key_nul => 0, cost => 8 },
+        encode_check_method => '_check_password_blowfish',
+    },
 );
 
 __PACKAGE__->inflate_column(
@@ -172,6 +170,30 @@ __PACKAGE__->has_many(
   'withdrawals' => 'Room::Schema::PokerNetwork::Result::Withdrawal',
   { 'foreign.user_serial' => 'self.serial' },
 );
+
+
+=head2 check_password 
+
+Used for authentication. This function first check hash for BCrypt 
+hash and if check fails - tries SHA hash. If both checks fails - 
+return false value.
+
+=cut 
+
+sub check_password {
+    my ($self, $password) = @_;
+    my $result;
+
+    eval {
+        $result = $self->_check_password_blowfish($password);
+    };
+
+    if (!$result) {
+        $result = $self->password eq sha1_hex($password);
+    }
+
+    return $result;
+}
 
 
 sub get_bitcoin_deposit_address {
