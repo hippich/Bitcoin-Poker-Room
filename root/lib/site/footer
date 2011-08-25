@@ -18,7 +18,7 @@
         <div class="one-fourth">
           <!-- COLUMN STARTS-->
           <h4>Latest Posts</h4>
-          <div id="blogspot-posts"></div>
+          <div id="blog-posts"></div>
           <!--END UL-->
         </div>
         <!-- COLUMN ENDS-->

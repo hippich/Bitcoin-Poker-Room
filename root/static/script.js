@@ -89,11 +89,11 @@ jQuery(document).ready(function() {
 
 jQuery(document).ready(function() {
   jQuery.ajax({
-    url: 'http://betcoin.blogspot.com/feeds/posts/default?alt=json-in-script',
+    url: 'https://posterous.com/api/2/sites/betcoin/posts/public',
     dataType: 'jsonp',
     success: function (data) {
-      var entries = data.feed.entry;
-      jQuery("#blogspot-posts").html('<ul></ul>');
+      var entries = data;
+      jQuery("#blog-posts").html('<ul></ul>');
 
       var len = entries.length;
       if (len > 2) { 
@@ -101,14 +101,14 @@ jQuery(document).ready(function() {
       }
       
       for (var i=0; i < entries.length; i++) {
-        var date = new Date(entries[i].published["$t"]);
+        var date = new Date(entries[i].display_date);
         var date_str = date.format("mmmm d, yyyy");
-        var href = entries[i].link[4].href;
-        var title = entries[i].link[4].title;
-        var comments_href = entries[i].link[1].href;
-        var comments_title = entries[i].link[1].title;
+        var href = entries[i].full_url;
+        var title = entries[i].title;
+        var comments_href = entries[i].full_url;
+        var comments_title = entries[i].number_of_comments + ' comments';
 
-        jQuery("#blogspot-posts ul").append(
+        jQuery("#blog-posts ul").append(
           "<li><a href='" + href + "' target='_blank'>" + title + "</a>" +
           "<p>" + date_str + ", <a href='" + comments_href + "' target='_blank'>" +
           comments_title + "</a></p></li>" 
