@@ -4895,12 +4895,22 @@
                 if (table.betLimit.call > 0) {
                     var call = jpoker.getCallAmount(table.betLimit, player);
                     $('.jpoker_auto_action', auto_action_element).show();
-                    $('input[name=auto_check]')[0].checked = false;
-                    $('input[name=auto_call]')[0].checked = false;
-                    $('input[name=auto_raise]')[0].checked = false;
+                    //$('input[name=auto_check]')[0].checked = false;
+                    //$('input[name=auto_call]')[0].checked = false;
+                    //$('input[name=auto_raise]')[0].checked = false;
                     $('.jpoker_auto_check', auto_action_element).hide();
                     $('.jpoker_auto_call', auto_action_element).show();
                     $('.jpoker_call_amount', auto_action_element).text(jpoker.chips.SHORT(call));
+                    
+                    // Edit by holic to fix issue 27
+                    $('input[name=auto_check], input[name=auto_call], input[name=auto_raise]').each(function() {
+                        this.checked = false;
+                        this.disabled = true;
+                        
+                        setTimeout(function() {
+                            this.disabled = false;
+                        }, 1000); // 1s delay before re-enabling checkboxes
+                    });
                 }
             }
         },
