@@ -34,7 +34,7 @@
   in the footer to report a bug in the room.</p>
 
   <p>Any suggestions are also welcome. Please, send any questions, suggestions,
-  etc to <a href="mailto:pavel@yepcorp.com">pavel@yepcorp.com</a></p>
+  etc to <a href="mailto:[% c.config.site_email %]">[% c.config.site_email %]</a></p>
 </div>
 
 <div class="clear"></div>

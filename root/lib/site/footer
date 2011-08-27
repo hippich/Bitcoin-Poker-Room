@@ -1,3 +1,5 @@
+<div class="clear"></div>
+
 <!-- BEGIN site/footer -->
 <div id="footer-wrapper">
   <!-- FOOTER WRAPPER STARTS-->
@@ -66,8 +68,8 @@
         <a href='[% c.uri_for('/') %]'>Home</a> /
         <a href='[% c.uri_for('/credits') %]'>Credits</a> /
         <a href='[% c.uri_for('/rake') %]'>About Rake</a> /
-        <a href='http://github.com/hippich/Bitcoin-Poker-Room/archives/master'>Download sources</a> /
-        <a href='http://github.com/hippich/Bitcoin-Poker-Room/issues'>Report bugs</a> /
+        <a href='http://github.com/betcoin/room/archives/master'>Download sources</a> /
+        <a href='http://github.com/betcoin/room/issues'>Report bugs</a> /
         <a href='[% c.uri_for('/contactus') %]'>Contact Us</a> /
         <a target="_blank" href="http://webchat.freenode.net/?channels=betco.in">#betco.in</a> 
       </p>
