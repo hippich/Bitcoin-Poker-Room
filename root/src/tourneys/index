@@ -22,7 +22,7 @@
           <td>[% t.buy_in %] + [% t.rake %]</td>
           <td>[% t.prize_min %]</td>  
           <td>[% t.seats_per_game %]</td>
-          <td>[% t.start_time.strftime('%b %e %Y, %H:%M') %]</td>
+          <td>[% t.start_time.strftime('%b %e %Y, %H:%M') %] GMT</td>
           <td>
             [% t.state %]
             [% IF t.state == 'registering' %]
