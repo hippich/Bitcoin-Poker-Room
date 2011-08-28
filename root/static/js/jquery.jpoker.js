@@ -5115,7 +5115,7 @@
                 $('.jpoker_call_amount', call_element).text(jpoker.chips.SHORT(call));
                 call_element.unbind('click').click(delayAction('Call')).show();
             } else {
-                $('#check' + id).unbind('click').click(delayAction('Check)).show();
+                $('#check' + id).unbind('click').click(delayAction('Check')).show();
             }
             
             if(betLimit.allin > betLimit.call) {
