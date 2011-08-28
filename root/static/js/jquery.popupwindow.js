@@ -2,7 +2,7 @@ jQuery.fn.popupwindow = function(p)
 {
 
   var profiles = p || {};
-  var prefix = Math.random() + '_';
+  var prefix = Math.round(Math.random()*100000);
 
   return this.each(function(index){
     var settings, parameters, mysettings, b, a, winObj;
@@ -76,7 +76,7 @@ jQuery.fn.popupwindow = function(p)
       else {
         thisObject._window.focus();
       } 
-      
+
       if (settings.onUnload) {
         // Incremental check for window status
         // Attaching directly to window.onunlaod event causes invoke when document within window is reloaded
