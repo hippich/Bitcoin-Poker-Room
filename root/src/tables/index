@@ -10,15 +10,15 @@
     <ul class="table-variants simple-nav">
       [% FOREACH game_variant = tables_structure %]
       <li>
-      <a href="#">[% game_variant.key %]</a>
+      <span href="#">[% game_variant.key %]</span>
       <ul class="table-seats simple-nav">
         [% FOREACH game_seats = game_variant.value %]
         <li>
-        <a href="#">[% game_seats.key %]</a>
+        <span href="#">[% game_seats.key %]</span>
         <ul class="table-limits simple-nav">
           [% FOREACH game_limit = game_seats.value %]
           <li>
-          <a href="#">[% game_limit.key %]</a>
+          <span href="#">[% game_limit.key %]</span>
           <ul class="game-bets simple-nav">
             [% FOREACH game_bet = game_limit.value %]
             <li>
