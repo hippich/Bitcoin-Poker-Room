@@ -22,34 +22,63 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>jPoker Test Suite</title>
-	<link rel="stylesheet" href="js/testrunner.css"/>
-	<link href="themes/pokersource.eu-2009/css/jpoker.css" rel="stylesheet" type="text/css" />
-	<script language="JavaScript" type="text/javascript" src="jquery/jquery-1.2.6.js"></script>
-	<script language="JavaScript" type="text/javascript" src="jquery/ui/ui.core.js"></script>
-	<script language="JavaScript" type="text/javascript" src="jquery/ui/ui.draggable.js"></script>
-	<script language="JavaScript" type="text/javascript" src="jquery/ui/ui.resizable.js"></script>
-	<script language="JavaScript" type="text/javascript" src="jquery/ui/ui.dialog.js"></script>
-	<script language="JavaScript" type="text/javascript" src="jquery/ui/ui.slider.js"></script>
-	<script language="JavaScript" type="text/javascript" src="js/jquery.ajaxQueue.js"></script>
-	<script language="JavaScript" type="text/javascript" src="js/jquery.cookie.js"></script>
-        <script>
+	<link rel="stylesheet" href="/static/js/testrunner.css"/>
+
+  <link rel="stylesheet" type="text/css" href="/static/css/calendar-win2k-cold-1.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpokeradmin.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_chat.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_common.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_login.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_regular_tourney_list.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_server_status.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_sitngo_tourney_list.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_table_layout.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_table_list.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_table.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_tablepicker.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_tablesorter_pager.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_timeout.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_tourney_details.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_tourney_placeholder.css">
+  <link rel="stylesheet" type="text/css" href="/static/css/jpoker_user_info.css">
+
+  <link rel="stylesheet" type="text/css" href="/static/jquery/ui.1.8/themes/smoothness/jquery.ui.all.css">
+
+  <script>
+    jpoker = {};
+  </script>
+
+  <script language="JavaScript" type="text/javascript" src="/static/jquery/jquery-1.6.2.min.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/jquery/ui.1.8/ui/jquery-ui-1.8.4.custom.js"></script>
+  
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.ajaxretry.js?a"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.ajaxQueue.js?b"></script> 
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.cookie.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.gettext.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.tablesorter.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.query.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.form.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/json2.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/jquery.jpoker.js?d"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/mockup.js"></script>
+  <script language="JavaScript" type="text/javascript" src="/static/js/bproom.js"></script>
+
+  <script>
 	  var _ = function() {return "test_gettext_override"};
-        </script>
-	<script language="JavaScript" type="text/javascript" src="js/jquery.gettext.js"></script>
-	<script language="JavaScript" type="text/javascript" src="js/jquery.strftime.js"></script>
-	<script language="JavaScript" type="text/javascript" src="js/jquery.tablesorter.js"></script>
-	<script language="JavaScript" type="text/javascript" src="js/jquery.tablesorter.pager.js"></script>
-	<script language="JavaScript" type="text/javascript" src="js/jquery.form.js"></script>
-	<script language="JavaScript" type="text/javascript" src="js/testrunner.js"></script>
-	<script language="JavaScript" type="text/javascript" src="js/json2.js"></script>
-	<script language="JavaScript" type="text/javascript" src="js/printstacktrace.js"></script>
-        <script>
-          jpoker = {};
-        </script>
-	<script language="JavaScript" type="text/javascript" src="js/jquery.jpoker.js"></script>
-	<script language="JavaScript" type="text/javascript" src="js/mockup.js"></script>
-	<script language="JavaScript" type="text/javascript" src="js/test-jpoker.js"></script>
-	<script language="JavaScript" type="text/javascript" src="js/test-jpoker-backward.js"></script>
+  </script>
+
+	<script language="JavaScript" type="text/javascript" src="/static/js/testrunner.js"></script>
+	<script language="JavaScript" type="text/javascript" src="/static/js/json2.js"></script>
+	<script language="JavaScript" type="text/javascript" src="/static/js/printstacktrace.js"></script>
+	<script language="JavaScript" type="text/javascript" src="/static/js/test-jpoker.js"></script>
+	<script language="JavaScript" type="text/javascript" src="/static/js/test-jpoker-backward.js"></script>
+
+  <style>
+    body {
+      background: #FFF !important;
+    }
+  </style>
 </head>
 
 <body>

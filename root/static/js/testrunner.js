@@ -39,6 +39,7 @@ function process() {
 }
 
 function stop(allowFailure) {
+  return;
 	_config.blocking = true;
 	var handler = allowFailure ? start : function() {
 		ok( false, "Test timed out" );
