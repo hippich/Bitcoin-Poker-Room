@@ -1914,7 +1914,7 @@
     };
 
     jpoker.table.defaults = {
-        betThisRound: false,
+        betThisRound: false
     };
 
     jpoker.table.prototype = $.extend({}, jpoker.watchable.prototype, {
