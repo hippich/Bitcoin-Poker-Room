@@ -51,7 +51,7 @@ sub index :Chained('base') :PathPart('') :Args(0) {
 sub tourney_base :Chained('base') :PathPart('') :CaptureArgs(1) {
     my ($self, $c, $serial) = @_;
     $c->stash->{tourney} = $c->model('PokerNetwork::Tourneys')->find($serial);
-    $c->res->redirect('/404-not-found') unless $c->stash->{tourney};
+    $c->page_not_found unless $c->stash->{tourney};
 
     $c->stash->{url} = $c->get_rest_url('tourney-' . $serial);
     $c->stash->{uid} = ($c->user) ? $c->user->serial : 0;

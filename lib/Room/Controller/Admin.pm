@@ -25,14 +25,13 @@ privilege == 2
 
 =cut
 sub auto :Private {
-  my ($self, $c) = @_;
+    my ($self, $c) = @_;
 
-  if (!$c->user || $c->user->privilege != 2) {
-    $c->res->redirect( '/404-not-found' );
-    return 0;
-  }
+    if (!$c->user || $c->user->privilege != 2) {
+        $c->page_not_found;
+    }
 
-  1;
+    1;
 }
 
 

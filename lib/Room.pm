@@ -118,6 +118,15 @@ sub get_rest_url {
     return $url;
 }
 
+
+# Redirect user to Page Not Found action 
+sub page_not_found {
+    my $c = shift;
+
+    $c->res->redirect('/404-not-found');
+    $c->detach();
+}
+
 # Start the application
 __PACKAGE__->setup();
 

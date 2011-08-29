@@ -32,14 +32,14 @@ sub index :Path {
     my ( $self, $c, @page ) = @_;
     my $template = join '/', @page;
 
-    $c->res->redirect( '/404-not-found' ) unless $template ne "";
+    $c->page_not_found unless $template ne "";
 
     if ( $c->view('HTML')->template_exists('pages', $template) ) {
         $c->stash->{template} = 'pages/' . $template;
         $c->forward( $c->view('HTML') ); 
     }
     else {
-        $c->res->redirect( '/404-not-found' ); 
+        $c->page_not_found; 
     }
 }
 

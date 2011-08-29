@@ -82,10 +82,7 @@ Return all tables curreny user is sit at.
 sub my :Local :Args(0) {
     my ($self, $c) = @_;
 
-    if (! $c->user) {
-        $c->res->redirect( '/404-not-found' ); 
-        return;
-    }
+    $c->page_not_found unless $c->user;
 
     $c->stash->{tables} = $c->user->tables;
 }
@@ -100,6 +97,8 @@ sub table :Chained :CaptureArgs(1) {
 
     $c->stash->{table} = $c->model('PokerNetwork::Pokertables')->find($game_id);
 
+    $c->page_not_found unless $c->stash->{table};
+
     if (my $tourney = $c->stash->{table}->tourney) {
         if ($tourney->is_user_registered($c->user->serial)) {
             $c->res->redirect(
@@ -110,8 +109,6 @@ sub table :Chained :CaptureArgs(1) {
             return;
         }
     }
-
-    $c->res->redirect('/404-not-found') unless $c->stash->{table};
 
     $c->stash->{url} = $c->get_rest_url('table-' . $game_id);
     $c->stash->{uid} = ($c->user) ? $c->user->serial : 0;

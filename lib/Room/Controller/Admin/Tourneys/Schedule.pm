@@ -43,7 +43,7 @@ sub schedule_base :Chained :PathPart('admin/tourneys/schedule') :CaptureArgs(1) 
     my ($self, $c, $serial) = @_;
 
     $c->stash->{schedule} = $c->model('PokerNetwork::TourneysSchedule')->find($serial);
-    $c->res->redirect('/404-not-found') unless $c->stash->{schedule};
+    $c->page_not_found unless $c->stash->{schedule};
 }
 
 
