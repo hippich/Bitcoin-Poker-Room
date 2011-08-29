@@ -866,6 +866,10 @@
                     callback_to_send = callback,
                     thisObject = this;
 
+                if (this.pendingLongPoll && packet.type == 'PacketPokerLongPoll') {
+                  return;
+                }
+            
                 if(this.pendingLongPoll) {
                     if(jpoker.verbose > 0) {
                         jpoker.message('sendPacket PacketPokerLongPollReturn');
@@ -884,10 +888,9 @@
             },
 
             receivePacket: function(data) {
-                if(this.pendingLongPoll) {
+                if(! this.pendingLongPoll) {
                     this.scheduleLongPoll(0);
                 }
-                this.pendingLongPoll = false;
                 this.queueIncoming(data);
             },
 
@@ -899,11 +902,7 @@
                 }
                 var packet_type = packet.type;
                 var retry = 0;
-
-                var timeout = 3000;
-                if (packet_type == 'PacketPokerLongPoll') {
-                  timeout = this.timeout;
-                }
+                var timeout = $this.timeout;
 
                 var args = {
                     async: this.async,
@@ -915,6 +914,9 @@
                     jsonp: 'jsonp',
                     global: false, // do not fire global events
                     success: function(data, status) {
+                        if (packet_type == 'PacketPokerLongPoll') {
+                          $this.pendingLongPoll = false;
+                        }
                         $('.ajax-retry').remove();
                         if(jpoker.verbose > 0) {
                             jpoker.message('success ' + json_data + ' returned ' + data);
