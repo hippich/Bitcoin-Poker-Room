@@ -113,7 +113,7 @@ sub table :Chained :CaptureArgs(1) {
 
     $c->res->redirect('/404-not-found') unless $c->stash->{table};
 
-    $c->stash->{url} = $c->config->{rest_url} || '/POKER_REST';
+    $c->stash->{url} = $c->get_rest_url('table-' . $game_id);
     $c->stash->{uid} = ($c->user) ? $c->user->serial : 0;
     $c->stash->{auth} = $c->session->{pokernetwork_auth} || 'N';
 }
