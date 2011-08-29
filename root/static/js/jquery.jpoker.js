@@ -904,15 +904,15 @@
                 if (packet_type == 'PacketPokerLongPoll') {
                   timeout = this.timeout;
                 }
-            
+
                 var args = {
                     async: this.async,
-                    data: json_data,
-                    mode: mode,
+                    data: {packet: json_data},
                     timeout: timeout,
                     url: this.url + '?' + this.auth + '&' + this.session_uid,
-                    type: 'POST',
-                    dataType: 'text json',
+                    type: 'GET',
+                    dataType: 'jsonp',
+                    jsonp: 'jsonp',
                     global: false, // do not fire global events
                     success: function(data, status) {
                         $('.ajax-retry').remove();
