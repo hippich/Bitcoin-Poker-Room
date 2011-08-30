@@ -3701,7 +3701,7 @@
             if(in_position && in_position.sit_out === false && in_position.seat == seat) {
             
                 var duration = 1000 * table.player_timeout * ratio;
-                player.timeoutEnd = +new Date + duration;
+                in_position.timeoutEnd = +new Date + duration;
                 
                 $('.jpoker_timeout_progress', timeout_element).stop().css({width: ratio*width+'px'}).show().animate({width: '0'}, {duration: duration, queue: false});
                 timeout_element.attr('pcur', ratio*100).show();
