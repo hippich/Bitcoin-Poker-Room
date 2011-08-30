@@ -5091,7 +5091,7 @@
                             self.unbind('click');
                             send(action);
                         }
-                    }, Math.min(actionDelay, player.timeoutEnd - new Date - 100); // 100ms "buffer" to get the action in before the timeout
+                    }, Math.min(actionDelay, player.timeoutEnd - new Date - 100)); // 100ms "buffer" to get the action in before the timeout
                 };
             }
             
