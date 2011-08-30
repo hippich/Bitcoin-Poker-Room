@@ -3699,7 +3699,11 @@
             var timeout_element = $('#player_seat' + seat + '_timeout' + id);
             var width = parseFloat(timeout_element.css('width'));
             if(in_position && in_position.sit_out === false && in_position.seat == seat) {
-                $('.jpoker_timeout_progress', timeout_element).stop().css({width: ratio*width+'px'}).show().animate({width: '0'}, {duration: ratio*table.player_timeout*1000, queue: false});
+            
+                var duration = 1000 * table.player_timeout * ratio;
+                player.timeoutEnd = +new Date + duration;
+                
+                $('.jpoker_timeout_progress', timeout_element).stop().css({width: ratio*width+'px'}).show().animate({width: '0'}, {duration: duration, queue: false});
                 timeout_element.attr('pcur', ratio*100).show();
             } else {
                 timeout_element.hide();
@@ -5087,7 +5091,7 @@
                             self.unbind('click');
                             send(action);
                         }
-                    }, actionDelay); // TODO: send before action timeout if clicked late
+                    }, Math.min(actionDelay, player.timeoutEnd - new Date - 100); // 100ms "buffer" to get the action in before the timeout
                 };
             }
             
