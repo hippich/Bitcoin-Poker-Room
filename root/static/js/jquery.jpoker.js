@@ -5106,6 +5106,7 @@
                 if($('#check' + id + ':visible').length > 0) {
                   return confirm('You can check instead. Are you sure you want to fold?');
                 }
+                return true;
             })).show();
             
             
