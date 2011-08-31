@@ -907,6 +907,7 @@
                 var args = {
                     async: this.async,
                     data: {packet: json_data},
+                    mode: mode,
                     timeout: timeout,
                     url: this.url + '?' + this.auth + '&' + this.session_uid,
                     type: 'GET',
@@ -3836,6 +3837,9 @@
                             prefix = table.serial2player[filtered_packet.serial].name + ': ';
                         }
                     }
+
+                    var chat_bottom = (chat.scrollTop() == chat[0].scrollHeight - chat.height());
+
                     for(var line = 0; line < lines.length; line++) {
                         var message = lines[line];
                         if (filtered_packet.serial === 0) {
@@ -3845,8 +3849,12 @@
                         var chat_prefix = $('<span class=\'jpoker_chat_prefix\'></span>').appendTo(chat_line).text(prefix);
                         var chat_message = $('<span class=\'jpoker_chat_message\'></span>').appendTo(chat_line).text(message);
                     }
-                    chat.attr('scrollTop', chat.attr('scrollHeight') || 0);
-                jpoker.plugins.table.callback.chat_changed(chat);
+
+                    if (chat_bottom) {
+                      chat.scrollTop(chat[0].scrollHeight);
+                    }
+
+                    jpoker.plugins.table.callback.chat_changed(chat);
                 }
                 break;
 

@@ -7,6 +7,8 @@
       <a href="#popular-tables">Popular</a>
     </div>
 
+  <h4>Click for more tables:</h4>
+
     <ul class="table-variants simple-nav">
       [% FOREACH game_variant = tables_structure %]
       <li>
