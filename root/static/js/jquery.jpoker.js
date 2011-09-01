@@ -3702,7 +3702,11 @@
             var timeout_element = $('#player_seat' + seat + '_timeout' + id);
             var width = parseFloat(timeout_element.css('width'));
             if(in_position && in_position.sit_out === false && in_position.seat == seat) {
-                $('.jpoker_timeout_progress', timeout_element).stop().css({width: ratio*width+'px'}).show().animate({width: '0'}, {duration: ratio*table.player_timeout*1000, queue: false});
+            
+                var duration = 1000 * table.player_timeout * ratio;
+                in_position.timeoutEnd = +new Date + duration;
+                
+                $('.jpoker_timeout_progress', timeout_element).stop().css({width: ratio*width+'px'}).show().animate({width: '0'}, {duration: duration, queue: false});
                 timeout_element.attr('pcur', ratio*100).show();
             } else {
                 timeout_element.hide();
@@ -5069,25 +5073,63 @@
                     this.checked = false;
                 });
             $('.jpoker_auto_action', auto_action_element).hide();
-
-            $('#fold' + id).unbind('click').click(
-              function() { 
-                if ($('#check' + id + ':visible').length > 0) {
-                  if (!confirm('You can check instead. Are you sure you want to fold?')) {
-                    return;
-                  }
+            
+            
+            // wait 1 sec before sending an action to the server to give time to "undo" action
+            var actionDelay = 1000,
+                disabledClass = 'jpoker_button_disabled';
+            
+            // action wrapper
+            function delayAction(action, canDelay) {
+                var timer;
+                return function() {
+                    clearTimeout(timer);
+                    
+                    var scope = this,
+                        args = arguments,
+                        self = $(scope);
+                    
+                    if(self.hasClass(disabledClass)) {
+                        self.removeClass(disabledClass);
+                        return;
+                    }
+                    
+                    if($.isFunction(canDelay) && !canDelay.apply(scope, args)) {
+                        return;
+                    }
+                    
+                    self.addClass(disabledClass);
+                    
+                    timer = setTimeout(function() {
+                        self.removeClass(disabledClass);
+                        
+                        if($.isFunction(action)) {
+                            action.apply(scope, args);
+                        }
+                        else {
+                            self.unbind('click');
+                            send(action);
+                        }
+                    }, Math.min(actionDelay, player.timeoutEnd - new Date - 500)); // 500ms "buffer" to get the action in before the timeout
+                };
+            }
+            
+            
+            $('#fold' + id).unbind('click').click(delayAction('Fold', function() { 
+                if($('#check' + id + ':visible').length > 0) {
+                  return confirm('You can check instead. Are you sure you want to fold?');
                 }
-                $(this).unbind('click'); return send('Fold'); 
-              }
-            ).show();
+                return true;
+            })).show();
+            
             
             if(betLimit.call > 0) {
                 var call = jpoker.getCallAmount(betLimit, player);
                 var call_element = $('#call' + id);
                 $('.jpoker_call_amount', call_element).text(jpoker.chips.SHORT(call));
-                call_element.unbind('click').click(function() { $(this).unbind('click'); return send('Call'); }).show();
+                call_element.unbind('click').click(delayAction('Call')).show();
             } else {
-                $('#check' + id).unbind('click').click(function() { $(this).unbind('click'); return send('Check'); }).show();
+                $('#check' + id).unbind('click').click(delayAction('Check')).show();
             }
             
             if(betLimit.allin > betLimit.call) {
@@ -5207,7 +5249,7 @@
                 if (betLimit.call > 0 || player.bet > 0) {
                     raiseLabel = _("Raise")
                 }
-                $('#raise' + id).html(jpoker.plugins.playerSelf.templates.action.supplant({ action: raiseLabel })).unbind('click').click(click).show();
+                $('#raise' + id).html(jpoker.plugins.playerSelf.templates.action.supplant({ action: raiseLabel })).unbind('click').click(delayAction(click)).show();
             }
             jpoker.plugins.playerSelf.callback.sound.in_position(server);
             $(window).focus();

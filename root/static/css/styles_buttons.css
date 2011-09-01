@@ -73,6 +73,10 @@
   width: auto;
 }
 
+.jpoker_table .jpoker_button_disabled a {
+  background: #fe931b url(images/alert-overlay-press.png) repeat-x left bottom;
+}
+
 #jpokerRebuy .ui-dialog-buttonpane button {
   background-color: #567300;
 }
