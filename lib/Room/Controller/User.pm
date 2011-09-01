@@ -320,7 +320,7 @@ sub deposit_bitcoin_refresh :Private {
 
   my $bitcoins_new_balance = $c->model("BitcoinServer")->get_received_by_address( $c->user->bitcoin_address );
 
-  if ($bitcoins_new_balance > $c->user->bitcoins_received) {
+  if ($bitcoins_new_balance && $bitcoins_new_balance > $c->user->bitcoins_received) {
     my $diff = $bitcoins_new_balance - $c->user->bitcoins_received;
     $c->user->bitcoins_received(
       $c->user->bitcoins_received + $diff
