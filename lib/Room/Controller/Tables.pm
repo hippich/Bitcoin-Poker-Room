@@ -100,7 +100,7 @@ sub table :Chained :CaptureArgs(1) {
     $c->page_not_found unless $c->stash->{table};
 
     if (my $tourney = $c->stash->{table}->tourney) {
-        if ($tourney->is_user_registered($c->user->serial)) {
+        if ($c->user && $tourney->is_user_registered($c->user->serial)) {
             $c->res->redirect(
                 $c->uri_for(
                     '/tourneys/'. $tourney->serial .'/table'
