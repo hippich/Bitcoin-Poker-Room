@@ -96,11 +96,11 @@ jQuery(document).ready(function() {
       jQuery("#blog-posts").html('<ul></ul>');
 
       var len = entries.length;
-      if (len > 2) { 
-        len = 2;
+      if (len > 3) { 
+        len = 3;
       }
       
-      for (var i=0; i < entries.length; i++) {
+      for (var i=0; i < len; i++) {
         var date = new Date(entries[i].display_date);
         var date_str = date.format("mmmm d, yyyy");
         var href = entries[i].full_url;
