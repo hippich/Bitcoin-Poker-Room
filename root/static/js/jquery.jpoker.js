@@ -5065,8 +5065,9 @@
             $('.jpoker_auto_action', auto_action_element).hide();
             
             
-            // wait 1.5 sec before sending an action to the server to give time to "undo" action
-            var actionDelay = 1500;
+            // wait 1 sec before sending an action to the server to give time to "undo" action
+            var actionDelay = 1000,
+                disabledClass = 'jpoker_button_disabled';
             
             // action wrapper
             function delayAction(action, canDelay) {
@@ -5076,13 +5077,21 @@
                     
                     var scope = this,
                         args = arguments,
-                        self = $(scope).toggleClass('jpoker_button_disabled');
+                        self = $(scope);
                     
-                    if(!self.hasClass('jpoker_button_disabled')) return;
-                    if($.isFunction(canDelay) && !canDelay.apply(scope, args)) return;
+                    if(self.hasClass(disabledClass)) {
+                        self.removeClass(disabledClass);
+                        return;
+                    }
+                    
+                    if($.isFunction(canDelay) && !canDelay.apply(scope, args)) {
+                        return;
+                    }
+                    
+                    self.addClass(disabledClass);
                     
                     timer = setTimeout(function() {
-                        self.removeClass('jpoker_button_disabled');
+                        self.removeClass(disabledClass);
                         
                         if($.isFunction(action)) {
                             action.apply(scope, args);
