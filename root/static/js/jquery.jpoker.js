@@ -3699,7 +3699,11 @@
             var timeout_element = $('#player_seat' + seat + '_timeout' + id);
             var width = parseFloat(timeout_element.css('width'));
             if(in_position && in_position.sit_out === false && in_position.seat == seat) {
-                $('.jpoker_timeout_progress', timeout_element).stop().css({width: ratio*width+'px'}).show().animate({width: '0'}, {duration: ratio*table.player_timeout*1000, queue: false});
+            
+                var duration = 1000 * table.player_timeout * ratio;
+                in_position.timeoutEnd = +new Date + duration;
+                
+                $('.jpoker_timeout_progress', timeout_element).stop().css({width: ratio*width+'px'}).show().animate({width: '0'}, {duration: duration, queue: false});
                 timeout_element.attr('pcur', ratio*100).show();
             } else {
                 timeout_element.hide();
@@ -4895,22 +4899,12 @@
                 if (table.betLimit.call > 0) {
                     var call = jpoker.getCallAmount(table.betLimit, player);
                     $('.jpoker_auto_action', auto_action_element).show();
-                    //$('input[name=auto_check]')[0].checked = false;
-                    //$('input[name=auto_call]')[0].checked = false;
-                    //$('input[name=auto_raise]')[0].checked = false;
+                    $('input[name=auto_check]')[0].checked = false;
+                    $('input[name=auto_call]')[0].checked = false;
+                    $('input[name=auto_raise]')[0].checked = false;
                     $('.jpoker_auto_check', auto_action_element).hide();
                     $('.jpoker_auto_call', auto_action_element).show();
                     $('.jpoker_call_amount', auto_action_element).text(jpoker.chips.SHORT(call));
-                    
-                    // Edit by holic to fix issue 27
-                    $('input[name=auto_check], input[name=auto_call], input[name=auto_raise]').each(function() {
-                        this.checked = false;
-                        this.disabled = true;
-                        
-                        setTimeout(function() {
-                            this.disabled = false;
-                        }, 1000); // 1s delay before re-enabling checkboxes
-                    });
                 }
             }
         },
@@ -5097,7 +5091,7 @@
                             self.unbind('click');
                             send(action);
                         }
-                    }, actionDelay); // TODO: send before action timeout if clicked late
+                    }, Math.min(actionDelay, player.timeoutEnd - new Date - 500)); // 500ms "buffer" to get the action in before the timeout
                 };
             }
             
@@ -5106,7 +5100,8 @@
                 if($('#check' + id + ':visible').length > 0) {
                   return confirm('You can check instead. Are you sure you want to fold?');
                 }
-            }).show();
+                return true;
+            })).show();
             
             
             if(betLimit.call > 0) {
