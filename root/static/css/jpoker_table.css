@@ -219,10 +219,6 @@ body {
     line-height: 30px;
     text-align : center;
 }
-.jpoker_table .jpoker_button_disabled {
-    opacity: .5;
-    filter: alpha(opacity=50);
-}
 
 .jpoker_table .jpoker_sitout, .jpoker_table .jpoker_rebuy, .jpoker_table .jpoker_quit, .jpoker_table .jpoker_sitin, .jpoker_table .jpoker_muck, .jpoker_table .jpoker_options, .jpoker_sound_control {
     color: #FFF;
