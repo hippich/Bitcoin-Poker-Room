@@ -453,7 +453,7 @@ class PokerSite(server.Site):
         resthost = settings.headerGetProperties("/server/resthost")
         if resthost:
             resthost = resthost[0]
-            self.resthost = ( resthost['host'], int(resthost['port']), resthost['path'] )
+            self.resthost = ( resthost['name'], resthost['host'], int(resthost['port']), resthost['path'] )
         else:
             self.resthost = None
 
