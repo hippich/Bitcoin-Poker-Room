@@ -14,7 +14,7 @@
 
     jQuery(document).ready(function() {
       setTimeout(function() {
-        jQuery('#main').jpoker('tourneyDetails', '/POKER_REST', [% tourney.serial %], 'somename', {
+        jQuery('#main').jpoker('tourneyDetails', '[% url %]', [% tourney.serial %], 'somename', {
             link_pattern: '/table/{game_id}/view'
           }, {
             url: '[% url %]',
