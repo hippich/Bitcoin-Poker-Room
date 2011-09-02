@@ -5277,9 +5277,6 @@
                 if (betLimit.call > 0 || player.bet > 0) {
                     raiseLabel = _("Raise")
                 }
-                if (player.bet >= betLimit.max) {
-                    raiseLabel = _("Limit")
-                }
 
                 $('#raise' + id).html(jpoker.plugins.playerSelf.templates.action.supplant({ action: raiseLabel })).unbind('click').click(delayAction(click)).show();
                 if (player.bet >= betLimit.max) {
