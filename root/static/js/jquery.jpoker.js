@@ -4756,7 +4756,7 @@
                 auto_check_fold_label: _("Check/Fold"),
                 auto_check_call_label: _("Check/Call any"),
                 auto_raise_label: _("Raise"),
-                auto_check_label: _("check"),
+                auto_check_label: _("Check"),
                 auto_call_label: _("Call")
             }));
 
@@ -5245,10 +5245,15 @@
                     };
                 }
 
+                // Here is where the Bet/Raise button is labelled when its the users turn
                 var raiseLabel = _("Bet")
                 if (betLimit.call > 0 || player.bet > 0) {
                     raiseLabel = _("Raise")
                 }
+                if (player.bet >= betLimit.max) {
+                    raiseLabel = _("Limit")
+                }
+
                 $('#raise' + id).html(jpoker.plugins.playerSelf.templates.action.supplant({ action: raiseLabel })).unbind('click').click(delayAction(click)).show();
             }
             jpoker.plugins.playerSelf.callback.sound.in_position(server);
