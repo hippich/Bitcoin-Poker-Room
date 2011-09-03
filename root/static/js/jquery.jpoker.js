@@ -3849,9 +3849,18 @@
                         if (filtered_packet.serial === 0) {
                             message = message.replace(/^Dealer: /, '');
                         }
-                        var chat_line = $('<div class=\'jpoker_chat_line\'>').appendTo(chat);
-                        var chat_prefix = $('<span class=\'jpoker_chat_prefix\'></span>').appendTo(chat_line).text(prefix);
-                        var chat_message = $('<span class=\'jpoker_chat_message\'></span>').appendTo(chat_line).text(message);
+
+                        // Check local users ignore list before posting chat messages
+                        // If they aren't on the ignore list or they are the dealer, show the message
+                        // Otherwise ignore silently
+                        var ignores = jpoker.plugins.ignore.getIgnores();
+                        var checkignore = prefix.slice(0, -2);
+                        if($.inArray(checkignore, ignores)==-1 || checkignore=="Dealer") {
+                          var chat_line = $('<div class=\'jpoker_chat_line\'>').appendTo(chat);
+                          var chat_prefix = $('<span class=\'jpoker_chat_prefix\'></span>').appendTo(chat_line).text(prefix);
+                          var chat_message = $('<span class=\'jpoker_chat_message\'></span>').appendTo(chat_line).text(message);
+                        }
+
                     }
 
                     if (chat_bottom) {
@@ -4722,13 +4731,31 @@
                 },function(){
                     $(this).removeClass('hover');
                 }).show();
-            options.after(jpoker.plugins.options.templates.dialog.supplant({
-                        auto_muck: jpoker.plugins.muck.templates.auto_muck.supplant({
-                                id: id,
-                                    auto_muck_win_label: _("Muck winning"),
-                                    auto_muck_win_title: _("Muck winning hands on showdown"),
-                                    auto_muck_lose_label: _("Muck losing"),
-                                    auto_muck_lose_title: _("Muck losing hands on showdown")})}));
+
+            options.after(
+                jpoker.plugins.options.templates.dialog.supplant(
+                    { auto_muck: jpoker.plugins.muck.templates.auto_muck.supplant(
+                        { id: id,
+                          auto_muck_win_label: _("Muck winning"),
+                          auto_muck_win_title: _("Muck winning hands on showdown"),
+                          auto_muck_lose_label: _("Muck losing"),
+                          auto_muck_lose_title: _("Muck losing hands on showdown")
+                        })
+                    }).supplant(
+                        { ignore_users: jpoker.plugins.ignore.templates.ignore_users.supplant(
+                            { id: id,
+                              ignore_user_title: _("Ignore Users"),
+                              ignore_user_label: _("Ignore Users"),
+                              ignore_add: _("Add Ignore"),
+                              ignore_remove: _("Remove Ignore"),
+                              ignore_user_nick: _("Ignore Nickname")
+                            })
+                        })
+                    );
+
+            // Initialize the chat ignore list
+            jpoker.plugins.ignore.fillSelect(jpoker.plugins.ignore.getIgnores(), id);
+
             $('#jpokerOptionsDialog').dialog($.extend({}, jpoker.dialog_options, {title: _("Options")}));
             options.click(function() {
                     $('#jpokerOptionsDialog').dialog('open');
@@ -4756,7 +4783,7 @@
                 auto_check_fold_label: _("Check/Fold"),
                 auto_check_call_label: _("Check/Call any"),
                 auto_raise_label: _("Raise"),
-                auto_check_label: _("check"),
+                auto_check_label: _("Check"),
                 auto_call_label: _("Call")
             }));
 
@@ -5245,12 +5272,18 @@
                     };
                 }
 
+                // Here is where the Bet/Raise button is labelled when its the users turn
                 var raiseLabel = _("Bet")
                 if (betLimit.call > 0 || player.bet > 0) {
                     raiseLabel = _("Raise")
                 }
+
                 $('#raise' + id).html(jpoker.plugins.playerSelf.templates.action.supplant({ action: raiseLabel })).unbind('click').click(delayAction(click)).show();
+                if (player.bet >= betLimit.max) {
+                  $('#raise' +id).hide();
+                }
             }
+
             jpoker.plugins.playerSelf.callback.sound.in_position(server);
             $(window).focus();
             $('#game_window' + id).addClass('jpoker_self_in_position');
@@ -5334,8 +5367,116 @@
     jpoker.plugins.options = {
         templates: {
             button: '<div class=\'jpoker_options\'><a href=\'javascript://\'>{options_label}</a></div>',
-            dialog: '<div id=\'jpokerOptionsDialog\' class=\'jpoker_options_dialog jpoker_jquery_ui\'>{auto_muck}</div>'
+            dialog: '<div id=\'jpokerOptionsDialog\' class=\'jpoker_options_dialog jpoker_jquery_ui\'>{auto_muck}{ignore_users}</div>'
         }
+    };
+
+    //
+    // ignore (chat ignore plugin helper)
+    //
+    jpoker.plugins.ignore = {
+      templates: {
+        ignore_users: '<div class=\'jpoker_ignore jpoker_ignore_list\'>{ignore_user_title}<br><span><select class=\'jpoker_ignore_user_select\' id=\'ignore_user_select{id}\' name=\'ignore_user_select{id}\' multiple size=\'5\'></select><br><input id=\'ignore_user_text{id}\' name=\'ignore_user_text{id}\' class=\'jpoker_ignore_user_select\' type=\'text\' size=\'8\'><br><input class=\'jpoker_ignore_user_select\' type=\'button\' name=\'ignore_add{id}\' value=\'{ignore_add}\' onclick=\'jQuery.jpoker.plugins.ignore.ignoreTypedInUser("{id}");\'><br><input class=\'jpoker_ignore_user_select\' type=\'button\' name=\'ignore_remove{id}\' value=\'{ignore_remove}\' onclick=\'jQuery.jpoker.plugins.ignore.unignoreSelectedUser("{id}");\'></span><br></div>'
+      },
+      getIgnores: function(id) {
+        // Debug
+        // var debug = new Array();
+        // debug.push('test1');
+        // return debug;
+
+        // Get JSON from localStorage
+        var ignores = localStorage.getItem("jpoker_ignores");
+        if(typeof(ignores)!="undefined" && ignores != "") {
+          ignores = $.parseJSON(ignores);
+          if(ignores == null) {
+            ignores = new Array();
+          }
+        } else {
+          ignores = new Array();
+        }
+        return ignores;
+      },
+      ignoreTypedInUser: function(id) {
+        var typedinuser = $('#ignore_user_text'+id)[0].value;
+        if(typedinuser!=null && typedinuser.trim()!="") {
+          this.ignoreUser(typedinuser, id);
+        }
+        $('#ignore_user_text'+id)[0].value = "";
+      },
+      unignoreSelectedUser: function(id) {
+        var sl = $('#ignore_user_select'+id)[0];
+        if(sl.options) {
+          var selecteduser = sl.options[$('#ignore_user_select'+id)[0].selectedIndex].value;
+          this.unignoreUser(selecteduser, id);
+        }
+      },
+      ignoreUser: function(user, id) {
+        if(localStorage) {
+          // Get JSON from localStorage
+          var ignores = localStorage.getItem("jpoker_ignores");
+          if(typeof(ignores)!="undefined" && ignores != "") {
+            ignores = $.parseJSON(ignores);
+            if(ignores == null) {
+              ignores = new Array();
+            }
+          } else {
+            ignores = new Array();
+          }
+
+          // Add user to JSON from localStorage
+          if($.inArray(user, ignores)==-1) {
+            ignores.push(user);
+          }
+
+          // Handle the select box
+          this.fillSelect(ignores, id);
+
+          // Put JSON back in localStorage
+          var ignoresjson = JSON.stringify(ignores);
+          localStorage.setItem("jpoker_ignores", ignoresjson);
+        }
+      },
+      fillSelect: function(ignores, id) {
+          // Clear the select box
+          var igselect = $('#ignore_user_select'+id)[0];
+          if(typeof(igselect.options)!="undefined") {
+            for(i=igselect.options.length;i>-1;i--) {
+              igselect.options.remove(i);
+            }
+          }
+
+          // Repopulate the select box
+          for(i in ignores) {
+            var opt = document.createElement("option");
+            opt.text = ignores[i];
+            opt.value = ignores[i];
+            igselect.add(opt, null);
+          }
+       },
+       unignoreUser: function(user, id) {
+          // Get JSON from localStorage
+          var ignores = localStorage.getItem("jpoker_ignores");
+          if(typeof(ignores)!="undefined" && ignores != "") {
+            ignores = $.parseJSON(ignores);
+            if(ignores == null) {
+              ignores = new Array();
+            }
+          } else {
+            ignores = new Array();
+          }
+
+          // Remove user from JSON list from localStorage
+          var where = $.inArray(user, ignores);
+          if(where!=-1) {
+            ignores.splice(where, 1);
+          }
+
+          this.fillSelect(ignores, id);
+
+          // Put JSON back in localStorage
+          var ignoresjson = JSON.stringify(ignores);
+          localStorage.setItem("jpoker_ignores", ignoresjson);
+      },
     };
 
     //
