@@ -1,7 +1,10 @@
 .jpoker_auto_muck_lose,
 .jpoker_auto_muck_win {
-  float: left;
+/*  float: left; Allow other options to flow below*/
   clear: left;
   margin: 10px 0;
+}
+.jpoker_ignore_user_select {
+  width:150px;
 }
 
