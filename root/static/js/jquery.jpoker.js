@@ -5103,7 +5103,7 @@
             
             
             // wait 1 sec before sending an action to the server to give time to "undo" action
-            var actionDelay = 1000,
+            var actionDelay = 500,
                 disabledClass = 'jpoker_button_disabled';
             
             // action wrapper
