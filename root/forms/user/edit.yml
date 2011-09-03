@@ -7,14 +7,14 @@ elements:
   - type: Password
     name: password
     label: New password
-    comment: leave empty to no change password
+    comment: leave empty to not change password
     constraints:
       - type: Equal
         others: repeat_password
 
   - type: Password
     name: repeat_password
-    comment: leave empty to no change password
+    comment: leave empty to not change password
     label: Repeat new password
 
   - type: Text
