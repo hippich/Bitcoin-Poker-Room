@@ -60,7 +60,7 @@ class PokerRake:
         if game.verbose >= 2: game.message("Rake: calculated rake cap as %d units" % rakeCap)
         
         rakeablePot = (game.getPotAmount() - game.getUncalled())
-        decimalRake = min(rakeCap, rakeablePot * Decimal('0.01')) + self.change
+        decimalRake = min(rakeCap, rakeablePot * Decimal('0.02')) + self.change
 
 
         if game.verbose >= 2: game.message("Rake: calculated rake from %d pot as %2.2f (%0.2f from change)" % (rakeablePot, decimalRake, self.change))
