@@ -747,6 +747,7 @@ class PokerGame:
     def sit(self, serial):
         player = self.serial2player[serial]
         if player.isSit():
+            self.comeBack(serial)
             if self.verbose > 0: self.message("sit: refuse to sit player %d because player.isSit() return True" % ( serial ))
             return False
         if not player.isBuyInPayed() or self.isBroke(serial):
