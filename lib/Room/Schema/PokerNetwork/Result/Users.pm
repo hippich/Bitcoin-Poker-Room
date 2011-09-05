@@ -196,12 +196,28 @@ sub check_password {
 }
 
 
+=head2 get_bitcoin_deposit_address 
+
+Retrieve user's stored bitcoin deposit address.
+
+=cut 
 sub get_bitcoin_deposit_address {
   my ($self) = @_;
 
   return $self->data->bitcoin_address;
 }
 
+
+=head2 balance 
+
+Retrieve single currency balance Result object 
+
+=cut
+sub balance {
+    my ($self, $serial) = @_;
+
+    return $self->balances->find_or_create({ currency_serial => $serial });
+}
 
 =head1 AUTHOR
 

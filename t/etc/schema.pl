@@ -44,7 +44,12 @@ return {
                 [ 'user_serial', 'currency_serial', 'tourney_serial', 'table_serial', 'rank' ],
                 [ 22, 1, 2071, 8251, 1 ],
                 [ 23, 1, 2071, 8251, 2 ], 
-            ]
+            ],
+
+            User2money => [
+                [ 'user_serial', 'currency_serial', 'amount', 'rake', 'points' ],
+                [ 22, 1, 10000, 100, 20 ], 
+            ],
         ]
     },
 };

@@ -47,6 +47,13 @@ __PACKAGE__->filter_column(
   }
 );
 
+__PACKAGE__->filter_column(
+  points => {
+    filter_to_storage => '__filter_multi',
+    filter_from_storage =>  '__filter_divide',
+  }
+);
+
 
 sub __filter_multi { my $self = shift; shift() * 10000 }
 sub __filter_divide { my $self = shift; shift() / 10000 }
@@ -57,6 +64,25 @@ __PACKAGE__->has_one(
 );
 
 
+=head2 points_cashout 
+
+Move points to available amount 
+
+=cut 
+sub points_cashout {
+    my ($self, $amount) = @_;
+
+    if ($self->points < $amount || $amount <= 0) {
+        return 0;
+    }
+
+    $self->amount( $self->amount + $amount );
+    $self->points( $self->points - $amount );
+
+    $self->update();
+
+    return 1;
+}
 
 =head1 AUTHOR
 

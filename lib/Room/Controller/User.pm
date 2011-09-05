@@ -405,6 +405,34 @@ sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
 }
 
 
+sub points_cashout :Local :Args(1) {
+    my ($self, $c, $currency_serial) = @_;
+
+    # @TODO: this is hardcoded prevention. Should be configurable.
+    if ($currency_serial != 1) {
+        $c->page_not_found;
+    }
+
+    my $balance = $c->user->balance($currency_serial);
+
+    if ($balance->points < $c->config->{points_cashout_limit}) {
+        push @{$c->flash->{errors}}, "You need to get at least ". ($c->config->{points_cashout_limit} * 100) .
+             " points to be able to cash out them.";
+    }
+    else {
+        my $points = $balance->points;
+
+        if ( $balance->points_cashout($points) ) {
+            push @{$c->flash->{messages}}, "Successfuly cashed out ". ($points * 100) ." points.";
+        }
+        else {
+            push @{$c->flash->{errors}}, "Cash-out error happened. Contact support with details if this issue.";
+        }
+    }
+
+    $c->res->redirect( '/user' );
+}
+
 
 sub no_avatar :Local :Args(1) {
   my ($self, $c, $uid) = @_;
