@@ -2384,14 +2384,14 @@ class PokerService(service.Service):
         self.databaseEvent(event = PacketPokerMonitorEvent.LEAVE, param1 = serial, param2 = table_id)
         return status
 
-    def updatePlayerRake(self, currency_serial, serial, amount):
-        if amount == 0:
+    def updatePlayerRake(self, currency_serial, serial, rake_amount, points_amount):
+        if rake_amount == 0:
             return True
         status = True
         cursor = self.db.cursor()
         sql = ( "UPDATE user2money SET "
-                " rake = rake + " + str(amount) + ", "
-                " points = points + " + str(amount) + " "
+                " rake = rake + " + str(rake_amount) + ", "
+                " points = points + " + str(points_amount) + " "
                 " WHERE user_serial = " + str(serial) + " AND "
                 "       currency_serial = " + str(currency_serial) )
         if self.verbose > 1:

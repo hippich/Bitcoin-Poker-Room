@@ -43,6 +43,7 @@ from pokerengine.pokercards import PokerCards
 
 from pokernetwork.pokerpackets import *
 from pokernetwork import pokeravatar
+from pokernetwork.pokerbonus import  *
 
 class PokerAvatarCollection:
 
@@ -144,6 +145,7 @@ class PokerTable:
             "delay": 0
             }
         self.update_recursion = False
+        self.bonus = PokerBonus()
 
     def message(self, string):
         print "PokerTable: " + string
@@ -578,7 +580,8 @@ class PokerTable:
             self.factory.updatePlayerMoney(serial, game.id, amount)
 
         for (serial, rake) in serial2rake.iteritems():
-            self.factory.updatePlayerRake(self.currency_serial, serial, rake)
+            points = self.bonus.getPoints(serial, game, rake)
+            self.factory.updatePlayerRake(self.currency_serial, serial, rake, points)
 
         if reset_bet:
             self.factory.resetBet(game.id)
