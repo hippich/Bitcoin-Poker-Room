@@ -58,7 +58,7 @@
     var auth = "[% auth %]";
     var game_id = [% table.serial %];
 
-    var table_state = 'open';
+    var table_state = 'close';
     
     jQuery(document).ready(function() {
         var server;
@@ -87,10 +87,13 @@
         }
         
         server.spawnTable = function(server, packet) {
-          jQuery('#main').empty();
+          if (table_state == 'close') {
+            table_state = 'open';
+            jQuery('#main').empty();
 
-          if (packet.game_id == game_id) {
-            jQuery('#main').jpoker('table', restURL, packet.game_id, packet.name);
+            if (packet.game_id == game_id) {
+              jQuery('#main').jpoker('table', restURL, packet.game_id, packet.name);
+            }
           }
         }
         
