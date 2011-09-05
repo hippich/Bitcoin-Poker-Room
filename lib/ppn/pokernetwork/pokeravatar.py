@@ -1310,13 +1310,23 @@ class PokerAvatar:
 
     def sitPlayer(self, table, serial):
         game = table.game
-        #
-        # It does not harm to sit if already sit and it
-        # resets the autoPlayer/wait_for flag.
-        #
-        if game.sit(serial):
+
+        if table.isOpen():
+            #
+            # It does not harm to sit if already sit and it
+            # resets the autoPlayer/wait_for flag.
+            #
+            if game.sit(serial):
+                self.message("game.sit success - game_id: %d, serial: %d" % (game.id, serial))
+                table.broadcast(PacketPokerSit(game_id = game.id,
+                                               serial = serial))
+            else:
+                self.message("game.sit NOT success - game_id: %d, serial: %d" % (game.id, serial))
+        else:
+            game.comeBack(serial)
             table.broadcast(PacketPokerSit(game_id = game.id,
                                            serial = serial))
+
 
     def sitOutPlayer(self, table, serial):
         game = table.game

@@ -725,6 +725,7 @@ class PokerGame:
     def sitOut(self, serial):
         player = self.serial2player[serial]
         if player.isSitOut():
+            if self.verbose > 0: self.message("sitOut: refuse to sitOut player %d because player.isSitOut() return True" % ( serial ))
             return False
         if self.is_directing and self.isBlindAnteRound() and self.getSerialInPosition() != serial:
             self.error("sitOut for player %d while paying the blinds although not in position" % serial)
@@ -746,6 +747,7 @@ class PokerGame:
     def sit(self, serial):
         player = self.serial2player[serial]
         if player.isSit():
+            if self.verbose > 0: self.message("sit: refuse to sit player %d because player.isSit() return True" % ( serial ))
             return False
         if not player.isBuyInPayed() or self.isBroke(serial):
             if self.verbose > 0: self.error("sit: refuse to sit player %d because buy in == %s instead of True or broke == %s instead of False" % ( serial, player.buy_in_payed, self.isBroke(serial) ))
