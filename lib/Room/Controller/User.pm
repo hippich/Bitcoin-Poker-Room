@@ -430,7 +430,9 @@ sub points_cashout :Local :Args(1) {
         }
     }
 
-    $c->res->redirect( '/user' );
+    $c->res->redirect( 
+        $c->uri_for('/user') 
+    );
 }
 
 
