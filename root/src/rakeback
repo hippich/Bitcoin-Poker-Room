@@ -1,0 +1,72 @@
+[% META title = 'Rake Back' %]
+
+<div class="one">
+  <p>We wish to reward players who become the first to join empty tables and get the most people in the game.</p> 
+
+  <p>In order to do this we developed a rake back points system. Depending on your position at the table 
+  and the number of players at the table you will get certain percentage of your rake back in the form of "points".
+  Each point is equal to one chip and can be converted to chips once you reach the level of 100 points.</p>
+
+  <p>Below you will find details on how to benefit most from the rake back system.</p>
+
+  <p>First thing you need to know is how player position is calculated by the site. A position is calculated based on 
+  the seat number. You can find seat numbers examples below. So if Alice takes seat #3, Bob - #6 and John - #8,
+  Alice will be in 1st position, Bob - in 2nd and John - in 3rd.</p>
+
+  <p>Below are a few examples of which seat is assigned to which number: <br /></p>
+</div>
+
+<div class="one-half">
+  <h4>Heads Up Table:</h4>
+  <p><img src="/static/img/rakeback/2-max.jpg" alt="2-max table example" /><br /></p>
+</div>
+
+<div class="one-half last">
+  <h4>4-max Table:</h4>
+  <p><img src="/static/img/rakeback/4-max.jpg" alt="4-max table example" /><br /></p>
+</div>
+
+<div class="one">
+  <h4>10-max Table:</h4>
+  <p><img src="/static/img/rakeback/10-max.jpg" alt="10-max table example" /></p>
+</div>
+
+<div class="one">
+  <p>Next thing you need to know - how much rake back points you will get. This depends on the number of players 
+  at the table and your position at the table. Below is a table describing it. Rows represent a player's position, 
+  columns - number of players currently playing at the table:</p>
+
+  <table>
+    <tr>
+      <th></th>
+      <th>2 Players</th>
+      <th>3 Players</th>
+      <th>4 Players</th>
+      <th>5 Players</th>
+      <th>6 Players</th>
+      <th>7 Players</th>
+      <th>8 Players</th>
+      <th>9 Players</th>
+      <th>10 Players</th>
+    </tr>
+
+    <tr><th>1</th><td>20%</td><td>40%</td><td>60%</td><td>80%</td><td>100%</td><td>120%</td><td>120%</td><td>120%</td><td>120%</td></tr>
+    <tr><th>2</th><td>10%</td><td>20%</td><td>40%</td><td>60%</td><td> 80%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td></tr>
+    <tr><th>3</th><td> - </td><td>10%</td><td>20%</td><td>40%</td><td> 60%</td><td> 80%</td><td> 80%</td><td> 80%</td><td> 80%</td></tr>
+    <tr><th>4</th><td> - </td><td> - </td><td>10%</td><td>20%</td><td> 40%</td><td> 60%</td><td> 60%</td><td> 60%</td><td> 60%</td></tr>
+    <tr><th>5</th><td> - </td><td> - </td><td> - </td><td>10%</td><td> 20%</td><td> 40%</td><td> 40%</td><td> 40%</td><td> 40%</td></tr>
+    <tr><th>6</th><td> - </td><td> - </td><td> - </td><td> - </td><td> 10%</td><td> 20%</td><td> 20%</td><td> 20%</td><td> 20%</td></tr>
+    <tr><th>7</th><td> - </td><td> - </td><td> - </td><td> - </td><td>  - </td><td> 10%</td><td> 10%</td><td> 10%</td><td> 10%</td></tr>
+    <tr><th>8</th><td> - </td><td> - </td><td> - </td><td> - </td><td>  - </td><td>  - </td><td> 10%</td><td> 10%</td><td> 10%</td></tr>
+    <tr><th>9</th><td> - </td><td> - </td><td> - </td><td> - </td><td>  - </td><td>  - </td><td>  - </td><td> 10%</td><td> 10%</td></tr>
+    <tr><th>10</th><td> -</td><td> - </td><td> - </td><td> - </td><td>  - </td><td>  - </td><td>  - </td><td>  - </td><td> 10%</td></tr>
+  </table>
+
+  <p>The math is simple: points = rake paid * XX%. So, for example, if you paid 10 chips in rake and you sit in position #1 and there are 7+ players,
+  you will get 12 points - yes, more than you paid in rake! You will be able to exchange points to chips at My Account page 
+  once you reach 100 points.</p>
+
+  <p>This is a rough initial implementation of the reward system. We are constantly looking into enhancing the game, so please check it out often. 
+  Also if you have any questions or suggestions - do not hesitate to contact us.</p>
+
+</div>

@@ -148,6 +148,7 @@ sub contactus :Local :FormConfig {
 
 sub credits :Local {}
 sub rake :Local {}
+sub rakeback :Local {}
 
 =head2 default
 

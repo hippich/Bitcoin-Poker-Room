@@ -68,6 +68,7 @@
         <a href='[% c.uri_for('/') %]'>Home</a> /
         <a href='[% c.uri_for('/credits') %]'>Credits</a> /
         <a href='[% c.uri_for('/rake') %]'>About Rake</a> /
+        <a href='[% c.uri_for('/rakeback') %]'>Rake Back</a> /
         <a href='http://github.com/betcoin/room/archives/master'>Download sources</a> /
         <a href='http://github.com/betcoin/room/issues'>Report bugs</a> /
         <a href='[% c.uri_for('/contactus') %]'>Contact Us</a> /
