@@ -32,13 +32,18 @@ PacketNames = {}
 PACKET_NONE = 0
 PacketNames[PACKET_NONE] = "NONE"
 
+def json_encode_decimal(obj):
+    if isinstance(obj, decimal.Decimal):
+        return str(obj)
+    raise TypeError(repr(obj) + " is not JSON serializable")
+
 class Packet:
     """
 
      Packet base class
     
     """
-    JSON = simplejson.JSONEncoder()
+    JSON = simplejson.JSONEncoder(default=json_encode_decimal)
     
     type = PACKET_NONE
     length = -1
@@ -60,6 +65,8 @@ class Packet:
     def pack(self):
         return pack(Packet.format, self.type, self.calcsize())
 
+        
+              
     def infoPack(self):
         blocks = []
         info = self.info

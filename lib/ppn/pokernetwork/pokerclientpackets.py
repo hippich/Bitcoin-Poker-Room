@@ -27,6 +27,7 @@
 from struct import pack, unpack
 import simplejson
 import types
+import decimal
 
 from pokerengine.pokercards import PokerCards
 from pokerengine.pokerchips import PokerChips
@@ -41,11 +42,14 @@ def chips2amount(chips):
     return amount
 
 class PokerClientPacketJSON(simplejson.JSONEncoder):
+
     def default(self, object):
         if isinstance(object, PokerCards):
             return ['Cards'] + [255] * len(object.cards)
         elif isinstance(object, PokerChips):
             return ['Chips', object.toint()]
+        elif isinstance(object, decimal.Decimal):
+            return str(object)
         else:
             return simplejson.JSONEncoder.default(self, object)
 
