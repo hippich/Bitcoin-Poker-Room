@@ -141,6 +141,7 @@ sub points_cashout {
 
     $self->amount( $self->amount + $amount );
     $self->points( $self->points - $amount );
+    $self->points_cashed( $self->points_cashed + $amount );
 
     $self->update();
 
