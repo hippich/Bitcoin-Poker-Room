@@ -53,10 +53,10 @@ class PokerBonus:
         total_players = len(game.player_list)
 
         position_bonus = self.position_rules[total_players][player_position]
-        position_points = int(math.floor(float(rake) / 100 * position_bonus))
+        position_points = float(rake) / 100 * position_bonus
 
         self.message(
-            "Serial: %d in position %d/%d, game: %d, rake: %d, position points awarded: %d with %d%% bonus" % 
+            "Serial: %d in position %d/%d, game: %d, rake: %d, position points awarded: %d with %.4f%% bonus" % 
             ( serial, player_position, total_players, game.id, rake, position_points, position_bonus )
         )
 

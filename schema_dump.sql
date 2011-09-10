@@ -514,7 +514,8 @@ CREATE TABLE `user2money` (
   `currency_serial` int(10) unsigned NOT NULL,
   `amount` bigint(20) NOT NULL,
   `rake` bigint(20) NOT NULL DEFAULT '0',
-  `points` bigint(20) NOT NULL DEFAULT '0',
+  `points` DECIMAL(64,4) NOT NULL DEFAULT '0',
+  `points_cashed` DECIMAL(64,4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`user_serial`,`currency_serial`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
