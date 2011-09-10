@@ -117,6 +117,13 @@ __PACKAGE__->filter_column(
   }
 );
 
+__PACKAGE__->filter_column(
+  points_cashed => {
+    filter_to_storage => '__filter_multi',
+    filter_from_storage =>  '__filter_divide',
+  }
+);
+
 
 sub __filter_multi { my $self = shift; shift() * 10000 }
 sub __filter_divide { my $self = shift; shift() / 10000 }
