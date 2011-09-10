@@ -50,16 +50,16 @@
       <th>10 Players</th>
     </tr>
 
-    <tr><th>1</th><td>20%</td><td>40%</td><td>60%</td><td>80%</td><td>100%</td><td>120%</td><td>120%</td><td>120%</td><td>120%</td></tr>
-    <tr><th>2</th><td>10%</td><td>20%</td><td>40%</td><td>60%</td><td> 80%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td></tr>
-    <tr><th>3</th><td> - </td><td>10%</td><td>20%</td><td>40%</td><td> 60%</td><td> 80%</td><td> 80%</td><td> 80%</td><td> 80%</td></tr>
-    <tr><th>4</th><td> - </td><td> - </td><td>10%</td><td>20%</td><td> 40%</td><td> 60%</td><td> 60%</td><td> 60%</td><td> 60%</td></tr>
-    <tr><th>5</th><td> - </td><td> - </td><td> - </td><td>10%</td><td> 20%</td><td> 40%</td><td> 40%</td><td> 40%</td><td> 40%</td></tr>
-    <tr><th>6</th><td> - </td><td> - </td><td> - </td><td> - </td><td> 10%</td><td> 20%</td><td> 20%</td><td> 20%</td><td> 20%</td></tr>
-    <tr><th>7</th><td> - </td><td> - </td><td> - </td><td> - </td><td>  - </td><td> 10%</td><td> 10%</td><td> 10%</td><td> 10%</td></tr>
-    <tr><th>8</th><td> - </td><td> - </td><td> - </td><td> - </td><td>  - </td><td>  - </td><td> 10%</td><td> 10%</td><td> 10%</td></tr>
-    <tr><th>9</th><td> - </td><td> - </td><td> - </td><td> - </td><td>  - </td><td>  - </td><td>  - </td><td> 10%</td><td> 10%</td></tr>
-    <tr><th>10</th><td> -</td><td> - </td><td> - </td><td> - </td><td>  - </td><td>  - </td><td>  - </td><td>  - </td><td> 10%</td></tr>
+    <tr><th>1</th><td>120%</td><td>100%</td><td>80%</td><td>80%</td><td>100%</td><td>120%</td><td>120%</td><td>120%</td><td>120%</td></tr>
+    <tr><th>2</th><td> 10%</td><td> 20%</td><td>40%</td><td>60%</td><td> 80%</td><td>100%</td><td>100%</td><td>100%</td><td>100%</td></tr>
+    <tr><th>3</th><td>  - </td><td> 10%</td><td>20%</td><td>40%</td><td> 60%</td><td> 80%</td><td> 80%</td><td> 80%</td><td> 80%</td></tr>
+    <tr><th>4</th><td>  - </td><td>  - </td><td>10%</td><td>20%</td><td> 40%</td><td> 60%</td><td> 60%</td><td> 60%</td><td> 60%</td></tr>
+    <tr><th>5</th><td>  - </td><td>  - </td><td> - </td><td>10%</td><td> 20%</td><td> 40%</td><td> 40%</td><td> 40%</td><td> 40%</td></tr>
+    <tr><th>6</th><td>  - </td><td>  - </td><td> - </td><td> - </td><td> 10%</td><td> 20%</td><td> 20%</td><td> 20%</td><td> 20%</td></tr>
+    <tr><th>7</th><td>  - </td><td>  - </td><td> - </td><td> - </td><td>  - </td><td> 10%</td><td> 10%</td><td> 10%</td><td> 10%</td></tr>
+    <tr><th>8</th><td>  - </td><td>  - </td><td> - </td><td> - </td><td>  - </td><td>  - </td><td> 10%</td><td> 10%</td><td> 10%</td></tr>
+    <tr><th>9</th><td>  - </td><td>  - </td><td> - </td><td> - </td><td>  - </td><td>  - </td><td>  - </td><td> 10%</td><td> 10%</td></tr>
+    <tr><th>10</th><td> -</td><td>   - </td><td> - </td><td> - </td><td>  - </td><td>  - </td><td>  - </td><td>  - </td><td> 10%</td></tr>
   </table>
 
   <p>The math is simple: points = rake paid * XX%. So, for example, if you paid 10 chips in rake and you sit in position #1 and there are 7+ players,
