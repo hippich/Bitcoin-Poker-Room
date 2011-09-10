@@ -1,103 +1,195 @@
 package Room::Schema::PokerNetwork::Result::Users;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
   "FrozenColumns",
   "FilterColumn",
   "EncodedColumn",
-  "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::Users
+
+=cut
+
 __PACKAGE__->table("users");
+
+=head1 ACCESSORS
+
+=head2 serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
+=head2 created
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 name
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 64
+
+=head2 email
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 128
+
+=head2 affiliate
+
+  data_type: 'integer'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 skin_url
+
+  data_type: 'varchar'
+  default_value: 'random'
+  is_nullable: 1
+  size: 255
+
+=head2 skin_outfit
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 skin_image
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 skin_image_type
+
+  data_type: 'varchar'
+  default_value: 'image/png'
+  is_nullable: 1
+  size: 32
+
+=head2 password
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 512
+
+=head2 privilege
+
+  data_type: 'integer'
+  default_value: 1
+  is_nullable: 1
+
+=head2 locale
+
+  data_type: 'varchar'
+  default_value: 'en_US'
+  is_nullable: 1
+  size: 32
+
+=head2 rating
+
+  data_type: 'integer'
+  default_value: 1000
+  is_nullable: 1
+
+=head2 future_rating
+
+  data_type: 'float'
+  default_value: 1000
+  is_nullable: 1
+
+=head2 games_count
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=head2 data
+
+  data_type: 'text'
+  is_nullable: 1
+
+=cut
+
 __PACKAGE__->add_columns(
   "serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  {
+    data_type => "integer",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "created",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
   "name",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 64,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 64 },
   "email",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 128,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 128 },
   "affiliate",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 10 },
+  {
+    data_type => "integer",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 1,
+  },
   "skin_url",
   {
-    data_type => "VARCHAR",
+    data_type => "varchar",
     default_value => "random",
     is_nullable => 1,
     size => 255,
   },
   "skin_outfit",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 1,
-    size => 65535,
-  },
+  { data_type => "text", is_nullable => 1 },
   "skin_image",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 1,
-    size => 65535,
-  },
+  { data_type => "text", is_nullable => 1 },
   "skin_image_type",
   {
-    data_type => "VARCHAR",
+    data_type => "varchar",
     default_value => "image/png",
     is_nullable => 1,
     size => 32,
   },
   "password",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 40,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 512 },
   "privilege",
-  { data_type => "INT", default_value => 1, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 1, is_nullable => 1 },
   "locale",
   {
-    data_type => "VARCHAR",
+    data_type => "varchar",
     default_value => "en_US",
     is_nullable => 1,
     size => 32,
   },
   "rating",
-  { data_type => "INT", default_value => 1000, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 1000, is_nullable => 1 },
   "future_rating",
-  { data_type => "FLOAT", default_value => 1000, is_nullable => 1, size => 32 },
+  { data_type => "float", default_value => 1000, is_nullable => 1 },
   "games_count",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
   "data",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 1,
-    size => 65535,
-  },
+  { data_type => "text", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("serial");
 __PACKAGE__->add_unique_constraint("email_idx", ["email"]);
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vEdFh5CdQczNMcB+q/BW4A
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 02:25:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:najOrRPxquNBM6d34xxy8Q
 
 use JSON::XS;
 use Hash::AsObject;

@@ -1,33 +1,83 @@
 package Room::Schema::PokerNetwork::Result::Route;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
   "FrozenColumns",
   "FilterColumn",
   "EncodedColumn",
-  "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::Route
+
+=cut
+
 __PACKAGE__->table("route");
+
+=head1 ACCESSORS
+
+=head2 table_serial
+
+  data_type: 'integer'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 tourney_serial
+
+  data_type: 'integer'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 modified
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 resthost_serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=cut
+
 __PACKAGE__->add_columns(
   "table_serial",
-  { data_type => "INT", default_value => 0, is_nullable => 0, size => 10 },
+  {
+    data_type => "integer",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 0,
+  },
   "tourney_serial",
-  { data_type => "INT", default_value => 0, is_nullable => 0, size => 10 },
+  {
+    data_type => "integer",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 0,
+  },
   "modified",
-  { data_type => "INT", default_value => undef, is_nullable => 1, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 1 },
   "resthost_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 1, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("table_serial", "tourney_serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FkNUYKtiLMVPBf0g4LISyw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 02:25:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:IMly7PGuzxNkkZJfyoHK8w
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

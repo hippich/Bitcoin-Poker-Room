@@ -1,43 +1,83 @@
 package Room::Schema::PokerNetwork::Result::Messages;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
   "FrozenColumns",
   "FilterColumn",
   "EncodedColumn",
-  "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::Messages
+
+=cut
+
 __PACKAGE__->table("messages");
+
+=head1 ACCESSORS
+
+=head2 serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
+=head2 send_date
+
+  data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
+  default_value: current_timestamp
+  is_nullable: 0
+
+=head2 message
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 sent
+
+  data_type: 'char'
+  default_value: 'n'
+  is_nullable: 0
+  size: 1
+
+=cut
+
 __PACKAGE__->add_columns(
   "serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  {
+    data_type => "integer",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "send_date",
   {
-    data_type => "TIMESTAMP",
-    default_value => "CURRENT_TIMESTAMP",
+    data_type => "timestamp",
+    datetime_undef_if_invalid => 1,
+    default_value => \"current_timestamp",
     is_nullable => 0,
-    size => 14,
   },
   "message",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 1,
-    size => 65535,
-  },
+  { data_type => "text", is_nullable => 1 },
   "sent",
-  { data_type => "CHAR", default_value => "n", is_nullable => 0, size => 1 },
+  { data_type => "char", default_value => "n", is_nullable => 0, size => 1 },
 );
 __PACKAGE__->set_primary_key("serial", "send_date", "sent");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:I3z3MF5EiCtQhYiaBXpRhA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 02:25:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CHjyEQdq/o/hMy6KmtNcNA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

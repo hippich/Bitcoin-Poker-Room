@@ -1,121 +1,337 @@
 package Room::Schema::PokerNetwork::Result::Tourneys;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
   "FrozenColumns",
   "FilterColumn",
   "EncodedColumn",
-  "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::Tourneys
+
+=cut
+
 __PACKAGE__->table("tourneys");
+
+=head1 ACCESSORS
+
+=head2 serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
+=head2 resthost_serial
+
+  data_type: 'integer'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 name
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 200
+
+=head2 description_short
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 64
+
+=head2 description_long
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 players_quota
+
+  data_type: 'integer'
+  default_value: 10
+  is_nullable: 1
+
+=head2 players_min
+
+  data_type: 'integer'
+  default_value: 2
+  is_nullable: 1
+
+=head2 variant
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 32
+
+=head2 betting_structure
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 32
+
+=head2 seats_per_game
+
+  data_type: 'integer'
+  default_value: 10
+  is_nullable: 1
+
+=head2 player_timeout
+
+  data_type: 'integer'
+  default_value: 60
+  is_nullable: 1
+
+=head2 currency_serial
+
+  data_type: 'integer'
+  is_nullable: 1
+
+=head2 prize_currency
+
+  data_type: 'integer'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 prize_min
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=head2 bailor_serial
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=head2 buy_in
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=head2 rake
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=head2 sit_n_go
+
+  data_type: 'char'
+  default_value: 'y'
+  is_nullable: 1
+  size: 1
+
+=head2 breaks_first
+
+  data_type: 'integer'
+  default_value: 7200
+  is_nullable: 1
+
+=head2 breaks_interval
+
+  data_type: 'integer'
+  default_value: 3600
+  is_nullable: 1
+
+=head2 breaks_duration
+
+  data_type: 'integer'
+  default_value: 300
+  is_nullable: 1
+
+=head2 rebuy_delay
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=head2 add_on
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=head2 add_on_delay
+
+  data_type: 'integer'
+  default_value: 60
+  is_nullable: 1
+
+=head2 start_time
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=head2 satellite_of
+
+  data_type: 'integer'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 via_satellite
+
+  data_type: 'tinyint'
+  default_value: 0
+  is_nullable: 1
+
+=head2 satellite_player_count
+
+  data_type: 'integer'
+  default_value: 0
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 finish_time
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=head2 state
+
+  data_type: 'varchar'
+  default_value: 'registering'
+  is_nullable: 1
+  size: 16
+
+=head2 schedule_serial
+
+  data_type: 'integer'
+  is_nullable: 1
+
+=head2 add_on_count
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=head2 rebuy_count
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=cut
+
 __PACKAGE__->add_columns(
   "serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  {
+    data_type => "integer",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "resthost_serial",
-  { data_type => "INT", default_value => 0, is_nullable => 0, size => 10 },
+  {
+    data_type => "integer",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 0,
+  },
   "name",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 200,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 200 },
   "description_short",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 64,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 64 },
   "description_long",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 1,
-    size => 65535,
-  },
+  { data_type => "text", is_nullable => 1 },
   "players_quota",
-  { data_type => "INT", default_value => 10, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 10, is_nullable => 1 },
   "players_min",
-  { data_type => "INT", default_value => 2, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 2, is_nullable => 1 },
   "variant",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 32,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 32 },
   "betting_structure",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 32,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 32 },
   "seats_per_game",
-  { data_type => "INT", default_value => 10, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 10, is_nullable => 1 },
   "player_timeout",
-  { data_type => "INT", default_value => 60, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 60, is_nullable => 1 },
   "currency_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 1, size => 11 },
+  { data_type => "integer", is_nullable => 1 },
   "prize_currency",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 10 },
+  {
+    data_type => "integer",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 1,
+  },
   "prize_min",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
   "bailor_serial",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
   "buy_in",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
   "rake",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
   "sit_n_go",
-  { data_type => "CHAR", default_value => "y", is_nullable => 1, size => 1 },
+  { data_type => "char", default_value => "y", is_nullable => 1, size => 1 },
   "breaks_first",
-  { data_type => "INT", default_value => 7200, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 7200, is_nullable => 1 },
   "breaks_interval",
-  { data_type => "INT", default_value => 3600, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 3600, is_nullable => 1 },
   "breaks_duration",
-  { data_type => "INT", default_value => 300, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 300, is_nullable => 1 },
   "rebuy_delay",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
   "add_on",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
   "add_on_delay",
-  { data_type => "INT", default_value => 60, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 60, is_nullable => 1 },
   "start_time",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
   "satellite_of",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 10 },
+  {
+    data_type => "integer",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 1,
+  },
   "via_satellite",
-  { data_type => "TINYINT", default_value => 0, is_nullable => 1, size => 4 },
+  { data_type => "tinyint", default_value => 0, is_nullable => 1 },
   "satellite_player_count",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 10 },
+  {
+    data_type => "integer",
+    default_value => 0,
+    extra => { unsigned => 1 },
+    is_nullable => 1,
+  },
   "finish_time",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
   "state",
   {
-    data_type => "VARCHAR",
+    data_type => "varchar",
     default_value => "registering",
     is_nullable => 1,
     size => 16,
   },
   "schedule_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 1, size => 11 },
+  { data_type => "integer", is_nullable => 1 },
   "add_on_count",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
   "rebuy_count",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:7TyTlrEhWw004Jae61zkSw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 02:25:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/O3ovC8Gjc4irpcBAlea3Q
 
 __PACKAGE__->load_components( qw( DateTime::Epoch TimeStamp) );
 

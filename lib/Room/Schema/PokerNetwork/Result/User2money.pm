@@ -1,35 +1,98 @@
 package Room::Schema::PokerNetwork::Result::User2money;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
   "FrozenColumns",
   "FilterColumn",
   "EncodedColumn",
-  "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::User2money
+
+=cut
+
 __PACKAGE__->table("user2money");
+
+=head1 ACCESSORS
+
+=head2 user_serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 currency_serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 amount
+
+  data_type: 'bigint'
+  is_nullable: 0
+
+=head2 rake
+
+  data_type: 'bigint'
+  default_value: 0
+  is_nullable: 0
+
+=head2 points
+
+  data_type: 'decimal'
+  default_value: 0.0000
+  is_nullable: 0
+  size: [64,4]
+
+=head2 points_cashed
+
+  data_type: 'decimal'
+  default_value: 0.0000
+  is_nullable: 0
+  size: [64,4]
+
+=cut
+
 __PACKAGE__->add_columns(
   "user_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
   "currency_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
   "amount",
-  { data_type => "BIGINT", default_value => undef, is_nullable => 0, size => 20 },
+  { data_type => "bigint", is_nullable => 0 },
   "rake",
-  { data_type => "BIGINT", default_value => 0, is_nullable => 0, size => 20 },
+  { data_type => "bigint", default_value => 0, is_nullable => 0 },
   "points",
-  { data_type => "BIGINT", default_value => 0, is_nullable => 0, size => 20 },
+  {
+    data_type => "decimal",
+    default_value => "0.0000",
+    is_nullable => 0,
+    size => [64, 4],
+  },
+  "points_cashed",
+  {
+    data_type => "decimal",
+    default_value => "0.0000",
+    is_nullable => 0,
+    size => [64, 4],
+  },
 );
 __PACKAGE__->set_primary_key("user_serial", "currency_serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Cpd8s2D1DR39dA36MZK7NQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 02:25:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:TR1tCNvK+k72YfcPIF03Aw
 
 
 __PACKAGE__->filter_column(

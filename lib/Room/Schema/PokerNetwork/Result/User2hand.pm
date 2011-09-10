@@ -1,29 +1,53 @@
 package Room::Schema::PokerNetwork::Result::User2hand;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
   "FrozenColumns",
   "FilterColumn",
   "EncodedColumn",
-  "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::User2hand
+
+=cut
+
 __PACKAGE__->table("user2hand");
+
+=head1 ACCESSORS
+
+=head2 user_serial
+
+  data_type: 'integer'
+  is_nullable: 0
+
+=head2 hand_serial
+
+  data_type: 'integer'
+  is_nullable: 0
+
+=cut
+
 __PACKAGE__->add_columns(
   "user_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
+  { data_type => "integer", is_nullable => 0 },
   "hand_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
+  { data_type => "integer", is_nullable => 0 },
 );
 __PACKAGE__->set_primary_key("user_serial", "hand_serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:O0C/lk3FqJkGYOWI34yfmg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 02:25:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VCw1xVnmk2pPfimJANSdhg
 
 
 __PACKAGE__->belongs_to(

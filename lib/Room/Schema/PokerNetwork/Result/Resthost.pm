@@ -1,50 +1,85 @@
 package Room::Schema::PokerNetwork::Result::Resthost;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
   "FrozenColumns",
   "FilterColumn",
   "EncodedColumn",
-  "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::Resthost
+
+=cut
+
 __PACKAGE__->table("resthost");
+
+=head1 ACCESSORS
+
+=head2 serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_auto_increment: 1
+  is_nullable: 0
+
+=head2 name
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
+=head2 host
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
+=head2 port
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 path
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
+=cut
+
 __PACKAGE__->add_columns(
   "serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  {
+    data_type => "integer",
+    extra => { unsigned => 1 },
+    is_auto_increment => 1,
+    is_nullable => 0,
+  },
   "name",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 255 },
   "host",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 255 },
   "port",
-  { data_type => "INT", default_value => undef, is_nullable => 1, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 1 },
   "path",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 1,
-    size => 255,
-  },
+  { data_type => "varchar", is_nullable => 1, size => 255 },
 );
 __PACKAGE__->set_primary_key("serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:tK7z+y+X07jEb2mvS46prw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 02:25:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZgFbfIherTOjJwyxBwk7yg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

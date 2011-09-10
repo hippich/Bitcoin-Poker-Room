@@ -1,31 +1,46 @@
 package Room::Schema::PokerNetwork::Result::PrizesVersion;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
   "FrozenColumns",
   "FilterColumn",
   "EncodedColumn",
-  "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::PrizesVersion
+
+=cut
+
 __PACKAGE__->table("prizes_version");
+
+=head1 ACCESSORS
+
+=head2 version
+
+  data_type: 'varchar'
+  is_nullable: 0
+  size: 16
+
+=cut
+
 __PACKAGE__->add_columns(
   "version",
-  {
-    data_type => "VARCHAR",
-    default_value => undef,
-    is_nullable => 0,
-    size => 16,
-  },
+  { data_type => "varchar", is_nullable => 0, size => 16 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Fjp1KpymT4vsb8bhw17o3A
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 02:25:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:z455bD2hXJv/d758I8h3MA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

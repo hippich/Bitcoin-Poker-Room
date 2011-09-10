@@ -1,53 +1,162 @@
 package Room::Schema::PokerNetwork::Result::UsersPrivate;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
   "FrozenColumns",
   "FilterColumn",
   "EncodedColumn",
-  "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::UsersPrivate
+
+=cut
+
 __PACKAGE__->table("users_private");
+
+=head1 ACCESSORS
+
+=head2 serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 firstname
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 255
+
+=head2 lastname
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 255
+
+=head2 addr_street
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 255
+
+=head2 addr_street2
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 255
+
+=head2 addr_zip
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 64
+
+=head2 addr_town
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 64
+
+=head2 addr_state
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 128
+
+=head2 addr_country
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 64
+
+=head2 phone
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 64
+
+=head2 gender
+
+  data_type: 'char'
+  default_value: (empty string)
+  is_nullable: 1
+  size: 1
+
+=head2 birthdate
+
+  data_type: 'date'
+  datetime_undef_if_invalid: 1
+  is_nullable: 1
+
+=head2 verified
+
+  data_type: 'char'
+  default_value: 'n'
+  is_nullable: 1
+  size: 1
+
+=head2 verified_time
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=cut
+
 __PACKAGE__->add_columns(
   "serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
   "firstname",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 255 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 255 },
   "lastname",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 255 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 255 },
   "addr_street",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 255 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 255 },
   "addr_street2",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 255 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 255 },
   "addr_zip",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 64 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 64 },
   "addr_town",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 64 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 64 },
   "addr_state",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 128 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 128 },
   "addr_country",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 64 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 64 },
   "phone",
-  { data_type => "VARCHAR", default_value => "", is_nullable => 1, size => 64 },
+  { data_type => "varchar", default_value => "", is_nullable => 1, size => 64 },
   "gender",
-  { data_type => "CHAR", default_value => "", is_nullable => 1, size => 1 },
+  { data_type => "char", default_value => "", is_nullable => 1, size => 1 },
   "birthdate",
-  { data_type => "DATE", default_value => undef, is_nullable => 1, size => 10 },
+  { data_type => "date", datetime_undef_if_invalid => 1, is_nullable => 1 },
   "verified",
-  { data_type => "CHAR", default_value => "n", is_nullable => 1, size => 1 },
+  { data_type => "char", default_value => "n", is_nullable => 1, size => 1 },
   "verified_time",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hjblPMTcOYw6iC5kNupTQg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 02:25:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:65XNsUDfo9fzZCWAYroVCw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

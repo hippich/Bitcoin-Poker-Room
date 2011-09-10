@@ -1,5 +1,8 @@
 package Room::Schema::PokerNetwork;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
@@ -8,8 +11,8 @@ use base 'DBIx::Class::Schema';
 __PACKAGE__->load_namespaces;
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:TVMFDB+fnIxcBoOUgYNdUA
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2011-09-10 02:20:28
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9wVioDEIUU+FtE1EjqVNDQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -1,51 +1,108 @@
 package Room::Schema::PokerNetwork::Result::UsersTransactions;
 
+# Created by DBIx::Class::Schema::Loader
+# DO NOT MODIFY THE FIRST PART OF THIS FILE
+
 use strict;
 use warnings;
 
-use base 'DBIx::Class';
+use base 'DBIx::Class::Core';
 
 __PACKAGE__->load_components(
   "InflateColumn::DateTime",
   "FrozenColumns",
   "FilterColumn",
   "EncodedColumn",
-  "Core",
 );
+
+=head1 NAME
+
+Room::Schema::PokerNetwork::Result::UsersTransactions
+
+=cut
+
 __PACKAGE__->table("users_transactions");
+
+=head1 ACCESSORS
+
+=head2 from_serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 to_serial
+
+  data_type: 'integer'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 modified
+
+  data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
+  default_value: current_timestamp
+  is_nullable: 0
+
+=head2 amount
+
+  data_type: 'integer'
+  default_value: 0
+  is_nullable: 1
+
+=head2 currency_serial
+
+  data_type: 'integer'
+  is_nullable: 0
+
+=head2 status
+
+  data_type: 'char'
+  default_value: 'n'
+  is_nullable: 1
+  size: 1
+
+=head2 notes
+
+  data_type: 'text'
+  is_nullable: 1
+
+=head2 id
+
+  data_type: 'integer'
+  is_auto_increment: 1
+  is_nullable: 0
+
+=cut
+
 __PACKAGE__->add_columns(
   "from_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
   "to_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 10 },
+  { data_type => "integer", extra => { unsigned => 1 }, is_nullable => 0 },
   "modified",
   {
-    data_type => "TIMESTAMP",
-    default_value => "CURRENT_TIMESTAMP",
+    data_type => "timestamp",
+    datetime_undef_if_invalid => 1,
+    default_value => \"current_timestamp",
     is_nullable => 0,
-    size => 14,
   },
   "amount",
-  { data_type => "INT", default_value => 0, is_nullable => 1, size => 11 },
+  { data_type => "integer", default_value => 0, is_nullable => 1 },
   "currency_serial",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
+  { data_type => "integer", is_nullable => 0 },
   "status",
-  { data_type => "CHAR", default_value => "n", is_nullable => 1, size => 1 },
+  { data_type => "char", default_value => "n", is_nullable => 1, size => 1 },
   "notes",
-  {
-    data_type => "TEXT",
-    default_value => undef,
-    is_nullable => 1,
-    size => 65535,
-  },
+  { data_type => "text", is_nullable => 1 },
   "id",
-  { data_type => "INT", default_value => undef, is_nullable => 0, size => 11 },
+  { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
 );
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2010-09-27 11:47:31
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nAwLB8CD58xuB0lv3IQRYQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 02:25:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZTwvxbK95PkgyLgvqeIEHw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
