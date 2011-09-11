@@ -5379,22 +5379,19 @@
         ignore_users: '<div class=\'jpoker_ignore jpoker_ignore_list\'>{ignore_user_title}<br><span><select class=\'jpoker_ignore_user_select\' id=\'ignore_user_select{id}\' name=\'ignore_user_select{id}\' multiple size=\'5\'></select><br><input id=\'ignore_user_text{id}\' name=\'ignore_user_text{id}\' class=\'jpoker_ignore_user_select\' type=\'text\' size=\'8\'><br><input class=\'jpoker_ignore_user_select\' type=\'button\' name=\'ignore_add{id}\' value=\'{ignore_add}\' onclick=\'jQuery.jpoker.plugins.ignore.ignoreTypedInUser("{id}");\'><br><input class=\'jpoker_ignore_user_select\' type=\'button\' name=\'ignore_remove{id}\' value=\'{ignore_remove}\' onclick=\'jQuery.jpoker.plugins.ignore.unignoreSelectedUser("{id}");\'></span><br></div>'
       },
       getIgnores: function(id) {
-        // Debug
-        // var debug = new Array();
-        // debug.push('test1');
-        // return debug;
-
-        // Get JSON from localStorage
-        var ignores = localStorage.getItem("jpoker_ignores");
-        if(typeof(ignores)!="undefined" && ignores != "") {
-          ignores = $.parseJSON(ignores);
-          if(ignores == null) {
+        if (localStorage) {
+          // Get JSON from localStorage
+          var ignores = localStorage.getItem("jpoker_ignores");
+          if(typeof(ignores)!="undefined" && ignores != "") {
+            ignores = $.parseJSON(ignores);
+            if(ignores == null) {
+              ignores = new Array();
+            }
+          } else {
             ignores = new Array();
           }
-        } else {
-          ignores = new Array();
+          return ignores;
         }
-        return ignores;
       },
       ignoreTypedInUser: function(id) {
         var typedinuser = $('#ignore_user_text'+id)[0].value;
@@ -5452,8 +5449,9 @@
             opt.value = ignores[i];
             igselect.add(opt, null);
           }
-       },
-       unignoreUser: function(user, id) {
+      },
+      unignoreUser: function(user, id) {
+        if (localStorage) {
           // Get JSON from localStorage
           var ignores = localStorage.getItem("jpoker_ignores");
           if(typeof(ignores)!="undefined" && ignores != "") {
@@ -5476,6 +5474,7 @@
           // Put JSON back in localStorage
           var ignoresjson = JSON.stringify(ignores);
           localStorage.setItem("jpoker_ignores", ignoresjson);
+        }
       },
     };
 
