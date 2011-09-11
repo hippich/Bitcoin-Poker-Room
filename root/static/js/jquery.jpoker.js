@@ -5435,19 +5435,16 @@
       },
       fillSelect: function(ignores, id) {
           // Clear the select box
-          var igselect = $('#ignore_user_select'+id)[0];
-          if(typeof(igselect.options)!="undefined") {
-            for(i=igselect.options.length;i>-1;i--) {
-              igselect.options.remove(i);
-            }
-          }
+          var igselect = $('#ignore_user_select'+id);
+
+          igselect.empty();
 
           // Repopulate the select box
           for(i in ignores) {
             var opt = document.createElement("option");
             opt.text = ignores[i];
             opt.value = ignores[i];
-            igselect.add(opt, null);
+            igselect.append(opt);
           }
       },
       unignoreUser: function(user, id) {
@@ -5475,7 +5472,7 @@
           var ignoresjson = JSON.stringify(ignores);
           localStorage.setItem("jpoker_ignores", ignoresjson);
         }
-      },
+      }
     };
 
     //
