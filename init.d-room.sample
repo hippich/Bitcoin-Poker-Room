@@ -1,26 +1,30 @@
 #! /bin/sh
 ### BEGIN INIT INFO
-# Provides:          Room
+# Provides:          skeleton
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: Room FastCGI
-# Description:       Starts 4 FastCGI processes for The Room application
+# Short-Description: Example initscript
+# Description:       This file should be used to construct scripts to be
+#                    placed in /etc/init.d.
 ### END INIT INFO
 
-# Author: Pavel A. Karoukin <pavel@karoukin.us>
+# Author: Foo Bar <foobar@baz.org>
+#
+# Please remove the "Author" lines above and replace them
+# with your own name if you copy and modify this script.
 
 # Do NOT "set -e"
-
+set -x
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="The Room"
 NAME=script/room_fastcgi.pl
 CHDIR=/home/room
 DAEMON=$CHDIR/$NAME
-DAEMON_ARGS="-l /tmp/room.socket -n 4 -d"
-PIDFILE=/var/run/$NAME.pid
+PIDFILE=/tmp/room.pid
+DAEMON_ARGS="-l /tmp/room.socket -p $PIDFILE -n 4 -d"
 SCRIPTNAME=/etc/init.d/$NAME
 CHUID=room:room
 
@@ -66,7 +70,7 @@ do_stop()
 	#   1 if daemon was already stopped
 	#   2 if daemon could not be stopped
 	#   other if a failure occurred
-	start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE --name $NAME
+	start-stop-daemon --stop --quiet --retry=TERM/30/KILL/5 --pidfile $PIDFILE
 	RETVAL="$?"
 	[ "$RETVAL" = 2 ] && return 2
 	# Wait for children to finish too if this is a daemon that forks
@@ -91,7 +95,7 @@ do_reload() {
 	# restarting (for example, when it is sent a SIGHUP),
 	# then implement that here.
 	#
-	start-stop-daemon --stop --signal 1 --quiet --pidfile $PIDFILE --name $NAME
+	start-stop-daemon --stop --signal 1 --quiet --pidfile $PIDFILE
 	return 0
 }
 
