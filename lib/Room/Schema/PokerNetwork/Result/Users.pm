@@ -221,7 +221,7 @@ __PACKAGE__->inflate_column(
 );
 
 __PACKAGE__->add_json_columns(
-  data => qw/bitcoin_address bitcoins_received request_password hide_gravatar emergency_address/,
+  data => qw/bitcoin_address bitcoins_received bitcoin_checked request_password hide_gravatar emergency_address/,
 );
 
 __PACKAGE__->has_many(

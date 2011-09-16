@@ -310,6 +310,16 @@ sub deposit_bitcoin :Path('deposit/bitcoin') {
 sub deposit_bitcoin_refresh :Private {
   my ( $self, $c ) = @_;
 
+  if ($c->user->bitcoin_checked + 300 > time()) {
+      $c->log->debug('Last time balance checked - '. $c->user->bitcoin_checked .'. Waiting '. ($c->user->bitcoin_checked + 300 - time()) .' seconds.' );
+      return 1;
+  }
+
+  $c->log->debug('Time to check balance.' );
+
+  $c->user->bitcoin_checked(time());
+  $c->user->update();
+
   if (! $c->user->bitcoin_address) {
     $c->user->bitcoin_address(
       $c->model("BitcoinServer")->get_new_address()
