@@ -925,9 +925,9 @@
                         if($this.getConnectionState() != 'connected') {
                             $this.setConnectionState('connected');
                         }
-                        if(packet_type != 'PacketPokerLongPollReturn') {
-                            $this.receivePacket(data);
-                        }
+
+                        $this.receivePacket(data);
+
                         if (callback !== undefined) {
                             callback(data, status);
                         }
