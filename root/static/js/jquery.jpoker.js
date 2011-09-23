@@ -2021,7 +2021,9 @@
                 // maintenance.
                 case 'PacketPokerMessage':
                 case 'PacketPokerGameMessage':
-                jQuery.jpoker.dialog(packet.string);
+                  if (packet.game_id == table.id) {
+                    jQuery.jpoker.dialog(packet.string);
+                  }
                 break;
 
 
