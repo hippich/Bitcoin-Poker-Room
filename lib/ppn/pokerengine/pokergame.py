@@ -2502,6 +2502,17 @@ class PokerGame:
             else:
               self.ante_info["value"] = int(antes["value"])
               self.ante_info["bring-in"] = int(antes["bring-in"])
+
+        self.limit_type = self.getParam("/bet/@limit_type" or "")
+        if self.limit_type == "":
+          # Try to guess limit type from betting_structure name 
+          if self.betting_structure.find("no-limit") > -1:
+            self.limit_type = "no-limit"
+          elif self.betting_structure.find("pot-limit") > -1:
+            self.limit_type = "pot-limit"
+          else:
+            self.limit_type = "limit"
+
         self.rake = pokerrake.get_rake_instance(self)
 
     def loadTournamentLevels(self, file):

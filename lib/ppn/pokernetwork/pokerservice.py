@@ -2691,6 +2691,51 @@ class PokerService(service.Service):
 
         self.tables[id] = table
 
+        # Add betting structure info 
+        cursor = self.db.cursor()
+
+        small_blind = 0
+        big_blind = 0
+        ante_value = 0
+        ante_bring_in = 0
+    
+        try:
+          small_blind = table.game.blind_info["small"]
+          big_blind = table.game.blind_info["big"]
+        except:
+          pass
+
+        try:
+          ante_value = table.game.ante_info["value"]
+          ante_bring_in = table.game.ante_info["bring_in"]
+        except:
+          pass
+
+
+        sql = """UPDATE pokertables \
+            SET
+              small_blind = %s,
+              big_blind = %s,
+              ante_value = %s,
+              ante_bring_in = %s,
+              limit_type = %s,
+              betting_description = %s 
+            WHERE 
+              serial = %s
+        """ % self.db.literal((
+            small_blind,
+            big_blind,
+            ante_value,
+            ante_bring_in,
+            table.game.limit_type,
+            table.game.betting_structure_name,
+            id ))
+
+        if self.verbose > 1:
+            self.message("createTable: %s" % sql)
+
+        cursor.execute(sql)
+
         if self.verbose:
             self.message("table created : %s" % table.game.name)
 
