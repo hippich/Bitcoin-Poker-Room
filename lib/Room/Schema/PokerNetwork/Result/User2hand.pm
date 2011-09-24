@@ -35,6 +35,39 @@ __PACKAGE__->table("user2hand");
   data_type: 'integer'
   is_nullable: 0
 
+=head2 ip6
+
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 ip
+
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_nullable: 1
+
+=head2 share
+
+  data_type: 'bigint'
+  is_nullable: 0
+
+=head2 pot
+
+  data_type: 'bigint'
+  is_nullable: 0
+
+=head2 rake
+
+  data_type: 'bigint'
+  is_nullable: 0
+
+=head2 points
+
+  data_type: 'decimal'
+  is_nullable: 0
+  size: [64,4]
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -42,12 +75,24 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 0 },
   "hand_serial",
   { data_type => "integer", is_nullable => 0 },
+  "ip6",
+  { data_type => "bigint", extra => { unsigned => 1 }, is_nullable => 1 },
+  "ip",
+  { data_type => "bigint", extra => { unsigned => 1 }, is_nullable => 1 },
+  "share",
+  { data_type => "bigint", is_nullable => 0 },
+  "pot",
+  { data_type => "bigint", is_nullable => 0 },
+  "rake",
+  { data_type => "bigint", is_nullable => 0 },
+  "points",
+  { data_type => "decimal", is_nullable => 0, size => [64, 4] },
 );
 __PACKAGE__->set_primary_key("user_serial", "hand_serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 02:25:23
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:VCw1xVnmk2pPfimJANSdhg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-23 23:34:41
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PV/zN6KldFvbw9rvS1MVeQ
 
 
 __PACKAGE__->belongs_to(

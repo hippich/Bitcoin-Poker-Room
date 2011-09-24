@@ -1574,7 +1574,7 @@ class PokerService(service.Service):
             cursor.close()
             return
 
-        sql = "insert into user2hand values "
+        sql = "insert into user2hand (user_serial, hand_serial) values "
         sql += ", ".join(map(lambda player_serial: "(%d, %d)" % ( player_serial, hand_serial ), player_list))
         if self.verbose > 1:
             self.message("saveHand: %s" % sql)

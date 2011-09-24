@@ -502,6 +502,14 @@ CREATE TABLE `user2hand` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+ALTER TABLE `user2hand` ADD COLUMN `ip6` BIGINT UNSIGNED DEFAULT NULL AFTER `hand_serial`,
+ ADD COLUMN `ip` BIGINT UNSIGNED DEFAULT NULL AFTER `ip6`,
+ ADD COLUMN `share` BIGINT(20)  NOT NULL AFTER `ip`,
+ ADD COLUMN `pot` BIGINT(20)  NOT NULL AFTER `share`,
+ ADD COLUMN `rake` BIGINT(20)  NOT NULL AFTER `pot`,
+ ADD COLUMN `points` decimal(64,4)  NOT NULL AFTER `rake`,
+ ADD INDEX `ip`(`ip`, `ip6`);
+
 --
 -- Table structure for table `user2money`
 --
