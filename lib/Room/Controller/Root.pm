@@ -54,7 +54,9 @@ sub index :Path :Args(0) {
 sub auto :Path {
     my ( $self, $c ) = @_;
 
-    $c->require_ssl;
+    if ($c->config->{secure_https}) {
+        $c->require_ssl;
+    }
 
     if ($c->config->{offline} && !($c->user && $c->user->privilege == 2)) {
       $c->res->body('Working on updates. Should be up and running shortly.');
