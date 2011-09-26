@@ -5,6 +5,9 @@ use Test::DBIx::Class;
 
 fixtures_ok "basic", "Tourneys fixtures loaded.";
 
+ok my $user = Users->find({ email => 'admin@test.com' })
+    => 'Fetch admin user object.';
+
 ok my $user_at_table = Pokertables->find(8251)->users->find(22), "Should be able to find this user.";
 
 is $user->serial, $user_at_table->serial, "Current users, and found user at the table should have same serial.";

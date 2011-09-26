@@ -121,6 +121,42 @@ __PACKAGE__->table("pokertables");
   is_nullable: 0
   size: 255
 
+=head2 small_blind
+
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 big_blind
+
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 ante_value
+
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 ante_bring_in
+
+  data_type: 'bigint'
+  extra: {unsigned => 1}
+  is_nullable: 0
+
+=head2 limit_type
+
+  data_type: 'varchar'
+  is_nullable: 0
+  size: 20
+
+=head2 betting_description
+
+  data_type: 'varchar'
+  is_nullable: 0
+  size: 255
+
 =head2 skin
 
   data_type: 'varchar'
@@ -203,6 +239,18 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 0, size => 255 },
   "betting_structure",
   { data_type => "varchar", is_nullable => 0, size => 255 },
+  "small_blind",
+  { data_type => "bigint", extra => { unsigned => 1 }, is_nullable => 0 },
+  "big_blind",
+  { data_type => "bigint", extra => { unsigned => 1 }, is_nullable => 0 },
+  "ante_value",
+  { data_type => "bigint", extra => { unsigned => 1 }, is_nullable => 0 },
+  "ante_bring_in",
+  { data_type => "bigint", extra => { unsigned => 1 }, is_nullable => 0 },
+  "limit_type",
+  { data_type => "varchar", is_nullable => 0, size => 20 },
+  "betting_description",
+  { data_type => "varchar", is_nullable => 0, size => 255 },
   "skin",
   {
     data_type => "varchar",
@@ -222,8 +270,8 @@ __PACKAGE__->set_primary_key("serial");
 __PACKAGE__->add_unique_constraint("name", ["name"]);
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-10 02:25:23
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:O6rMlF9XiG5fTjNUmMCK3A
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-25 13:41:03
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zaJQIyj0H+kR3ho+s6JRTg
 
 
 __PACKAGE__->has_many(

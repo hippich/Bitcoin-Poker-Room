@@ -25,8 +25,9 @@ return {
             ],
 
             Pokertables => [
-                [ 'serial', 'seats', 'currency_serial', 'name', 'variant', 'betting_structure', 'skin', 'tourney_serial' ],
-                [ 8251, 10, 0, 'tourney table', 'holdem', 'level-001', 'default', 2071 ],
+                [ 'serial', 'seats', 'currency_serial', 'name', 'variant', 'betting_structure', 'small_blind', 'big_blind', 'ante_value', 'ante_bring_in', 'limit_type', 'betting_description', 'skin', 'tourney_serial' ],
+                [ 8251, 10, 0, 'tourney table', 'holdem', 'level-001', '0', '0', '0', '0', 'no-limit', 'No limit', 'default', 2071 ],
+                [ 8252, 10, 0, 'regular table', 'holdem', '100-200-no-limit', '10000', '20000', '0', '0', 'no-limit', 'No limit 100/200', 'default', 0 ],
             ],
 
             Tourneys => [

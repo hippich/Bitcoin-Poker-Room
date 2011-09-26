@@ -26,51 +26,19 @@ Show list of all existing tables.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    my $tables_rs = $c->model("PokerNetwork::Pokertables")->search({
-                                currency_serial => 1,
-                                tourney_serial => 0,
-                          },
-                          {
-                                order_by => {
-                                  -desc => 'players',
-                                },
-                          });
+    @{$c->stash->{servers}} = $c->model('PokerNetwork::Resthost')->all;
+    @{$c->stash->{currencies}} = $c->model('PokerNetwork::Currencies')->all;
+    
+    my $params = $c->req->params;
+    my $params_count = scalar( keys %{$params} );
 
-    my $tables_structure;
-    my $tables;
-    my @popular_tables;
-
-
-    while (my $rec = $tables_rs->next()) {
-      my $game_seats = ($rec->seats > 2) ? $rec->seats .'-max' : 'Heads Up';
-      my $game_limit = 'Limit';
-      my $game_bets;
-
-      # Determine betting limits
-      $game_limit = 'No Limit' if $rec->betting_structure =~ /-no-limit$/;
-      $game_limit = 'Pot Limit' if $rec->betting_structure =~ /-pot-limit$/;
-
-      # Determine bets
-      my @bets = split '-', $rec->betting_structure;
-      $game_bets = $bets[0] .'/'. $bets[1];
-
-      my $game_id = lc($game_seats .'-'. $rec->betting_structure .'-'. $rec->variant);
-      $game_id =~ s/\s/-/g;
-      $game_id =~ s/\./_/g;
-
-      my $game_variant = $rec->variant;
-
-      $tables_structure->{$game_variant}->{$game_seats}->{$game_limit}->{$game_bets}->{hash} = $game_id;
-      $tables_structure->{$game_variant}->{$game_seats}->{$game_limit}->{$game_bets}->{players} += $rec->players;
-
-      $tables->{$game_id}->{name} = $game_limit .' '. $game_seats .' Game ('. $game_bets .')';
-      push @{$tables->{$game_id}->{tables}}, $rec;
-      push @popular_tables, $rec unless $#popular_tables > 10;
+    if ($params_count > 0) {
+        # Show filtered tables
+    }
+    else {
+        # Show popular tables 
     }
 
-    $c->stash->{tables} = $tables;
-    $c->stash->{tables_structure} = $tables_structure;
-    $c->stash->{popular_tables} = \@popular_tables;
 }
 
 
