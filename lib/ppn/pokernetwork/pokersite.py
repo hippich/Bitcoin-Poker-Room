@@ -232,6 +232,7 @@ class PokerResource(resource.Resource):
                 self.error("(%s:%s) " % request.findProxiedIP() + str(body))
             if not request.finished:
                 request.finish()
+                return twisted.web.server.NOT_DONE_YET
 
             #
             # Return a value that is not a Failure so that the next
