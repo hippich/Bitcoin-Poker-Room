@@ -24,9 +24,9 @@ Catalyst Controller.
 sub auto :Private {
   my ($self, $c) = @_;
 
-  if (!$c->user && $c->action->private_path !~ /user\/(login|register|forgot_password|reset_password|no_avatar|logout)/) {
+  if (!$c->user) {
     $c->res->redirect(
-      $c->uri_for('/user/login', '', {'destination' => $c->action,})
+      $c->uri_for('/account/login', '', {'destination' => $c->action,})
     );
 
     return;
@@ -44,183 +44,6 @@ sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
     $c->forward('deposit_bitcoin_refresh');
-}
-
-sub login :Local :Args(0) :FormConfig {
-    my ( $self, $c ) = @_;
-
-    if ($c->user) {
-      $c->response->redirect(
-        $c->uri_for('/user')
-      );
-    }
-    
-    my $form = $c->stash->{form};
-
-    if ($form->submitted_and_valid) {
-    
-      my $user = $c->authenticate({
-                    name => $form->params->{name},
-                    password => $form->params->{password},
-                 });
-
-      if ($user) {
-        if ($c->req->param('destination')) {
-          $c->res->redirect(
-            $c->req->param('destination')
-          );
-
-          return 1;
-        }
-        
-        $c->res->redirect(
-          $c->uri_for('/user')
-        );
-      }
-      else {
-        push @{$c->stash->{errors}}, "Invalid Username or Password.";
-      }
-    }
-}
-
-
-sub logout :Local :Args(0) {
-  my ( $self, $c ) = @_;
-
-  $c->logout;
-  
-  $c->model("PokerNetwork")->logout(
-    $c->session->{pokernetwork_auth}
-  );
-  $c->session->{pokernetwork_auth} = undef;
-  
-  push @{$c->flash->{messages}}, "Logged out. Good bye.";
-
-  $c->res->redirect(
-    $c->uri_for('/')
-  );
-}
-
-
-sub register :Local :Args(0) :FormConfig {
-  my ( $self, $c ) = @_;
-
-  if ($c->user) {
-    $c->response->redirect(
-      $c->uri_for('/user')
-    );
-  }
-
-  my $form = $c->stash->{form};
-
-  if ($form->submitted_and_valid) {
-
-    if (
-          $c->model("PokerNetwork::Users")->search({ name => $form->params->{name} })->count > 0
-       ) {
-      $form->get_field("name")->get_constraint({ type => "Callback" })->force_errors(1);
-      $form->process();
-      return;
-    }
-
-    if (
-          $form->params->{email} ne '' &&
-          $c->model("PokerNetwork::Users")->search({ email => $form->params->{email} })->count > 0
-    ) {
-      $form->get_field("email")->get_constraint({ type => "Callback" })->force_errors(1);
-      $form->process();
-      return;
-    }
-
-    my $user = $c->model("PokerNetwork::Users")->new({
-      name => $form->params->{name},
-      password => $form->params->{password},
-      created => DateTime->now,
-    });
-
-    if ( $form->params->{email} ) {
-      $user->email( $form->params->{email} );
-    }
-
-    $user->insert();
-
-    push @{$c->flash->{messages}}, "Account successfully created. Please, login with your details.";
-
-    $c->res->redirect(
-      $c->uri_for('/user/login')
-    );
-  }
-}
-
-
-
-sub forgot_password :Local :Args(0) :FormConfig {
-  my ($self, $c) = @_;
-
-  if ($c->user) {
-    $c->response->redirect(
-      $c->uri_for('/user')
-    );
-  }
-
-  my $form = $c->stash->{form};
-
-  if ($form->submitted_and_valid) {
-    my $user = $c->model("PokerNetwork::Users")->search({ email => $form->params->{email} })->first;
-
-    if (! $user) {
-      $form->get_field("email")->get_constraint({ type => "Callback" })->force_errors(1);
-      $form->process();
-      return;
-    }
-
-    my $gen = new String::Random;
-    my $key = unpack('h*', $gen->randpattern('b'x10));
-
-    $user->request_password($key);
-    $user->update();
-
-    # This is ugly. Need to refactor somehow later
-    my $message = "Someone requested to reset your password at ". $c->uri_for('/') ."\n\nYour username: ". $user->name ."\n\nTo reset password, please open (or copy/paste) this URL: ". $c->uri_for('/user/reset_password', $user->id, $key) ."\n\nIf this was not you, just ignore this email.";
-
-    $c->log->debug($message);
-
-    $c->email(
-        header => [
-            From    => $c->config->{site_email},
-            To      => $user->email,
-            Subject => 'Password reset link.'
-        ],
-        body => $message,
-    );
-
-    $c->stash->{email} = $user->email;
-  }
-}
-
-
-
-sub reset_password :Local :Args(2) :FormConfig {
-  my ($self, $c, $id, $key) = @_;
-
-  my $user = $c->model("PokerNetwork::Users")->find($id);
-  
-  if (!defined($user) || !defined($user->request_password) || $user->request_password ne $key) {
-    $c->detach( '/default' );
-  }
-
-  my $form = $c->stash->{form};
-
-  if ($form->submitted_and_valid) {
-    $user->password( $form->params->{password} );
-    $user->update();
-    
-    push @{$c->flash->{messages}}, "Password successfully reset.";
-
-    $c->res->redirect(
-      $c->uri_for('/user/login')
-    );
-  }
 }
 
 
@@ -446,13 +269,24 @@ sub points_cashout :Local :Args(1) {
 }
 
 
-sub no_avatar :Local :Args(1) {
-  my ($self, $c, $uid) = @_;
+sub logout :Local :Args(0) {
+  my ( $self, $c ) = @_;
+
+  $c->logout;
+  
+  $c->model("PokerNetwork")->logout(
+    $c->session->{pokernetwork_auth}
+  );
+  $c->session->{pokernetwork_auth} = undef;
+  
+  push @{$c->flash->{messages}}, "Logged out. Good bye.";
 
   $c->res->redirect(
-    $c->uri_for("/static/css/images/jpoker_table/avatar". ($uid % 19) .".png")
+    $c->uri_for('/')
   );
 }
+
+
 
 =head1 AUTHOR
 

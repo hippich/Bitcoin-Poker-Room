@@ -103,8 +103,13 @@ sub AVATAR :Global :Args(1) {
   my ($self, $c, $uid) = @_;
 
   my $user = $c->model("PokerNetwork::Users")->find($uid);
+
+  if (! $user) {
+      $c->page_not_found;
+  }
+
   my $default = uri_escape($c->uri_for(
-      "/user/no_avatar/". $uid
+      "/account/no_avatar/". $uid
   ));
 
   if ($user && $user->email && !$user->hide_gravatar) {
@@ -112,7 +117,7 @@ sub AVATAR :Global :Args(1) {
     $c->res->redirect($grav_url);
   }
   else {
-    $c->forward('/user/no_avatar/'. $uid);
+    $c->forward('/account/no_avatar/'. $uid);
   }
 }
 

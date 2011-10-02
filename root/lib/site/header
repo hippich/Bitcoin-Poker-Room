@@ -19,8 +19,8 @@
       <li><a href='[% c.uri_for('/user/withdraw/bitcoin') %]'>Withdraw</a></li>
       <li class='last'><a href='[% c.uri_for('/user/logout') %]'>Log Out</a></li>
     [% ELSE %]
-      <li><a href='[% c.uri_for('/user/login') %]'>Log In</a></li>
-      <li class='last'><a href='[% c.uri_for('/user/register') %]'>Register</a></li>
+      <li><a href='[% c.uri_for('/account/login') %]'>Log In</a></li>
+      <li class='last'><a href='[% c.uri_for('/account/register') %]'>Register</a></li>
     [% END %]
   </ul>
 </div>
