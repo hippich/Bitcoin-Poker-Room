@@ -1,0 +1,49 @@
+---
+indicator: submit
+auto_fieldset: 1
+
+elements:
+  - type: Text
+    name: name
+    label: Username
+    constraints:
+      - Required
+      - type: Callback
+        message: User with such username already exists. Please, choose different username.
+
+  - type: Password
+    name: password
+    label: Password
+    constraints:
+      - Required
+      - type: Equal
+        others: repeat_password
+
+  - type: Password
+    name: repeat_password
+    label: Repeat password
+    constraints:
+      - Required
+
+  - type: Text
+    name: email
+    label: E-Mail
+    comment: Not required, but could be used to retrieve lost password
+    constraints:
+      - Email
+      - type: Callback
+        message: User with such email already exists. <a href='/user/forgot'>Forgot password?</a>
+
+  - type: reCAPTCHA
+    name: recaptcha
+    public_key: 6Lds1LwSAAAAANbJelYz_47WQFRKbiVfjD3YXMHX
+    private_key: 6Lds1LwSAAAAAElmpFToH8Knj8py8cqHD-0Fihnx
+    recaptcha_options:
+      theme: white
+
+  - type: Submit
+    value: Register
+    name: submit
+    
+constraints:
+  - SingleValue
