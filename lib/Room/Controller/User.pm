@@ -42,8 +42,6 @@ sub auto :Private {
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-
-    $c->forward('deposit_bitcoin_refresh');
 }
 
 
@@ -119,62 +117,6 @@ sub edit :Local :Args(0) :FormConfig {
   }
 }
 
-
-
-sub deposit_bitcoin :Path('deposit/bitcoin') {
-  my ( $self, $c ) = @_;
-  $c->forward('deposit_bitcoin_refresh');
-  $c->stash->{bitcoin_address} = $c->user->bitcoin_address;
-  $c->stash->{bitcoins_sent} = $c->user->bitcoins_received || 0;
-}
-
-
-
-sub deposit_bitcoin_refresh :Private {
-  my ( $self, $c ) = @_;
-
-  if ($c->user->bitcoin_checked + 300 > time()) {
-      $c->log->debug('Last time balance checked - '. $c->user->bitcoin_checked .'. Waiting '. ($c->user->bitcoin_checked + 300 - time()) .' seconds.' );
-      return 1;
-  }
-
-  $c->log->debug('Time to check balance.' );
-
-  $c->user->bitcoin_checked(time());
-  $c->user->update();
-
-  if (! $c->user->bitcoin_address) {
-    $c->user->bitcoin_address(
-      $c->model("BitcoinServer")->get_new_address()
-    );
-    
-    $c->user->update();
-  }
-
-  my $bitcoins_new_balance = $c->model("BitcoinServer")->get_received_by_address( $c->user->bitcoin_address );
-
-  if ($bitcoins_new_balance && $bitcoins_new_balance > $c->user->bitcoins_received) {
-    my $diff = $bitcoins_new_balance - $c->user->bitcoins_received;
-    $c->user->bitcoins_received(
-      $c->user->bitcoins_received + $diff
-    );
-
-    $c->user->update;
-
-    $c->user->deposits->create({
-      currency_serial => 1,
-      amount => $diff,
-      processed => 1,
-      info => $c->user->bitcoin_address,
-      created_at => DateTime->now,
-      processed_at => DateTime->now,
-    });
-
-    my $balance = $c->user->balances->find_or_create({ currency_serial => 1 });
-    $balance->amount( $balance->amount + $diff );
-    $balance->update();
-  }
-}
 
 
 
