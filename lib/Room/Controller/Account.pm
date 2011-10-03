@@ -51,9 +51,13 @@ sub login :Local :Args(0) :FormConfig {
 
       if ($user) {
         if ($c->req->param('destination')) {
-          $c->res->redirect(
-            $c->req->param('destination')
-          );
+          my $dest = $c->req->param('destination');
+          
+          # clean up destination URL
+          $dest = '/'. $dest unless $dest =~ /^\//;
+          $dest =~ s/\/index$//;
+
+          $c->res->redirect( $dest );
 
           return 1;
         }
