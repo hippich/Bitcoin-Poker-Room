@@ -49,6 +49,7 @@ requires 'Catalyst::TraitFor::Request::BrowserDetect';
 requires 'Test::DBIx::Class';
 requires 'Crypt::Eksblowfish';
 requires 'Digest::SHA1';
+requires 'CatalystX::DynamicComponent::ModelsFromConfig';
 
 
 test_requires 'Test::More' => '0.88';

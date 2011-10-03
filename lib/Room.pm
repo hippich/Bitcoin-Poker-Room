@@ -25,6 +25,7 @@ use Catalyst qw/
     Email
     Log::Handler
     LogWarnings
+    +CatalystX::DynamicComponent::ModelsFromConfig
 /;
 
 extends 'Catalyst';
