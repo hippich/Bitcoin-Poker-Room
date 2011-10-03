@@ -683,4 +683,15 @@ CREATE TABLE `withdrawal` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2010-09-04 20:01:03
+CREATE TABLE `pythonpokernetwork`.`user2bitcoin` (
+  `serial` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_serial` BIGINT UNSIGNED NOT NULL,
+  `currency_serial` BIGINT UNSIGNED NOT NULL,
+  `balance` DECIMAL(52,8) UNSIGNED NOT NULL,
+  PRIMARY KEY (`serial`),
+  INDEX `user_index`(`user_serial`),
+  INDEX `currency_index`(`currency_serial`)
+)
+ENGINE = InnoDB;
+)
+
