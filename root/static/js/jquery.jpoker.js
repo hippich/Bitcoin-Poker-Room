@@ -2446,8 +2446,15 @@
                     game_id = parseInt(packet.game_id);
 
                     if (packet.state != "late" || !$('#jpoker_wait_for_bb input').attr('checked')) {
+
+                        var type = 'PacketPokerBlind';
+
+                        if (packet.type == 'PacketPokerAnteRequest') {
+                          type = 'PacketPokerAnte';
+                        }
+
                         server.sendPacket({ 
-                            'type': 'PacketPokerBlind',
+                            'type': type,
                             'serial': serial,
                             'game_id': game_id,
                             'amount': packet.amount,
