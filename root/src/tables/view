@@ -49,12 +49,12 @@
   </body>
 
   <script>
-    var window_width = 720;
-    var window_height = 530;
+    var table_width = 760;
+    var table_height = 530;
 
     jQuery(window).resize(function() {
-      var width_zoom = jQuery(window).width() / (window_width + 1);
-      var height_zoom = jQuery(window).height() / (window_height + 1);
+      var width_zoom = jQuery(window).width() / (table_width + 1);
+      var height_zoom = jQuery(window).height() / (table_height + 1);
       var zoom = 1;
 
       if ( width_zoom < height_zoom ) {
@@ -64,13 +64,18 @@
         zoom = height_zoom;
       }
 
+      // For browsers supporting zoom css feature
       jQuery('html').css({
-        'zoom': zoom,
-        '-o-transform': 'scale(' + width_zoom + ',' + height_zoom +')',
+        'zoom': zoom
+      });
+
+      // For Gecko-based browsers 
+      jQuery('#main').css({
+        'position': 'absolute',
         '-moz-transform': 'scale(' + width_zoom + ',' + height_zoom +')',
-        '-o-transform-origin': '0 0',
         '-moz-transform-origin': '0 0'
       });
+
     });
   </script>
 
