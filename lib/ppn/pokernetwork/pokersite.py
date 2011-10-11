@@ -204,7 +204,12 @@ class PokerResource(resource.Resource):
         if self.verbose >= 3:
             if "PacketPing" not in data or self.verbose > 3:
                 self.message("(%s:%s) " % request.findProxiedIP() + "render " + data)
-        args = simplejson.loads(data, encoding = 'UTF-8')
+
+        try:
+            args = simplejson.loads(data, encoding = 'UTF-8')
+        except:
+            return "Unable to decode JSON."
+
         if hasattr(Packet.JSON, 'decode_objects'): # backward compatibility
             args = Packet.JSON.decode_objects(args)
         args = fromutf8(args)
@@ -363,8 +368,13 @@ class PokerTourneyStartResource(resource.Resource):
     def render(self, request):
         if self.verbose > 3:
             self.message("render " + str(request))
-        tourney_serial = request.args['tourney_serial'][0]
-        self.service.tourneyNotifyStart(int(tourney_serial))
+
+        try:
+            tourney_serial = request.args['tourney_serial'][0]
+            self.service.tourneyNotifyStart(int(tourney_serial))
+        except:
+            return "not found"
+
         body = 'OK'
         request.setHeader('content-type',"text/html")
         request.setHeader('content-length', str(len(body)))
@@ -390,7 +400,12 @@ class PokerAvatarResource(resource.Resource):
         if self.verbose > 3:
             self.message("render " + request.content.read())
         request.content.seek(0, 0)
-        serial = int(request.path.split('/')[-1])
+
+        try:
+            serial = int(request.path.split('/')[-1])
+        except:
+            return "not found"
+
         self.deferred.addCallback(lambda result: self.deferRender(request, serial))
         def failed(reason):
             body = reason.getTraceback()
