@@ -25,7 +25,7 @@ Redirect all authenticated user to /user page
 sub auto :Private {
   my ($self, $c) = @_;
 
-  if ($c->user) {
+  if ($c->user && $c->action->private_path !~ /account\/no_avatar/) {
     $c->res->redirect(
       $c->uri_for('/user')
     );
