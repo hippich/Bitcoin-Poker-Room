@@ -371,6 +371,7 @@ sub deposit_bitcoin {
 
         if (! $bitcoin->address) {
             $bitcoin->address( &$new_address_cb ); 
+            $bitcoin->update;
         }
 
         my $new_balance = &$new_balance_cb( $bitcoin );
