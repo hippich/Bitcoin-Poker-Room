@@ -138,12 +138,17 @@ class PokerExplain:
         index = 0
         for (amount, total) in side_pots['pots']:
             chips = amount
+
+            if chips == 0:
+                chips = game.getPotAmount()
+
             bet = self.normalizeChips(game, chips)
             pot = PacketPokerPotChips(game_id = game.id,
                                       index = index,
                                       bet = bet)
             packets.append(pot)
             index += 1
+
         return packets
 
     def chipsPlayer2Bet(self, game, player, chips):
@@ -166,6 +171,7 @@ class PokerExplain:
             # The ante or the dead are already in the pot
             #
             bet -= player.dead
+
         packet = PacketPokerChipsBet2Pot(game_id = game.id,
                                          serial = player.serial,
                                          chips = self.normalizeChips(game, bet),
@@ -560,6 +566,7 @@ class PokerExplain:
 
                 if game.isBlindAnteRound():
                     game.blindAnteRoundEnd()
+                    forward_packets.extend(self.updatePotsChips(game, game.getPots()))
 
                 if packet.string == "end" and game.state != "null":
                     game.endState()

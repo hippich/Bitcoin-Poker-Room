@@ -1876,7 +1876,7 @@ class PokerGame:
         """
         if self.isBlindAnteRound():
             return False
-        player = self.serial2player[serial]
+        player = self.getPlayer(serial)
         highest_bet = self.highestBetNotFold()
         money = player.money
         bet = player.bet
@@ -1973,7 +1973,7 @@ class PokerGame:
 
         (min_bet, max_bet, to_call) = self.betLimits(serial)
 
-        player = self.serial2player[serial]
+        player = self.getPlayer(serial)
 
         highest_bet = self.highestBetNotFold()
         payAmount = raiseTo - player.bet
@@ -2138,7 +2138,7 @@ class PokerGame:
         if self.verbose >= 2: self.message("player %d pays ante %d" % (serial, amount))
         self.historyAdd("ante", serial, amount)
         self.money2bet(serial, amount)
-        self.bet2pot(serial)
+        #self.bet2pot(serial)
         self.getPlayer(serial).ante = True
 
     def blindAnteMoveToFirstRound(self):
@@ -2149,6 +2149,9 @@ class PokerGame:
     def blindAnteRoundEnd(self):
         if self.is_directing:
             return
+
+        if self.ante_info:
+            self.bet2pot()
 
         if self.inGameCount() < 2 and self.betsEqual():
             #
@@ -3151,6 +3154,7 @@ class PokerGame:
             serials = self.player_list
         else:
             serials = [serial]
+
         for serial in serials:
             player = self.serial2player[serial]
             bet = player.bet
@@ -3557,7 +3561,7 @@ class PokerGame:
             return 0
         info = self.betInfo()
         highest_bet = self.highestBetNotFold()
-        player = self.serial2player[serial]
+        player = self.getPlayer(serial)
         money = player.money
         bet = player.bet
         to_call = highest_bet - bet
