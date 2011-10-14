@@ -44,12 +44,20 @@ __PACKAGE__->table("user2bitcoin");
   extra: {unsigned => 1}
   is_nullable: 0
 
-=head2 balance
+=head2 amount
 
   data_type: 'decimal'
+  default_value: 0.00000000
   extra: {unsigned => 1}
   is_nullable: 0
   size: [52,8]
+
+=head2 address
+
+  data_type: 'varchar'
+  default_value: (empty string)
+  is_nullable: 0
+  size: 40
 
 =cut
 
@@ -65,20 +73,29 @@ __PACKAGE__->add_columns(
   { data_type => "bigint", extra => { unsigned => 1 }, is_nullable => 0 },
   "currency_serial",
   { data_type => "bigint", extra => { unsigned => 1 }, is_nullable => 0 },
-  "balance",
+  "amount",
   {
     data_type => "decimal",
+    default_value => "0.00000000",
     extra => { unsigned => 1 },
     is_nullable => 0,
     size => [52, 8],
   },
+  "address",
+  { data_type => "varchar", default_value => "", is_nullable => 0, size => 40 },
 );
 __PACKAGE__->set_primary_key("serial");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-10-02 23:19:36
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:4qNGWTkA2JaZbr/rJ1KrOQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-10-05 01:21:04
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:YiVc6DGajsbDuaO6LyCfDQ
 
 
-# You can replace this text with custom code or comments, and it will be preserved on regeneration
+__PACKAGE__->belongs_to(
+  user => 'Room::Schema::PokerNetwork::Result::Users',
+  { serial => 'user_serial' }
+);
+
+
+
 1;

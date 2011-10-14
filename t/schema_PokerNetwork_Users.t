@@ -29,5 +29,29 @@ isnt $hash, $new_hash, "Old and new hashes should be different.";
 ok $user->check_password('zed')
     => "New password 'admin' should be recognized via Bcrypt hash.";
 
+$user->deposit_bitcoin(1, sub {
+        my $bitcoin = shift;
+        return 100;
+    }, sub {
+        return "12345";
+    }
+);
+
+ok $user->balance(1)->amount == 10100
+    => "new_balance(1,100) call should add 100 to user's balance(1)";
+
+$user->deposit_bitcoin(1, sub {
+        my $bitcoin = shift;
+        return 120;
+    }, sub {
+        return "12345";
+    }
+);
+
+ok $user->balance(1)->amount == 10120
+    => "new_balance(1,120) call should add 20 to user's balance(1)";
+
+ok $user->bitcoin_balance(1)->address == '12345', "bitcoin deposit address should equal to '12345'";
+
 done_testing();
 

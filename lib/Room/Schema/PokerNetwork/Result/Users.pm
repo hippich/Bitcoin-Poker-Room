@@ -193,6 +193,7 @@ __PACKAGE__->add_unique_constraint("email_idx", ["email"]);
 
 use JSON::XS;
 use Hash::AsObject;
+use DateTime;
 use Digest::SHA1 qw(sha1_hex);
 
 __PACKAGE__->add_columns(
@@ -263,6 +264,11 @@ __PACKAGE__->has_many(
   { 'foreign.user_serial' => 'self.serial' },
 );
 
+__PACKAGE__->has_many(
+  'bitcoin' => 'Room::Schema::PokerNetwork::Result::User2bitcoin',
+  { 'foreign.user_serial' => 'self.serial' },
+);
+
 
 =head2 check_password 
 
@@ -302,13 +308,94 @@ sub get_bitcoin_deposit_address {
 
 =head2 balance 
 
-Retrieve single currency balance Result object 
+Retrieve single currency balance Result object.
+
+Set $update to 1 in order to get SELECT .. FOR UPDATE 
+SQL query (to lock row).
 
 =cut
 sub balance {
-    my ($self, $serial) = @_;
+    my ($self, $serial, $update) = @_;
 
-    return $self->balances->find_or_create({ currency_serial => $serial });
+    return 
+        ($update)
+        ? $self->balances->find_or_create({ currency_serial => $serial }, { for => 'update' })
+        : $self->balances->find_or_create({ currency_serial => $serial });
+}
+
+
+=head2 bitcoin_balance 
+
+Retrieve single currency current bitcoin balance Result object.
+
+Set $update to 1 in order to get SELECT .. FOR UPDATE 
+SQL query (to lock row).
+
+=cut
+sub bitcoin_balance {
+    my ($self, $serial, $update) = @_;
+
+    return 
+        ($update)
+        ? $self->bitcoin->find_or_create({ currency_serial => $serial }, { for => 'update' })
+        : $self->bitcoin->find_or_create({ currency_serial => $serial });
+}
+
+
+=head2 deposit_bitcoin 
+
+Update user's balance. It do the following:
+- Start transaction.
+- SELECT ... FOR UPDATE user2money Result object (with locking).
+- SELECT ... FOR UPDATE user2bitcoin Result object (with locking).
+- If bitcoin address do not exists - call callback to get new address.
+- Call $new_balance_cb callback 
+- Compare $new_balance_cb result to $user2bitcoin->amount and add $difference 
+to $user2money->amount.
+- If $difference > 0 - add new record to Deposits.
+- Commit transaction.
+
+=cut
+sub deposit_bitcoin {
+    my ($self, $serial, $new_balance_cb, $new_address_cb) = @_;
+
+    return unless $new_balance_cb;
+    return unless $new_address_cb;
+    return unless $serial > 0;
+
+    my $schema = $self->result_source->schema;
+
+    $schema->txn_do(sub {
+        my $current = $self->balance($serial, 1);
+        my $bitcoin = $self->bitcoin_balance( $serial, 1 );
+
+        if (! $bitcoin->address) {
+            $bitcoin->address( &$new_address_cb ); 
+        }
+
+        my $new_balance = &$new_balance_cb( $bitcoin );
+        my $current_balance = $bitcoin->amount || 0;
+
+        my $difference = $new_balance - $current_balance;
+
+        if ($difference > 0) {
+            $bitcoin->amount($new_balance);
+            $bitcoin->update;
+
+            $current->amount( $current->amount + $difference );
+            $current->update;
+
+            $self->deposits->create({
+              currency_serial => $serial,
+              amount => $difference,
+              processed => 1,
+              info => $bitcoin->address,
+              created_at => DateTime->now,
+              processed_at => DateTime->now,
+            });
+        }
+
+    });
 }
 
 =head1 AUTHOR
