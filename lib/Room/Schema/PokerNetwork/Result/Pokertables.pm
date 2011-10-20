@@ -289,6 +289,19 @@ __PACKAGE__->has_one(
     { 'foreign.serial' => 'self.tourney_serial' },
 );
 
+__PACKAGE__->has_one( 
+    resthost => 'Room::Schema::PokerNetwork::Result::Resthost',
+    { 'foreign.serial' => 'self.resthost_serial' },
+);
+
+
+sub host {
+    my ($self) = @_;
+
+    if ($self->resthost->host) {
+        return $self->resthost->host .':'. $self->resthost->port;
+    }
+}
 
 =head1 AUTHOR
 

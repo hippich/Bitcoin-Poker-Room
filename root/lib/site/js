@@ -1,5 +1,6 @@
 <script src="/static/jquery/jquery-1.6.2.min.js"></script>
 <script src="/static/js/jquery.popupwindow.js"></script>
+<script src="/static/js/jquery.blockUI.js"></script>
 <script src="/static/script.js"></script>
 
 <script src="/static/jquery/ui.1.8/ui/jquery-ui-1.8.4.custom.js"></script>

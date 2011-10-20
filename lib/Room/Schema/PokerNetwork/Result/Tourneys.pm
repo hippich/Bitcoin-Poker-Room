@@ -351,6 +351,11 @@ __PACKAGE__->many_to_many(
     tables => 'usertourneys', 'tourney_table'
 );
 
+__PACKAGE__->has_one( 
+    resthost => 'Room::Schema::PokerNetwork::Result::Resthost',
+    { 'foreign.serial' => 'self.resthost_serial' },
+);
+
 # Inflators
 
 __PACKAGE__->add_columns(
@@ -361,35 +366,13 @@ __PACKAGE__->add_columns(
 );
 
 
+sub host {
+    my ($self) = @_;
 
-# Filters
-
-__PACKAGE__->filter_column(
-  prize_min => {
-    filter_to_storage => '__filter_multi',
-    filter_from_storage =>  '__filter_divide',
-  }
-);
-
-
-__PACKAGE__->filter_column(
-  rake => {
-    filter_to_storage => '__filter_multi',
-    filter_from_storage =>  '__filter_divide',
-  }
-);
-
-
-__PACKAGE__->filter_column(
-  buy_in => {
-    filter_to_storage => '__filter_multi',
-    filter_from_storage =>  '__filter_divide',
-  }
-);
-
-
-sub __filter_multi { my $self = shift; shift() * 100 }
-sub __filter_divide { my $self = shift; shift() / 100 }
+    if ($self->resthost->host) {
+        return $self->resthost->host .':'. $self->resthost->port;
+    }
+}
 
 
 sub get_users_registered {

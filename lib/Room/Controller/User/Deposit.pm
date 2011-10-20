@@ -28,58 +28,63 @@ sub index :Path :Args(0) {
 }
 
 sub bitcoin :Local {
-  my ( $self, $c ) = @_;
-  $c->forward('deposit_bitcoin_refresh');
-  $c->stash->{bitcoin_address} = $c->user->bitcoin_address;
-  $c->stash->{bitcoins_sent} = $c->user->bitcoins_received || 0;
+    my ( $self, $c ) = @_;
+    $c->forward('deposit_bitcoin_refresh');
+
+    my $payments = $c->config->{payments};
+
+    for my $name (keys %{$payments}) {
+        my $serial = $payments->{$name}->{currency_serial};
+
+        push @{$c->stash->{payments}}, {
+            deposit => $c->user->bitcoin_balance($serial),
+            balance => $c->user->balance($serial),
+            currency => $c->model('PokerNetwork::Currencies')->find({ serial => $serial}),
+            rate => $payments->{$name}->{rate},
+        };
+    }
 }
 
 
 
 sub deposit_bitcoin_refresh :Private {
-  my ( $self, $c ) = @_;
+    my ( $self, $c ) = @_;
 
-  if ($c->user->bitcoin_checked + 300 > time()) {
-      $c->log->debug('Last time balance checked - '. $c->user->bitcoin_checked .'. Waiting '. ($c->user->bitcoin_checked + 300 - time()) .' seconds.' );
-      return 1;
-  }
+    if ($c->user->bitcoin_checked + 1 > time()) {
+        $c->log->debug('Last time balance checked - '. $c->user->bitcoin_checked .'. Waiting '. ($c->user->bitcoin_checked + 300 - time()) .' seconds.' );
+        return 1;
+    }
 
-  $c->log->debug('Time to check balance.' );
+    $c->log->debug('Time to check balance.' );
 
-  $c->user->bitcoin_checked(time());
-  $c->user->update();
-
-  if (! $c->user->bitcoin_address) {
-    $c->user->bitcoin_address(
-      $c->model("BitcoinServer")->get_new_address()
-    );
-    
+    $c->user->bitcoin_checked(time());
     $c->user->update();
-  }
 
-  my $bitcoins_new_balance = $c->model("BitcoinServer")->get_received_by_address( $c->user->bitcoin_address );
+    my $payments = $c->config->{payments};
 
-  if ($bitcoins_new_balance && $bitcoins_new_balance > $c->user->bitcoins_received) {
-    my $diff = $bitcoins_new_balance - $c->user->bitcoins_received;
-    $c->user->bitcoins_received(
-      $c->user->bitcoins_received + $diff
-    );
+    for my $name (keys %{$payments}) {
+        my $payment = $payments->{$name};
+        
+        my $new_balance_cb = sub {
+            my $address = shift->address;
+            my $model = $payment->{model};
+            my $minconf = $payment->{minconf};
 
-    $c->user->update;
+            # To force int value type for JSON-RPC
+            $minconf += 0;
 
-    $c->user->deposits->create({
-      currency_serial => 1,
-      amount => $diff,
-      processed => 1,
-      info => $c->user->bitcoin_address,
-      created_at => DateTime->now,
-      processed_at => DateTime->now,
-    });
+            my $received = $c->model($model)->get_received_by_address( $address, $minconf );
+            $received ||= 0;
 
-    my $balance = $c->user->balances->find_or_create({ currency_serial => 1 });
-    $balance->amount( $balance->amount + $diff );
-    $balance->update();
-  }
+            return $received * $payment->{rate};
+        };
+
+        my $new_address_cb = sub {
+            return $c->model($payment->{model})->get_new_address;
+        };
+
+        $c->user->deposit_bitcoin($payment->{currency_serial}, $new_balance_cb, $new_address_cb);
+    }
 }
 
 

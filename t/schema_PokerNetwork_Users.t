@@ -29,6 +29,26 @@ isnt $hash, $new_hash, "Old and new hashes should be different.";
 ok $user->check_password('zed')
     => "New password 'admin' should be recognized via Bcrypt hash.";
 
+# Empty address returned test 
+$user->deposit_bitcoin(1, sub {
+        return 0;
+    }, sub {
+        return;
+    }
+);
+
+ok $user->bitcoin_balance(1)->address eq "", "Address should be empty.";
+
+$user->deposit_bitcoin(1, sub {
+        return 0;
+    }, sub {
+        return "12345";
+    }
+);
+
+ok $user->bitcoin_balance(1)->address ne "", "Address should NOT be empty.";
+
+# Test deposit procedure
 $user->deposit_bitcoin(1, sub {
         my $bitcoin = shift;
         return 100;
@@ -51,7 +71,8 @@ $user->deposit_bitcoin(1, sub {
 ok $user->balance(1)->amount == 10120
     => "new_balance(1,120) call should add 20 to user's balance(1)";
 
-ok $user->bitcoin_balance(1)->address == '12345', "bitcoin deposit address should equal to '12345'";
+ok $user->bitcoin_balance(1)->address eq '12345'
+    => "bitcoin deposit address should equal to '12345' (returned ". $user->bitcoin_balance(1)->address .")";
 
 done_testing();
 

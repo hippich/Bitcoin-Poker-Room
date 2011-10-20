@@ -192,6 +192,7 @@ __PACKAGE__->add_unique_constraint("email_idx", ["email"]);
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:najOrRPxquNBM6d34xxy8Q
 
 use JSON::XS;
+use Carp;
 use Hash::AsObject;
 use DateTime;
 use Digest::SHA1 qw(sha1_hex);
@@ -359,9 +360,9 @@ to $user2money->amount.
 sub deposit_bitcoin {
     my ($self, $serial, $new_balance_cb, $new_address_cb) = @_;
 
-    return unless $new_balance_cb;
-    return unless $new_address_cb;
-    return unless $serial > 0;
+    croak("new_balance_cb callback is not defined.") unless $new_balance_cb;
+    croak("new_address_cb callback is not defined.") unless $new_address_cb;
+    croak("currency serial is not defined.") unless $serial > 0;
 
     my $schema = $self->result_source->schema;
 

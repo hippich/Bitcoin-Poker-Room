@@ -103,7 +103,7 @@ sub dump_these {
 
 # Generate POKER_REST url based on rest_url_per_table setting 
 sub get_rest_url {
-    my ($c, $id) = @_;
+    my ($c, $id, $server) = @_;
 
     if (!$id || !$c->config->{rest_url_per_table}) {
         return $c->config->{rest_url} || '/POKER_REST';
@@ -111,9 +111,11 @@ sub get_rest_url {
 
     my $url;
 
+    $server ||= $c->config->{rest_url_base_server};
+
     $url .= $c->config->{rest_url_schema};
     $url .= $id . '.';
-    $url .= $c->config->{rest_url_base_server};
+    $url .= $server;
     $url .= $c->config->{rest_url_uri} || '/POKER_REST';
 
     return $url;

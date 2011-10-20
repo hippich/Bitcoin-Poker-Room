@@ -10,63 +10,59 @@ var table_profile = {
 
 jQuery(function() {
     attach_behaviors(jQuery("html"));
+    jQuery(document).ajaxStart(jQuery.blockUI).ajaxStop(jQuery.unblockUI);
 
-    return;
+    auto_refresh_tables();
 
-    if (jQuery("div.tables-list-wrapper").length > 0) {
-      setTimeout("refresh_tables()", 15000);
-    }
+    jQuery('.table-filter .values').hide();
+
+    jQuery('#table-filter-form input').change(update_tables);
+    jQuery('#table-filter-form select').change(update_tables);
+    jQuery('#submit-filter').hide();
 });
 
 
-var refresh_tables = function() {
-    jQuery.ajax({
-      url: '/tables',
-      success: function(data) {
-        var tables_list = jQuery(data).find('div.tables-list-wrapper').html();
-
-        if (tables_list) {
-          jQuery("div.tables-list-wrapper").html(
-            tables_list
-          );
-          attach_behaviors(jQuery("div.tables-list-wrapper"));
-        }
-        else {
-          window.location = '/tables';
-        }
-      },
-      error: function(req) {
-        window.location = '/tables';
-      }
-    });
-    setTimeout("refresh_tables()", 15000);
-}
-
-var attach_behaviors = function(c) {
+function attach_behaviors(c) {
   jQuery(".popup-window", c).popupwindow(table_profile);
-
-  jQuery(".tables-categories a", c).click(function() {
-    jQuery(".tables .tables-list").hide();
-    jQuery(jQuery(this).attr('href')).show();
-    jQuery(".tables-categories *", c).removeClass('active');
-    jQuery(this).parent().addClass('active');
-    return false;
-  });
-
-  jQuery(".tables-categories li", c).click(function() {
-    jQuery(this).children('ul:visible').slideUp();
-    jQuery(this).children('ul:hidden').slideDown();
-    return false;
-  });
 
   jQuery("a.confirm", c).click(function() {
     if (! confirm('Are you sure?')) {
       return false;
     }
   });
-
 }
 
+function update_range(event, ui) {
+    var p = jQuery(event.target).parent();
+    p.find('span.value').text(ui.values[0] + ' - ' + ui.values[1]);
+    p.find('input.min').val(ui.values[0]);
+    p.find('input.max').val(ui.values[1]);
+};
+
+function update_tables(e, background) {
+  var values = jQuery('#table-filter-form').serialize();
+
+  if (values) {
+    jQuery.ajax({
+      url: '/tables',
+      global: !background,
+      data: values + '&ajax=1',
+      error: function(jqXHR, textStatus, errorThrown) {
+      },
+      success: function(data, textStatus, jqXHR) {
+        jQuery('.tables').html(data);        
+        attach_behaviors(jQuery("div.tables-list-wrapper"));
+      }
+    });
+  }
+};
+
+function auto_refresh_tables() {
+  setTimeout(function() {
+    update_tables(false, true);
+    auto_refresh_tables();
+  }, 5000);
+};
 
 function popitup(link, game_id) {
   jQuery('<a rel="table" target="table_' + game_id + '" href="'+ link +'" />').popupwindow(table_profile).click();

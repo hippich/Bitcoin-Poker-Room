@@ -25,20 +25,78 @@ Show list of all existing tables.
 =cut
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
+    my $page = $c->req->params->{page} || 1;
 
     @{$c->stash->{servers}} = $c->model('PokerNetwork::Resthost')->all;
     @{$c->stash->{currencies}} = $c->model('PokerNetwork::Currencies')->all;
+
+    $c->stash->{small_blinds} = $c->model("PokerNetwork::Pokertables")->search(
+        { small_blind => { '>', 0 } }, { columns => [ qw/ small_blind / ], distinct => 1 }
+    );
+    
+    $c->stash->{big_blinds} = $c->model("PokerNetwork::Pokertables")->search(
+        { big_blind => { '>', 0 } }, { columns => [ qw/ big_blind / ], distinct => 1, order_by => { -desc => 'big_blind' } }
+    );
     
     my $params = $c->req->params;
     my $params_count = scalar( keys %{$params} );
+    my $filter = {};
 
     if ($params_count > 0) {
         # Show filtered tables
-    }
-    else {
-        # Show popular tables 
+
+        # Add server filter 
+        $filter->{resthost_serial} = $params->{resthost_serial} unless !$params->{resthost_serial};
+
+        # Add currency filter 
+        $filter->{currency_serial} = $params->{currency_serial} unless !$params->{currency_serial};
+
+        # Add variant filter 
+        $filter->{variant} = $params->{variant} unless !$params->{variant};
+
+        # Add limit type filter 
+        $filter->{limit_type} = $params->{limit_type} unless !$params->{limit_type};
+
+        # Add blinds range filter 
+        my $min_blinds = $params->{blinds_range_min} || 0;
+        my $max_blinds = $params->{blinds_range_max} || 0;
+        $filter->{small_blind} = { '>=' => $min_blinds } unless $min_blinds == 0; 
+        $filter->{big_blind} = { '<=' => $max_blinds } unless $max_blinds == 0; 
+
+        # Add min/max seats filter 
+        my $seats_min = $params->{seats_range_input_min} || 2;
+        my $seats_max = $params->{seats_range_input_max} || 10;
+
+        $filter->{seats} = {
+            '>=' => $seats_min,
+            '<=' => $seats_max,
+        };
+
+        # Add min/max players filter 
+        my $players_min = $params->{players_range_input_min} || 0;
+        my $players_max = $params->{players_range_input_max} || 10;
+
+        $filter->{players} = {
+            '>=' => $players_min,
+            '<=' => $players_max,
+        };
     }
 
+    $filter->{tourney_serial} = 0;
+
+    $c->stash->{ajax} = $c->req->params->{ajax};
+    $c->stash->{page} = $page;
+
+    $c->stash->{tables} = $c->model("PokerNetwork::Pokertables")->advanced_search(
+        $filter,
+        {
+            rows => 15,
+            page => $page,
+            order_by => {
+                -desc => 'players',
+            }
+        }
+    );
 }
 
 
@@ -78,7 +136,7 @@ sub table :Chained :CaptureArgs(1) {
         }
     }
 
-    $c->stash->{url} = $c->get_rest_url('table-' . $game_id);
+    $c->stash->{url} = $c->get_rest_url('table-' . $game_id, $c->stash->{table}->host);
     $c->stash->{uid} = ($c->user) ? $c->user->serial : 0;
     $c->stash->{auth} = $c->session->{pokernetwork_auth} || 'N';
 }

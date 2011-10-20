@@ -1,44 +1,181 @@
-[% META title = 'Tables list' %]
+[% META title = 'Tables list' -%]
+[% IF NOT ajax %]
+<script>
+  jQuery(function() {
+    jQuery('#seats-slider-range').slider({
+      range: true, min: 2, max: 10, step: 1,
+      values: [[% c.req.params.seats_range_input_min or 2 | format('%d') %], [% c.req.params.seats_range_input_max or 10 | format('%d') %]], 
+      slide: update_range,
+      stop: function() { update_tables(); }
+    });
+
+    jQuery('#players-slider-range').slider({
+      range: true, min: 0, max: 10, step: 1,
+      values: [[% c.req.params.players_range_input_min or 0 | format('%d') %], [% c.req.params.players_range_input_max or 10 | format('%d') %]], 
+      slide: update_range,
+      stop: function() { update_tables(); }
+    });
+  });
+</script>
 
 <div class="tables-list-wrapper">
   <div class="tables-categories one-fourth">
 
-    <div class="active popular-tables">
-      <a href="#popular-tables">Popular</a>
-    </div>
-
-  <h4>Click for more tables:</h4>
-
-    <ul class="table-variants simple-nav">
-      [% FOREACH game_variant = tables_structure %]
-      <li>
-      <span href="#">[% game_variant.key %]</span>
-      <ul class="table-seats simple-nav">
-        [% FOREACH game_seats = game_variant.value %]
-        <li>
-        <span href="#">[% game_seats.key %]</span>
-        <ul class="table-limits simple-nav">
-          [% FOREACH game_limit = game_seats.value %]
-          <li>
-          <span href="#">[% game_limit.key %]</span>
-          <ul class="game-bets simple-nav">
-            [% FOREACH game_bet = game_limit.value %]
+    <form id="table-filter-form" action="/tables" method="GET">
+      <div class="table-filter table-filter-server">
+        <h4>Server</h4>
+        <ul>
+          [% FOREACH server IN servers %]
             <li>
-            <a href="#[% game_bet.value.hash %]">[% game_bet.key %]</a> ([% game_bet.value.players %])
+              <input 
+                type="radio" 
+                name="resthost_serial" 
+                value="[% server.serial %]" 
+                id="server-[% server.serial %]" 
+                [% IF server.serial == c.req.params.resthost_serial %]CHECKED[% END %]
+              />
+              <label for="server-[% server.serial %]">[% server.name %]</label>
             </li>
-            [% END %]
-          </ul>
+          [% END %]
+        </ul>
+
+      </div>
+
+      <div class="table-filter table-filter-currency">
+        <h4>Currency</h4>
+        <ul>
+          [% FOREACH currency IN currencies %]
+            <li>
+              <input 
+                type="radio" 
+                name="currency_serial" 
+                value="[% currency.serial %]" 
+                id="currency-[% currency.serial %]" 
+                [% IF currency.serial == c.req.params.currency_serial %]CHECKED[% END %]
+              />
+              <label for="currency-[% currency.serial %]">[% currency.name %]</label>
           </li>
           [% END %]
         </ul>
-        </li> 
-        [% END %]  
-      </ul>
-      </li>
-      [% END %]
-    </ul>
-  </div>
+      </div>
 
+      <div class="table-filter table-filter-variant">
+        <h4>Game variant</h4>
+        <ul>
+          <li>
+            <input type="checkbox" name="variant" value="holdem" id="variant-holdem" [% IF c.req.params.variant == 'holdem' %]CHECKED[% END %] />
+            <label for="variant-holdem">Texas Hold'em</label>
+          </li>
+          <li>
+            <input type="checkbox" name="variant" value="omaha" id="variant-omaha" [% IF c.req.params.variant == 'omaha' %]CHECKED[% END %] />
+            <label for="variant-omaha">Omaha</label>
+          </li>
+          <li>
+            <input type="checkbox" name="variant" value="omaha8" id="variant-omaha8" [% IF c.req.params.variant == 'omaha8' %]CHECKED[% END %] />
+            <label for="variant-omaha8">Omaha8</label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="table-filter table-filter-betting">
+        <h4>Betting Structure</h4>
+        <ul>
+          <li>
+            <input type="checkbox" name="limit_type" value="no-limit" id="variant-no-limit" [% IF c.req.params.limit_type == 'no-limit' %]CHECKED[% END %] />
+            <label for="variant-no-limit">No Limit</label>
+          </li>
+          <li>
+            <input type="checkbox" name="limit_type" value="limit" id="variant-limit" [% IF c.req.params.limit_type == 'limit' %]CHECKED[% END %] />
+            <label for="variant-limit">Limit</label>
+          </li>
+          <li>
+            <input type="checkbox" name="limit_type" value="pot-limit" id="variant-pot-limit" [% IF c.req.params.limit_type == 'pot-limit' %]CHECKED[% END %] />
+            <label for="variant-pot-limit">Pot Limit</label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="table-filter table-filter-blinds">
+        <h4>Bets</h4>
+        <table>
+          <tr><td><label for="blinds-range-min">Min</label></td><td><label for="blinds-range-max">Max</label></td></tr>
+          <tr>
+            <td>
+              <select name="blinds_range_min" id="blinds-range-min">
+                [% WHILE (blind = small_blinds.next) %]
+                  <option value="[% blind.small_blind %]" [% IF c.req.params.blinds_range_min == blind.small_blind %]SELECTED[% END %] >
+                    [%- blind.small_blind / 100 | format("%.2f") -%]
+                  </option>
+                [% END %]
+              </select>
+            </td>
+            <td>
+              <select name="blinds_range_max" id="blinds-range-max">
+                [% WHILE (blind = big_blinds.next) %]
+                  <option value="[% blind.big_blind %]" [% IF c.req.params.blinds_range_max == blind.big_blind %]SELECTED[% END %] >
+                    [%- blind.big_blind / 100 | format("%.2f") -%]
+                  </option>
+                [% END %]
+              </select>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="table-filter table-filter-seats">
+        <h4>Seats</h4>
+
+        <div class="values">
+          <input 
+            type="text" size="2" name="seats_range_input_min" id="seats-range-input-min" 
+            class="min" value="[% c.req.params.seats_range_input_min or 2 | format('%d') %]"
+          /><br />
+          <label for="seats-range-input-max">Max: </label>
+          <input 
+            type="text" size="2" name="seats_range_input_max" id="seats-range-input-max" 
+            class="max" value="[% c.req.params.seats_range_input_max or 10 | format('%d') %]"
+          /><br />
+        </div>
+
+        <span class="seats-range">Seats range: </span>
+        <span class="value">
+          [% c.req.params.seats_range_input_min or 2 | format('%d') %]
+          - [% c.req.params.seats_range_input_max or 10 | format('%d') %]
+        </span>
+        <div id="seats-slider-range"></div>
+      </div>
+
+      <div class="table-filter table-filter-players">
+        <h4>Active players</h4>
+
+        <div class="values">
+          <label for="players-range-input-min">Min: </label>
+          <input 
+            type="text" size="2" name="players_range_input_min" id="players-range-input-min" 
+            class="min" value="[% c.req.params.players_range_input_min or 0 | format('%d') %]"
+          /><br />
+          <label for="players-range-input-max">Max: </label>
+          <input 
+            type="text" size="2" name="players_range_input_max" id="players-range-input-max" 
+            class="max" value="[% c.req.params.players_range_input_max or 10 | format('%d') %]"
+          /><br />
+        </div>
+
+        <span class="players-range">Active players range: </span>
+        <span class="value">
+          [% c.req.params.players_range_input_min or 0 | format('%d') %]
+          - [% c.req.params.players_range_input_max or 10 | format('%d') %]
+        </span>
+        <div id="players-slider-range"></div>
+      </div>
+
+      <input type="hidden" name="page" value="[% page | format('%d') %]"
+      <input type="submit" value="Filter" id="submit-filter" />
+
+    </form>
+
+  </div>
+[% END %]
   <div class="tables three-fourth">
 
     [% IF not c.user %]
@@ -54,7 +191,6 @@
     </div>
     <div class="tables-list-wrapper">
       <div class="tables-list" id="popular-tables">
-        <h2>Popular Tables</h2>
         <table>
           <tr>
             <th>Name</th>
@@ -66,7 +202,7 @@
             <th>Hand per hour</th>
           </tr>
 
-          [% FOREACH table IN popular_tables %]
+          [% WHILE (table = tables.next) %]
           <tr>
             <td><a class="popup-window" rel="table" href="[% c.uri_for('/table/' _ table.serial _ '/view') %]">[% table.name %]</a></td>
             <td>[% table.variant %]</td>
@@ -80,37 +216,11 @@
         </table>
       </div>
 
-      [% FOREACH tables_list = tables %]
-      <div class='tables-list' id='[% tables_list.key %]'>
-        <h2>[% tables_list.value.name %]</h2>
-        <table>
-          <tr>
-            <th>Name</th>
-            <th>Variant</th>
-            <th>Betting Structure</th>
-            <th>Players</th>
-            <th>Timeout</th>
-            <th>Average pot</th>
-            <th>Hand per hour</th>
-          </tr>
-
-          [% FOREACH table = tables_list.value.tables %]
-          <tr>
-            <td><a class="popup-window" rel="table" href="[% c.uri_for('/table/' _ table.serial _ '/view') %]">[% table.name %]</a></td>
-            <td>[% table.variant %]</td>
-            <td>[% table.betting_structure %]</td>
-            <td>[% table.players %]</td>
-            <td>[% table.player_timeout %]</td>
-            <td>[% table.average_pot / 100 %]</td>
-            <td>[% table.hands_per_hour %]</td>
-          </tr>
-          [% END %]
-        </table>
-      </div>
-      [% END %]
     </div>
   </div>
+
+[% IF NOT ajax -%]
 </div>
 
 <div class='clear'></div>
-
+[% END %]

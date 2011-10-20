@@ -53,7 +53,7 @@ sub tourney_base :Chained('base') :PathPart('') :CaptureArgs(1) {
     $c->stash->{tourney} = $c->model('PokerNetwork::Tourneys')->find($serial);
     $c->page_not_found unless $c->stash->{tourney};
 
-    $c->stash->{url} = $c->get_rest_url('tourney-' . $serial);
+    $c->stash->{url} = $c->get_rest_url('tourney-' . $serial, $c->stash->{tourney}->host);
     $c->stash->{uid} = ($c->user) ? $c->user->serial : 0;
     $c->stash->{auth} = $c->session->{pokernetwork_auth} || 'N';
 }
