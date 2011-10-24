@@ -3,6 +3,7 @@
 *.pyc
 room.conf
 *.swp
+*.swo
 *~
 dump_schema.sh
 log/room.log

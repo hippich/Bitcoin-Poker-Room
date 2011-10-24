@@ -120,64 +120,6 @@ sub edit :Local :Args(0) :FormConfig {
 
 
 
-sub withdraw_bitcoin :Path('withdraw/bitcoin') :FormConfig {
-  my ($self, $c) = @_;
-  my $form = $c->stash->{form};
-  my $balance = $c->user->balances->search({currency_serial => 1})->first;
-
-  if (! $balance) {
-    $balance = $c->user->balances->find_or_create({ currency_serial => 1 });
-    $balance->amount(0);
-    $balance->update();
-  }
-
-  $c->stash->{balance} = $balance;
-  $c->stash->{current_balance} = $balance->amount;
-
-  if ($form->submitted_and_valid) {
-    my $address = $form->params->{bitcoin_address};
-    my $amount = $form->params->{amount};
-
-    if ($balance->amount < $amount || $amount < 0.01 || int($amount * 100) / 100 < $amount)  {
-      $form->get_field("amount")->get_constraint({ type => "Callback" })->force_errors(1);
-      $form->process();
-      return;
-    }
-
-    $balance->amount(
-      $balance->amount() - $amount
-    );
-    $balance->update();
-
-    my $result = $c->model("BitcoinServer")->send_to_address($address, $amount);
-
-    # Create withdrawal record for tracking purposes.
-    my $withdrawal = $c->user->withdrawals->create({
-      currency_serial => 1,
-      amount => $amount,
-      dest => $address,
-      info => "Result: ". $result ."\n\nError: ". Dumper($c->model('BitcoinServer')->api->error),
-      created_at => DateTime->now,
-    });
-
-    if (! $c->model('BitcoinServer')->api->error) {
-      # Mark as processed if successful
-      $withdrawal->processed_at( DateTime->now() );
-      $withdrawal->processed(1);
-      $withdrawal->update();
-
-      push @{$c->flash->{messages}}, "Bitcoins sent.";
-
-    }
-    else {
-      push @{$c->flash->{errors}}, "We received your withdrawal request and will process it ASAP. If you will not receive bitcoins in 24 hours, please contact us.";
-    }
-    
-    $c->res->redirect(
-      $c->uri_for('/user')
-    );
-  }
-}
 
 
 sub points_cashout :Local :Args(1) {

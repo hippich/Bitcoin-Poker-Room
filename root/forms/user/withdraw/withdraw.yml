@@ -27,6 +27,14 @@ elements:
       - type: Callback
         message: Incorrect value.
 
+  - type: Password
+    name: password
+    label: Current password
+    constraints:
+      - Required
+      - type: Callback
+        message: Incorrect old password.
+
   - type: Submit
     value: Withdraw
     name: submit

@@ -24,15 +24,22 @@
     [% IF c.user.balances %]
     <h2>Your balance(s)</h2>
 
-    <ul class="user-balances">
+    <table class="user-balances">
+      <tr><th>Currency</th><th>Chips</th><th>Bonus Points</th><th>Actions</th></tr>
+       
       [% FOR balance IN c.user.balances %]
-        <li>
-          [% balance.amount * 100 | format('%.2f') %] Chips ([% balance.amount %] [% balance.currency.symbol %])
-          - <span><a href="[% c.uri_for('/user/deposit/bitcoin') %]">Deposit</a></span> <br />
-          Bonus points: [% balance.points * 100 | format('%.2f') %] - <span><a href="[% c.uri_for('/user/points_cashout/' _ balance.currency_serial) %]">Convert to chips</a></span>
-        </li>
+        <tr>
+          <td>[% balance.currency.name %]</td>
+          <td>[% balance.amount / 100 | format('%.2f') %] [% balance.currency.name %]</td>
+          <td>[% balance.points / 100 | format('%.2f') %]</td>
+          <td>
+            <a href="[% c.uri_for('/user/deposit/bitcoin') %]">Deposit</a> 
+            | <a href="[% c.uri_for('/user/withdraw/bitcoin') %]">Withdraw</a> 
+            | <a href="[% c.uri_for('/user/points_cashout/' _ balance.currency_serial) %]">Convert to chips</a>
+          </td>
+        </tr>
       [% END %]
-    </ul>
+    </table>
     [% END %]
 
 

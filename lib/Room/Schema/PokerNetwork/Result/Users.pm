@@ -196,6 +196,7 @@ use Carp;
 use Hash::AsObject;
 use DateTime;
 use Digest::SHA1 qw(sha1_hex);
+use Data::Dumper;
 
 __PACKAGE__->add_columns(
     'password' => {
@@ -399,6 +400,59 @@ sub deposit_bitcoin {
 
     });
 }
+
+
+=head2 withdraw_bitcoin 
+
+Transactional bitcoin withdrawal. Similar to deposit_bitcoin.
+
+$serial - currency serial 
+$amount - amount to withdraw 
+$withdraw_cb - callback function to do actual bitcoin withdrawal.
+
+=cut 
+sub withdraw_bitcoin {
+    my ($self, $serial, $amount, $withdraw_cb) = @_;
+
+    croak("withdraw_cb callback is not defined.") unless $withdraw_cb;
+    croak("amount is not defined.") unless $amount > 0;
+    croak("currency serial is not defined.") unless $serial > 0;
+
+    my $schema = $self->result_source->schema;
+
+    $schema->txn_do(sub {
+        my $current = $self->balance($serial, 1);
+        return unless $current->amount > $amount;
+
+        # Remove $amount from user's balance 
+        $current->amount(
+          $current->amount() - $amount
+        );
+        $current->update();
+
+        # Create withdrawal record for tracking purposes.
+        my $withdrawal = $self->withdrawals->create({
+          currency_serial => $serial,
+          amount => $amount,
+          created_at => DateTime->now,
+        });
+
+        my ($result, $error) = &$withdraw_cb($withdrawal);
+
+        $withdrawal->info(
+            "Result: ". $result ."\n\nError: ". Dumper($error)
+        );
+
+        if (! $error) {
+          # Mark as processed if successful
+          $withdrawal->processed_at( DateTime->now() );
+          $withdrawal->processed(1);
+        }
+
+        $withdrawal->update();
+    });
+}
+
 
 =head1 AUTHOR
 
