@@ -15,7 +15,7 @@ __PACKAGE__->load_namespaces;
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9wVioDEIUU+FtE1EjqVNDQ
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+our $VERSION = 1;
 
 =head1 AUTHOR
 

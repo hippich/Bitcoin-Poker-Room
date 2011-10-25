@@ -1,0 +1,6212 @@
+---
+schema:
+  procedures: {}
+  tables:
+    affiliates:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        addr_country:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: addr_country
+          order: 16
+          size:
+            - 64
+        addr_state:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: addr_state
+          order: 15
+          size:
+            - 128
+        addr_street:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: addr_street
+          order: 11
+          size:
+            - 255
+        addr_street2:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: addr_street2
+          order: 12
+          size:
+            - 255
+        addr_town:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: addr_town
+          order: 14
+          size:
+            - 64
+        addr_zip:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: addr_zip
+          order: 13
+          size:
+            - 64
+        companyname:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: companyname
+          order: 8
+          size:
+            - 255
+        created:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: created
+          order: 3
+          size:
+            - 0
+        firstname:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: firstname
+          order: 9
+          size:
+            - 255
+        lastname:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: lastname
+          order: 10
+          size:
+            - 255
+        modified:
+          data_type: timestamp
+          default_value: &1 !!perl/ref
+            =: current_timestamp
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: modified
+          order: 2
+          size:
+            - 0
+        notes:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: notes
+          order: 19
+          size:
+            - 0
+        phone:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: phone
+          order: 17
+          size:
+            - 64
+        serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+        share:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: share
+          order: 7
+          size:
+            - 0
+        url:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: url
+          order: 18
+          size:
+            - 0
+        users_count:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: users_count
+          order: 4
+          size:
+            - 0
+        users_points:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: users_points
+          order: 6
+          size:
+            - 0
+        users_rake:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: users_rake
+          order: 5
+          size:
+            - 0
+      indices: []
+      name: affiliates
+      options: []
+      order: 1
+    api_users:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - api_key
+            - secret
+          match_type: ''
+          name: key_secret
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+      fields:
+        api_key:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: api_key
+          order: 3
+          size:
+            - 255
+        email:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: email
+          order: 2
+          size:
+            - 255
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 0
+        secret:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: secret
+          order: 4
+          size:
+            - 255
+      indices: []
+      name: api_users
+      options: []
+      order: 2
+    chat_messages:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        game_id:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: game_id
+          order: 3
+          size:
+            - 0
+        message:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: message
+          order: 4
+          size:
+            - 0
+        player_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: player_serial
+          order: 2
+          size:
+            - 0
+        serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+        timestamp:
+          data_type: timestamp
+          default_value: &2 !!perl/ref
+            =: current_timestamp
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: timestamp
+          order: 5
+          size:
+            - 0
+      indices: []
+      name: chat_messages
+      options: []
+      order: 3
+    counter:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - currency_serial
+            - name
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        application_data:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: application_data
+          order: 8
+          size:
+            - 255
+        currency_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: currency_serial
+          order: 3
+          size:
+            - 0
+        name:
+          data_type: char
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: name
+          order: 5
+          size:
+            - 40
+        serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 4
+          size:
+            - 0
+        status:
+          data_type: char
+          default_value: y
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: status
+          order: 7
+          size:
+            - 1
+        transaction_id:
+          data_type: char
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: transaction_id
+          order: 1
+          size:
+            - 40
+        user_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user_serial
+          order: 2
+          size:
+            - 0
+        value:
+          data_type: bigint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: value
+          order: 6
+          size:
+            - 0
+      indices: []
+      name: counter
+      options: []
+      order: 4
+    currencies:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+            - url
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: serial
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 1
+          expression: ''
+          fields:
+            - url
+          match_type: ''
+          name: url
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+      fields:
+        cash_out:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: cash_out
+          order: 5
+          size:
+            - 0
+        name:
+          data_type: char
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 4
+          size:
+            - 32
+        serial:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 1
+          name: serial
+          order: 1
+          size:
+            - 0
+        symbol:
+          data_type: char
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: symbol
+          order: 3
+          size:
+            - 8
+        url:
+          data_type: char
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 1
+          name: url
+          order: 2
+          size:
+            - 255
+      indices: []
+      name: currencies
+      options: []
+      order: 5
+    deposits:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - deposit_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        amount:
+          data_type: float
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: amount
+          order: 4
+          size:
+            - 0
+        created_at:
+          data_type: datetime
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: created_at
+          order: 7
+          size:
+            - 0
+        currency_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: currency_serial
+          order: 3
+          size:
+            - 0
+        deposit_id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: deposit_id
+          order: 1
+          size:
+            - 0
+        info:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: info
+          order: 6
+          size:
+            - 0
+        processed:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: processed
+          order: 5
+          size:
+            - 0
+        processed_at:
+          data_type: datetime
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: processed_at
+          order: 8
+          size:
+            - 0
+        user_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user_serial
+          order: 2
+          size:
+            - 0
+      indices: []
+      name: deposits
+      options: []
+      order: 6
+    hands:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        created:
+          data_type: timestamp
+          default_value: &3 !!perl/ref
+            =: current_timestamp
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: created
+          order: 2
+          size:
+            - 0
+        description:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: description
+          order: 4
+          size:
+            - 0
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 3
+          size:
+            - 32
+        serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: hands
+      options: []
+      order: 7
+    messages:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+            - send_date
+            - sent
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        message:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: message
+          order: 3
+          size:
+            - 0
+        send_date:
+          data_type: timestamp
+          default_value: &4 !!perl/ref
+            =: current_timestamp
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: send_date
+          order: 2
+          size:
+            - 0
+        sent:
+          data_type: char
+          default_value: n
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: sent
+          order: 4
+          size:
+            - 1
+        serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: messages
+      options: []
+      order: 8
+    monitor:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        created:
+          data_type: timestamp
+          default_value: &5 !!perl/ref
+            =: current_timestamp
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: created
+          order: 2
+          size:
+            - 0
+        event:
+          data_type: tinyint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: event
+          order: 3
+          size:
+            - 0
+        param1:
+          data_type: bigint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: param1
+          order: 4
+          size:
+            - 0
+        param2:
+          data_type: bigint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: param2
+          order: 5
+          size:
+            - 0
+        param3:
+          data_type: bigint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: param3
+          order: 6
+          size:
+            - 0
+        serial:
+          data_type: bigint
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: monitor
+      options: []
+      order: 9
+    pokertables:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - name
+          match_type: ''
+          name: name
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+        - deferrable: 1
+          expression: ''
+          fields:
+            - resthost_serial
+          match_type: ''
+          name: pokertables_fk_resthost_serial
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - serial
+          reference_table: resthost
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - tourney_serial
+          match_type: ''
+          name: pokertables_fk_tourney_serial
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - serial
+          reference_table: tourneys
+          type: FOREIGN KEY
+      fields:
+        ante_bring_in:
+          data_type: bigint
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: ante_bring_in
+          order: 19
+          size:
+            - 0
+        ante_value:
+          data_type: bigint
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: ante_value
+          order: 18
+          size:
+            - 0
+        average_pot:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: average_pot
+          order: 4
+          size:
+            - 0
+        betting_description:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: betting_description
+          order: 21
+          size:
+            - 255
+        betting_structure:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: betting_structure
+          order: 15
+          size:
+            - 255
+        big_blind:
+          data_type: bigint
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: big_blind
+          order: 17
+          size:
+            - 0
+        currency_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: currency_serial
+          order: 12
+          size:
+            - 0
+        hands_per_hour:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: hands_per_hour
+          order: 5
+          size:
+            - 0
+        limit_type:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: limit_type
+          order: 20
+          size:
+            - 20
+        muck_timeout:
+          data_type: integer
+          default_value: 5
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: muck_timeout
+          order: 11
+          size:
+            - 0
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: name
+          order: 13
+          size:
+            - 255
+        observers:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: observers
+          order: 8
+          size:
+            - 0
+        percent_flop:
+          data_type: tinyint
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: percent_flop
+          order: 6
+          size:
+            - 0
+        player_timeout:
+          data_type: integer
+          default_value: 60
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: player_timeout
+          order: 10
+          size:
+            - 0
+        players:
+          data_type: tinyint
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: players
+          order: 7
+          size:
+            - 0
+        resthost_serial:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: resthost_serial
+          order: 2
+          size:
+            - 0
+        seats:
+          data_type: tinyint
+          default_value: 10
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: seats
+          order: 3
+          size:
+            - 0
+        serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+        skin:
+          data_type: varchar
+          default_value: default
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: skin
+          order: 22
+          size:
+            - 255
+        small_blind:
+          data_type: bigint
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: small_blind
+          order: 16
+          size:
+            - 0
+        tourney_serial:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: tourney_serial
+          order: 23
+          size:
+            - 0
+        variant:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: variant
+          order: 14
+          size:
+            - 255
+        waiting:
+          data_type: tinyint
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: waiting
+          order: 9
+          size:
+            - 0
+      indices:
+        - fields:
+            - resthost_serial
+          name: pokertables_idx_resthost_serial
+          options: []
+          type: NORMAL
+        - fields:
+            - tourney_serial
+          name: pokertables_idx_tourney_serial
+          options: []
+          type: NORMAL
+      name: pokertables
+      options: []
+      order: 28
+    prizes:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        description:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: description
+          order: 3
+          size:
+            - 255
+        image_url:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: image_url
+          order: 4
+          size:
+            - 0
+        link_url:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: link_url
+          order: 6
+          size:
+            - 0
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 2
+          size:
+            - 255
+        points:
+          data_type: integer
+          default_value: 0
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: points
+          order: 5
+          size:
+            - 0
+        serial:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: prizes
+      options: []
+      order: 10
+    prizes_version:
+      constraints: []
+      fields:
+        version:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: version
+          order: 1
+          size:
+            - 16
+      indices: []
+      name: prizes_version
+      options: []
+      order: 11
+    rank:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_serial
+            - currency_serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        amount:
+          data_type: bigint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: amount
+          order: 3
+          size:
+            - 0
+        currency_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: currency_serial
+          order: 2
+          size:
+            - 0
+        percentile:
+          data_type: tinyint
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: percentile
+          order: 5
+          size:
+            - 0
+        rank:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: rank
+          order: 4
+          size:
+            - 0
+        user_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: user_serial
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: rank
+      options: []
+      order: 12
+    rank_tmp:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_serial
+            - currency_serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        amount:
+          data_type: bigint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: amount
+          order: 3
+          size:
+            - 0
+        currency_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: currency_serial
+          order: 2
+          size:
+            - 0
+        percentile:
+          data_type: tinyint
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: percentile
+          order: 5
+          size:
+            - 0
+        rank:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: rank
+          order: 4
+          size:
+            - 0
+        user_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: user_serial
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: rank_tmp
+      options: []
+      order: 13
+    resthost:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        host:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: host
+          order: 3
+          size:
+            - 255
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 2
+          size:
+            - 255
+        path:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: path
+          order: 5
+          size:
+            - 255
+        port:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: port
+          order: 4
+          size:
+            - 0
+        serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: resthost
+      options: []
+      order: 14
+    route:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - table_serial
+            - tourney_serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        modified:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: modified
+          order: 3
+          size:
+            - 0
+        resthost_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: resthost_serial
+          order: 4
+          size:
+            - 0
+        table_serial:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: table_serial
+          order: 1
+          size:
+            - 0
+        tourney_serial:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: tourney_serial
+          order: 2
+          size:
+            - 0
+      indices: []
+      name: route
+      options: []
+      order: 15
+    safe:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - currency_serial
+            - serial
+            - value
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        currency_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: currency_serial
+          order: 1
+          size:
+            - 0
+        name:
+          data_type: char
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 3
+          size:
+            - 40
+        serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 2
+          size:
+            - 0
+        value:
+          data_type: bigint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: value
+          order: 4
+          size:
+            - 0
+      indices: []
+      name: safe
+      options: []
+      order: 16
+    server:
+      constraints: []
+      fields:
+        version:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: version
+          order: 1
+          size:
+            - 16
+      indices: []
+      name: server
+      options: []
+      order: 17
+    session:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_serial
+            - ip
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        ended:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: ended
+          order: 3
+          size:
+            - 0
+        ip:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: ip
+          order: 4
+          size:
+            - 16
+        started:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: started
+          order: 2
+          size:
+            - 0
+        user_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: user_serial
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: session
+      options: []
+      order: 18
+    session_history:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        ended:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: ended
+          order: 3
+          size:
+            - 0
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 5
+          size:
+            - 0
+        ip:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: ip
+          order: 4
+          size:
+            - 16
+        started:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: started
+          order: 2
+          size:
+            - 0
+        user_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user_serial
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: session_history
+      options: []
+      order: 19
+    tourneys:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - resthost_serial
+          match_type: ''
+          name: tourneys_fk_resthost_serial
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - serial
+          reference_table: resthost
+          type: FOREIGN KEY
+      fields:
+        add_on:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: add_on
+          order: 23
+          size:
+            - 0
+        add_on_count:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: add_on_count
+          order: 32
+          size:
+            - 0
+        add_on_delay:
+          data_type: integer
+          default_value: 60
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: add_on_delay
+          order: 24
+          size:
+            - 0
+        bailor_serial:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: bailor_serial
+          order: 15
+          size:
+            - 0
+        betting_structure:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: betting_structure
+          order: 9
+          size:
+            - 32
+        breaks_duration:
+          data_type: integer
+          default_value: 300
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: breaks_duration
+          order: 21
+          size:
+            - 0
+        breaks_first:
+          data_type: integer
+          default_value: 7200
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: breaks_first
+          order: 19
+          size:
+            - 0
+        breaks_interval:
+          data_type: integer
+          default_value: 3600
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: breaks_interval
+          order: 20
+          size:
+            - 0
+        buy_in:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: buy_in
+          order: 16
+          size:
+            - 0
+        currency_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: currency_serial
+          order: 12
+          size:
+            - 0
+        description_long:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: description_long
+          order: 5
+          size:
+            - 0
+        description_short:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: description_short
+          order: 4
+          size:
+            - 64
+        finish_time:
+          data_type: INT
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: finish_time
+          order: 29
+          size:
+            - 11
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 3
+          size:
+            - 200
+        player_timeout:
+          data_type: integer
+          default_value: 60
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: player_timeout
+          order: 11
+          size:
+            - 0
+        players_min:
+          data_type: integer
+          default_value: 2
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: players_min
+          order: 7
+          size:
+            - 0
+        players_quota:
+          data_type: integer
+          default_value: 10
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: players_quota
+          order: 6
+          size:
+            - 0
+        prize_currency:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: prize_currency
+          order: 13
+          size:
+            - 0
+        prize_min:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: prize_min
+          order: 14
+          size:
+            - 0
+        rake:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: rake
+          order: 17
+          size:
+            - 0
+        rebuy_count:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: rebuy_count
+          order: 33
+          size:
+            - 0
+        rebuy_delay:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: rebuy_delay
+          order: 22
+          size:
+            - 0
+        resthost_serial:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: resthost_serial
+          order: 2
+          size:
+            - 0
+        satellite_of:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: satellite_of
+          order: 26
+          size:
+            - 0
+        satellite_player_count:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: satellite_player_count
+          order: 28
+          size:
+            - 0
+        schedule_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: schedule_serial
+          order: 31
+          size:
+            - 0
+        seats_per_game:
+          data_type: integer
+          default_value: 10
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: seats_per_game
+          order: 10
+          size:
+            - 0
+        serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+        sit_n_go:
+          data_type: char
+          default_value: y
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: sit_n_go
+          order: 18
+          size:
+            - 1
+        start_time:
+          data_type: INT
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: start_time
+          order: 25
+          size:
+            - 11
+        state:
+          data_type: varchar
+          default_value: registering
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: state
+          order: 30
+          size:
+            - 16
+        variant:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: variant
+          order: 8
+          size:
+            - 32
+        via_satellite:
+          data_type: tinyint
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: via_satellite
+          order: 27
+          size:
+            - 0
+      indices:
+        - fields:
+            - resthost_serial
+          name: tourneys_idx_resthost_serial
+          options: []
+          type: NORMAL
+      name: tourneys
+      options: []
+      order: 25
+    tourneys_schedule:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        active:
+          data_type: char
+          default_value: y
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: active
+          order: 27
+          size:
+            - 1
+        add_on:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: add_on
+          order: 23
+          size:
+            - 0
+        add_on_delay:
+          data_type: integer
+          default_value: 60
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: add_on_delay
+          order: 24
+          size:
+            - 0
+        bailor_serial:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: bailor_serial
+          order: 15
+          size:
+            - 0
+        betting_structure:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: betting_structure
+          order: 9
+          size:
+            - 32
+        breaks_duration:
+          data_type: integer
+          default_value: 300
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: breaks_duration
+          order: 21
+          size:
+            - 0
+        breaks_first:
+          data_type: integer
+          default_value: 7200
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: breaks_first
+          order: 19
+          size:
+            - 0
+        breaks_interval:
+          data_type: integer
+          default_value: 3600
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: breaks_interval
+          order: 20
+          size:
+            - 0
+        buy_in:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: buy_in
+          order: 16
+          size:
+            - 0
+        currency_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: currency_serial
+          order: 12
+          size:
+            - 0
+        currency_serial_from_date_format:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: currency_serial_from_date_format
+          order: 30
+          size:
+            - 16
+        description_long:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: description_long
+          order: 5
+          size:
+            - 0
+        description_short:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: description_short
+          order: 4
+          size:
+            - 64
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 3
+          size:
+            - 200
+        player_timeout:
+          data_type: integer
+          default_value: 60
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: player_timeout
+          order: 11
+          size:
+            - 0
+        players_min:
+          data_type: integer
+          default_value: 2
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: players_min
+          order: 7
+          size:
+            - 0
+        players_quota:
+          data_type: integer
+          default_value: 10
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: players_quota
+          order: 6
+          size:
+            - 0
+        prize_currency:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: prize_currency
+          order: 13
+          size:
+            - 0
+        prize_currency_from_date_format:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: prize_currency_from_date_format
+          order: 31
+          size:
+            - 16
+        prize_min:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: prize_min
+          order: 14
+          size:
+            - 0
+        rake:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: rake
+          order: 17
+          size:
+            - 0
+        rebuy_delay:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: rebuy_delay
+          order: 22
+          size:
+            - 0
+        register_time:
+          data_type: INT
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: register_time
+          order: 26
+          size:
+            - 11
+        respawn:
+          data_type: char
+          default_value: n
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: respawn
+          order: 28
+          size:
+            - 1
+        respawn_interval:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: respawn_interval
+          order: 29
+          size:
+            - 0
+        resthost_serial:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: resthost_serial
+          order: 2
+          size:
+            - 0
+        satellite_of:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: satellite_of
+          order: 32
+          size:
+            - 0
+        satellite_player_count:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: satellite_player_count
+          order: 34
+          size:
+            - 0
+        seats_per_game:
+          data_type: integer
+          default_value: 10
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: seats_per_game
+          order: 10
+          size:
+            - 0
+        serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+        sit_n_go:
+          data_type: char
+          default_value: y
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: sit_n_go
+          order: 18
+          size:
+            - 1
+        start_time:
+          data_type: INT
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: start_time
+          order: 25
+          size:
+            - 11
+        variant:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: variant
+          order: 8
+          size:
+            - 32
+        via_satellite:
+          data_type: tinyint
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: via_satellite
+          order: 33
+          size:
+            - 0
+      indices: []
+      name: tourneys_schedule
+      options: []
+      order: 20
+    tourneys_schedule2prizes:
+      constraints: []
+      fields:
+        prize_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: prize_serial
+          order: 2
+          size:
+            - 0
+        tourneys_schedule_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: tourneys_schedule_serial
+          order: 1
+          size:
+            - 0
+      indices: []
+      name: tourneys_schedule2prizes
+      options: []
+      order: 21
+    user2bitcoin:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_serial
+          match_type: ''
+          name: user2bitcoin_fk_user_serial
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - serial
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        address:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: address
+          order: 5
+          size:
+            - 40
+        amount:
+          data_type: decimal
+          default_value: 0.00000000
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: amount
+          order: 4
+          size:
+            - 52
+            - 8
+        currency_serial:
+          data_type: bigint
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: currency_serial
+          order: 3
+          size:
+            - 0
+        serial:
+          data_type: bigint
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+        user_serial:
+          data_type: bigint
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user_serial
+          order: 2
+          size:
+            - 0
+      indices:
+        - fields:
+            - user_serial
+          name: user2bitcoin_idx_user_serial
+          options: []
+          type: NORMAL
+      name: user2bitcoin
+      options: []
+      order: 26
+    user2hand:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_serial
+            - hand_serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - hand_serial
+          match_type: ''
+          name: user2hand_fk_hand_serial
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - serial
+          reference_table: hands
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_serial
+          match_type: ''
+          name: user2hand_fk_user_serial
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - serial
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        hand_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: hand_serial
+          order: 2
+          size:
+            - 0
+        ip:
+          data_type: bigint
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: ip
+          order: 4
+          size:
+            - 0
+        ip6:
+          data_type: bigint
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: ip6
+          order: 3
+          size:
+            - 0
+        points:
+          data_type: decimal
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: points
+          order: 8
+          size:
+            - 64
+            - 4
+        pot:
+          data_type: bigint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: pot
+          order: 6
+          size:
+            - 0
+        rake:
+          data_type: bigint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: rake
+          order: 7
+          size:
+            - 0
+        share:
+          data_type: bigint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: share
+          order: 5
+          size:
+            - 0
+        user_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: user_serial
+          order: 1
+          size:
+            - 0
+      indices:
+        - fields:
+            - hand_serial
+          name: user2hand_idx_hand_serial
+          options: []
+          type: NORMAL
+        - fields:
+            - user_serial
+          name: user2hand_idx_user_serial
+          options: []
+          type: NORMAL
+      name: user2hand
+      options: []
+      order: 29
+    user2money:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_serial
+            - currency_serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - currency_serial
+          match_type: ''
+          name: user2money_fk_currency_serial
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - serial
+          reference_table: currencies
+          type: FOREIGN KEY
+      fields:
+        amount:
+          data_type: bigint
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: amount
+          order: 3
+          size:
+            - 0
+        currency_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: currency_serial
+          order: 2
+          size:
+            - 0
+        points:
+          data_type: decimal
+          default_value: 0.0000
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: points
+          order: 5
+          size:
+            - 64
+            - 4
+        points_cashed:
+          data_type: decimal
+          default_value: 0.0000
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: points_cashed
+          order: 6
+          size:
+            - 64
+            - 4
+        rake:
+          data_type: bigint
+          default_value: 0
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: rake
+          order: 4
+          size:
+            - 0
+        user_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: user_serial
+          order: 1
+          size:
+            - 0
+      indices:
+        - fields:
+            - currency_serial
+          name: user2money_idx_currency_serial
+          options: []
+          type: NORMAL
+      name: user2money
+      options: []
+      order: 27
+    user2table:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_serial
+            - table_serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - table_serial
+          match_type: ''
+          name: user2table_fk_table_serial
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - serial
+          reference_table: pokertables
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_serial
+          match_type: ''
+          name: user2table_fk_user_serial
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - serial
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        bet:
+          data_type: integer
+          default_value: 0
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: bet
+          order: 4
+          size:
+            - 0
+        money:
+          data_type: integer
+          default_value: 0
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: money
+          order: 3
+          size:
+            - 0
+        table_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: table_serial
+          order: 2
+          size:
+            - 0
+        user_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: user_serial
+          order: 1
+          size:
+            - 0
+      indices:
+        - fields:
+            - table_serial
+          name: user2table_idx_table_serial
+          options: []
+          type: NORMAL
+        - fields:
+            - user_serial
+          name: user2table_idx_user_serial
+          options: []
+          type: NORMAL
+      name: user2table
+      options: []
+      order: 31
+    user2tourney:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_serial
+            - tourney_serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - tourney_serial
+          match_type: ''
+          name: user2tourney_fk_tourney_serial
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - serial
+          reference_table: tourneys
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - table_serial
+          match_type: ''
+          name: user2tourney_fk_table_serial
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - serial
+          reference_table: pokertables
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_serial
+          match_type: ''
+          name: user2tourney_fk_user_serial
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - serial
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        currency_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: currency_serial
+          order: 2
+          size:
+            - 0
+        rank:
+          data_type: integer
+          default_value: -1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: rank
+          order: 5
+          size:
+            - 0
+        table_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: table_serial
+          order: 4
+          size:
+            - 0
+        tourney_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: tourney_serial
+          order: 3
+          size:
+            - 0
+        user_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: user_serial
+          order: 1
+          size:
+            - 0
+      indices:
+        - fields:
+            - tourney_serial
+          name: user2tourney_idx_tourney_serial
+          options: []
+          type: NORMAL
+        - fields:
+            - table_serial
+          name: user2tourney_idx_table_serial
+          options: []
+          type: NORMAL
+        - fields:
+            - user_serial
+          name: user2tourney_idx_user_serial
+          options: []
+          type: NORMAL
+      name: user2tourney
+      options: []
+      order: 32
+    users:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - email
+          match_type: ''
+          name: email_idx
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+      fields:
+        affiliate:
+          data_type: integer
+          default_value: 0
+          extra:
+            unsigned: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: affiliate
+          order: 5
+          size:
+            - 0
+        created:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: created
+          order: 2
+          size:
+            - 0
+        data:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: data
+          order: 16
+          size:
+            - 0
+        email:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 1
+          name: email
+          order: 4
+          size:
+            - 128
+        future_rating:
+          data_type: float
+          default_value: 1000
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: future_rating
+          order: 14
+          size:
+            - 0
+        games_count:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: games_count
+          order: 15
+          size:
+            - 0
+        locale:
+          data_type: varchar
+          default_value: en_US
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: locale
+          order: 12
+          size:
+            - 32
+        name:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: name
+          order: 3
+          size:
+            - 64
+        password:
+          data_type: VARCHAR
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: password
+          order: 10
+          size:
+            - 512
+        privilege:
+          data_type: integer
+          default_value: 1
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: privilege
+          order: 11
+          size:
+            - 0
+        rating:
+          data_type: integer
+          default_value: 1000
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: rating
+          order: 13
+          size:
+            - 0
+        serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+        skin_image:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: skin_image
+          order: 8
+          size:
+            - 0
+        skin_image_type:
+          data_type: varchar
+          default_value: image/png
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: skin_image_type
+          order: 9
+          size:
+            - 32
+        skin_outfit:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: skin_outfit
+          order: 7
+          size:
+            - 0
+        skin_url:
+          data_type: varchar
+          default_value: random
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: skin_url
+          order: 6
+          size:
+            - 255
+      indices: []
+      name: users
+      options: []
+      order: 22
+    users_private:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - serial
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        addr_country:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: addr_country
+          order: 9
+          size:
+            - 64
+        addr_state:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: addr_state
+          order: 8
+          size:
+            - 128
+        addr_street:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: addr_street
+          order: 4
+          size:
+            - 255
+        addr_street2:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: addr_street2
+          order: 5
+          size:
+            - 255
+        addr_town:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: addr_town
+          order: 7
+          size:
+            - 64
+        addr_zip:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: addr_zip
+          order: 6
+          size:
+            - 64
+        birthdate:
+          data_type: date
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: birthdate
+          order: 12
+          size:
+            - 0
+        firstname:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: firstname
+          order: 2
+          size:
+            - 255
+        gender:
+          data_type: char
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: gender
+          order: 11
+          size:
+            - 1
+        lastname:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: lastname
+          order: 3
+          size:
+            - 255
+        phone:
+          data_type: varchar
+          default_value: ''
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: phone
+          order: 10
+          size:
+            - 64
+        serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: serial
+          order: 1
+          size:
+            - 0
+        verified:
+          data_type: char
+          default_value: n
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: verified
+          order: 13
+          size:
+            - 1
+        verified_time:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: verified_time
+          order: 14
+          size:
+            - 0
+      indices: []
+      name: users_private
+      options: []
+      order: 23
+    users_transactions:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+      fields:
+        amount:
+          data_type: integer
+          default_value: 0
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: amount
+          order: 4
+          size:
+            - 0
+        currency_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: currency_serial
+          order: 5
+          size:
+            - 0
+        from_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: from_serial
+          order: 1
+          size:
+            - 0
+        id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 8
+          size:
+            - 0
+        modified:
+          data_type: timestamp
+          default_value: &6 !!perl/ref
+            =: current_timestamp
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: modified
+          order: 3
+          size:
+            - 0
+        notes:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: notes
+          order: 7
+          size:
+            - 0
+        status:
+          data_type: char
+          default_value: n
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: status
+          order: 6
+          size:
+            - 1
+        to_serial:
+          data_type: integer
+          default_value: ~
+          extra:
+            unsigned: 1
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: to_serial
+          order: 2
+          size:
+            - 0
+      indices: []
+      name: users_transactions
+      options: []
+      order: 24
+    withdrawal:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - withdrawal_id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - currency_serial
+          match_type: ''
+          name: withdrawal_fk_currency_serial
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields:
+            - serial
+          reference_table: currencies
+          type: FOREIGN KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - user_serial
+          match_type: ''
+          name: withdrawal_fk_user_serial
+          on_delete: CASCADE
+          on_update: CASCADE
+          options: []
+          reference_fields:
+            - serial
+          reference_table: users
+          type: FOREIGN KEY
+      fields:
+        amount:
+          data_type: float
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: amount
+          order: 4
+          size:
+            - 0
+        created_at:
+          data_type: datetime
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: created_at
+          order: 7
+          size:
+            - 0
+        currency_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: currency_serial
+          order: 3
+          size:
+            - 0
+        dest:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: dest
+          order: 9
+          size:
+            - 0
+        info:
+          data_type: text
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: info
+          order: 6
+          size:
+            - 0
+        processed:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: processed
+          order: 5
+          size:
+            - 0
+        processed_at:
+          data_type: DATETIME
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: processed_at
+          order: 8
+          size:
+            - 19
+        user_serial:
+          data_type: integer
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 0
+          name: user_serial
+          order: 2
+          size:
+            - 0
+        withdrawal_id:
+          data_type: integer
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: withdrawal_id
+          order: 1
+          size:
+            - 0
+      indices:
+        - fields:
+            - currency_serial
+          name: withdrawal_idx_currency_serial
+          options: []
+          type: NORMAL
+        - fields:
+            - user_serial
+          name: withdrawal_idx_user_serial
+          options: []
+          type: NORMAL
+      name: withdrawal
+      options: []
+      order: 30
+  triggers: {}
+  views: {}
+translator:
+  add_drop_table: 0
+  filename: ~
+  no_comments: 0
+  parser_args:
+    package: &7 !!perl/hash:Room::Schema::PokerNetwork
+      class_mappings:
+        DBIx::Class::DeploymentHandler::VersionStorage::Standard::VersionResult: __VERSION
+        Room::Schema::PokerNetwork::Result::Affiliates: Affiliates
+        Room::Schema::PokerNetwork::Result::ApiUsers: ApiUsers
+        Room::Schema::PokerNetwork::Result::ChatMessages: ChatMessages
+        Room::Schema::PokerNetwork::Result::Counter: Counter
+        Room::Schema::PokerNetwork::Result::Currencies: Currencies
+        Room::Schema::PokerNetwork::Result::Deposits: Deposits
+        Room::Schema::PokerNetwork::Result::Hands: Hands
+        Room::Schema::PokerNetwork::Result::Messages: Messages
+        Room::Schema::PokerNetwork::Result::Monitor: Monitor
+        Room::Schema::PokerNetwork::Result::Pokertables: Pokertables
+        Room::Schema::PokerNetwork::Result::Prizes: Prizes
+        Room::Schema::PokerNetwork::Result::PrizesVersion: PrizesVersion
+        Room::Schema::PokerNetwork::Result::Rank: Rank
+        Room::Schema::PokerNetwork::Result::RankTmp: RankTmp
+        Room::Schema::PokerNetwork::Result::Resthost: Resthost
+        Room::Schema::PokerNetwork::Result::Route: Route
+        Room::Schema::PokerNetwork::Result::Safe: Safe
+        Room::Schema::PokerNetwork::Result::Server: Server
+        Room::Schema::PokerNetwork::Result::Session: Session
+        Room::Schema::PokerNetwork::Result::SessionHistory: SessionHistory
+        Room::Schema::PokerNetwork::Result::Tourneys: Tourneys
+        Room::Schema::PokerNetwork::Result::TourneysSchedule: TourneysSchedule
+        Room::Schema::PokerNetwork::Result::TourneysSchedule2prizes: TourneysSchedule2prizes
+        Room::Schema::PokerNetwork::Result::User2bitcoin: User2bitcoin
+        Room::Schema::PokerNetwork::Result::User2hand: User2hand
+        Room::Schema::PokerNetwork::Result::User2money: User2money
+        Room::Schema::PokerNetwork::Result::User2table: User2table
+        Room::Schema::PokerNetwork::Result::User2tourney: User2tourney
+        Room::Schema::PokerNetwork::Result::Users: Users
+        Room::Schema::PokerNetwork::Result::UsersPrivate: UsersPrivate
+        Room::Schema::PokerNetwork::Result::UsersTransactions: UsersTransactions
+        Room::Schema::PokerNetwork::Result::Withdrawal: Withdrawal
+      source_registrations:
+        Affiliates: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            addr_country:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            addr_state:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 128
+            addr_street:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            addr_street2:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            addr_town:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            addr_zip:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            companyname:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            created:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            firstname:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            lastname:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            modified:
+              _ic_dt_method: timestamp
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp
+              datetime_undef_if_invalid: 1
+              default_value: *1
+              is_nullable: 0
+            notes:
+              data_type: text
+              is_nullable: 1
+            phone:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            share:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            url:
+              data_type: text
+              is_nullable: 1
+            users_count:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            users_points:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            users_rake:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - modified
+            - created
+            - users_count
+            - users_rake
+            - users_points
+            - share
+            - companyname
+            - firstname
+            - lastname
+            - addr_street
+            - addr_street2
+            - addr_zip
+            - addr_town
+            - addr_state
+            - addr_country
+            - phone
+            - url
+            - notes
+          _primaries: &8
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *8
+          name: affiliates
+          result_class: Room::Schema::PokerNetwork::Result::Affiliates
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Affiliates
+        ApiUsers: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            api_key:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+            email:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+            id:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+            secret:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - id
+            - email
+            - api_key
+            - secret
+          _primaries: &9
+            - id
+          _relationships: {}
+          _unique_constraints:
+            key_secret:
+              - api_key
+              - secret
+            primary: *9
+          name: api_users
+          result_class: Room::Schema::PokerNetwork::Result::ApiUsers
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: ApiUsers
+        ChatMessages: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            game_id:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            message:
+              data_type: text
+              is_nullable: 1
+            player_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            timestamp:
+              _ic_dt_method: timestamp
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp
+              datetime_undef_if_invalid: 1
+              default_value: *2
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - player_serial
+            - game_id
+            - message
+            - timestamp
+          _primaries: &10
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *10
+          name: chat_messages
+          result_class: Room::Schema::PokerNetwork::Result::ChatMessages
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: ChatMessages
+        Counter: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            application_data:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 0
+              size: 255
+            currency_serial:
+              data_type: integer
+              is_nullable: 0
+            name:
+              data_type: char
+              is_nullable: 0
+              size: 40
+            serial:
+              data_type: integer
+              is_nullable: 0
+            status:
+              data_type: char
+              default_value: y
+              is_nullable: 0
+              size: 1
+            transaction_id:
+              data_type: char
+              is_nullable: 0
+              size: 40
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+            value:
+              data_type: bigint
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - transaction_id
+            - user_serial
+            - currency_serial
+            - serial
+            - name
+            - value
+            - status
+            - application_data
+          _primaries: &11
+            - currency_serial
+            - name
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *11
+          name: counter
+          result_class: Room::Schema::PokerNetwork::Result::Counter
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Counter
+        Currencies: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            cash_out:
+              data_type: integer
+              is_nullable: 1
+            name:
+              data_type: char
+              is_nullable: 1
+              size: 32
+            serial:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+            symbol:
+              data_type: char
+              is_nullable: 1
+              size: 8
+            url:
+              data_type: char
+              is_nullable: 0
+              size: 255
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - url
+            - symbol
+            - name
+            - cash_out
+          _primaries: &12
+            - serial
+            - url
+          _relationships: {}
+          _unique_constraints:
+            primary: *12
+            serial:
+              - serial
+            url:
+              - url
+          name: currencies
+          result_class: Room::Schema::PokerNetwork::Result::Currencies
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Currencies
+        Deposits: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            amount:
+              data_type: float
+              is_nullable: 0
+            created_at:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: datetime
+              datetime_undef_if_invalid: 1
+              is_nullable: 0
+            currency_serial:
+              data_type: integer
+              is_nullable: 0
+            deposit_id:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+            info:
+              data_type: text
+              is_nullable: 0
+            processed:
+              data_type: integer
+              is_nullable: 0
+            processed_at:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: datetime
+              datetime_undef_if_invalid: 1
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - deposit_id
+            - user_serial
+            - currency_serial
+            - amount
+            - processed
+            - info
+            - created_at
+            - processed_at
+          _primaries: &13
+            - deposit_id
+          _relationships: {}
+          _unique_constraints:
+            primary: *13
+          name: deposits
+          result_class: Room::Schema::PokerNetwork::Result::Deposits
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Deposits
+        Hands: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            created:
+              _ic_dt_method: timestamp
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp
+              datetime_undef_if_invalid: 1
+              default_value: *3
+              is_nullable: 0
+            description:
+              data_type: text
+              is_nullable: 0
+            name:
+              data_type: varchar
+              is_nullable: 1
+              size: 32
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - created
+            - name
+            - description
+          _primaries: &14
+            - serial
+          _relationships:
+            userhands:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2hand
+              cond:
+                foreign.hand_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2hand
+          _unique_constraints:
+            primary: *14
+          name: hands
+          result_class: Room::Schema::PokerNetwork::Result::Hands
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Hands
+        Messages: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            message:
+              data_type: text
+              is_nullable: 1
+            send_date:
+              _ic_dt_method: timestamp
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp
+              datetime_undef_if_invalid: 1
+              default_value: *4
+              is_nullable: 0
+            sent:
+              data_type: char
+              default_value: n
+              is_nullable: 0
+              size: 1
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - send_date
+            - message
+            - sent
+          _primaries: &15
+            - serial
+            - send_date
+            - sent
+          _relationships: {}
+          _unique_constraints:
+            primary: *15
+          name: messages
+          result_class: Room::Schema::PokerNetwork::Result::Messages
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Messages
+        Monitor: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            created:
+              _ic_dt_method: timestamp
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp
+              datetime_undef_if_invalid: 1
+              default_value: *5
+              is_nullable: 0
+            event:
+              data_type: tinyint
+              is_nullable: 0
+            param1:
+              data_type: bigint
+              is_nullable: 0
+            param2:
+              data_type: bigint
+              is_nullable: 0
+            param3:
+              data_type: bigint
+              is_nullable: 0
+            serial:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - created
+            - event
+            - param1
+            - param2
+            - param3
+          _primaries: &16
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *16
+          name: monitor
+          result_class: Room::Schema::PokerNetwork::Result::Monitor
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Monitor
+        Pokertables: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            ante_bring_in:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            ante_value:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            average_pot:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            betting_description:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+            betting_structure:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+            big_blind:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            currency_serial:
+              data_type: integer
+              is_nullable: 0
+            hands_per_hour:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            limit_type:
+              data_type: varchar
+              is_nullable: 0
+              size: 20
+            muck_timeout:
+              data_type: integer
+              default_value: 5
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            name:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+            observers:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            percent_flop:
+              data_type: tinyint
+              default_value: 0
+              is_nullable: 1
+            player_timeout:
+              data_type: integer
+              default_value: 60
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            players:
+              data_type: tinyint
+              default_value: 0
+              is_nullable: 1
+            resthost_serial:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            seats:
+              data_type: tinyint
+              default_value: 10
+              is_nullable: 1
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            skin:
+              data_type: varchar
+              default_value: default
+              is_nullable: 0
+              size: 255
+            small_blind:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            tourney_serial:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            variant:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+            waiting:
+              data_type: tinyint
+              default_value: 0
+              is_nullable: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - resthost_serial
+            - seats
+            - average_pot
+            - hands_per_hour
+            - percent_flop
+            - players
+            - observers
+            - waiting
+            - player_timeout
+            - muck_timeout
+            - currency_serial
+            - name
+            - variant
+            - betting_structure
+            - small_blind
+            - big_blind
+            - ante_value
+            - ante_bring_in
+            - limit_type
+            - betting_description
+            - skin
+            - tourney_serial
+          _primaries: &17
+            - serial
+          _relationships:
+            resthost:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+              class: Room::Schema::PokerNetwork::Result::Resthost
+              cond:
+                foreign.serial: self.resthost_serial
+              source: Room::Schema::PokerNetwork::Result::Resthost
+            tourney:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+              class: Room::Schema::PokerNetwork::Result::Tourneys
+              cond:
+                foreign.serial: self.tourney_serial
+              source: Room::Schema::PokerNetwork::Result::Tourneys
+            usertables:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2table
+              cond:
+                foreign.table_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2table
+          _unique_constraints:
+            name:
+              - name
+            primary: *17
+          name: pokertables
+          result_class: Room::Schema::PokerNetwork::Result::Pokertables
+          resultset_attributes: {}
+          resultset_class: Room::Schema::PokerNetwork::ResultSet::Pokertables
+          schema: *7
+          source_name: Pokertables
+        Prizes: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            description:
+              data_type: varchar
+              is_nullable: 1
+              size: 255
+            image_url:
+              data_type: text
+              is_nullable: 1
+            link_url:
+              data_type: text
+              is_nullable: 1
+            name:
+              data_type: varchar
+              is_nullable: 1
+              size: 255
+            points:
+              data_type: integer
+              default_value: 0
+              is_nullable: 0
+            serial:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - name
+            - description
+            - image_url
+            - points
+            - link_url
+          _primaries: &18
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *18
+          name: prizes
+          result_class: Room::Schema::PokerNetwork::Result::Prizes
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Prizes
+        PrizesVersion: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            version:
+              data_type: varchar
+              is_nullable: 0
+              size: 16
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - version
+          _relationships: {}
+          name: prizes_version
+          result_class: Room::Schema::PokerNetwork::Result::PrizesVersion
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: PrizesVersion
+        Rank: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            amount:
+              data_type: bigint
+              is_nullable: 0
+            currency_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            percentile:
+              data_type: tinyint
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            rank:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - currency_serial
+            - amount
+            - rank
+            - percentile
+          _primaries: &19
+            - user_serial
+            - currency_serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *19
+          name: rank
+          result_class: Room::Schema::PokerNetwork::Result::Rank
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Rank
+        RankTmp: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            amount:
+              data_type: bigint
+              is_nullable: 0
+            currency_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            percentile:
+              data_type: tinyint
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            rank:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - currency_serial
+            - amount
+            - rank
+            - percentile
+          _primaries: &20
+            - user_serial
+            - currency_serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *20
+          name: rank_tmp
+          result_class: Room::Schema::PokerNetwork::Result::RankTmp
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: RankTmp
+        Resthost: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            host:
+              data_type: varchar
+              is_nullable: 1
+              size: 255
+            name:
+              data_type: varchar
+              is_nullable: 1
+              size: 255
+            path:
+              data_type: varchar
+              is_nullable: 1
+              size: 255
+            port:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - name
+            - host
+            - port
+            - path
+          _primaries: &21
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *21
+          name: resthost
+          result_class: Room::Schema::PokerNetwork::Result::Resthost
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Resthost
+        Route: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            modified:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            resthost_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            table_serial:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            tourney_serial:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - table_serial
+            - tourney_serial
+            - modified
+            - resthost_serial
+          _primaries: &22
+            - table_serial
+            - tourney_serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *22
+          name: route
+          result_class: Room::Schema::PokerNetwork::Result::Route
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Route
+        Safe: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            currency_serial:
+              data_type: integer
+              is_nullable: 0
+            name:
+              data_type: char
+              is_nullable: 0
+              size: 40
+            serial:
+              data_type: integer
+              is_nullable: 0
+            value:
+              data_type: bigint
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - currency_serial
+            - serial
+            - name
+            - value
+          _primaries: &23
+            - currency_serial
+            - serial
+            - value
+          _relationships: {}
+          _unique_constraints:
+            primary: *23
+          name: safe
+          result_class: Room::Schema::PokerNetwork::Result::Safe
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Safe
+        Server: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            version:
+              data_type: varchar
+              is_nullable: 0
+              size: 16
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - version
+          _relationships: {}
+          name: server
+          result_class: Room::Schema::PokerNetwork::Result::Server
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Server
+        Session: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            ended:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            ip:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 0
+              size: 16
+            started:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - started
+            - ended
+            - ip
+          _primaries: &24
+            - user_serial
+            - ip
+          _relationships: {}
+          _unique_constraints:
+            primary: *24
+          name: session
+          result_class: Room::Schema::PokerNetwork::Result::Session
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Session
+        SessionHistory: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            ended:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            id:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+            ip:
+              data_type: varchar
+              is_nullable: 1
+              size: 16
+            started:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - started
+            - ended
+            - ip
+            - id
+          _primaries: &25
+            - id
+          _relationships: {}
+          _unique_constraints:
+            primary: *25
+          name: session_history
+          result_class: Room::Schema::PokerNetwork::Result::SessionHistory
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: SessionHistory
+        Tourneys: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            add_on:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            add_on_count:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            add_on_delay:
+              data_type: integer
+              default_value: 60
+              is_nullable: 1
+            bailor_serial:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            betting_structure:
+              data_type: varchar
+              is_nullable: 1
+              size: 32
+            breaks_duration:
+              data_type: integer
+              default_value: 300
+              is_nullable: 1
+            breaks_first:
+              data_type: integer
+              default_value: 7200
+              is_nullable: 1
+            breaks_interval:
+              data_type: integer
+              default_value: 3600
+              is_nullable: 1
+            buy_in:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            currency_serial:
+              data_type: integer
+              is_nullable: 1
+            description_long:
+              data_type: text
+              is_nullable: 1
+            description_short:
+              data_type: varchar
+              is_nullable: 1
+              size: 64
+            finish_time:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: INT
+              inflate_datetime: epoch
+              is_nullable: 1
+              size: 11
+            name:
+              data_type: varchar
+              is_nullable: 1
+              size: 200
+            player_timeout:
+              data_type: integer
+              default_value: 60
+              is_nullable: 1
+            players_min:
+              data_type: integer
+              default_value: 2
+              is_nullable: 1
+            players_quota:
+              data_type: integer
+              default_value: 10
+              is_nullable: 1
+            prize_currency:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            prize_min:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            rake:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            rebuy_count:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            rebuy_delay:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            resthost_serial:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            satellite_of:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            satellite_player_count:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            schedule_serial:
+              data_type: integer
+              is_nullable: 1
+            seats_per_game:
+              data_type: integer
+              default_value: 10
+              is_nullable: 1
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            sit_n_go:
+              data_type: char
+              default_value: y
+              is_nullable: 1
+              size: 1
+            start_time:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: INT
+              inflate_datetime: epoch
+              is_nullable: 1
+              size: 11
+            state:
+              data_type: varchar
+              default_value: registering
+              is_nullable: 1
+              size: 16
+            variant:
+              data_type: varchar
+              is_nullable: 1
+              size: 32
+            via_satellite:
+              data_type: tinyint
+              default_value: 0
+              is_nullable: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - resthost_serial
+            - name
+            - description_short
+            - description_long
+            - players_quota
+            - players_min
+            - variant
+            - betting_structure
+            - seats_per_game
+            - player_timeout
+            - currency_serial
+            - prize_currency
+            - prize_min
+            - bailor_serial
+            - buy_in
+            - rake
+            - sit_n_go
+            - breaks_first
+            - breaks_interval
+            - breaks_duration
+            - rebuy_delay
+            - add_on
+            - add_on_delay
+            - start_time
+            - satellite_of
+            - via_satellite
+            - satellite_player_count
+            - finish_time
+            - state
+            - schedule_serial
+            - add_on_count
+            - rebuy_count
+          _primaries: &26
+            - serial
+          _relationships:
+            resthost:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+              class: Room::Schema::PokerNetwork::Result::Resthost
+              cond:
+                foreign.serial: self.resthost_serial
+              source: Room::Schema::PokerNetwork::Result::Resthost
+            usertourneys:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2tourney
+              cond:
+                foreign.tourney_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2tourney
+          _unique_constraints:
+            primary: *26
+          name: tourneys
+          result_class: Room::Schema::PokerNetwork::Result::Tourneys
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Tourneys
+        TourneysSchedule: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            active:
+              data_type: char
+              default_value: y
+              is_nullable: 1
+              size: 1
+            add_on:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            add_on_delay:
+              data_type: integer
+              default_value: 60
+              is_nullable: 1
+            bailor_serial:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            betting_structure:
+              data_type: varchar
+              is_nullable: 1
+              size: 32
+            breaks_duration:
+              data_type: integer
+              default_value: 300
+              is_nullable: 1
+            breaks_first:
+              data_type: integer
+              default_value: 7200
+              is_nullable: 1
+            breaks_interval:
+              data_type: integer
+              default_value: 3600
+              is_nullable: 1
+            buy_in:
+              _filter_info:
+                filter_from_storage: __filter_divide
+                filter_to_storage: __filter_multi
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            currency_serial:
+              data_type: integer
+              is_nullable: 1
+            currency_serial_from_date_format:
+              data_type: varchar
+              is_nullable: 1
+              size: 16
+            description_long:
+              data_type: text
+              is_nullable: 1
+            description_short:
+              data_type: varchar
+              is_nullable: 1
+              size: 64
+            name:
+              data_type: varchar
+              is_nullable: 1
+              size: 200
+            player_timeout:
+              data_type: integer
+              default_value: 60
+              is_nullable: 1
+            players_min:
+              data_type: integer
+              default_value: 2
+              is_nullable: 1
+            players_quota:
+              data_type: integer
+              default_value: 10
+              is_nullable: 1
+            prize_currency:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            prize_currency_from_date_format:
+              data_type: varchar
+              is_nullable: 1
+              size: 16
+            prize_min:
+              _filter_info:
+                filter_from_storage: __filter_divide
+                filter_to_storage: __filter_multi
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            rake:
+              _filter_info:
+                filter_from_storage: __filter_divide
+                filter_to_storage: __filter_multi
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            rebuy_delay:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            register_time:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: INT
+              inflate_datetime: epoch
+              is_nullable: 1
+              size: 11
+            respawn:
+              data_type: char
+              default_value: n
+              is_nullable: 1
+              size: 1
+            respawn_interval:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            resthost_serial:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            satellite_of:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            satellite_player_count:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            seats_per_game:
+              data_type: integer
+              default_value: 10
+              is_nullable: 1
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            sit_n_go:
+              data_type: char
+              default_value: y
+              is_nullable: 1
+              size: 1
+            start_time:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: INT
+              inflate_datetime: epoch
+              is_nullable: 1
+              size: 11
+            variant:
+              data_type: varchar
+              is_nullable: 1
+              size: 32
+            via_satellite:
+              data_type: tinyint
+              default_value: 0
+              is_nullable: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - resthost_serial
+            - name
+            - description_short
+            - description_long
+            - players_quota
+            - players_min
+            - variant
+            - betting_structure
+            - seats_per_game
+            - player_timeout
+            - currency_serial
+            - prize_currency
+            - prize_min
+            - bailor_serial
+            - buy_in
+            - rake
+            - sit_n_go
+            - breaks_first
+            - breaks_interval
+            - breaks_duration
+            - rebuy_delay
+            - add_on
+            - add_on_delay
+            - start_time
+            - register_time
+            - active
+            - respawn
+            - respawn_interval
+            - currency_serial_from_date_format
+            - prize_currency_from_date_format
+            - satellite_of
+            - via_satellite
+            - satellite_player_count
+          _primaries: &27
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *27
+          name: tourneys_schedule
+          result_class: Room::Schema::PokerNetwork::Result::TourneysSchedule
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: TourneysSchedule
+        TourneysSchedule2prizes: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            prize_serial:
+              data_type: integer
+              is_nullable: 1
+            tourneys_schedule_serial:
+              data_type: integer
+              is_nullable: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - tourneys_schedule_serial
+            - prize_serial
+          _relationships: {}
+          name: tourneys_schedule2prizes
+          result_class: Room::Schema::PokerNetwork::Result::TourneysSchedule2prizes
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: TourneysSchedule2prizes
+        User2bitcoin: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            address:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 0
+              size: 40
+            amount:
+              data_type: decimal
+              default_value: 0.00000000
+              extra:
+                unsigned: 1
+              is_nullable: 0
+              size:
+                - 52
+                - 8
+            currency_serial:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            serial:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            user_serial:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - user_serial
+            - currency_serial
+            - amount
+            - address
+          _primaries: &28
+            - serial
+          _relationships:
+            user:
+              attrs:
+                accessor: single
+                fk_columns:
+                  user_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Users
+              cond:
+                foreign.serial: self.user_serial
+              source: Room::Schema::PokerNetwork::Result::Users
+          _unique_constraints:
+            primary: *28
+          name: user2bitcoin
+          result_class: Room::Schema::PokerNetwork::Result::User2bitcoin
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: User2bitcoin
+        User2hand: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            hand_serial:
+              data_type: integer
+              is_nullable: 0
+            ip:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            ip6:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            points:
+              data_type: decimal
+              is_nullable: 0
+              size:
+                - 64
+                - 4
+            pot:
+              data_type: bigint
+              is_nullable: 0
+            rake:
+              data_type: bigint
+              is_nullable: 0
+            share:
+              data_type: bigint
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - hand_serial
+            - ip6
+            - ip
+            - share
+            - pot
+            - rake
+            - points
+          _primaries: &29
+            - user_serial
+            - hand_serial
+          _relationships:
+            hand:
+              attrs:
+                accessor: single
+                fk_columns:
+                  hand_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Hands
+              cond:
+                foreign.serial: self.hand_serial
+              source: Room::Schema::PokerNetwork::Result::Hands
+            user:
+              attrs:
+                accessor: single
+                fk_columns:
+                  user_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Users
+              cond:
+                foreign.serial: self.user_serial
+              source: Room::Schema::PokerNetwork::Result::Users
+          _unique_constraints:
+            primary: *29
+          name: user2hand
+          result_class: Room::Schema::PokerNetwork::Result::User2hand
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: User2hand
+        User2money: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            amount:
+              data_type: bigint
+              is_nullable: 0
+            currency_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            points:
+              data_type: decimal
+              default_value: 0.0000
+              is_nullable: 0
+              size:
+                - 64
+                - 4
+            points_cashed:
+              data_type: decimal
+              default_value: 0.0000
+              is_nullable: 0
+              size:
+                - 64
+                - 4
+            rake:
+              data_type: bigint
+              default_value: 0
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - currency_serial
+            - amount
+            - rake
+            - points
+            - points_cashed
+          _primaries: &30
+            - user_serial
+            - currency_serial
+          _relationships:
+            currency:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+              class: Room::Schema::PokerNetwork::Result::Currencies
+              cond:
+                foreign.serial: self.currency_serial
+              source: Room::Schema::PokerNetwork::Result::Currencies
+          _unique_constraints:
+            primary: *30
+          name: user2money
+          result_class: Room::Schema::PokerNetwork::Result::User2money
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: User2money
+        User2table: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            bet:
+              data_type: integer
+              default_value: 0
+              is_nullable: 0
+            money:
+              data_type: integer
+              default_value: 0
+              is_nullable: 0
+            table_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - table_serial
+            - money
+            - bet
+          _primaries: &31
+            - user_serial
+            - table_serial
+          _relationships:
+            pokertable:
+              attrs:
+                accessor: single
+                fk_columns:
+                  table_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Pokertables
+              cond:
+                foreign.serial: self.table_serial
+              source: Room::Schema::PokerNetwork::Result::Pokertables
+            user:
+              attrs:
+                accessor: single
+                fk_columns:
+                  user_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Users
+              cond:
+                foreign.serial: self.user_serial
+              source: Room::Schema::PokerNetwork::Result::Users
+          _unique_constraints:
+            primary: *31
+          name: user2table
+          result_class: Room::Schema::PokerNetwork::Result::User2table
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: User2table
+        User2tourney: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            currency_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            rank:
+              data_type: integer
+              default_value: -1
+              is_nullable: 1
+            table_serial:
+              data_type: integer
+              is_nullable: 1
+            tourney_serial:
+              data_type: integer
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - currency_serial
+            - tourney_serial
+            - table_serial
+            - rank
+          _primaries: &32
+            - user_serial
+            - tourney_serial
+          _relationships:
+            tourney:
+              attrs:
+                accessor: single
+                fk_columns:
+                  tourney_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Tourneys
+              cond:
+                foreign.serial: self.tourney_serial
+              source: Room::Schema::PokerNetwork::Result::Tourneys
+            tourney_table:
+              attrs:
+                accessor: single
+                fk_columns:
+                  table_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Pokertables
+              cond:
+                foreign.serial: self.table_serial
+              source: Room::Schema::PokerNetwork::Result::Pokertables
+            user:
+              attrs:
+                accessor: single
+                fk_columns:
+                  user_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Users
+              cond:
+                foreign.serial: self.user_serial
+              source: Room::Schema::PokerNetwork::Result::Users
+          _unique_constraints:
+            primary: *32
+          name: user2tourney
+          result_class: Room::Schema::PokerNetwork::Result::User2tourney
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: User2tourney
+        Users: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            affiliate:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            created:
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            data:
+              data_type: text
+              is_nullable: 1
+            email:
+              data_type: varchar
+              is_nullable: 1
+              size: 128
+            future_rating:
+              data_type: float
+              default_value: 1000
+              is_nullable: 1
+            games_count:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            locale:
+              data_type: varchar
+              default_value: en_US
+              is_nullable: 1
+              size: 32
+            name:
+              data_type: varchar
+              is_nullable: 1
+              size: 64
+            password:
+              data_type: VARCHAR
+              encode_args:
+                cost: 8
+                key_nul: 0
+              encode_check_method: _check_password_blowfish
+              encode_class: Crypt::Eksblowfish::Bcrypt
+              encode_column: 1
+              size: 512
+            privilege:
+              data_type: integer
+              default_value: 1
+              is_nullable: 1
+            rating:
+              data_type: integer
+              default_value: 1000
+              is_nullable: 1
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            skin_image:
+              data_type: text
+              is_nullable: 1
+            skin_image_type:
+              data_type: varchar
+              default_value: image/png
+              is_nullable: 1
+              size: 32
+            skin_outfit:
+              data_type: text
+              is_nullable: 1
+            skin_url:
+              data_type: varchar
+              default_value: random
+              is_nullable: 1
+              size: 255
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - created
+            - name
+            - email
+            - affiliate
+            - skin_url
+            - skin_outfit
+            - skin_image
+            - skin_image_type
+            - password
+            - privilege
+            - locale
+            - rating
+            - future_rating
+            - games_count
+            - data
+          _primaries: &33
+            - serial
+          _relationships:
+            balances:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2money
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2money
+            bitcoin:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2bitcoin
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2bitcoin
+            deposits:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::Deposits
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::Deposits
+            userhands:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2hand
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2hand
+            usertables:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2table
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2table
+            usertourneys:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2tourney
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2tourney
+            withdrawals:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::Withdrawal
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::Withdrawal
+          _unique_constraints:
+            email_idx:
+              - email
+            primary: *33
+          name: users
+          result_class: Room::Schema::PokerNetwork::Result::Users
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Users
+        UsersPrivate: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            addr_country:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            addr_state:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 128
+            addr_street:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            addr_street2:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            addr_town:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            addr_zip:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            birthdate:
+              _ic_dt_method: date
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: date
+              datetime_undef_if_invalid: 1
+              is_nullable: 1
+            firstname:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            gender:
+              data_type: char
+              default_value: ''
+              is_nullable: 1
+              size: 1
+            lastname:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            phone:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            verified:
+              data_type: char
+              default_value: n
+              is_nullable: 1
+              size: 1
+            verified_time:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - firstname
+            - lastname
+            - addr_street
+            - addr_street2
+            - addr_zip
+            - addr_town
+            - addr_state
+            - addr_country
+            - phone
+            - gender
+            - birthdate
+            - verified
+            - verified_time
+          _primaries: &34
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *34
+          name: users_private
+          result_class: Room::Schema::PokerNetwork::Result::UsersPrivate
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: UsersPrivate
+        UsersTransactions: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            amount:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            currency_serial:
+              data_type: integer
+              is_nullable: 0
+            from_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            id:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+            modified:
+              _ic_dt_method: timestamp
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp
+              datetime_undef_if_invalid: 1
+              default_value: *6
+              is_nullable: 0
+            notes:
+              data_type: text
+              is_nullable: 1
+            status:
+              data_type: char
+              default_value: n
+              is_nullable: 1
+              size: 1
+            to_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - from_serial
+            - to_serial
+            - modified
+            - amount
+            - currency_serial
+            - status
+            - notes
+            - id
+          _primaries: &35
+            - id
+          _relationships: {}
+          _unique_constraints:
+            primary: *35
+          name: users_transactions
+          result_class: Room::Schema::PokerNetwork::Result::UsersTransactions
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: UsersTransactions
+        Withdrawal: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            amount:
+              data_type: float
+              is_nullable: 0
+            created_at:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: datetime
+              datetime_undef_if_invalid: 1
+              is_nullable: 0
+            currency_serial:
+              data_type: integer
+              is_nullable: 0
+            dest:
+              data_type: text
+              is_nullable: 1
+            info:
+              data_type: text
+              is_nullable: 0
+            processed:
+              data_type: integer
+              is_nullable: 0
+            processed_at:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: DATETIME
+              datetime_undef_if_invalid: 1
+              default_value: ~
+              is_nullable: 0
+              size: 19
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+            withdrawal_id:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - withdrawal_id
+            - user_serial
+            - currency_serial
+            - amount
+            - processed
+            - info
+            - created_at
+            - processed_at
+            - dest
+          _primaries: &36
+            - withdrawal_id
+          _relationships:
+            currency:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+              class: Room::Schema::PokerNetwork::Result::Currencies
+              cond:
+                foreign.serial: self.currency_serial
+              source: Room::Schema::PokerNetwork::Result::Currencies
+            user:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+              class: Room::Schema::PokerNetwork::Result::Users
+              cond:
+                foreign.serial: self.user_serial
+              source: Room::Schema::PokerNetwork::Result::Users
+          _unique_constraints:
+            primary: *36
+          name: withdrawal
+          result_class: Room::Schema::PokerNetwork::Result::Withdrawal
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *7
+          source_name: Withdrawal
+        __VERSION: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            ddl:
+              data_type: text
+              is_nullable: 1
+            id:
+              data_type: int
+              is_auto_increment: 1
+            upgrade_sql:
+              data_type: text
+              is_nullable: 1
+            version:
+              data_type: varchar
+              size: 50
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - id
+            - version
+            - ddl
+            - upgrade_sql
+          _primaries: &37
+            - id
+          _relationships: {}
+          _unique_constraints:
+            dbix_class_deploymenthandler_versions_version:
+              - version
+            primary: *37
+          name: dbix_class_deploymenthandler_versions
+          result_class: DBIx::Class::DeploymentHandler::VersionStorage::Standard::VersionResult
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::DeploymentHandler::VersionStorage::Standard::VersionResultSet
+          schema: *7
+          source_name: __VERSION
+      storage: !!perl/hash:DBIx::Class::Storage::DBI::mysql
+        _conn_pid: 13466
+        _connect_info:
+          - AutoCommit: 1
+            dsn: dbi:mysql:pythonpokernetwork
+            password: ''
+            user: root
+        _dbh: !!perl/hash:DBI::db {}
+        _dbh_autocommit: 1
+        _dbh_details:
+          capability:
+            _supports_insert_returning: 0
+        _dbh_gen: 0
+        _dbi_connect_info:
+          - dbi:mysql:pythonpokernetwork
+          - root
+          - ''
+          - &38
+            AutoCommit: 1
+            PrintError: 0
+            RaiseError: 1
+            ShowErrorStatement: 1
+        _dbic_connect_attributes: *38
+        _driver_determined: 1
+        _in_do_block: 0
+        _sql_maker: !!perl/hash:DBIx::Class::SQLMaker::MySQL
+          array_datatypes: 1
+          bindtype: columns
+          cmp: =
+          equality_op: !!perl/regexp (?i-xsm:^(\=|is|(is\s+)?like)$)
+          inequality_op: !!perl/regexp (?i-xsm:^(!=|<>|(is\s+)?not(\s+like)?)$)
+          injection_guard: !!perl/regexp |-
+            (?mix-s:
+                \;
+                  |
+                ^ \s* go \s
+              )
+          limit_dialect: LimitXY
+          logic: OR
+          name_sep: .
+          special_ops:
+            - handler: _where_field_BETWEEN
+              regex: !!perl/regexp '(?ix-sm:^ (?: not \s )? between $)'
+            - handler: _where_field_IN
+              regex: !!perl/regexp '(?ix-sm:^ (?: not \s )? in      $)'
+            - &39
+              handler: _where_op_IDENT
+              regex: !!perl/regexp (?ix-sm:^ ident $)
+            - &40
+              handler: _where_op_VALUE
+              regex: !!perl/regexp (?ix-sm:^ value $)
+          sqlfalse: 0=1
+          sqltrue: 1=1
+          unary_ops:
+            - handler: _where_op_ANDOR
+              regex: !!perl/regexp '(?ix-sm:^ and  (?: [_\s]? \d+ )? $)'
+            - handler: _where_op_ANDOR
+              regex: !!perl/regexp '(?ix-sm:^ or   (?: [_\s]? \d+ )? $)'
+            - handler: _where_op_NEST
+              regex: !!perl/regexp '(?ix-sm:^ nest (?: [_\s]? \d+ )? $)'
+            - handler: _where_op_BOOL
+              regex: !!perl/regexp '(?ix-sm:^ (?: not \s )? bool     $)'
+            - *39
+            - *40
+        _sql_maker_opts: {}
+        savepoints: []
+        schema: *7
+        transaction_depth: 0
+    sources:
+      - Server
+      - Users
+      - User2bitcoin
+      - Currencies
+      - Resthost
+      - User2hand
+      - Counter
+      - Withdrawal
+      - TourneysSchedule
+      - Safe
+      - Route
+      - User2money
+      - Hands
+      - UsersTransactions
+      - TourneysSchedule2prizes
+      - SessionHistory
+      - ChatMessages
+      - User2tourney
+      - ApiUsers
+      - PrizesVersion
+      - UsersPrivate
+      - Tourneys
+      - User2table
+      - Prizes
+      - Messages
+      - Deposits
+      - Affiliates
+      - Rank
+      - Session
+      - Monitor
+      - RankTmp
+      - Pokertables
+  parser_type: SQL::Translator::Parser::DBIx::Class
+  producer_args: {}
+  producer_type: SQL::Translator::Producer::YAML
+  show_warnings: 0
+  trace: 0
+  version: 0.11008

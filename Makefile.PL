@@ -51,6 +51,7 @@ requires 'Crypt::Eksblowfish';
 requires 'Digest::SHA1';
 requires 'CatalystX::DynamicComponent::ModelsFromConfig';
 requires 'DBIx::Class' => '0.08195';
+requires 'DBIx::Class::DeploymentHandler';
 
 
 test_requires 'Test::More' => '0.88';
