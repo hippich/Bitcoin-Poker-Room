@@ -15,7 +15,7 @@ __PACKAGE__->load_namespaces;
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:9wVioDEIUU+FtE1EjqVNDQ
 
 
-our $VERSION = 1;
+our $VERSION = 2;
 
 =head1 AUTHOR
 

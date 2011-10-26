@@ -1,0 +1,2470 @@
+---
+schema:
+  procedures: {}
+  tables:
+    dbix_class_deploymenthandler_versions:
+      constraints:
+        - deferrable: 1
+          expression: ''
+          fields:
+            - id
+          match_type: ''
+          name: ''
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: PRIMARY KEY
+        - deferrable: 1
+          expression: ''
+          fields:
+            - version
+          match_type: ''
+          name: dbix_class_deploymenthandler_versions_version
+          on_delete: ''
+          on_update: ''
+          options: []
+          reference_fields: []
+          reference_table: ''
+          type: UNIQUE
+      fields:
+        ddl:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: ddl
+          order: 3
+          size:
+            - 0
+        id:
+          data_type: int
+          default_value: ~
+          is_auto_increment: 1
+          is_nullable: 0
+          is_primary_key: 1
+          is_unique: 0
+          name: id
+          order: 1
+          size:
+            - 0
+        upgrade_sql:
+          data_type: text
+          default_value: ~
+          is_nullable: 1
+          is_primary_key: 0
+          is_unique: 0
+          name: upgrade_sql
+          order: 4
+          size:
+            - 0
+        version:
+          data_type: varchar
+          default_value: ~
+          is_nullable: 0
+          is_primary_key: 0
+          is_unique: 1
+          name: version
+          order: 2
+          size:
+            - 50
+      indices: []
+      name: dbix_class_deploymenthandler_versions
+      options: []
+      order: 1
+  triggers: {}
+  views: {}
+translator:
+  add_drop_table: 0
+  filename: ~
+  no_comments: 0
+  parser_args:
+    package: &1 !!perl/hash:Room::Schema::PokerNetwork
+      class_mappings:
+        DBIx::Class::DeploymentHandler::VersionStorage::Standard::VersionResult: __VERSION
+        Room::Schema::PokerNetwork::Result::Affiliates: Affiliates
+        Room::Schema::PokerNetwork::Result::ApiUsers: ApiUsers
+        Room::Schema::PokerNetwork::Result::ChatMessages: ChatMessages
+        Room::Schema::PokerNetwork::Result::Counter: Counter
+        Room::Schema::PokerNetwork::Result::Currencies: Currencies
+        Room::Schema::PokerNetwork::Result::Deposits: Deposits
+        Room::Schema::PokerNetwork::Result::Hands: Hands
+        Room::Schema::PokerNetwork::Result::Messages: Messages
+        Room::Schema::PokerNetwork::Result::Monitor: Monitor
+        Room::Schema::PokerNetwork::Result::Pokertables: Pokertables
+        Room::Schema::PokerNetwork::Result::Prizes: Prizes
+        Room::Schema::PokerNetwork::Result::PrizesVersion: PrizesVersion
+        Room::Schema::PokerNetwork::Result::Rank: Rank
+        Room::Schema::PokerNetwork::Result::RankTmp: RankTmp
+        Room::Schema::PokerNetwork::Result::Resthost: Resthost
+        Room::Schema::PokerNetwork::Result::Route: Route
+        Room::Schema::PokerNetwork::Result::Safe: Safe
+        Room::Schema::PokerNetwork::Result::Server: Server
+        Room::Schema::PokerNetwork::Result::Session: Session
+        Room::Schema::PokerNetwork::Result::SessionHistory: SessionHistory
+        Room::Schema::PokerNetwork::Result::Tourneys: Tourneys
+        Room::Schema::PokerNetwork::Result::TourneysSchedule: TourneysSchedule
+        Room::Schema::PokerNetwork::Result::TourneysSchedule2prizes: TourneysSchedule2prizes
+        Room::Schema::PokerNetwork::Result::User2bitcoin: User2bitcoin
+        Room::Schema::PokerNetwork::Result::User2hand: User2hand
+        Room::Schema::PokerNetwork::Result::User2money: User2money
+        Room::Schema::PokerNetwork::Result::User2table: User2table
+        Room::Schema::PokerNetwork::Result::User2tourney: User2tourney
+        Room::Schema::PokerNetwork::Result::Users: Users
+        Room::Schema::PokerNetwork::Result::UsersPrivate: UsersPrivate
+        Room::Schema::PokerNetwork::Result::UsersTransactions: UsersTransactions
+        Room::Schema::PokerNetwork::Result::Withdrawal: Withdrawal
+      source_registrations:
+        Affiliates: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            addr_country:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            addr_state:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 128
+            addr_street:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            addr_street2:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            addr_town:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            addr_zip:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            companyname:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            created:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            firstname:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            lastname:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            modified:
+              _ic_dt_method: timestamp
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp
+              datetime_undef_if_invalid: 1
+              default_value: !!perl/ref
+                =: current_timestamp
+              is_nullable: 0
+            notes:
+              data_type: text
+              is_nullable: 1
+            phone:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            share:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            url:
+              data_type: text
+              is_nullable: 1
+            users_count:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            users_points:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            users_rake:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - modified
+            - created
+            - users_count
+            - users_rake
+            - users_points
+            - share
+            - companyname
+            - firstname
+            - lastname
+            - addr_street
+            - addr_street2
+            - addr_zip
+            - addr_town
+            - addr_state
+            - addr_country
+            - phone
+            - url
+            - notes
+          _primaries: &2
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *2
+          name: affiliates
+          result_class: Room::Schema::PokerNetwork::Result::Affiliates
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Affiliates
+        ApiUsers: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            api_key:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+            email:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+            id:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+            secret:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - id
+            - email
+            - api_key
+            - secret
+          _primaries: &3
+            - id
+          _relationships: {}
+          _unique_constraints:
+            key_secret:
+              - api_key
+              - secret
+            primary: *3
+          name: api_users
+          result_class: Room::Schema::PokerNetwork::Result::ApiUsers
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: ApiUsers
+        ChatMessages: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            game_id:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            message:
+              data_type: text
+              is_nullable: 1
+            player_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            timestamp:
+              _ic_dt_method: timestamp
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp
+              datetime_undef_if_invalid: 1
+              default_value: !!perl/ref
+                =: current_timestamp
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - player_serial
+            - game_id
+            - message
+            - timestamp
+          _primaries: &4
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *4
+          name: chat_messages
+          result_class: Room::Schema::PokerNetwork::Result::ChatMessages
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: ChatMessages
+        Counter: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            application_data:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 0
+              size: 255
+            currency_serial:
+              data_type: integer
+              is_nullable: 0
+            name:
+              data_type: char
+              is_nullable: 0
+              size: 40
+            serial:
+              data_type: integer
+              is_nullable: 0
+            status:
+              data_type: char
+              default_value: y
+              is_nullable: 0
+              size: 1
+            transaction_id:
+              data_type: char
+              is_nullable: 0
+              size: 40
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+            value:
+              data_type: bigint
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - transaction_id
+            - user_serial
+            - currency_serial
+            - serial
+            - name
+            - value
+            - status
+            - application_data
+          _primaries: &5
+            - currency_serial
+            - name
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *5
+          name: counter
+          result_class: Room::Schema::PokerNetwork::Result::Counter
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Counter
+        Currencies: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            cash_out:
+              data_type: integer
+              is_nullable: 1
+            id:
+              data_type: char
+              is_nullable: 0
+              size: 255
+            name:
+              data_type: char
+              is_nullable: 1
+              size: 32
+            rate:
+              data_type: decimal
+              default_value: 0.0000
+              is_nullable: 0
+              size:
+                - 64
+                - 4
+            serial:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+            symbol:
+              data_type: char
+              is_nullable: 1
+              size: 8
+            url:
+              data_type: char
+              is_nullable: 0
+              size: 255
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - url
+            - symbol
+            - name
+            - cash_out
+            - rate
+            - id
+          _primaries: &6
+            - serial
+            - url
+          _relationships: {}
+          _unique_constraints:
+            primary: *6
+            serial:
+              - serial
+            url:
+              - url
+          name: currencies
+          result_class: Room::Schema::PokerNetwork::Result::Currencies
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Currencies
+        Deposits: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            amount:
+              data_type: float
+              is_nullable: 0
+            created_at:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: datetime
+              datetime_undef_if_invalid: 1
+              is_nullable: 0
+            currency_serial:
+              data_type: integer
+              is_nullable: 0
+            deposit_id:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+            info:
+              data_type: text
+              is_nullable: 0
+            processed:
+              data_type: integer
+              is_nullable: 0
+            processed_at:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: datetime
+              datetime_undef_if_invalid: 1
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - deposit_id
+            - user_serial
+            - currency_serial
+            - amount
+            - processed
+            - info
+            - created_at
+            - processed_at
+          _primaries: &7
+            - deposit_id
+          _relationships: {}
+          _unique_constraints:
+            primary: *7
+          name: deposits
+          result_class: Room::Schema::PokerNetwork::Result::Deposits
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Deposits
+        Hands: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            created:
+              _ic_dt_method: timestamp
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp
+              datetime_undef_if_invalid: 1
+              default_value: !!perl/ref
+                =: current_timestamp
+              is_nullable: 0
+            description:
+              data_type: text
+              is_nullable: 0
+            name:
+              data_type: varchar
+              is_nullable: 1
+              size: 32
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - created
+            - name
+            - description
+          _primaries: &8
+            - serial
+          _relationships:
+            userhands:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2hand
+              cond:
+                foreign.hand_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2hand
+          _unique_constraints:
+            primary: *8
+          name: hands
+          result_class: Room::Schema::PokerNetwork::Result::Hands
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Hands
+        Messages: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            message:
+              data_type: text
+              is_nullable: 1
+            send_date:
+              _ic_dt_method: timestamp
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp
+              datetime_undef_if_invalid: 1
+              default_value: !!perl/ref
+                =: current_timestamp
+              is_nullable: 0
+            sent:
+              data_type: char
+              default_value: n
+              is_nullable: 0
+              size: 1
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - send_date
+            - message
+            - sent
+          _primaries: &9
+            - serial
+            - send_date
+            - sent
+          _relationships: {}
+          _unique_constraints:
+            primary: *9
+          name: messages
+          result_class: Room::Schema::PokerNetwork::Result::Messages
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Messages
+        Monitor: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            created:
+              _ic_dt_method: timestamp
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp
+              datetime_undef_if_invalid: 1
+              default_value: !!perl/ref
+                =: current_timestamp
+              is_nullable: 0
+            event:
+              data_type: tinyint
+              is_nullable: 0
+            param1:
+              data_type: bigint
+              is_nullable: 0
+            param2:
+              data_type: bigint
+              is_nullable: 0
+            param3:
+              data_type: bigint
+              is_nullable: 0
+            serial:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - created
+            - event
+            - param1
+            - param2
+            - param3
+          _primaries: &10
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *10
+          name: monitor
+          result_class: Room::Schema::PokerNetwork::Result::Monitor
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Monitor
+        Pokertables: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            ante_bring_in:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            ante_value:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            average_pot:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            betting_description:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+            betting_structure:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+            big_blind:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            currency_serial:
+              data_type: integer
+              is_nullable: 0
+            hands_per_hour:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            limit_type:
+              data_type: varchar
+              is_nullable: 0
+              size: 20
+            muck_timeout:
+              data_type: integer
+              default_value: 5
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            name:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+            observers:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            percent_flop:
+              data_type: tinyint
+              default_value: 0
+              is_nullable: 1
+            player_timeout:
+              data_type: integer
+              default_value: 60
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            players:
+              data_type: tinyint
+              default_value: 0
+              is_nullable: 1
+            resthost_serial:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            seats:
+              data_type: tinyint
+              default_value: 10
+              is_nullable: 1
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            skin:
+              data_type: varchar
+              default_value: default
+              is_nullable: 0
+              size: 255
+            small_blind:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            tourney_serial:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            variant:
+              data_type: varchar
+              is_nullable: 0
+              size: 255
+            waiting:
+              data_type: tinyint
+              default_value: 0
+              is_nullable: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - resthost_serial
+            - seats
+            - average_pot
+            - hands_per_hour
+            - percent_flop
+            - players
+            - observers
+            - waiting
+            - player_timeout
+            - muck_timeout
+            - currency_serial
+            - name
+            - variant
+            - betting_structure
+            - small_blind
+            - big_blind
+            - ante_value
+            - ante_bring_in
+            - limit_type
+            - betting_description
+            - skin
+            - tourney_serial
+          _primaries: &11
+            - serial
+          _relationships:
+            resthost:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+              class: Room::Schema::PokerNetwork::Result::Resthost
+              cond:
+                foreign.serial: self.resthost_serial
+              source: Room::Schema::PokerNetwork::Result::Resthost
+            tourney:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+              class: Room::Schema::PokerNetwork::Result::Tourneys
+              cond:
+                foreign.serial: self.tourney_serial
+              source: Room::Schema::PokerNetwork::Result::Tourneys
+            usertables:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2table
+              cond:
+                foreign.table_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2table
+          _unique_constraints:
+            name:
+              - name
+            primary: *11
+          name: pokertables
+          result_class: Room::Schema::PokerNetwork::Result::Pokertables
+          resultset_attributes: {}
+          resultset_class: Room::Schema::PokerNetwork::ResultSet::Pokertables
+          schema: *1
+          source_name: Pokertables
+        Prizes: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            description:
+              data_type: varchar
+              is_nullable: 1
+              size: 255
+            image_url:
+              data_type: text
+              is_nullable: 1
+            link_url:
+              data_type: text
+              is_nullable: 1
+            name:
+              data_type: varchar
+              is_nullable: 1
+              size: 255
+            points:
+              data_type: integer
+              default_value: 0
+              is_nullable: 0
+            serial:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - name
+            - description
+            - image_url
+            - points
+            - link_url
+          _primaries: &12
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *12
+          name: prizes
+          result_class: Room::Schema::PokerNetwork::Result::Prizes
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Prizes
+        PrizesVersion: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            version:
+              data_type: varchar
+              is_nullable: 0
+              size: 16
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - version
+          _relationships: {}
+          name: prizes_version
+          result_class: Room::Schema::PokerNetwork::Result::PrizesVersion
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: PrizesVersion
+        Rank: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            amount:
+              data_type: bigint
+              is_nullable: 0
+            currency_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            percentile:
+              data_type: tinyint
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            rank:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - currency_serial
+            - amount
+            - rank
+            - percentile
+          _primaries: &13
+            - user_serial
+            - currency_serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *13
+          name: rank
+          result_class: Room::Schema::PokerNetwork::Result::Rank
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Rank
+        RankTmp: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            amount:
+              data_type: bigint
+              is_nullable: 0
+            currency_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            percentile:
+              data_type: tinyint
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            rank:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - currency_serial
+            - amount
+            - rank
+            - percentile
+          _primaries: &14
+            - user_serial
+            - currency_serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *14
+          name: rank_tmp
+          result_class: Room::Schema::PokerNetwork::Result::RankTmp
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: RankTmp
+        Resthost: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            host:
+              data_type: varchar
+              is_nullable: 1
+              size: 255
+            name:
+              data_type: varchar
+              is_nullable: 1
+              size: 255
+            path:
+              data_type: varchar
+              is_nullable: 1
+              size: 255
+            port:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - name
+            - host
+            - port
+            - path
+          _primaries: &15
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *15
+          name: resthost
+          result_class: Room::Schema::PokerNetwork::Result::Resthost
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Resthost
+        Route: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            modified:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            resthost_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            table_serial:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            tourney_serial:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - table_serial
+            - tourney_serial
+            - modified
+            - resthost_serial
+          _primaries: &16
+            - table_serial
+            - tourney_serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *16
+          name: route
+          result_class: Room::Schema::PokerNetwork::Result::Route
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Route
+        Safe: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            currency_serial:
+              data_type: integer
+              is_nullable: 0
+            name:
+              data_type: char
+              is_nullable: 0
+              size: 40
+            serial:
+              data_type: integer
+              is_nullable: 0
+            value:
+              data_type: bigint
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - currency_serial
+            - serial
+            - name
+            - value
+          _primaries: &17
+            - currency_serial
+            - serial
+            - value
+          _relationships: {}
+          _unique_constraints:
+            primary: *17
+          name: safe
+          result_class: Room::Schema::PokerNetwork::Result::Safe
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Safe
+        Server: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            version:
+              data_type: varchar
+              is_nullable: 0
+              size: 16
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - version
+          _relationships: {}
+          name: server
+          result_class: Room::Schema::PokerNetwork::Result::Server
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Server
+        Session: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            ended:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            ip:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 0
+              size: 16
+            started:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - started
+            - ended
+            - ip
+          _primaries: &18
+            - user_serial
+            - ip
+          _relationships: {}
+          _unique_constraints:
+            primary: *18
+          name: session
+          result_class: Room::Schema::PokerNetwork::Result::Session
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Session
+        SessionHistory: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            ended:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            id:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+            ip:
+              data_type: varchar
+              is_nullable: 1
+              size: 16
+            started:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - started
+            - ended
+            - ip
+            - id
+          _primaries: &19
+            - id
+          _relationships: {}
+          _unique_constraints:
+            primary: *19
+          name: session_history
+          result_class: Room::Schema::PokerNetwork::Result::SessionHistory
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: SessionHistory
+        Tourneys: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            add_on:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            add_on_count:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            add_on_delay:
+              data_type: integer
+              default_value: 60
+              is_nullable: 1
+            bailor_serial:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            betting_structure:
+              data_type: varchar
+              is_nullable: 1
+              size: 32
+            breaks_duration:
+              data_type: integer
+              default_value: 300
+              is_nullable: 1
+            breaks_first:
+              data_type: integer
+              default_value: 7200
+              is_nullable: 1
+            breaks_interval:
+              data_type: integer
+              default_value: 3600
+              is_nullable: 1
+            buy_in:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            currency_serial:
+              data_type: integer
+              is_nullable: 1
+            description_long:
+              data_type: text
+              is_nullable: 1
+            description_short:
+              data_type: varchar
+              is_nullable: 1
+              size: 64
+            finish_time:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: INT
+              inflate_datetime: epoch
+              is_nullable: 1
+              size: 11
+            name:
+              data_type: varchar
+              is_nullable: 1
+              size: 200
+            player_timeout:
+              data_type: integer
+              default_value: 60
+              is_nullable: 1
+            players_min:
+              data_type: integer
+              default_value: 2
+              is_nullable: 1
+            players_quota:
+              data_type: integer
+              default_value: 10
+              is_nullable: 1
+            prize_currency:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            prize_min:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            rake:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            rebuy_count:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            rebuy_delay:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            resthost_serial:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            satellite_of:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            satellite_player_count:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            schedule_serial:
+              data_type: integer
+              is_nullable: 1
+            seats_per_game:
+              data_type: integer
+              default_value: 10
+              is_nullable: 1
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            sit_n_go:
+              data_type: char
+              default_value: y
+              is_nullable: 1
+              size: 1
+            start_time:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: INT
+              inflate_datetime: epoch
+              is_nullable: 1
+              size: 11
+            state:
+              data_type: varchar
+              default_value: registering
+              is_nullable: 1
+              size: 16
+            variant:
+              data_type: varchar
+              is_nullable: 1
+              size: 32
+            via_satellite:
+              data_type: tinyint
+              default_value: 0
+              is_nullable: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - resthost_serial
+            - name
+            - description_short
+            - description_long
+            - players_quota
+            - players_min
+            - variant
+            - betting_structure
+            - seats_per_game
+            - player_timeout
+            - currency_serial
+            - prize_currency
+            - prize_min
+            - bailor_serial
+            - buy_in
+            - rake
+            - sit_n_go
+            - breaks_first
+            - breaks_interval
+            - breaks_duration
+            - rebuy_delay
+            - add_on
+            - add_on_delay
+            - start_time
+            - satellite_of
+            - via_satellite
+            - satellite_player_count
+            - finish_time
+            - state
+            - schedule_serial
+            - add_on_count
+            - rebuy_count
+          _primaries: &20
+            - serial
+          _relationships:
+            resthost:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+              class: Room::Schema::PokerNetwork::Result::Resthost
+              cond:
+                foreign.serial: self.resthost_serial
+              source: Room::Schema::PokerNetwork::Result::Resthost
+            usertourneys:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2tourney
+              cond:
+                foreign.tourney_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2tourney
+          _unique_constraints:
+            primary: *20
+          name: tourneys
+          result_class: Room::Schema::PokerNetwork::Result::Tourneys
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Tourneys
+        TourneysSchedule: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            active:
+              data_type: char
+              default_value: y
+              is_nullable: 1
+              size: 1
+            add_on:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            add_on_delay:
+              data_type: integer
+              default_value: 60
+              is_nullable: 1
+            bailor_serial:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            betting_structure:
+              data_type: varchar
+              is_nullable: 1
+              size: 32
+            breaks_duration:
+              data_type: integer
+              default_value: 300
+              is_nullable: 1
+            breaks_first:
+              data_type: integer
+              default_value: 7200
+              is_nullable: 1
+            breaks_interval:
+              data_type: integer
+              default_value: 3600
+              is_nullable: 1
+            buy_in:
+              _filter_info:
+                filter_from_storage: __filter_divide
+                filter_to_storage: __filter_multi
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            currency_serial:
+              data_type: integer
+              is_nullable: 1
+            currency_serial_from_date_format:
+              data_type: varchar
+              is_nullable: 1
+              size: 16
+            description_long:
+              data_type: text
+              is_nullable: 1
+            description_short:
+              data_type: varchar
+              is_nullable: 1
+              size: 64
+            name:
+              data_type: varchar
+              is_nullable: 1
+              size: 200
+            player_timeout:
+              data_type: integer
+              default_value: 60
+              is_nullable: 1
+            players_min:
+              data_type: integer
+              default_value: 2
+              is_nullable: 1
+            players_quota:
+              data_type: integer
+              default_value: 10
+              is_nullable: 1
+            prize_currency:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            prize_currency_from_date_format:
+              data_type: varchar
+              is_nullable: 1
+              size: 16
+            prize_min:
+              _filter_info:
+                filter_from_storage: __filter_divide
+                filter_to_storage: __filter_multi
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            rake:
+              _filter_info:
+                filter_from_storage: __filter_divide
+                filter_to_storage: __filter_multi
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            rebuy_delay:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            register_time:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: INT
+              inflate_datetime: epoch
+              is_nullable: 1
+              size: 11
+            respawn:
+              data_type: char
+              default_value: n
+              is_nullable: 1
+              size: 1
+            respawn_interval:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            resthost_serial:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            satellite_of:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            satellite_player_count:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            seats_per_game:
+              data_type: integer
+              default_value: 10
+              is_nullable: 1
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            sit_n_go:
+              data_type: char
+              default_value: y
+              is_nullable: 1
+              size: 1
+            start_time:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: INT
+              inflate_datetime: epoch
+              is_nullable: 1
+              size: 11
+            variant:
+              data_type: varchar
+              is_nullable: 1
+              size: 32
+            via_satellite:
+              data_type: tinyint
+              default_value: 0
+              is_nullable: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - resthost_serial
+            - name
+            - description_short
+            - description_long
+            - players_quota
+            - players_min
+            - variant
+            - betting_structure
+            - seats_per_game
+            - player_timeout
+            - currency_serial
+            - prize_currency
+            - prize_min
+            - bailor_serial
+            - buy_in
+            - rake
+            - sit_n_go
+            - breaks_first
+            - breaks_interval
+            - breaks_duration
+            - rebuy_delay
+            - add_on
+            - add_on_delay
+            - start_time
+            - register_time
+            - active
+            - respawn
+            - respawn_interval
+            - currency_serial_from_date_format
+            - prize_currency_from_date_format
+            - satellite_of
+            - via_satellite
+            - satellite_player_count
+          _primaries: &21
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *21
+          name: tourneys_schedule
+          result_class: Room::Schema::PokerNetwork::Result::TourneysSchedule
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: TourneysSchedule
+        TourneysSchedule2prizes: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            prize_serial:
+              data_type: integer
+              is_nullable: 1
+            tourneys_schedule_serial:
+              data_type: integer
+              is_nullable: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - tourneys_schedule_serial
+            - prize_serial
+          _relationships: {}
+          name: tourneys_schedule2prizes
+          result_class: Room::Schema::PokerNetwork::Result::TourneysSchedule2prizes
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: TourneysSchedule2prizes
+        User2bitcoin: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            address:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 0
+              size: 40
+            amount:
+              data_type: decimal
+              default_value: 0.00000000
+              extra:
+                unsigned: 1
+              is_nullable: 0
+              size:
+                - 52
+                - 8
+            currency_serial:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            serial:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            user_serial:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - user_serial
+            - currency_serial
+            - amount
+            - address
+          _primaries: &22
+            - serial
+          _relationships:
+            user:
+              attrs:
+                accessor: single
+                fk_columns:
+                  user_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Users
+              cond:
+                foreign.serial: self.user_serial
+              source: Room::Schema::PokerNetwork::Result::Users
+          _unique_constraints:
+            primary: *22
+          name: user2bitcoin
+          result_class: Room::Schema::PokerNetwork::Result::User2bitcoin
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: User2bitcoin
+        User2hand: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            hand_serial:
+              data_type: integer
+              is_nullable: 0
+            ip:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            ip6:
+              data_type: bigint
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            points:
+              data_type: decimal
+              is_nullable: 0
+              size:
+                - 64
+                - 4
+            pot:
+              data_type: bigint
+              is_nullable: 0
+            rake:
+              data_type: bigint
+              is_nullable: 0
+            share:
+              data_type: bigint
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - hand_serial
+            - ip6
+            - ip
+            - share
+            - pot
+            - rake
+            - points
+          _primaries: &23
+            - user_serial
+            - hand_serial
+          _relationships:
+            hand:
+              attrs:
+                accessor: single
+                fk_columns:
+                  hand_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Hands
+              cond:
+                foreign.serial: self.hand_serial
+              source: Room::Schema::PokerNetwork::Result::Hands
+            user:
+              attrs:
+                accessor: single
+                fk_columns:
+                  user_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Users
+              cond:
+                foreign.serial: self.user_serial
+              source: Room::Schema::PokerNetwork::Result::Users
+          _unique_constraints:
+            primary: *23
+          name: user2hand
+          result_class: Room::Schema::PokerNetwork::Result::User2hand
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: User2hand
+        User2money: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            amount:
+              data_type: bigint
+              is_nullable: 0
+            currency_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            points:
+              data_type: decimal
+              default_value: 0.0000
+              is_nullable: 0
+              size:
+                - 64
+                - 4
+            points_cashed:
+              data_type: decimal
+              default_value: 0.0000
+              is_nullable: 0
+              size:
+                - 64
+                - 4
+            rake:
+              data_type: bigint
+              default_value: 0
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - currency_serial
+            - amount
+            - rake
+            - points
+            - points_cashed
+          _primaries: &24
+            - user_serial
+            - currency_serial
+          _relationships:
+            currency:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+              class: Room::Schema::PokerNetwork::Result::Currencies
+              cond:
+                foreign.serial: self.currency_serial
+              source: Room::Schema::PokerNetwork::Result::Currencies
+          _unique_constraints:
+            primary: *24
+          name: user2money
+          result_class: Room::Schema::PokerNetwork::Result::User2money
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: User2money
+        User2table: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            bet:
+              data_type: integer
+              default_value: 0
+              is_nullable: 0
+            money:
+              data_type: integer
+              default_value: 0
+              is_nullable: 0
+            table_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - table_serial
+            - money
+            - bet
+          _primaries: &25
+            - user_serial
+            - table_serial
+          _relationships:
+            pokertable:
+              attrs:
+                accessor: single
+                fk_columns:
+                  table_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Pokertables
+              cond:
+                foreign.serial: self.table_serial
+              source: Room::Schema::PokerNetwork::Result::Pokertables
+            user:
+              attrs:
+                accessor: single
+                fk_columns:
+                  user_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Users
+              cond:
+                foreign.serial: self.user_serial
+              source: Room::Schema::PokerNetwork::Result::Users
+          _unique_constraints:
+            primary: *25
+          name: user2table
+          result_class: Room::Schema::PokerNetwork::Result::User2table
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: User2table
+        User2tourney: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            currency_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            rank:
+              data_type: integer
+              default_value: -1
+              is_nullable: 1
+            table_serial:
+              data_type: integer
+              is_nullable: 1
+            tourney_serial:
+              data_type: integer
+              is_nullable: 0
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - user_serial
+            - currency_serial
+            - tourney_serial
+            - table_serial
+            - rank
+          _primaries: &26
+            - user_serial
+            - tourney_serial
+          _relationships:
+            tourney:
+              attrs:
+                accessor: single
+                fk_columns:
+                  tourney_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Tourneys
+              cond:
+                foreign.serial: self.tourney_serial
+              source: Room::Schema::PokerNetwork::Result::Tourneys
+            tourney_table:
+              attrs:
+                accessor: single
+                fk_columns:
+                  table_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Pokertables
+              cond:
+                foreign.serial: self.table_serial
+              source: Room::Schema::PokerNetwork::Result::Pokertables
+            user:
+              attrs:
+                accessor: single
+                fk_columns:
+                  user_serial: 1
+                is_foreign_key_constraint: 1
+                undef_on_null_fk: 1
+              class: Room::Schema::PokerNetwork::Result::Users
+              cond:
+                foreign.serial: self.user_serial
+              source: Room::Schema::PokerNetwork::Result::Users
+          _unique_constraints:
+            primary: *26
+          name: user2tourney
+          result_class: Room::Schema::PokerNetwork::Result::User2tourney
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: User2tourney
+        Users: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            affiliate:
+              data_type: integer
+              default_value: 0
+              extra:
+                unsigned: 1
+              is_nullable: 1
+            created:
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            data:
+              data_type: text
+              is_nullable: 1
+            email:
+              data_type: varchar
+              is_nullable: 1
+              size: 128
+            future_rating:
+              data_type: float
+              default_value: 1000
+              is_nullable: 1
+            games_count:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            locale:
+              data_type: varchar
+              default_value: en_US
+              is_nullable: 1
+              size: 32
+            name:
+              data_type: varchar
+              is_nullable: 1
+              size: 64
+            password:
+              data_type: VARCHAR
+              encode_args:
+                cost: 8
+                key_nul: 0
+              encode_check_method: _check_password_blowfish
+              encode_class: Crypt::Eksblowfish::Bcrypt
+              encode_column: 1
+              size: 512
+            privilege:
+              data_type: integer
+              default_value: 1
+              is_nullable: 1
+            rating:
+              data_type: integer
+              default_value: 1000
+              is_nullable: 1
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_auto_increment: 1
+              is_nullable: 0
+            skin_image:
+              data_type: text
+              is_nullable: 1
+            skin_image_type:
+              data_type: varchar
+              default_value: image/png
+              is_nullable: 1
+              size: 32
+            skin_outfit:
+              data_type: text
+              is_nullable: 1
+            skin_url:
+              data_type: varchar
+              default_value: random
+              is_nullable: 1
+              size: 255
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - created
+            - name
+            - email
+            - affiliate
+            - skin_url
+            - skin_outfit
+            - skin_image
+            - skin_image_type
+            - password
+            - privilege
+            - locale
+            - rating
+            - future_rating
+            - games_count
+            - data
+          _primaries: &27
+            - serial
+          _relationships:
+            balances:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2money
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2money
+            bitcoin:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2bitcoin
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2bitcoin
+            deposits:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::Deposits
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::Deposits
+            userhands:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2hand
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2hand
+            usertables:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2table
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2table
+            usertourneys:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::User2tourney
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::User2tourney
+            withdrawals:
+              attrs:
+                accessor: multi
+                cascade_copy: 1
+                cascade_delete: 1
+                join_type: LEFT
+              class: Room::Schema::PokerNetwork::Result::Withdrawal
+              cond:
+                foreign.user_serial: self.serial
+              source: Room::Schema::PokerNetwork::Result::Withdrawal
+          _unique_constraints:
+            email_idx:
+              - email
+            primary: *27
+          name: users
+          result_class: Room::Schema::PokerNetwork::Result::Users
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Users
+        UsersPrivate: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            addr_country:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            addr_state:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 128
+            addr_street:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            addr_street2:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            addr_town:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            addr_zip:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            birthdate:
+              _ic_dt_method: date
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: date
+              datetime_undef_if_invalid: 1
+              is_nullable: 1
+            firstname:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            gender:
+              data_type: char
+              default_value: ''
+              is_nullable: 1
+              size: 1
+            lastname:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 255
+            phone:
+              data_type: varchar
+              default_value: ''
+              is_nullable: 1
+              size: 64
+            serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            verified:
+              data_type: char
+              default_value: n
+              is_nullable: 1
+              size: 1
+            verified_time:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - serial
+            - firstname
+            - lastname
+            - addr_street
+            - addr_street2
+            - addr_zip
+            - addr_town
+            - addr_state
+            - addr_country
+            - phone
+            - gender
+            - birthdate
+            - verified
+            - verified_time
+          _primaries: &28
+            - serial
+          _relationships: {}
+          _unique_constraints:
+            primary: *28
+          name: users_private
+          result_class: Room::Schema::PokerNetwork::Result::UsersPrivate
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: UsersPrivate
+        UsersTransactions: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            amount:
+              data_type: integer
+              default_value: 0
+              is_nullable: 1
+            currency_serial:
+              data_type: integer
+              is_nullable: 0
+            from_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+            id:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+            modified:
+              _ic_dt_method: timestamp
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: timestamp
+              datetime_undef_if_invalid: 1
+              default_value: !!perl/ref
+                =: current_timestamp
+              is_nullable: 0
+            notes:
+              data_type: text
+              is_nullable: 1
+            status:
+              data_type: char
+              default_value: n
+              is_nullable: 1
+              size: 1
+            to_serial:
+              data_type: integer
+              extra:
+                unsigned: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - from_serial
+            - to_serial
+            - modified
+            - amount
+            - currency_serial
+            - status
+            - notes
+            - id
+          _primaries: &29
+            - id
+          _relationships: {}
+          _unique_constraints:
+            primary: *29
+          name: users_transactions
+          result_class: Room::Schema::PokerNetwork::Result::UsersTransactions
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: UsersTransactions
+        Withdrawal: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            amount:
+              data_type: float
+              is_nullable: 0
+            created_at:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: datetime
+              datetime_undef_if_invalid: 1
+              is_nullable: 0
+            currency_serial:
+              data_type: integer
+              is_nullable: 0
+            dest:
+              data_type: text
+              is_nullable: 1
+            info:
+              data_type: text
+              is_nullable: 0
+            processed:
+              data_type: integer
+              is_nullable: 0
+            processed_at:
+              _ic_dt_method: datetime
+              _inflate_info:
+                deflate: !!perl/code '{ "DUMMY" }'
+                inflate: !!perl/code '{ "DUMMY" }'
+              data_type: DATETIME
+              datetime_undef_if_invalid: 1
+              default_value: ~
+              is_nullable: 0
+              size: 19
+            user_serial:
+              data_type: integer
+              is_nullable: 0
+            withdrawal_id:
+              data_type: integer
+              is_auto_increment: 1
+              is_nullable: 0
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - withdrawal_id
+            - user_serial
+            - currency_serial
+            - amount
+            - processed
+            - info
+            - created_at
+            - processed_at
+            - dest
+          _primaries: &30
+            - withdrawal_id
+          _relationships:
+            currency:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+              class: Room::Schema::PokerNetwork::Result::Currencies
+              cond:
+                foreign.serial: self.currency_serial
+              source: Room::Schema::PokerNetwork::Result::Currencies
+            user:
+              attrs:
+                accessor: single
+                cascade_delete: 1
+                cascade_update: 1
+              class: Room::Schema::PokerNetwork::Result::Users
+              cond:
+                foreign.serial: self.user_serial
+              source: Room::Schema::PokerNetwork::Result::Users
+          _unique_constraints:
+            primary: *30
+          name: withdrawal
+          result_class: Room::Schema::PokerNetwork::Result::Withdrawal
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::ResultSet
+          schema: *1
+          source_name: Withdrawal
+        __VERSION: !!perl/hash:DBIx::Class::ResultSource::Table
+          _columns:
+            ddl:
+              data_type: text
+              is_nullable: 1
+            id:
+              data_type: int
+              is_auto_increment: 1
+            upgrade_sql:
+              data_type: text
+              is_nullable: 1
+            version:
+              data_type: varchar
+              size: 50
+          _columns_info_loaded: 0
+          _ordered_columns:
+            - id
+            - version
+            - ddl
+            - upgrade_sql
+          _primaries: &31
+            - id
+          _relationships: {}
+          _unique_constraints:
+            dbix_class_deploymenthandler_versions_version:
+              - version
+            primary: *31
+          name: dbix_class_deploymenthandler_versions
+          result_class: DBIx::Class::DeploymentHandler::VersionStorage::Standard::VersionResult
+          resultset_attributes: {}
+          resultset_class: DBIx::Class::DeploymentHandler::VersionStorage::Standard::VersionResultSet
+          schema: *1
+          source_name: __VERSION
+      storage: !!perl/hash:DBIx::Class::Storage::DBI
+        _connect_info:
+          - AutoCommit: 1
+            dsn: dbi:mysql:pythonpokernetwork
+            password: ''
+            user: root
+        _dbh_details: {}
+        _dbh_gen: 0
+        _dbi_connect_info:
+          - dbi:mysql:pythonpokernetwork
+          - root
+          - ''
+          - &32
+            AutoCommit: 1
+            PrintError: 0
+            RaiseError: 1
+            ShowErrorStatement: 1
+        _dbic_connect_attributes: *32
+        _in_do_block: 0
+        _sql_maker: ~
+        _sql_maker_opts: {}
+        savepoints: []
+        schema: *1
+        transaction_depth: 0
+    sources:
+      - __VERSION
+  parser_type: SQL::Translator::Parser::DBIx::Class
+  producer_args: {}
+  producer_type: SQL::Translator::Producer::YAML
+  show_warnings: 0
+  trace: 0
+  version: 0.11008

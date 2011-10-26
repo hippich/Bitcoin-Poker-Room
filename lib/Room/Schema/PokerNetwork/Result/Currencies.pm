@@ -77,7 +77,21 @@ __PACKAGE__->add_unique_constraint("url", ["url"]);
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:tF51aRUWxeNBdLYh+LX7Iw
 
 
-# You can replace this text with custom content, and it will be preserved on regeneration
+__PACKAGE__->add_columns(
+    "rate",
+    {
+        data_type => "decimal",
+        default_value => "0.0000",
+        is_nullable => 0,
+        size => [64, 4],
+    },
+    "id",
+    { 
+        data_type => "char", 
+        is_nullable => 0, 
+        size => 255 
+    },
+);
 
 =head1 AUTHOR
 
