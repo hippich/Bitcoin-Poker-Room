@@ -78,6 +78,12 @@ __PACKAGE__->add_unique_constraint("url", ["url"]);
 
 
 __PACKAGE__->add_columns(
+    "id",
+    { 
+        data_type => "char", 
+        is_nullable => 0, 
+        size => 255 
+    },
     "rate",
     {
         data_type => "decimal",
@@ -85,12 +91,18 @@ __PACKAGE__->add_columns(
         is_nullable => 0,
         size => [64, 4],
     },
-    "id",
-    { 
-        data_type => "char", 
-        is_nullable => 0, 
-        size => 255 
+    "minconf",
+    {
+        data_type => "integer",
+        is_nullable => 0,
+        default_value => 6,
     },
+    "class",
+    {
+        data_type => "char",
+        is_nullable => 0,
+        size => 255,
+    }
 );
 
 =head1 AUTHOR

@@ -31,18 +31,17 @@ sub bitcoin :Local {
     my ( $self, $c ) = @_;
     $c->forward('deposit_bitcoin_refresh');
 
-    my $payments = $c->config->{payments};
+    my $currencies = $c->model("PokerNetwork::Currencies");
 
-    for my $name (keys %{$payments}) {
-        my $serial = $payments->{$name}->{currency_serial};
-
+    while (my $currency = $currencies->next) {
         push @{$c->stash->{payments}}, {
-            deposit => $c->user->bitcoin_balance($serial),
-            balance => $c->user->balance($serial),
-            currency => $c->model('PokerNetwork::Currencies')->find({ serial => $serial}),
-            rate => $payments->{$name}->{rate},
+            deposit => $c->user->bitcoin_balance($currency->serial),
+            balance => $c->user->balance($currency->serial),
+            currency => $currency,
+            rate => $currency->rate,
         };
     }
+
 }
 
 
@@ -60,15 +59,14 @@ sub deposit_bitcoin_refresh :Private {
     $c->user->bitcoin_checked(time());
     $c->user->update();
 
-    my $payments = $c->config->{payments};
+    my $currencies = $c->model("PokerNetwork::Currencies");
 
-    for my $name (keys %{$payments}) {
-        my $payment = $payments->{$name};
+    while (my $currency = $currencies->next) {
         
         my $new_balance_cb = sub {
             my $address = shift->address;
-            my $model = $payment->{model};
-            my $minconf = $payment->{minconf};
+            my $model = $currency->class;
+            my $minconf = $currency->minconf;
 
             # To force int value type for JSON-RPC
             $minconf += 0;
@@ -76,14 +74,14 @@ sub deposit_bitcoin_refresh :Private {
             my $received = $c->model($model)->get_received_by_address( $address, $minconf );
             $received ||= 0;
 
-            return $received * $payment->{rate};
+            return $received;
         };
 
         my $new_address_cb = sub {
-            return $c->model($payment->{model})->get_new_address;
+            return $c->model($currency->class)->get_new_address;
         };
 
-        $c->user->deposit_bitcoin($payment->{currency_serial}, $new_balance_cb, $new_address_cb);
+        $c->user->deposit_bitcoin($currency, $new_balance_cb, $new_address_cb);
     }
 }
 

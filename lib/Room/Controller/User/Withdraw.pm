@@ -30,16 +30,11 @@ sub index :Chained :PathPart('') :Args(0) {
 
 sub withdraw_base :Chained('base') :PathPart('') :CaptureArgs(1) {
     my ($self, $c, $currency_name) = @_;
-    my $currency_serial = $c->config->{payments}->{$currency_name}->{currency_serial};
-    $c->page_not_found unless $currency_serial;
 
-    $c->stash->{payment_model} = $c->model( $c->config->{payments}->{$currency_name}->{model} );
-    $c->stash->{payment} = $c->config->{payments}->{$currency_name};
+    my $currency = $c->model("PokerNetwork::Currencies")->find({ id => $currency_name });
+    $c->page_not_found unless $currency;
 
-    $c->stash->{currency} = $c->model('PokerNetwork::Currencies')->find({
-        serial => $currency_serial
-    });
-    $c->page_not_found unless $c->stash->{currency};
+    $c->stash->{currency} = $currency;
 }
 
 sub withdraw :Chained('withdraw_base') :PathPart('') :Args(0) :FormConfig {
@@ -56,27 +51,36 @@ sub withdraw :Chained('withdraw_base') :PathPart('') :Args(0) :FormConfig {
 
         my $address = $form->params->{bitcoin_address};
         my $amount = $form->params->{amount};
-        my $adj_amount = $amount * 100 * $c->stash->{payment}->{rate};
+        my $model = $c->model( $c->stash->{currency}->class ); 
+
+        my $balance = $c->user->balance( $c->stash->{currency}->serial );
+        my $adj_amount = $amount * $c->stash->{currency}->rate * 100;
+
+        if ($balance->amount < $amount || $amount < 0.01 || int($amount * 100) / 100 < $amount)  {
+          $form->get_field("amount")->get_constraint({ type => "Callback" })->force_errors(1);
+          $form->process();
+          return;
+        }
 
         my $withdraw_cb = sub {
             my ($withdrawal) = @_;
-            my $result = $c->stash->{payment_model}->send_to_address($address, $amount);
-            my $error = $c->stash->{payment_model}->api->error;
+            my $result = $model->send_to_address($address, $amount);
+            my $error = $model->api->error;
             $withdrawal->dest($address);
 
-            if (! $c->stash->{payment_model}->api->error) {
-              push @{$c->flash->{messages}}, "Bitcoins sent.";
+            if ( $model->api->error ) {
+              push @{$c->flash->{errors}}, "We received your withdrawal request and will process it ASAP. If you will not receive bitcoins in 24 hours, please contact us.";
             }
             else {
-              push @{$c->flash->{errors}}, "We received your withdrawal request and will process it ASAP. If you will not receive bitcoins in 24 hours, please contact us.";
+              push @{$c->flash->{messages}}, "Bitcoins sent.";
             }
 
             return ($result, $error);
         };
 
         $c->user->withdraw_bitcoin(
-            $c->stash->{currency}->serial,
-            $adj_amount,
+            $c->stash->{currency},
+            $amount,
             $withdraw_cb
         );
 

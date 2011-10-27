@@ -2,6 +2,7 @@ return {
     schema_class => 'Room::Schema::PokerNetwork',
 
     resultsets => [
+        'Currencies',
         'Deposits',
         'Hands',
         'Messages',
@@ -18,6 +19,10 @@ return {
 
     fixture_sets => {
         basic => [
+            Currencies => [
+                [ 'serial', 'url', 'id', 'rate', 'minconf', 'class' ],
+                [ 1, 'http://bitcoin.org/', 'bitcoin', 100, 0, 'BitcoinServer' ], 
+            ],
             Users => [
                 [ 'serial', 'name', 'email', 'password', 'privilege', 'created' ],
                 [ 22, 'admin', 'admin@test.com', 'admin', 1, 0 ],

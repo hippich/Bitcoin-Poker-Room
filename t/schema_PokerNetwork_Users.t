@@ -29,8 +29,13 @@ isnt $hash, $new_hash, "Old and new hashes should be different.";
 ok $user->check_password('zed')
     => "New password 'admin' should be recognized via Bcrypt hash.";
 
+ok my $currency = Currencies->find({ id => 'bitcoin' })
+    => "Currency with serial=1 loaded.";
+
+### Test depositing
+#
 # Empty address returned test 
-$user->deposit_bitcoin(1, sub {
+$user->deposit_bitcoin($currency, sub {
         return 0;
     }, sub {
         return;
@@ -39,7 +44,7 @@ $user->deposit_bitcoin(1, sub {
 
 ok $user->bitcoin_balance(1)->address eq "", "Address should be empty.";
 
-$user->deposit_bitcoin(1, sub {
+$user->deposit_bitcoin($currency, sub {
         return 0;
     }, sub {
         return "12345";
@@ -49,30 +54,43 @@ $user->deposit_bitcoin(1, sub {
 ok $user->bitcoin_balance(1)->address ne "", "Address should NOT be empty.";
 
 # Test deposit procedure
-$user->deposit_bitcoin(1, sub {
+$user->deposit_bitcoin($currency, sub {
         my $bitcoin = shift;
-        return 100;
+        return 1;
     }, sub {
         return "12345";
     }
 );
 
-ok $user->balance(1)->amount == 10100
-    => "new_balance(1,100) call should add 100 to user's balance(1)";
+ok $user->balance(1)->amount == 20000
+    => "new_balance(1,1) call should add 100 to user's balance(1)";
 
-$user->deposit_bitcoin(1, sub {
+$user->deposit_bitcoin($currency, sub {
         my $bitcoin = shift;
-        return 120;
+        return 2;
     }, sub {
         return "12345";
     }
 );
 
-ok $user->balance(1)->amount == 10120
-    => "new_balance(1,120) call should add 20 to user's balance(1)";
+ok $user->balance(1)->amount == 30000
+    => "new_balance(1,2) call should add 100 to user's balance(1)";
 
 ok $user->bitcoin_balance(1)->address eq '12345'
     => "bitcoin deposit address should equal to '12345' (returned ". $user->bitcoin_balance(1)->address .")";
+
+
+### Test withdrawals
+$user->withdraw_bitcoin(
+    $currency,
+    0.5,
+    sub {
+        return ('', ''); 
+    }
+);
+
+ok $user->balance(1)->amount == 25000
+    => "new balance should be equal to 25000";
 
 done_testing();
 

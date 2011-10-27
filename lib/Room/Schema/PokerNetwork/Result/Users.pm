@@ -359,12 +359,13 @@ to $user2money->amount.
 
 =cut
 sub deposit_bitcoin {
-    my ($self, $serial, $new_balance_cb, $new_address_cb) = @_;
+    my ($self, $currency, $new_balance_cb, $new_address_cb) = @_;
 
     croak("new_balance_cb callback is not defined.") unless $new_balance_cb;
     croak("new_address_cb callback is not defined.") unless $new_address_cb;
-    croak("currency serial is not defined.") unless $serial > 0;
+    croak("currency is not defined.") unless $currency;
 
+    my $serial = $currency->serial;
     my $schema = $self->result_source->schema;
 
     $schema->txn_do(sub {
@@ -385,7 +386,9 @@ sub deposit_bitcoin {
             $bitcoin->amount($new_balance);
             $bitcoin->update;
 
-            $current->amount( $current->amount + $difference );
+            $current->amount( 
+                $current->amount + $difference * $currency->rate * 100
+            );
             $current->update;
 
             $self->deposits->create({
@@ -412,21 +415,23 @@ $withdraw_cb - callback function to do actual bitcoin withdrawal.
 
 =cut 
 sub withdraw_bitcoin {
-    my ($self, $serial, $amount, $withdraw_cb) = @_;
+    my ($self, $currency, $amount, $withdraw_cb) = @_;
 
     croak("withdraw_cb callback is not defined.") unless $withdraw_cb;
     croak("amount is not defined.") unless $amount > 0;
-    croak("currency serial is not defined.") unless $serial > 0;
+    croak("currency is not defined.") unless $currency;
 
+    my $serial = $currency->serial;
     my $schema = $self->result_source->schema;
+    my $adj_amount = $amount * $currency->rate * 100;
 
     $schema->txn_do(sub {
         my $current = $self->balance($serial, 1);
-        return unless $current->amount > $amount;
+        croak("Not enough funds available.") unless $current->amount >= $adj_amount;
 
         # Remove $amount from user's balance 
         $current->amount(
-          $current->amount() - $amount
+          $current->amount() - $adj_amount
         );
         $current->update();
 
@@ -435,6 +440,9 @@ sub withdraw_bitcoin {
           currency_serial => $serial,
           amount => $amount,
           created_at => DateTime->now,
+          processed => 0,
+          info => "",
+          processed_at => "",
         });
 
         my ($result, $error) = &$withdraw_cb($withdrawal);

@@ -49,7 +49,13 @@ my $dh = DH->new(
 );
 
 my $version = Room::Schema::PokerNetwork->VERSION;
+my $current_version = $dh->database_version;
 
-$dh->upgrade;
+if ($version > $current_version) {
+    $dh->upgrade;
+}
+else {
+    $dh->downgrade;
+}
  
 say "done";
