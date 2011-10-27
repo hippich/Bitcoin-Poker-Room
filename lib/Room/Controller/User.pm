@@ -123,24 +123,28 @@ sub edit :Local :Args(0) :FormConfig {
 
 
 sub points_cashout :Local :Args(1) {
-    my ($self, $c, $currency_serial) = @_;
+    my ($self, $c, $currency_id) = @_;
 
-    # @TODO: this is hardcoded prevention. Should be configurable.
-    if ($currency_serial != 1) {
+    my $currency = $c->model("PokerNetwork::Currencies")->find({ id => $currency_id });
+
+    if (! $currency) {
         $c->page_not_found;
     }
+
+    my $currency_serial = $currency->serial;
 
     my $balance = $c->user->balance($currency_serial);
 
     if ($balance->points < $c->config->{points_cashout_limit}) {
-        push @{$c->flash->{errors}}, "You need to get at least ". ($c->config->{points_cashout_limit} * 100) .
-             " points to be able to cash out them.";
+        push @{$c->flash->{errors}}, "You need to get at least ". 
+               ($c->config->{points_cashout_limit} / 100 ) .
+               " points to be able to cash out them.";
     }
     else {
         my $points = $balance->points;
 
         if ( $balance->points_cashout($points) ) {
-            push @{$c->flash->{messages}}, "Successfuly cashed out ". ($points * 100) ." points.";
+            push @{$c->flash->{messages}}, "Successfuly cashed out ". ($points / 100) ." points.";
         }
         else {
             push @{$c->flash->{errors}}, "Cash-out error happened. Contact support with details if this issue.";

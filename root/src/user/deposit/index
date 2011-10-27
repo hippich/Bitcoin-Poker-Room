@@ -1,43 +1,41 @@
-[% META title = 'Deposit' %]
 
 <div class="one">
-
   <div class="one-fourth">[% PROCESS user/user_menu %]</div>
 
   <div class="inner-content last">
 
     <p>For each currency we have generated a new address. Any money sent to this 
     address will be deposited to your account. Please note, that we wait until we 
-    get at least one confirmation of the transaction, so it will take some time for 
-    sent money to appear here. This delay depends on network size and load at 
-    this moment.</p>
+    get at least <strong>[% currency.minconf %]</strong> confirmation of the 
+    transaction, so it will take some time for sent money to appear here. This 
+    delay depends on network size and load at this moment.</p>
 
     <p><strong>You need to come back to this page when you will see confirmations of your
     transaction in order to finalize deposit. Site will check your balance only during 
     visiting this page. </strong></p>
 
-    [% FOREACH payment IN payments %]
     <div class="payment-option">
       <h4>[% payment.currency.name %]</h4>
       <dl>
         <dt>Deposit address: </dt>
         <dd>
-          [% payment.deposit.address %]
+          [% deposit.address %]
         </dd>
 
         <dt>Current balance: </dt>
         <dd>
-          [% payment.balance.amount / 100 | format('%.2f') %] chips 
-          ([% payment.balance.amount / 100 / payment.rate | format('%f') %] [% payment.currency.symbol %])
+          [% balance.amount / 100 | format('%.2f') %] chips 
+          ([% balance.amount / 100 / currency.rate | format('%f') %] 
+          [% currency.symbol %])
         </dd>
 
         <dt>Exchange rate: </dt>
-        <dd>1 [% payment.currency.symbol %] = [% payment.rate %] [%payment.currency.name %] chips.</dd>
+        <dd>1 [% currency.symbol %] = [% currency.rate %] [% currency.name %] chips.</dd>
       </dl>
 
+      <div class="clear"></div>
     </div>      
-    [% END %]
-    <p>You sent so far <strong>&#xe3f;[% bitcoins_sent %]</strong>.</p>
+
   </div>
 </div>
 <div class="clear"></div>

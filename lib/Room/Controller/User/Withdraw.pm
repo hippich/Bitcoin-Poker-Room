@@ -40,6 +40,10 @@ sub withdraw_base :Chained('base') :PathPart('') :CaptureArgs(1) {
 sub withdraw :Chained('withdraw_base') :PathPart('') :Args(0) :FormConfig {
     my ($self, $c) = @_;
     my $form = $c->stash->{form};
+    my $balance = $c->user->balance( $c->stash->{currency}->serial );
+    $c->stash->{page_title} = 'Withdraw '. $c->stash->{currency}->name;
+
+    $c->stash->{balance} = $balance;
 
     if ($form->submitted_and_valid) {
 
@@ -53,7 +57,6 @@ sub withdraw :Chained('withdraw_base') :PathPart('') :Args(0) :FormConfig {
         my $amount = $form->params->{amount};
         my $model = $c->model( $c->stash->{currency}->class ); 
 
-        my $balance = $c->user->balance( $c->stash->{currency}->serial );
         my $adj_amount = $amount * $c->stash->{currency}->rate * 100;
 
         if ($balance->amount < $amount || $amount < 0.01 || int($amount * 100) / 100 < $amount)  {

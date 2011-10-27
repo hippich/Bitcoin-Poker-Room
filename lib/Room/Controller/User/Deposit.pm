@@ -21,32 +21,21 @@ Catalyst Controller.
 
 =cut
 
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
+sub index :Path :Args(1) {
+    my ( $self, $c, $id ) = @_;
+    my $currency = $c->model("PokerNetwork::Currencies")->find({ id => $id }); 
+    $c->page_not_found unless $currency;
 
-    $c->response->body('Matched Room::Controller::User::Deposit in User::Deposit.');
+    $c->stash->{page_title} = 'Deposit '. $currency->name;
+
+    $c->forward('deposit_refresh');
+
+    $c->stash->{deposit} = $c->user->bitcoin_balance($currency->serial);
+    $c->stash->{balance} = $c->user->balance($currency->serial);
+    $c->stash->{currency} = $currency;
 }
 
-sub bitcoin :Local {
-    my ( $self, $c ) = @_;
-    $c->forward('deposit_bitcoin_refresh');
-
-    my $currencies = $c->model("PokerNetwork::Currencies");
-
-    while (my $currency = $currencies->next) {
-        push @{$c->stash->{payments}}, {
-            deposit => $c->user->bitcoin_balance($currency->serial),
-            balance => $c->user->balance($currency->serial),
-            currency => $currency,
-            rate => $currency->rate,
-        };
-    }
-
-}
-
-
-
-sub deposit_bitcoin_refresh :Private {
+sub deposit_refresh :Private {
     my ( $self, $c ) = @_;
 
     if ($c->user->bitcoin_checked + 1 > time()) {

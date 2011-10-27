@@ -30,12 +30,12 @@
       [% FOR balance IN c.user.balances %]
         <tr>
           <td>[% balance.currency.name %]</td>
-          <td>[% balance.amount / 100 | format('%.2f') %] [% balance.currency.name %]</td>
+          <td>[% balance.amount / 100 | format('%.2f') %]</td>
           <td>[% balance.points / 100 | format('%.2f') %]</td>
           <td>
-            <a href="[% c.uri_for('/user/deposit/bitcoin') %]">Deposit</a> 
-            | <a href="[% c.uri_for('/user/withdraw/bitcoin') %]">Withdraw</a> 
-            | <a href="[% c.uri_for('/user/points_cashout/' _ balance.currency_serial) %]">Convert to chips</a>
+            <a href="[% c.uri_for('/user/deposit/' _ balance.currency.id ) %]">Deposit</a> 
+            | <a href="[% c.uri_for('/user/withdraw/' _ balance.currency.id ) %]">Withdraw</a> 
+            | <a href="[% c.uri_for('/user/points_cashout/' _ balance.currency.id ) %]">Convert to chips</a>
           </td>
         </tr>
       [% END %]
