@@ -18,7 +18,7 @@
 
 <div id="content">
   [% IF template.notitle != 1 %]
-  <h1 class="title">[% template.title or site.title %]</h1>
+  <h1 class="title">[% page_title or template.title or site.title %]</h1>
   [% END %]
 
   [% content %]

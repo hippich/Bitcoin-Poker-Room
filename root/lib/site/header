@@ -15,8 +15,6 @@
     [% IF c.user %]
       <li><a href='[% c.uri_for('/tables/my') %]'>My tables</a></li>
       <li><a href='[% c.uri_for('/user') %]'>My Account</a></li>
-      <li><a href='[% c.uri_for('/user/deposit/bitcoin') %]'>Deposit</a></li>
-      <li><a href='[% c.uri_for('/user/withdraw/bitcoin') %]'>Withdraw</a></li>
       <li class='last'><a href='[% c.uri_for('/user/logout') %]'>Log Out</a></li>
     [% ELSE %]
       <li><a href='[% c.uri_for('/account/login') %]'>Log In</a></li>

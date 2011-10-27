@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>[% template.title or site.title %]</title>
+  <title>[% page_title or template.title or site.title %]</title>
   [% PROCESS site/styles %]
   [% PROCESS site/js %]
 </head>
