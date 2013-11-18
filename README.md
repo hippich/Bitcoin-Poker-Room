@@ -1,12 +1,11 @@
-
-Install under Ubuntu 
-====================
+Install under Ubuntu 11.10
+==========================
 
 Install Python Poker Network
 ----------------------------
 
 Project depends on python-poker-network project. Since this is ugly "glue it 
-togather" type of project, we will install python-poker-network from 
+together" type of project, we will install python-poker-network from 
 repositories and then link certain files to our project files.
 
 First of all make sure MySQL server installed first:
