@@ -8,3 +8,6 @@ room.conf
 dump_schema.sh
 log/room.log
 _trial*
+META.yml
+Makefile
+blib/

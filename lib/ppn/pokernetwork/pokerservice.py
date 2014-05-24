@@ -1559,6 +1559,25 @@ class PokerService(service.Service):
             print_exc()
             return None
 
+    def getHandTimestamp(self, hand_serial):
+        cursor = self.db.cursor()
+        sql = """SELECT UNIX_TIMESTAMP(hands.created) as hand_timestamp
+        FROM `hands` WHERE `serial`=%s"""
+        cursor.execute(sql, (hand_serial,))
+        (hand_timestamp,) = cursor.fetchone()
+        cursor.close()
+        return hand_timestamp
+
+    def getPlayerNamesFromHand(self, hand_serial):
+        cursor = self.db.cursor()
+        sql = """SELECT user2hand.user_serial as player_id, users.name
+        FROM user2hand, users WHERE user2hand.hand_serial=%s AND
+        users.serial=user2hand.user_serial"""
+        cursor.execute(sql, (hand_serial,))
+        player_names = cursor.fetchall()
+        cursor.close()
+        return dict(player_names)
+
     def saveHand(self, description, hand_serial):
         (type, level, hand_serial, hands_count, time, variant, betting_structure, player_list, dealer, serial2chips) = description[0]
         cursor = self.db.cursor()
